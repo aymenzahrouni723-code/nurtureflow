@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed-variant": "#4d425c",
+                    "on-secondary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "surface-container-high": "#f1e7d9",
+                    "secondary": "#655974",
+                    "on-primary-fixed-variant": "#334d38",
+                    "on-surface-variant": "#424842",
+                    "surface": "#fff8f2",
+                    "tertiary-fixed-dim": "#abc9ec",
+                    "secondary-container": "#ecdcfd",
+                    "surface-container-low": "#fcf2e4",
+                    "secondary-fixed": "#ecdcfd",
+                    "inverse-surface": "#353026",
+                    "tertiary-fixed": "#cfe5ff",
+                    "tertiary-container": "#86a4c5",
+                    "on-surface": "#1f1b13",
+                    "inverse-primary": "#b0ceb2",
+                    "on-secondary-container": "#6b5f7b",
+                    "inverse-on-surface": "#faefe1",
+                    "on-tertiary": "#ffffff",
+                    "surface-tint": "#4a654e",
+                    "error": "#ba1a1a",
+                    "background": "#fff8f2",
+                    "primary-fixed-dim": "#b0ceb2",
+                    "on-tertiary-fixed-variant": "#2b4966",
+                    "surface-container-highest": "#ebe1d3",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed": "#001d33",
+                    "on-background": "#1f1b13",
+                    "surface-variant": "#ebe1d3",
+                    "primary": "#4a654e",
+                    "surface-bright": "#fff8f2",
+                    "surface-container": "#f7ecde",
+                    "on-primary-fixed": "#07200f",
+                    "outline": "#737972",
+                    "surface-dim": "#e2d9cb",
+                    "on-tertiary-container": "#1a3a56",
+                    "on-error-container": "#93000a",
+                    "primary-container": "#8ba88e",
+                    "primary-fixed": "#cceace",
+                    "on-secondary-fixed": "#21172e",
+                    "on-primary-container": "#233d29",
+                    "tertiary": "#43617f",
+                    "secondary-fixed-dim": "#d0c1e0",
+                    "outline-variant": "#c2c8c0"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "margin-mobile": "20px",
+                    "stack-sm": "4px",
+                    "gutter": "16px",
+                    "stack-md": "12px",
+                    "stack-lg": "24px",
+                    "section-gap": "40px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "display-lg-mobile": ["Plus Jakarta Sans"],
+                    "label-lg": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "headline-sm": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "display-lg": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg-mobile": ["26px", {"lineHeight": "34px", "fontWeight": "700"}],
+                    "label-lg": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        .gauge-gradient {
+            background: conic-gradient(from 0deg at 50% 50%, #4a654e 0%, #8ba88e 75%, transparent 75%);
+        }
+        @keyframes subtle-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+        .animate-float { animation: subtle-float 4s ease-in-out infinite; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen pb-32">
+<!-- Top App Bar -->
+<header class="bg-surface sticky top-0 z-40 flex justify-between items-center w-full px-margin-mobile h-16">
+<button class="hover:bg-primary-container/10 rounded-full p-2 flex items-center justify-center active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-primary">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md-mobile font-semibold text-primary">NurtureFlow</h1>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-fixed">
+<img alt="User profile avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOP6jIFNPwg_kiSqlg2EN5k7YXWptAFSUpx2jCrg4K_5xhB0He-SGxxQtY6Kk2ZBA4nJBaAqp0YEPkn_6F1Y_Q14g6iEev9gw8r2MBcCHQi1xl7qVLauvn2fKROFfOLWJ1b5j1B0s0yLwiaS4JKuVPcfs1MsmrFblV4_5qpcU194TuPG3J_4lENl9ghm1epe9fmvXWsh_rMq38uWG8bKR3XZLRaa-uSJisMfwjK4b2XviymCLbXYbuesNHbVhapaUUwiAca83DEB8"/>
+</div>
+</header>
+<main class="px-margin-mobile py-stack-lg max-w-2xl mx-auto">
+<!-- Global Index Hero Section -->
+<section class="text-center mb-section-gap">
+<div class="relative inline-flex items-center justify-center mb-gutter animate-float">
+<!-- Simple SVG Gauge for Indice Global -->
+<svg class="w-48 h-48 transform -rotate-90">
+<circle class="text-surface-container-highest" cx="96" cy="96" fill="transparent" r="80" stroke="currentColor" stroke-width="12"></circle>
+<circle class="text-primary transition-all duration-1000 ease-out" cx="96" cy="96" fill="transparent" r="80" stroke="currentColor" stroke-dasharray="502.6" stroke-dashoffset="75.4" stroke-linecap="round" stroke-width="12"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center rotate-90">
+<span class="font-headline-md text-[40px] leading-none text-primary">85%</span>
+<span class="font-label-lg text-on-surface-variant uppercase tracking-widest">Global</span>
+</div>
+</div>
+<h2 class="font-headline-sm text-headline-sm-mobile text-on-surface mb-stack-sm">Indice Global d'Équilibre</h2>
+<div class="inline-flex items-center px-4 py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-label-lg">
+<span class="material-symbols-outlined text-sm mr-1" style="font-variation-settings: 'FILL' 1;">stars</span>
+                Excellent
+            </div>
+</section>
+<!-- Detailed Breakdown -->
+<section class="space-y-gutter mb-section-gap">
+<h3 class="font-headline-sm text-headline-sm-mobile text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">analytics</span>
+                Analyse Détaillée
+            </h3>
+<!-- Score Cards -->
+<div class="grid grid-cols-1 gap-gutter">
+<!-- Psychologique -->
+<div class="p-stack-lg rounded-xl border border-outline-variant bg-surface-container-lowest shadow-sm">
+<div class="flex justify-between items-center mb-stack-md">
+<div class="flex items-center gap-stack-md">
+<span class="material-symbols-outlined text-secondary">psychology</span>
+<span class="font-body-lg font-semibold">Psychologique</span>
+</div>
+<span class="font-headline-sm text-secondary">92%</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 92%"></div>
+</div>
+</div>
+<!-- Conjugal -->
+<div class="p-stack-lg rounded-xl border border-outline-variant bg-surface-container-lowest shadow-sm">
+<div class="flex justify-between items-center mb-stack-md">
+<div class="flex items-center gap-stack-md">
+<span class="material-symbols-outlined text-primary">favorite</span>
+<span class="font-body-lg font-semibold">Conjugal</span>
+</div>
+<span class="font-headline-sm text-primary">78%</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 78%"></div>
+</div>
+</div>
+<!-- Sexuel -->
+<div class="p-stack-lg rounded-xl border border-outline-variant bg-surface-container-lowest shadow-sm">
+<div class="flex justify-between items-center mb-stack-md">
+<div class="flex items-center gap-stack-md">
+<span class="material-symbols-outlined text-tertiary">flare</span>
+<span class="font-body-lg font-semibold">Sexuel</span>
+</div>
+<span class="font-headline-sm text-tertiary">85%</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-tertiary rounded-full" style="width: 85%"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Personal Explanation Card -->
+<section class="mb-section-gap">
+<div class="glass-card p-stack-lg rounded-xl border border-primary-container/30 relative overflow-hidden">
+<div class="absolute -right-4 -top-4 opacity-10">
+<span class="material-symbols-outlined text-[120px] text-primary">format_quote</span>
+</div>
+<h3 class="font-headline-sm text-primary mb-stack-md">Explication personnalisée</h3>
+<p class="font-body-lg text-on-surface-variant leading-relaxed">
+                    Votre relation traverse cette phase de transition avec une grande résilience. L'indice <strong class="text-primary">Psychologique</strong> très élevé montre une excellente communication émotionnelle. Pour le volet <strong class="text-primary">Conjugal</strong>, quelques ajustements sur l'organisation du temps partagé pourraient renforcer encore davantage votre complicité naissante en tant que parents.
+                </p>
+<div class="mt-stack-lg flex items-center gap-stack-md text-primary font-label-lg">
+<img alt="Expert hint" class="w-10 h-10 rounded-full bg-primary-fixed/50 p-2" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBB0FXywHVoEoWkksI91LqYClbYl6b1iyfkssKzzEQVBeo-A67j7eKWzkk4aieTWDqheGHjqovgbQ8h7mUD4p2IDCQ23k7whUgvJm0BtmWANlW9cwC71f1eQlAZlaEii7bzL71ErK_e516H9wcBQTPqUeyToiTq5GGrvbR25PmyulZAg5tg0C9tn95OqWQ0wiT5Nu3igqX7FS2S4LuZdirm5FwWBtWxd9YjTvWGkUTJ29GzIqwVdZbbQ_EIctbYmT-KJP9TPOJ-JSU"/>
+<span>Conseil : Accordez-vous 15 min de "check-in" émotionnel ce soir.</span>
+</div>
+</div>
+</section>
+<!-- Action Buttons -->
+<section class="space-y-gutter">
+<button class="w-full h-14 bg-primary text-on-primary rounded-full font-headline-sm flex items-center justify-center gap-stack-md shadow-lg active:scale-95 transition-all hover:bg-primary/90">
+<span class="material-symbols-outlined">calendar_today</span>
+                Voir mon plan 7 jours
+            </button>
+<button class="w-full h-14 bg-transparent border-2 border-primary text-primary rounded-full font-headline-sm flex items-center justify-center gap-stack-md active:scale-95 transition-all hover:bg-primary/5">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+                Exporter le Couple Check-Up (PDF)
+            </button>
+</section>
+<!-- Visual Context Image -->
+<div class="mt-section-gap rounded-xl overflow-hidden aspect-video shadow-sm">
+<img class="w-full h-full object-cover" data-alt="A cinematic, softly lit photograph of a new mother and father sitting on a comfortable cream-colored sofa in a sun-drenched living room. They are sharing a warm, authentic moment of laughter while looking at a baby monitor. The lighting is golden and airy, reinforcing a modern light-mode aesthetic. The color palette features sage greens, muted lavenders, and warm beiges, evoking a sense of calm expertise and empathetic support." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQWdej-XsSyRrKhPlnpspTtYwzwBN9ZEeVs3fYkBsBCuGIjjB5eXy-3cySmxxNHHK69PT870RU088-aNYxDYdln7TZKT5qzTv5F6iRJ59lIWize4dMBBRX16rdihdU_aNG-vir88SLij11eKeeT83G9YmaQ2-lMHtHeO3Wr_XPPrVZoq1y3pefejAfZz6uQzWhu-l22USN84rhQru8kYs4JCmdYvK0xCAykjT4TNCjMpiOYagrVL-3FQ1LGckF7nQ5Q7uvJU5y84o"/>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 py-3 bg-surface-container-low border-t border-outline-variant/30 shadow-[0_-4px_16px_rgba(74,101,78,0.08)]">
+<a class="flex flex-col items-center justify-center text-on-secondary-fixed-variant p-2 hover:bg-secondary-container/50 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="home_app_logo">home_app_logo</span>
+<span class="font-label-lg text-label-lg">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="assignment" style="font-variation-settings: 'FILL' 1;">assignment</span>
+<span class="font-label-lg text-label-lg">Evaluations</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-secondary-fixed-variant p-2 hover:bg-secondary-container/50 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="library_books">library_books</span>
+<span class="font-label-lg text-label-lg">Library</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-secondary-fixed-variant p-2 hover:bg-secondary-container/50 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-lg text-label-lg">Profile</span>
+</a>
+</nav>
+</body></html>

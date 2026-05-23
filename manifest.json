@@ -1,0 +1,28 @@
+{
+  "name": "NurtureFlow",
+  "short_name": "NurtureFlow",
+  "description": "De la conjugalité à la parentalité — Accompagnement des couples après le premier enfant",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fff8f2",
+  "theme_color": "#4a654e",
+  "lang": "fr",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["health", "lifestyle", "medical"],
+  "screenshots": [],
+  "prefer_related_applications": false
+}

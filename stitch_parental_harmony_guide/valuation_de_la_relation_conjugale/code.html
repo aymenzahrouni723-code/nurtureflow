@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html dir="ltr" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#4d425c",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#f1e7d9",
+                        "secondary": "#655974",
+                        "on-primary-fixed-variant": "#334d38",
+                        "on-surface-variant": "#424842",
+                        "surface": "#fff8f2",
+                        "tertiary-fixed-dim": "#abc9ec",
+                        "secondary-container": "#ecdcfd",
+                        "surface-container-low": "#fcf2e4",
+                        "secondary-fixed": "#ecdcfd",
+                        "inverse-surface": "#353026",
+                        "tertiary-fixed": "#cfe5ff",
+                        "tertiary-container": "#86a4c5",
+                        "on-surface": "#1f1b13",
+                        "inverse-primary": "#b0ceb2",
+                        "on-secondary-container": "#6b5f7b",
+                        "inverse-on-surface": "#faefe1",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#4a654e",
+                        "error": "#ba1a1a",
+                        "background": "#fff8f2",
+                        "primary-fixed-dim": "#b0ceb2",
+                        "on-tertiary-fixed-variant": "#2b4966",
+                        "surface-container-highest": "#ebe1d3",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed": "#001d33",
+                        "on-background": "#1f1b13",
+                        "surface-variant": "#ebe1d3",
+                        "primary": "#4a654e",
+                        "surface-bright": "#fff8f2",
+                        "surface-container": "#f7ecde",
+                        "on-primary-fixed": "#07200f",
+                        "outline": "#737972",
+                        "surface-dim": "#e2d9cb",
+                        "on-tertiary-container": "#1a3a56",
+                        "on-error-container": "#93000a",
+                        "primary-container": "#8ba88e",
+                        "primary-fixed": "#cceace",
+                        "on-secondary-fixed": "#21172e",
+                        "on-primary-container": "#233d29",
+                        "tertiary": "#43617f",
+                        "secondary-fixed-dim": "#d0c1e0",
+                        "outline-variant": "#c2c8c0"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "margin-mobile": "20px",
+                        "stack-sm": "4px",
+                        "gutter": "16px",
+                        "stack-md": "12px",
+                        "stack-lg": "24px",
+                        "section-gap": "40px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "display-lg-mobile": ["Plus Jakarta Sans"],
+                        "label-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-sm": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg-mobile": ["26px", {"lineHeight": "34px", "fontWeight": "700"}],
+                        "label-lg": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-lg": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .likert-active {
+            background-color: #8ba88e !important;
+            color: #233d29 !important;
+            border-color: #4a654e !important;
+            transform: scale(0.98);
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fff8f2;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- Top Navigation (Shell Inactive for Transactional) -->
+<header class="w-full h-16 flex items-center px-margin-mobile justify-between bg-surface dark:bg-surface-dim sticky top-0 z-50">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-primary-container/10 transition-transform active:scale-95">
+<span class="material-symbols-outlined text-primary">close</span>
+</button>
+<div class="flex flex-col items-center">
+<span class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-widest">Évaluation</span>
+<span class="font-label-lg text-label-lg text-primary">Question 3/10</span>
+</div>
+<div class="w-10"></div> <!-- Spacer for symmetry -->
+</header>
+<main class="flex-1 flex flex-col px-margin-mobile pt-stack-lg pb-stack-lg max-w-2xl mx-auto w-full">
+<!-- Progress Bar -->
+<div class="w-full bg-surface-container-high h-2 rounded-full mb-section-gap overflow-hidden">
+<div class="bg-primary h-full transition-all duration-500 ease-out" id="progress-bar" style="width: 30%;"></div>
+</div>
+<!-- Question Content -->
+<div class="flex-1 flex flex-col">
+<div class="mb-stack-lg">
+<h1 class="font-headline-md text-headline-md-mobile text-on-surface mb-stack-md">
+                    Comment évaluez-vous votre communication cette semaine ?
+                </h1>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                    Prenez un moment pour réfléchir à vos échanges avec votre partenaire au cours des 7 derniers jours.
+                </p>
+</div>
+<!-- Likert Scale - Vertical List for Mobile/Tablet Focus -->
+<div class="space-y-stack-md" id="likert-container">
+<button class="w-full flex items-center justify-between p-stack-lg bg-surface-container-low border border-outline-variant/30 rounded-xl transition-all duration-200 hover:bg-surface-container-high active:scale-[0.98] group" onclick="selectOption(this)">
+<span class="font-body-lg text-body-lg text-on-surface">Jamais</span>
+<span class="material-symbols-outlined text-outline-variant group-[.likert-active]:text-on-primary-container">radio_button_unchecked</span>
+</button>
+<button class="w-full flex items-center justify-between p-stack-lg bg-surface-container-low border border-outline-variant/30 rounded-xl transition-all duration-200 hover:bg-surface-container-high active:scale-[0.98] group" onclick="selectOption(this)">
+<span class="font-body-lg text-body-lg text-on-surface">Rarement</span>
+<span class="material-symbols-outlined text-outline-variant group-[.likert-active]:text-on-primary-container">radio_button_unchecked</span>
+</button>
+<button class="w-full flex items-center justify-between p-stack-lg bg-surface-container-low border border-outline-variant/30 rounded-xl transition-all duration-200 hover:bg-surface-container-high active:scale-[0.98] group" onclick="selectOption(this)">
+<span class="font-body-lg text-body-lg text-on-surface">Parfois</span>
+<span class="material-symbols-outlined text-outline-variant group-[.likert-active]:text-on-primary-container">radio_button_unchecked</span>
+</button>
+<button class="w-full flex items-center justify-between p-stack-lg bg-surface-container-low border border-outline-variant/30 rounded-xl transition-all duration-200 hover:bg-surface-container-high active:scale-[0.98] group" onclick="selectOption(this)">
+<span class="font-body-lg text-body-lg text-on-surface">Souvent</span>
+<span class="material-symbols-outlined text-outline-variant group-[.likert-active]:text-on-primary-container">radio_button_unchecked</span>
+</button>
+<button class="w-full flex items-center justify-between p-stack-lg bg-surface-container-low border border-outline-variant/30 rounded-xl transition-all duration-200 hover:bg-surface-container-high active:scale-[0.98] group" onclick="selectOption(this)">
+<span class="font-body-lg text-body-lg text-on-surface">Toujours</span>
+<span class="material-symbols-outlined text-outline-variant group-[.likert-active]:text-on-primary-container">radio_button_unchecked</span>
+</button>
+</div>
+</div>
+<!-- Illustration (Subtle & Empathic) -->
+<div class="mt-section-gap opacity-60 flex justify-center">
+<img class="w-48 h-auto object-contain" data-alt="A gentle, hand-drawn style digital illustration of two abstract figures sitting comfortably on a soft beige sofa, engaged in a peaceful conversation. The background is a minimalist room with warm sunlight streaming through a large window, creating a serene and nurturing atmosphere. The color palette uses soft sage green and warm neutral tones, reflecting an empathetic and calm expert brand identity for parents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4qN8sT3na-ACGhYj9XAiXD1SgyJWjmSGbgK8afdX2U-cuTkw3bYSgXzJowMba7gy86quI8WaG2o7WsYYjZNUaKszdWPDJPfdkLcCuRZmGQcYtvlozy33mWZdM_-WvDQElbiwkCYbQLo5jnQUp091fdNHanjrAvKE2JRKmiAAmvy1ZcupdVJX9Bi0IbvJcBlFqTqJfW6pR6hZKOIKZn_awnsrUuhmp6LUvFJRKJ5nWl77aFVxy6kvT3yK9B8FOhVoCi_ZyvXwVJ6Y"/>
+</div>
+<!-- Bottom Navigation Buttons -->
+<footer class="mt-section-gap flex items-center gap-gutter">
+<button class="flex-1 py-4 px-6 border-[1.5px] border-primary text-primary rounded-full font-label-lg text-label-lg hover:bg-primary/5 transition-colors active:scale-95">
+                Précédent
+            </button>
+<button class="flex-1 py-4 px-6 bg-primary text-on-primary rounded-full font-label-lg text-label-lg shadow-sm hover:shadow-md transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed" disabled="" id="next-btn">
+                Suivant
+            </button>
+</footer>
+</main>
+<script>
+        function selectOption(element) {
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('#likert-container button');
+            buttons.forEach(btn => {
+                btn.classList.remove('likert-active');
+                const icon = btn.querySelector('.material-symbols-outlined');
+                icon.textContent = 'radio_button_unchecked';
+            });
+
+            // Add active class to selected button
+            element.classList.add('likert-active');
+            const icon = element.querySelector('.material-symbols-outlined');
+            icon.textContent = 'check_circle';
+
+            // Enable next button
+            const nextBtn = document.getElementById('next-btn');
+            nextBtn.disabled = false;
+
+            // Simple micro-interaction for feedback
+            element.style.transform = 'scale(0.96)';
+            setTimeout(() => {
+                element.style.transform = 'scale(1)';
+            }, 100);
+        }
+
+        // Basic Atmospheric Effect: Fade in content
+        document.addEventListener('DOMContentLoaded', () => {
+            const mainContent = document.querySelector('main');
+            mainContent.style.opacity = '0';
+            mainContent.style.transform = 'translateY(10px)';
+            mainContent.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            
+            requestAnimationFrame(() => {
+                mainContent.style.opacity = '1';
+                mainContent.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body></html>

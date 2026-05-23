@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NurtureFlow - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+        }
+        .soft-shadow {
+            box-shadow: 0 16px 32px -4px rgba(74, 101, 78, 0.08);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        body {
+            -webkit-tap-highlight-color: transparent;
+            scroll-behavior: smooth;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#4d425c",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#f1e7d9",
+                        "secondary": "#655974",
+                        "on-primary-fixed-variant": "#334d38",
+                        "on-surface-variant": "#424842",
+                        "surface": "#fff8f2",
+                        "tertiary-fixed-dim": "#abc9ec",
+                        "secondary-container": "#ecdcfd",
+                        "surface-container-low": "#fcf2e4",
+                        "secondary-fixed": "#ecdcfd",
+                        "inverse-surface": "#353026",
+                        "tertiary-fixed": "#cfe5ff",
+                        "tertiary-container": "#86a4c5",
+                        "on-surface": "#1f1b13",
+                        "inverse-primary": "#b0ceb2",
+                        "on-secondary-container": "#6b5f7b",
+                        "inverse-on-surface": "#faefe1",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#4a654e",
+                        "error": "#ba1a1a",
+                        "background": "#fff8f2",
+                        "primary-fixed-dim": "#b0ceb2",
+                        "on-tertiary-fixed-variant": "#2b4966",
+                        "surface-container-highest": "#ebe1d3",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed": "#001d33",
+                        "on-background": "#1f1b13",
+                        "surface-variant": "#ebe1d3",
+                        "primary": "#4a654e",
+                        "surface-bright": "#fff8f2",
+                        "surface-container": "#f7ecde",
+                        "on-primary-fixed": "#07200f",
+                        "outline": "#737972",
+                        "surface-dim": "#e2d9cb",
+                        "on-tertiary-container": "#1a3a56",
+                        "on-error-container": "#93000a",
+                        "primary-container": "#8ba88e",
+                        "primary-fixed": "#cceace",
+                        "on-secondary-fixed": "#21172e",
+                        "on-primary-container": "#233d29",
+                        "tertiary": "#43617f",
+                        "secondary-fixed-dim": "#d0c1e0",
+                        "outline-variant": "#c2c8c0"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "margin-mobile": "20px",
+                        "stack-sm": "4px",
+                        "gutter": "16px",
+                        "stack-md": "12px",
+                        "stack-lg": "24px",
+                        "section-gap": "40px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "display-lg-mobile": ["Plus Jakarta Sans"],
+                        "label-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-sm": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg-mobile": ["26px", {"lineHeight": "34px", "fontWeight": "700"}],
+                        "label-lg": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-lg": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen pb-24 md:pb-0 md:pt-16">
+<!-- TopAppBar -->
+<header class="fixed top-0 z-50 w-full h-16 bg-surface dark:bg-surface-dim flex justify-between items-center px-margin-mobile">
+<button class="w-10 h-10 flex items-center justify-center hover:bg-primary-container/10 rounded-full transition-transform active:scale-95">
+<span class="material-symbols-outlined text-primary">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md-mobile font-semibold text-primary dark:text-primary-fixed">NurtureFlow</h1>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-fixed cursor-pointer transition-transform active:scale-95">
+<img alt="User avatar" data-alt="A soft, high-quality 3D avatar of a friendly woman with a warm expression, representing a modern parent. The lighting is soft and cinematic, with a color palette of sage green and cream. The background is a soft-focus interior, emphasizing a calm and nurturing home environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC87OwfbnNyhuUg2Iuhq1LmdbWwT3JiNbzN6EiO0bYQP6QYs8wtBIxm8n4xbD0yIJZoczYQGNW8usSs_Ew0M7oR05lvWxuZK7Xn8B5hu-HcK9jTXzJuryfwO9056Gtrr7RoctktWVbvhxQ9SVuDQGsMRbPU3r1wmNxNxVOXYKRcfHHDvgbBrBKRAisalw-uHs0iHdUuDkdzSoCjTPQNYkUGwU9WyBqZ5R0mn2HWqjDrVyIpraIHv6QEFJ3V8469YRzXgAFUhy21LTw"/>
+</div>
+</header>
+<main class="max-w-6xl mx-auto px-margin-mobile pt-24 md:pt-8 space-y-stack-lg">
+<!-- Welcome Section -->
+<section class="flex flex-col md:flex-row md:items-center justify-between gap-gutter">
+<div>
+<h2 class="font-display-lg-mobile text-display-lg-mobile text-primary">Bonjour, Camille</h2>
+<p class="text-on-surface-variant font-body-lg">Prête pour votre accompagnement d'aujourd'hui ?</p>
+</div>
+<!-- Overall Progress Widget -->
+<div class="bg-surface-container-high rounded-xl p-stack-md flex items-center gap-gutter soft-shadow">
+<div class="relative w-16 h-16">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-variant" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-width="6"></circle>
+<circle class="text-primary" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-dasharray="175.9" stroke-dashoffset="61.5" stroke-linecap="round" stroke-width="6"></circle>
+</svg>
+<span class="absolute inset-0 flex items-center justify-center font-label-lg text-primary">65%</span>
+</div>
+<div>
+<h3 class="font-label-lg text-on-surface">Progression globale</h3>
+<p class="text-on-surface-variant text-[11px]">8 étapes complétées sur 12</p>
+</div>
+</div>
+</section>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Conseil du Jour (Large Card) -->
+<div class="md:col-span-8 bg-white rounded-xl overflow-hidden soft-shadow group cursor-pointer transition-all duration-300 hover:-translate-y-1">
+<div class="relative h-48 md:h-full min-h-[240px]">
+<img class="absolute inset-0 w-full h-full object-cover" data-alt="A serene and empathetic scene showing two hands holding a baby's tiny hand, symbolizing nurturing and connection. The lighting is natural and golden, creating a sense of peace and professional care. The colors are muted sage greens, warm beiges, and soft whites, matching a high-end, minimalist parenting app aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyozaAlkCROsC0KyJjNU4CthWFga8nMzjdgBoz8RtTZxOZSdoxtfyr17BLT5aqOM94Z0Z9bE2QY2SjP_VnSU8Xv2DZNYx5qCVJtMLvbqncGCAdKPnVIv0dZhrOUL0mzh5T6gYg5FN5YY-l-4BjgBJSSgeo1xBAg4UgsgBEgNrf9Yyzt9WrsNBIyBBmDgHk_e-aCGv0q8rSdDVXyxgPi1V2p7N2dv9kVe7ToOMb0V7RogEDOaPbrLbeg2sOGEL6On6ZPiabDbIkjrs"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-primary-fixed-variant/80 via-transparent to-transparent flex flex-col justify-end p-stack-lg">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-lg w-fit mb-2">Conseil du jour</span>
+<h3 class="text-white font-headline-sm mb-1">Maintenir la connexion émotionnelle</h3>
+<p class="text-white/90 font-body-md max-w-md">Comment les petits rituels quotidiens renforcent votre lien face aux nouveaux défis de la parentalité.</p>
+</div>
+</div>
+</div>
+<!-- Quick Access Grid (Evaluations) -->
+<div class="md:col-span-4 flex flex-col gap-gutter">
+<h3 class="font-label-lg text-primary uppercase tracking-widest px-2">Auto-Évaluations</h3>
+<button class="w-full flex items-center justify-between p-stack-md bg-surface-container-low border border-outline-variant/30 rounded-xl hover:bg-primary-container/10 transition-colors group">
+<div class="flex items-center gap-stack-md">
+<div class="w-12 h-12 rounded-full bg-primary-container/20 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">psychology</span>
+</div>
+<span class="font-headline-sm text-[16px]">Psychologique</span>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between p-stack-md bg-surface-container-low border border-outline-variant/30 rounded-xl hover:bg-secondary-container/50 transition-colors group">
+<div class="flex items-center gap-stack-md">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">favorite</span>
+</div>
+<span class="font-headline-sm text-[16px]">Conjugale</span>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between p-stack-md bg-surface-container-low border border-outline-variant/30 rounded-xl hover:bg-tertiary-container/20 transition-colors group">
+<div class="flex items-center gap-stack-md">
+<div class="w-12 h-12 rounded-full bg-tertiary-container/30 flex items-center justify-center text-on-tertiary-container group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">diversity_3</span>
+</div>
+<span class="font-headline-sm text-[16px]">Sexuelle</span>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Recent Activity & Stats -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="bg-surface-container-lowest rounded-xl p-stack-lg border border-outline-variant/20 soft-shadow">
+<div class="flex justify-between items-center mb-stack-md">
+<h3 class="font-headline-sm text-on-surface">Dernière Évaluation</h3>
+<span class="text-on-surface-variant font-label-lg italic">Il y a 2 jours</span>
+</div>
+<div class="space-y-stack-md">
+<div class="flex items-start gap-stack-md p-stack-md bg-surface rounded-lg">
+<span class="material-symbols-outlined text-primary mt-1">assignment_turned_in</span>
+<div>
+<p class="font-body-lg font-semibold text-on-surface">Équilibre Vie-Famille</p>
+<p class="text-on-surface-variant text-body-md">Score : 78/100. Vous êtes en phase de stabilisation positive.</p>
+</div>
+</div>
+<button class="w-full py-2 border-b border-dashed border-outline-variant text-primary font-label-lg hover:text-primary-container transition-colors">VOIR TOUT L'HISTORIQUE</button>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-stack-lg border border-outline-variant/20 soft-shadow">
+<h3 class="font-headline-sm text-on-surface mb-stack-md">Parcours Personnalisé</h3>
+<div class="space-y-gutter">
+<div class="relative pl-8 border-l-2 border-primary-fixed">
+<div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-primary border-4 border-surface-container-lowest"></div>
+<h4 class="font-body-lg font-semibold leading-none mb-1">Phase 1 : Transition</h4>
+<p class="text-on-surface-variant text-body-md">Objectif : Redéfinir son espace personnel.</p>
+</div>
+<div class="relative pl-8 border-l-2 border-outline-variant/30">
+<div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-outline-variant border-4 border-surface-container-lowest"></div>
+<h4 class="font-body-lg font-semibold leading-none mb-1 text-on-surface-variant">Phase 2 : Équilibre</h4>
+<p class="text-outline text-body-md">Bientôt disponible.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 bg-surface-container-low dark:bg-surface-container-lowest flex justify-around items-center px-2 py-3 rounded-t-xl border-t border-outline-variant/30 shadow-[0_-4px_16px_rgba(74,101,78,0.08)]">
+<a class="flex flex-col items-center justify-center bg-primary-container dark:bg-on-primary-fixed-variant text-on-primary-container dark:text-primary-fixed rounded-full px-4 py-1 transition-all duration-300 active:scale-95" href="#">
+<span class="material-symbols-outlined">home_app_logo</span>
+<span class="font-label-lg text-label-lg">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-secondary-fixed-variant dark:text-secondary-fixed-dim p-2 hover:bg-secondary-container/50 transition-colors" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-label-lg text-label-lg">Evaluations</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-secondary-fixed-variant dark:text-secondary-fixed-dim p-2 hover:bg-secondary-container/50 transition-colors" href="#">
+<span class="material-symbols-outlined">library_books</span>
+<span class="font-label-lg text-label-lg">Library</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-secondary-fixed-variant dark:text-secondary-fixed-dim p-2 hover:bg-secondary-container/50 transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-lg text-label-lg">Profile</span>
+</a>
+</nav>
+<!-- FAB Contextual (Home context) -->
+<button class="fixed bottom-24 right-6 md:bottom-12 md:right-12 w-14 h-14 bg-primary text-white rounded-2xl shadow-xl flex items-center justify-center transition-transform hover:scale-105 active:scale-95 z-40">
+<span class="material-symbols-outlined text-[32px]">add</span>
+</button>
+<script>
+        // Simple micro-interaction for cards
+        document.querySelectorAll('.soft-shadow').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-2px)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body></html>
