@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr" dir="ltr">
+<html lang="fr" dir="ltr" id="htmlRoot">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <meta name="theme-color" content="#4a654e"/>
+  <meta name="theme-color" content="#c44569"/>
   <meta name="apple-mobile-web-app-capable" content="yes"/>
   <meta name="description" content="NurtureFlow — Accompagnement des couples dans la transition vers la parentalité."/>
   <title>NurtureFlow — De la conjugalité à la parentalité</title>
@@ -18,7 +18,7 @@
       font-size:15px;color:var(--on-surface);outline:none;font-family:inherit;
       transition:border-color 0.2s,box-shadow 0.2s;
     }
-    .form-input:focus { border-color:var(--primary);box-shadow:0 0 0 3px rgba(74,101,78,0.12); }
+    .form-input:focus { border-color:var(--primary);box-shadow:0 0 0 3px rgba(196,69,105,0.12); }
     .form-input::placeholder { color:var(--outline); }
     select.form-input { appearance:auto; }
   </style>
@@ -40,7 +40,7 @@
     <button class="top-bar__btn" id="menuBtn"><span class="material-symbols-outlined">menu</span></button>
     <span class="top-bar__title">NurtureFlow</span>
     <div class="top-bar__avatar" onclick="navigateTo('profile')">
-      <img src="https://ui-avatars.com/api/?name=U&background=8ba88e&color=fff&size=80" alt="Avatar" id="topbar-avatar"/>
+      <img src="https://ui-avatars.com/api/?name=U&background=c44569&color=fff&size=80" alt="Avatar" id="topbar-avatar"/>
     </div>
   </header>
 
@@ -57,18 +57,28 @@
       </div>
     </div>
     <nav class="drawer__nav">
-      <a class="drawer__link" data-drawer-nav="home"><span class="material-symbols-outlined">home</span> Accueil</a>
-      <a class="drawer__link" data-drawer-nav="evaluations"><span class="material-symbols-outlined">assignment</span> Évaluations</a>
-      <a class="drawer__link" data-drawer-nav="suivi"><span class="material-symbols-outlined">monitoring</span> Suivi quotidien</a>
-      <a class="drawer__link" data-drawer-nav="sage-femme"><span class="material-symbols-outlined">medical_services</span> Assistant Sage-Femme</a>
-      <a class="drawer__link" data-drawer-nav="library"><span class="material-symbols-outlined">library_books</span> Bibliothèque</a>
-      <a class="drawer__link" data-drawer-nav="profile"><span class="material-symbols-outlined">settings</span> Paramètres</a>
+      <a class="drawer__link" data-drawer-nav="home"><span class="material-symbols-outlined">home</span> <span data-i18n="drawer_home">Accueil</span></a>
+      <a class="drawer__link" data-drawer-nav="evaluations"><span class="material-symbols-outlined">assignment</span> <span data-i18n="drawer_evaluations">Évaluations</span></a>
+      <a class="drawer__link" data-drawer-nav="plan"><span class="material-symbols-outlined">route</span> <span data-i18n="drawer_plan">Plan Personnalisé</span></a>
+      <a class="drawer__link" data-drawer-nav="checkup"><span class="material-symbols-outlined">fact_check</span> <span data-i18n="drawer_checkup">Couple Check-Up</span></a>
+      <a class="drawer__link" data-drawer-nav="suivi"><span class="material-symbols-outlined">monitoring</span> <span data-i18n="drawer_daily">Suivi quotidien</span></a>
+      <a class="drawer__link" data-drawer-nav="alerts"><span class="material-symbols-outlined">notifications_active</span> <span data-i18n="drawer_alerts">Alertes</span></a>
+      <a class="drawer__link" data-drawer-nav="sage-femme"><span class="material-symbols-outlined">medical_services</span> <span data-i18n="drawer_sage_femme">Assistant Sage-Femme</span></a>
+      <a class="drawer__link" data-drawer-nav="library"><span class="material-symbols-outlined">library_books</span> <span data-i18n="drawer_library">Bibliothèque</span></a>
       <div style="border-top:1px solid var(--outline-variant);margin:var(--space-md) 0;"></div>
-      <a class="drawer__link" data-drawer-nav="new-couple" style="color:var(--primary);font-weight:600;"><span class="material-symbols-outlined icon-filled">group_add</span> Nouveau Couple</a>
+      <a class="drawer__link" data-drawer-nav="semaines"><span class="material-symbols-outlined">calendar_month</span> <span>Semaines S1-S12</span></a>
+      <a class="drawer__link" data-drawer-nav="journal"><span class="material-symbols-outlined">edit_note</span> <span>Journal de Bord</span></a>
+      <a class="drawer__link" data-drawer-nav="echelles"><span class="material-symbols-outlined">psychology_alt</span> <span>Échelles Cliniques</span></a>
+      <a class="drawer__link" data-drawer-nav="tounsi"><span class="material-symbols-outlined">spa</span> <span>Coin Tunisien</span></a>
+      <div style="border-top:1px solid var(--outline-variant);margin:var(--space-md) 0;"></div>
+      <a class="drawer__link" data-drawer-nav="profile"><span class="material-symbols-outlined">settings</span> <span data-i18n="drawer_settings">Paramètres</span></a>
+      <div style="border-top:1px solid var(--outline-variant);margin:var(--space-md) 0;"></div>
+      <a class="drawer__link" data-drawer-nav="admin" id="drawer-admin-link" style="display:none;color:var(--tertiary);font-weight:600;"><span class="material-symbols-outlined icon-filled">admin_panel_settings</span> <span data-i18n="drawer_admin">Admin Dashboard</span></a>
+      <a class="drawer__link" data-drawer-nav="new-couple" style="color:var(--primary);font-weight:600;"><span class="material-symbols-outlined icon-filled">group_add</span> <span data-i18n="drawer_new_couple">Nouveau Couple</span></a>
     </nav>
     <div class="drawer__footer">
       <a class="drawer__link drawer__link--danger" onclick="doLogout()">
-        <span class="material-symbols-outlined">logout</span> Déconnexion
+        <span class="material-symbols-outlined">logout</span> <span data-i18n="drawer_logout">Déconnexion</span>
       </a>
     </div>
   </aside>
@@ -88,7 +98,7 @@
     <div class="flex justify-between items-center mb-xl">
       <div>
         <h2 class="text-display-lg-mobile text-primary" id="home-name">Bonjour</h2>
-        <p class="text-body-lg text-variant">Prête pour votre accompagnement ?</p>
+        <p class="text-body-lg text-variant" data-i18n="home_ready">Prête pour votre accompagnement ?</p>
       </div>
     </div>
 
@@ -99,7 +109,7 @@
         <span id="home-progress-value" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--primary);">0%</span>
       </div>
       <div>
-        <div class="text-label-lg">Progression globale</div>
+        <div class="text-label-lg" data-i18n="home_global_progress">Progression globale</div>
         <div class="text-label-md text-variant" id="home-progress-text">0/3 évaluations complétées</div>
       </div>
     </div>
@@ -108,27 +118,27 @@
     <div class="reveal" style="border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow-soft);margin-bottom:var(--space-xl);cursor:pointer;" onclick="navigateTo('library')">
       <div style="position:relative;min-height:200px;">
         <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyozaAlkCROsC0KyJjNU4CthWFga8nMzjdgBoz8RtTZxOZSdoxtfyr17BLT5aqOM94Z0Z9bE2QY2SjP_VnSU8Xv2DZNYx5qCVJtMLvbqncGCAdKPnVIv0dZhrOUL0mzh5T6gYg5FN5YY-l-4BjgBJSSgeo1xBAg4UgsgBEgNrf9Yyzt9WrsNBIyBBmDgHk_e-aCGv0q8rSdDVXyxgPi1V2p7N2dv9kVe7ToOMb0V7RogEDOaPbrLbeg2sOGEL6On6ZPiabDbIkjrs" alt="" style="width:100%;height:200px;object-fit:cover;"/>
-        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(51,77,56,0.85) 0%,transparent 60%);display:flex;flex-direction:column;justify-content:flex-end;padding:var(--space-xl);">
-          <span style="background:var(--secondary-container);color:var(--on-secondary-container);padding:4px 14px;border-radius:var(--radius-full);font-size:12px;font-weight:600;width:fit-content;margin-bottom:8px;">Conseil du jour</span>
-          <h3 class="text-headline-sm" style="color:white;">Maintenir la connexion émotionnelle</h3>
-          <p class="text-body-md" style="color:rgba(255,255,255,0.9);">Les petits rituels quotidiens renforcent votre lien.</p>
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(120,30,55,0.85) 0%,transparent 60%);display:flex;flex-direction:column;justify-content:flex-end;padding:var(--space-xl);">
+          <span style="background:var(--secondary-container);color:var(--on-secondary-container);padding:4px 14px;border-radius:var(--radius-full);font-size:12px;font-weight:600;width:fit-content;margin-bottom:8px;" data-i18n="home_tip_of_day">Conseil du jour</span>
+          <h3 class="text-headline-sm" style="color:white;" data-i18n="home_tip_title">Maintenir la connexion émotionnelle</h3>
+          <p class="text-body-md" style="color:rgba(255,255,255,0.9);" data-i18n="home_tip_desc">Les petits rituels quotidiens renforcent votre lien.</p>
         </div>
       </div>
     </div>
 
     <!-- Auto-Évaluations -->
     <div class="reveal">
-      <h3 class="text-label-lg text-primary mb-lg" style="text-transform:uppercase;letter-spacing:0.1em;">AUTO-ÉVALUATIONS</h3>
-      <button class="w-full" style="display:flex;align-items:center;justify-content:space-between;padding:var(--space-lg);background:var(--surface-container-low);border:1px solid rgba(194,200,192,0.3);border-radius:var(--radius-xl);margin-bottom:var(--space-md);" onclick="startQuestionnaire('psychologique')">
-        <div class="flex items-center gap-md"><div style="width:48px;height:48px;border-radius:var(--radius-full);background:rgba(139,168,142,0.2);display:flex;align-items:center;justify-content:center;"><span class="material-symbols-outlined text-primary">psychology</span></div><span class="text-headline-sm" style="font-size:16px;">Psychologique</span></div>
+      <h3 class="text-label-lg text-primary mb-lg" style="text-transform:uppercase;letter-spacing:0.1em;" data-i18n="home_evaluations">AUTO-ÉVALUATIONS</h3>
+      <button class="w-full" style="display:flex;align-items:center;justify-content:space-between;padding:var(--space-lg);background:var(--surface-container-low);border:1px solid rgba(214,194,200,0.3);border-radius:var(--radius-xl);margin-bottom:var(--space-md);" onclick="startQuestionnaire('psychologique')">
+        <div class="flex items-center gap-md"><div style="width:48px;height:48px;border-radius:var(--radius-full);background:rgba(196,69,105,0.15);display:flex;align-items:center;justify-content:center;"><span class="material-symbols-outlined text-primary">psychology</span></div><span class="text-headline-sm" style="font-size:16px;" data-i18n="home_psycho">Psychologique</span></div>
         <span class="material-symbols-outlined text-outline">chevron_right</span>
       </button>
-      <button class="w-full" style="display:flex;align-items:center;justify-content:space-between;padding:var(--space-lg);background:var(--surface-container-low);border:1px solid rgba(194,200,192,0.3);border-radius:var(--radius-xl);margin-bottom:var(--space-md);" onclick="startQuestionnaire('conjugal')">
-        <div class="flex items-center gap-md"><div style="width:48px;height:48px;border-radius:var(--radius-full);background:var(--secondary-container);display:flex;align-items:center;justify-content:center;"><span class="material-symbols-outlined" style="color:var(--on-secondary-container);">favorite</span></div><span class="text-headline-sm" style="font-size:16px;">Conjugale</span></div>
+      <button class="w-full" style="display:flex;align-items:center;justify-content:space-between;padding:var(--space-lg);background:var(--surface-container-low);border:1px solid rgba(214,194,200,0.3);border-radius:var(--radius-xl);margin-bottom:var(--space-md);" onclick="startQuestionnaire('conjugal')">
+        <div class="flex items-center gap-md"><div style="width:48px;height:48px;border-radius:var(--radius-full);background:var(--secondary-container);display:flex;align-items:center;justify-content:center;"><span class="material-symbols-outlined" style="color:var(--on-secondary-container);">favorite</span></div><span class="text-headline-sm" style="font-size:16px;" data-i18n="home_conjugal">Conjugale</span></div>
         <span class="material-symbols-outlined text-outline">chevron_right</span>
       </button>
-      <button class="w-full" style="display:flex;align-items:center;justify-content:space-between;padding:var(--space-lg);background:var(--surface-container-low);border:1px solid rgba(194,200,192,0.3);border-radius:var(--radius-xl);margin-bottom:var(--space-md);" onclick="startQuestionnaire('sexuel')">
-        <div class="flex items-center gap-md"><div style="width:48px;height:48px;border-radius:var(--radius-full);background:rgba(134,164,197,0.25);display:flex;align-items:center;justify-content:center;"><span class="material-symbols-outlined text-tertiary">diversity_3</span></div><span class="text-headline-sm" style="font-size:16px;">Sexuelle</span></div>
+      <button class="w-full" style="display:flex;align-items:center;justify-content:space-between;padding:var(--space-lg);background:var(--surface-container-low);border:1px solid rgba(214,194,200,0.3);border-radius:var(--radius-xl);margin-bottom:var(--space-md);" onclick="startQuestionnaire('sexuel')">
+        <div class="flex items-center gap-md"><div style="width:48px;height:48px;border-radius:var(--radius-full);background:rgba(212,107,80,0.15);display:flex;align-items:center;justify-content:center;"><span class="material-symbols-outlined text-tertiary">diversity_3</span></div><span class="text-headline-sm" style="font-size:16px;" data-i18n="home_sexual">Sexuelle</span></div>
         <span class="material-symbols-outlined text-outline">chevron_right</span>
       </button>
     </div>
@@ -142,10 +152,29 @@
     <!-- Quick Access -->
     <div class="grid-2 mt-xl reveal">
       <button class="card card--flat" style="text-align:center;" onclick="navigateTo('suivi')">
-        <div style="padding:var(--space-xl) var(--space-lg);"><span class="material-symbols-outlined text-primary" style="font-size:32px;margin-bottom:8px;">monitoring</span><p class="text-body-md text-semibold">Suivi Quotidien</p></div>
+        <div style="padding:var(--space-xl) var(--space-lg);"><span class="material-symbols-outlined text-primary" style="font-size:32px;margin-bottom:8px;">monitoring</span><p class="text-body-md text-semibold" data-i18n="home_daily_tracking">Suivi Quotidien</p></div>
       </button>
       <button class="card card--flat" style="text-align:center;" onclick="navigateTo('sage-femme')">
-        <div style="padding:var(--space-xl) var(--space-lg);"><span class="material-symbols-outlined text-primary" style="font-size:32px;margin-bottom:8px;">medical_services</span><p class="text-body-md text-semibold">Sage-Femme</p></div>
+        <div style="padding:var(--space-xl) var(--space-lg);"><span class="material-symbols-outlined text-primary" style="font-size:32px;margin-bottom:8px;">medical_services</span><p class="text-body-md text-semibold" data-i18n="home_midwife">Sage-Femme</p></div>
+      </button>
+    </div>
+
+    <!-- Nouveaux Modules -->
+    <h3 class="text-label-lg text-primary mt-xl mb-lg reveal" style="text-transform:uppercase;letter-spacing:0.1em;">NOUVEAUX MODULES</h3>
+    <div class="grid-2 reveal" style="margin-bottom:var(--space-md);">
+      <button class="card card--flat" style="text-align:center;" onclick="navigateTo('semaines')">
+        <div style="padding:var(--space-xl) var(--space-lg);"><span class="material-symbols-outlined" style="font-size:32px;margin-bottom:8px;color:var(--tertiary);">calendar_month</span><p class="text-body-md text-semibold">Semaines S1-S12</p></div>
+      </button>
+      <button class="card card--flat" style="text-align:center;" onclick="navigateTo('journal')">
+        <div style="padding:var(--space-xl) var(--space-lg);"><span class="material-symbols-outlined" style="font-size:32px;margin-bottom:8px;color:var(--secondary);">edit_note</span><p class="text-body-md text-semibold">Journal de Bord</p></div>
+      </button>
+    </div>
+    <div class="grid-2 reveal">
+      <button class="card card--flat" style="text-align:center;" onclick="navigateTo('echelles')">
+        <div style="padding:var(--space-xl) var(--space-lg);"><span class="material-symbols-outlined" style="font-size:32px;margin-bottom:8px;color:var(--primary);">psychology_alt</span><p class="text-body-md text-semibold">Échelles Cliniques</p></div>
+      </button>
+      <button class="card card--flat" style="text-align:center;" onclick="navigateTo('tounsi')">
+        <div style="padding:var(--space-xl) var(--space-lg);"><span class="material-symbols-outlined" style="font-size:32px;margin-bottom:8px;color:#d4a574;">spa</span><p class="text-body-md text-semibold">Coin Tunisien</p></div>
       </button>
     </div>
   </section>
@@ -160,7 +189,7 @@
         <svg viewBox="0 0 192 192" style="width:192px;height:192px;transform:rotate(-90deg);"><circle cx="96" cy="96" r="80" fill="transparent" stroke="var(--surface-container-highest)" stroke-width="12"/><circle id="results-gauge" cx="96" cy="96" r="80" fill="transparent" stroke="var(--primary)" stroke-width="12" stroke-linecap="round" stroke-dasharray="502.6" stroke-dashoffset="502.6"/></svg>
         <div class="gauge-value"><span class="gauge-value__number" id="results-global-value">0%</span><span class="gauge-value__label">Global</span></div>
       </div>
-      <h2 class="text-headline-sm mb-sm">Indice Global d'Équilibre</h2>
+      <h2 class="text-headline-sm mb-sm" data-i18n="res_global_index">Indice Global d'Équilibre</h2>
       <span class="badge badge--moyen" id="results-badge"><span class="material-symbols-outlined icon-filled" style="font-size:14px;">stars</span> —</span>
     </div>
     <div id="alert-container" class="mb-xl"></div>
@@ -178,11 +207,11 @@
 
   <!-- ══ SCREEN: LIBRARY ══ -->
   <section class="screen" id="screen-library">
-    <h2 class="text-headline-sm mb-sm">Bibliothèque</h2>
-    <p class="text-body-md text-variant mb-lg">Conseils d'experts pour chaque étape.</p>
+    <h2 class="text-headline-sm mb-sm" data-i18n="lib_title">Bibliothèque</h2>
+    <p class="text-body-md text-variant mb-lg" data-i18n="lib_subtitle">Conseils d'experts pour chaque étape.</p>
     <div class="search-input mb-xl"><span class="material-symbols-outlined search-input__icon">search</span><input type="text" placeholder="Rechercher un article..."/></div>
     <div class="mb-lg">
-      <span class="text-label-lg text-variant" style="text-transform:uppercase;letter-spacing:0.08em;">TIMELINE POST-PARTUM</span>
+      <span class="text-label-lg text-variant" style="text-transform:uppercase;letter-spacing:0.08em;" data-i18n="lib_timeline">TIMELINE POST-PARTUM</span>
       <div class="timeline-toggle mt-md"><button class="timeline-toggle__btn active" data-timeline="0-3">0-3 mois</button><button class="timeline-toggle__btn" data-timeline="3-6">3-6 mois</button><button class="timeline-toggle__btn" data-timeline="6-12">6-12 mois</button></div>
     </div>
     <div class="chips-scroll mb-xl"><button class="chip chip--tonal active" data-category="tous">Tous</button><button class="chip chip--tonal" data-category="santé mentale">Santé Mentale</button><button class="chip chip--tonal" data-category="sexualité">Sexualité</button><button class="chip chip--tonal" data-category="vie de couple">Vie de Couple</button><button class="chip chip--tonal" data-category="allaitement">Allaitement</button></div>
@@ -229,7 +258,8 @@
       <h3 class="text-label-lg text-primary mb-lg" style="text-transform:uppercase;">PARAMÈTRES</h3>
       <div class="setting-row"><div class="setting-row__left"><span class="material-symbols-outlined">notifications</span><span>Notifications</span></div><div class="toggle active"></div></div>
       <div class="setting-row"><div class="setting-row__left"><span class="material-symbols-outlined">language</span><span>Langue : Français</span></div><span class="material-symbols-outlined text-outline">chevron_right</span></div>
-      <div class="setting-row" style="border-bottom:none;"><div class="setting-row__left"><span class="material-symbols-outlined">info</span><span>Version</span></div><span class="text-body-md text-variant">1.0.0</span></div>
+      <div class="setting-row" style="cursor:pointer;" onclick="showLangSelector()"><div class="setting-row__left"><span class="material-symbols-outlined">translate</span><span data-i18n="prof_lang">Langue</span></div><span class="text-body-md text-variant" id="current-lang-label">Français</span></div>
+      <div class="setting-row" style="border-bottom:none;"><div class="setting-row__left"><span class="material-symbols-outlined">info</span><span data-i18n="prof_version">Version</span></div><span class="text-body-md text-variant">1.0.0</span></div>
     </div>
   </section>
 
@@ -245,19 +275,47 @@
   <!-- ══ SCREEN: SUIVI ══ -->
   <section class="screen" id="screen-suivi"><div id="suivi-content"></div></section>
 
+  <!-- ══ SCREEN: PLAN PERSONNALISÉ ══ -->
+  <section class="screen" id="screen-plan"><div id="plan-content"></div></section>
+
+  <!-- ══ SCREEN: COUPLE CHECK-UP ══ -->
+  <section class="screen" id="screen-checkup"><div id="checkup-content"></div></section>
+
+  <!-- ══ SCREEN: TIMELINE ARTICLE VIEWER ══ -->
+  <section class="screen" id="screen-timeline-article"><div id="timeline-article-content"></div></section>
+
+  <!-- ══ SCREEN: ALERTES ══ -->
+  <section class="screen" id="screen-alerts"><div id="alerts-content"></div></section>
+
+  <!-- ══ SCREEN: ADMIN DASHBOARD ══ -->
+  <section class="screen" id="screen-admin"><div id="admin-content"></div></section>
+
+  <!-- ══ SCREEN: SEMAINES S1-S12 ══ -->
+  <section class="screen" id="screen-semaines"><div id="semaines-content"></div></section>
+
+  <!-- ══ SCREEN: JOURNAL DE BORD ══ -->
+  <section class="screen" id="screen-journal"><div id="journal-content"></div></section>
+
+  <!-- ══ SCREEN: ÉCHELLES CLINIQUES ══ -->
+  <section class="screen" id="screen-echelles"><div id="echelles-content"></div></section>
+
+  <!-- ══ SCREEN: COIN TUNISIEN ══ -->
+  <section class="screen" id="screen-tounsi"><div id="tounsi-content"></div></section>
+
   <!-- FAB -->
   <button class="fab" id="fab" style="display:none;" onclick="navigateTo('suivi')"><span class="material-symbols-outlined">add</span></button>
 
   <!-- BOTTOM NAV -->
   <nav class="bottom-nav" id="bottomNav" style="display:none;">
-    <button class="bottom-nav__item active" data-nav="home"><span class="material-symbols-outlined icon-filled">home</span><span class="bottom-nav__label">Home</span></button>
-    <button class="bottom-nav__item" data-nav="evaluations"><span class="material-symbols-outlined">assignment</span><span class="bottom-nav__label">Résultats</span></button>
-    <button class="bottom-nav__item" data-nav="library"><span class="material-symbols-outlined">library_books</span><span class="bottom-nav__label">Bibliothèque</span></button>
-    <button class="bottom-nav__item" data-nav="profile"><span class="material-symbols-outlined">person</span><span class="bottom-nav__label">Profil</span></button>
+    <button class="bottom-nav__item active" data-nav="home"><span class="material-symbols-outlined icon-filled">home</span><span class="bottom-nav__label" data-i18n="nav_home">Home</span></button>
+    <button class="bottom-nav__item" data-nav="evaluations"><span class="material-symbols-outlined">assignment</span><span class="bottom-nav__label" data-i18n="nav_results">Résultats</span></button>
+    <button class="bottom-nav__item" data-nav="library"><span class="material-symbols-outlined">library_books</span><span class="bottom-nav__label" data-i18n="nav_library">Bibliothèque</span></button>
+    <button class="bottom-nav__item" data-nav="profile"><span class="material-symbols-outlined">person</span><span class="bottom-nav__label" data-i18n="nav_profile">Profil</span></button>
   </nav>
 
 </div>
 
+<script src="lang.js"></script>
 <script src="app.js"></script>
 <script>
   // Show login form once splash is done
