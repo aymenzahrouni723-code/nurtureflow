@@ -1016,6 +1016,31 @@ input[type="range"]::-webkit-slider-thumb {
   color: var(--on-primary-fixed);
 }
 
+/* ── Progress Bar ── */
+.progress-bar {
+  height: 8px;
+  background: var(--surface-container-high);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+.progress-bar__fill {
+  height: 100%;
+  background: var(--primary);
+  border-radius: var(--radius-full);
+  transition: width 0.4s ease;
+}
+
+/* ── Slider Container ── */
+.slider-container label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: var(--on-surface);
+}
+
 /* ── Animations ── */
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(16px); }

@@ -15,7 +15,7 @@ async function api(endpoint, options = {}) {
   }
   const res = await fetch('/api' + endpoint, config);
   const data = await res.json();
-  if (!res.ok) throw new Error(data.error || 'Erreur serveur');
+  if (!res.ok) throw new Error(data.error || t('err_server'));
   return data;
 }
 
@@ -101,12 +101,9 @@ function getLikertOptions() {
 function getSageFemmeTips() {
   return [
     { cat: 'post-partum', icon: 'medical_services', title: t('sft1_title'), text: t('sft1_text') },
-    { cat: 'allaitement', icon: 'breastfeeding', title: t('sft2_title'), text: t('sft2_text') },
     { cat: 'contraception', icon: 'medication', title: t('sft3_title'), text: t('sft3_text') },
-    { cat: 'sexualite', icon: 'favorite', title: t('sft4_title'), text: t('sft4_text') },
     { cat: 'alerte', icon: 'warning', title: t('sft5_title'), text: t('sft5_text') },
     { cat: 'post-partum', icon: 'self_improvement', title: t('sft6_title'), text: t('sft6_text') },
-    { cat: 'allaitement', icon: 'local_hospital', title: t('sft7_title'), text: t('sft7_text') },
     { cat: 'post-partum', icon: 'fitness_center', title: t('sft8_title'), text: t('sft8_text') }
   ];
 }
@@ -225,6 +222,10 @@ function showScreen(screenId) {
     case 'journal': renderJournal(); break;
     case 'echelles': renderEchelles(); break;
     case 'tounsi': renderTounsi(); break;
+    case 'breastfeeding': renderBreastfeeding(); break;
+    case 'sexuality': renderSexuality(); break;
+    case 'newborn': renderNewborn(); break;
+    case 'myths': renderMyths(); break;
   }
 
   window.scrollTo(0, 0);
@@ -342,8 +343,8 @@ function showRegister() {
       <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;">family_restroom</span> ${t('auth_couple_info')}
     </h3>
     <div class="space-y-md mb-xl">
-      <input type="text" id="reg-marriage" placeholder="Durée du mariage (ex: 3 ans)" class="form-input">
-      <input type="text" id="reg-baby" placeholder="Âge du bébé (ex: 4 mois)" class="form-input">
+      <input type="text" id="reg-marriage" placeholder="${t('auth_marriage_placeholder')}" class="form-input">
+      <input type="text" id="reg-baby" placeholder="${t('auth_baby_placeholder')}" class="form-input">
     </div>
 
     <h3 class="text-label-lg text-variant mb-md" style="text-transform:uppercase;letter-spacing:0.08em;">
@@ -372,7 +373,7 @@ function showAuthError(msg) {
 async function doLogin() {
   const email = document.getElementById('login-email').value.trim();
   const password = document.getElementById('login-password').value;
-  if (!email || !password) return showAuthError('Veuillez remplir tous les champs');
+  if (!email || !password) return showAuthError(t('err_fill_all'));
   try {
     const data = await api('/auth/login', { method: 'POST', body: { email, password } });
     state.authenticated = true;
@@ -386,7 +387,7 @@ async function doLogin() {
 async function doRegister() {
   const password = document.getElementById('reg-password').value;
   const password2 = document.getElementById('reg-password2').value;
-  if (password !== password2) return showAuthError('Les mots de passe ne correspondent pas');
+  if (password !== password2) return showAuthError(t('err_pwd_mismatch'));
 
   const body = {
     partner1_name: document.getElementById('reg-name1').value.trim(),
@@ -401,7 +402,7 @@ async function doRegister() {
     password
   };
 
-  if (!body.partner1_name || !body.partner1_email || !password) return showAuthError('Nom, email et mot de passe sont obligatoires');
+  if (!body.partner1_name || !body.partner1_email || !password) return showAuthError(t('err_required'));
 
   try {
     const data = await api('/auth/register', { method: 'POST', body });
@@ -431,8 +432,8 @@ function renderNewCouple() {
     <div class="flex items-center gap-md mb-xl">
       <button class="top-bar__btn" onclick="navigateTo('home')"><span class="material-symbols-outlined">arrow_back</span></button>
       <div>
-        <h2 class="text-headline-sm text-primary">Créer un nouveau couple</h2>
-        <p class="text-body-md text-variant">Enregistrer un couple dans la base</p>
+        <h2 class="text-headline-sm text-primary">${t('nc_title')}</h2>
+        <p class="text-body-md text-variant">${t('nc_subtitle')}</p>
       </div>
     </div>
 
@@ -440,53 +441,53 @@ function renderNewCouple() {
 
     <div class="card card--flat mb-xl"><div class="card__body">
       <h3 class="text-label-lg text-primary mb-md" style="text-transform:uppercase;letter-spacing:0.08em;">
-        <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;">person</span> PARTENAIRE 1
+        <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;">person</span> ${t('nc_partner1')}
       </h3>
       <div class="space-y-md">
-        <input type="text" id="nc-name1" placeholder="Prénom" class="form-input">
-        <input type="email" id="nc-email" placeholder="Email" class="form-input">
+        <input type="text" id="nc-name1" placeholder="${t('nc_firstname')}" class="form-input">
+        <input type="email" id="nc-email" placeholder="${t('nc_email')}" class="form-input">
         <div class="grid-2">
-          <input type="number" id="nc-age1" placeholder="Âge" class="form-input">
-          <select id="nc-sex1" class="form-input"><option value="Femme">Femme</option><option value="Homme">Homme</option></select>
+          <input type="number" id="nc-age1" placeholder="${t('nc_age')}" class="form-input">
+          <select id="nc-sex1" class="form-input"><option value="Femme">${t('nc_woman')}</option><option value="Homme">${t('nc_man')}</option></select>
         </div>
       </div>
     </div></div>
 
     <div class="card card--flat mb-xl"><div class="card__body">
       <h3 class="text-label-lg text-secondary mb-md" style="text-transform:uppercase;letter-spacing:0.08em;">
-        <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;">person</span> PARTENAIRE 2
+        <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;">person</span> ${t('nc_partner2')}
       </h3>
       <div class="space-y-md">
-        <input type="text" id="nc-name2" placeholder="Prénom" class="form-input">
+        <input type="text" id="nc-name2" placeholder="${t('nc_firstname')}" class="form-input">
         <div class="grid-2">
-          <input type="number" id="nc-age2" placeholder="Âge" class="form-input">
-          <select id="nc-sex2" class="form-input"><option value="Homme">Homme</option><option value="Femme">Femme</option></select>
+          <input type="number" id="nc-age2" placeholder="${t('nc_age')}" class="form-input">
+          <select id="nc-sex2" class="form-input"><option value="Homme">${t('nc_man')}</option><option value="Femme">${t('nc_woman')}</option></select>
         </div>
       </div>
     </div></div>
 
     <div class="card card--flat mb-xl"><div class="card__body">
       <h3 class="text-label-lg text-variant mb-md" style="text-transform:uppercase;letter-spacing:0.08em;">
-        <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;">family_restroom</span> INFORMATIONS COUPLE
+        <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;">family_restroom</span> ${t('nc_couple_info')}
       </h3>
       <div class="space-y-md">
-        <input type="text" id="nc-marriage" placeholder="Durée du mariage (ex: 3 ans)" class="form-input">
-        <input type="text" id="nc-baby" placeholder="Âge du bébé (ex: 4 mois)" class="form-input">
+        <input type="text" id="nc-marriage" placeholder="${t('auth_marriage_placeholder')}" class="form-input">
+        <input type="text" id="nc-baby" placeholder="${t('auth_baby_placeholder')}" class="form-input">
       </div>
     </div></div>
 
     <div class="card card--flat mb-xl"><div class="card__body">
       <h3 class="text-label-lg text-variant mb-md" style="text-transform:uppercase;letter-spacing:0.08em;">
-        <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;">lock</span> SÉCURITÉ
+        <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;">lock</span> ${t('nc_security')}
       </h3>
       <div class="space-y-md">
-        <input type="password" id="nc-password" placeholder="Mot de passe (min 4 caractères)" class="form-input">
-        <input type="password" id="nc-password2" placeholder="Confirmer le mot de passe" class="form-input">
+        <input type="password" id="nc-password" placeholder="${t('auth_password_min')}" class="form-input">
+        <input type="password" id="nc-password2" placeholder="${t('auth_password_confirm')}" class="form-input">
       </div>
     </div></div>
 
     <button class="btn btn--primary btn--full mb-xl" id="nc-submit-btn" onclick="createNewCouple()">
-      <span class="material-symbols-outlined">group_add</span> Créer le couple
+      <span class="material-symbols-outlined">group_add</span> ${t('nc_create')}
     </button>
     <div style="height:40px;"></div>
   `;
@@ -499,7 +500,7 @@ async function createNewCouple() {
 
   if (password !== password2) {
     msgEl.style.display = 'block';
-    msgEl.innerHTML = '<div class="alert-banner alert-banner--danger"><span class="material-symbols-outlined">error</span><span>Les mots de passe ne correspondent pas</span></div>';
+    msgEl.innerHTML = `<div class="alert-banner alert-banner--danger"><span class="material-symbols-outlined">error</span><span>${t('err_pwd_mismatch')}</span></div>`;
     return;
   }
 
@@ -518,13 +519,13 @@ async function createNewCouple() {
 
   if (!body.partner1_name || !body.partner1_email || !password) {
     msgEl.style.display = 'block';
-    msgEl.innerHTML = '<div class="alert-banner alert-banner--danger"><span class="material-symbols-outlined">error</span><span>Prénom, email et mot de passe sont obligatoires</span></div>';
+    msgEl.innerHTML = `<div class="alert-banner alert-banner--danger"><span class="material-symbols-outlined">error</span><span>${t('err_required')}</span></div>`;
     return;
   }
 
   const btn = document.getElementById('nc-submit-btn');
   btn.disabled = true;
-  btn.innerHTML = '<span class="material-symbols-outlined">hourglass_top</span> Création en cours...';
+  btn.innerHTML = `<span class="material-symbols-outlined">hourglass_top</span> ${t('nc_creating')}`;
 
   try {
     // Save current admin email
@@ -541,13 +542,13 @@ async function createNewCouple() {
       <div class="alert-banner" style="background:var(--primary-container);border:1px solid var(--primary);">
         <span class="material-symbols-outlined text-primary">check_circle</span>
         <div>
-          <strong class="text-primary">Couple créé avec succès !</strong>
+          <strong class="text-primary">${t('nc_success')}</strong>
           <p class="text-body-md mt-sm"><strong>${body.partner1_name}</strong> & <strong>${body.partner2_name || '—'}</strong></p>
           <p class="text-body-md text-variant">${body.partner1_email}</p>
         </div>
       </div>
     `;
-    btn.innerHTML = '<span class="material-symbols-outlined">check</span> Couple créé !';
+    btn.innerHTML = `<span class="material-symbols-outlined">check</span> ${t('nc_created')}`;
     btn.style.background = 'var(--primary-container)';
     btn.style.color = 'var(--on-primary-container)';
 
@@ -556,13 +557,121 @@ async function createNewCouple() {
     msgEl.style.display = 'block';
     msgEl.innerHTML = `<div class="alert-banner alert-banner--danger"><span class="material-symbols-outlined">error</span><span>${e.message}</span></div>`;
     btn.disabled = false;
-    btn.innerHTML = '<span class="material-symbols-outlined">group_add</span> Créer le couple';
+    btn.innerHTML = `<span class="material-symbols-outlined">group_add</span> ${t('nc_create')}`;
   }
 }
 
 // ══════════════════════════════════════════════════════════════
 //  HOME / DASHBOARD
 // ══════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════════
+//  BABY AGE WIDGET
+// ══════════════════════════════════════════════════════════════
+let babyAgeInterval = null;
+
+function renderBabyAgeWidget() {
+  const widget = document.getElementById('baby-age-widget');
+  if (!widget) return;
+  const saved = localStorage.getItem('nf_baby_birth');
+
+  if (!saved) {
+    // Show input form
+    widget.innerHTML = `
+      <div class="flex items-center gap-md mb-lg">
+        <span style="font-size:32px;">👶</span>
+        <div>
+          <h3 class="text-headline-sm" style="font-size:16px;">${t('baby_title')}</h3>
+          <p class="text-body-md text-variant">${t('baby_enter_info')}</p>
+        </div>
+      </div>
+      <div style="display:flex;gap:var(--space-md);margin-bottom:var(--space-md);">
+        <div style="flex:1;">
+          <label class="text-label-md text-variant mb-sm" style="display:block;">${t('baby_date')}</label>
+          <input type="date" id="baby-birth-date" style="width:100%;padding:10px 14px;border:2px solid var(--outline-variant);border-radius:var(--radius-lg);font-family:inherit;font-size:14px;background:var(--surface);color:var(--on-surface);" />
+        </div>
+        <div style="flex:0.6;">
+          <label class="text-label-md text-variant mb-sm" style="display:block;">${t('baby_time')}</label>
+          <input type="time" id="baby-birth-time" style="width:100%;padding:10px 14px;border:2px solid var(--outline-variant);border-radius:var(--radius-lg);font-family:inherit;font-size:14px;background:var(--surface);color:var(--on-surface);" />
+        </div>
+      </div>
+      <button class="btn btn--primary btn--full" onclick="saveBabyBirth()">
+        <span class="material-symbols-outlined" style="font-size:18px;">save</span> ${t('baby_save')}
+      </button>
+    `;
+  } else {
+    updateBabyAge();
+  }
+}
+
+function saveBabyBirth() {
+  const dateVal = document.getElementById('baby-birth-date')?.value;
+  const timeVal = document.getElementById('baby-birth-time')?.value || '00:00';
+  if (!dateVal) return;
+  const birthDateTime = dateVal + 'T' + timeVal;
+  localStorage.setItem('nf_baby_birth', birthDateTime);
+  renderBabyAgeWidget();
+}
+
+function updateBabyAge() {
+  const widget = document.getElementById('baby-age-widget');
+  if (!widget) return;
+  const saved = localStorage.getItem('nf_baby_birth');
+  if (!saved) return;
+
+  const birth = new Date(saved);
+  const now = new Date();
+  const diffMs = now - birth;
+  if (diffMs < 0) { widget.innerHTML = ''; return; }
+
+  const totalMinutes = Math.floor(diffMs / 60000);
+  const totalHours = Math.floor(diffMs / 3600000);
+  const totalDays = Math.floor(diffMs / 86400000);
+  const totalWeeks = Math.floor(totalDays / 7);
+  const months = Math.floor(totalDays / 30.44);
+  const remainDays = totalDays - Math.floor(months * 30.44);
+  const hours = totalHours % 24;
+  const minutes = totalMinutes % 60;
+
+  const birthStr = birth.toLocaleDateString('ar-TN', { year: 'numeric', month: 'long', day: 'numeric' });
+  const birthTime = birth.toLocaleTimeString('ar-TN', { hour: '2-digit', minute: '2-digit' });
+
+  widget.innerHTML = `
+    <div class="flex items-center justify-between mb-lg">
+      <div class="flex items-center gap-md">
+        <span style="font-size:32px;">👶</span>
+        <div>
+          <h3 class="text-headline-sm" style="font-size:16px;">${t('baby_age_title')}</h3>
+          <p class="text-body-sm text-variant">🎂 ${birthStr} • ${birthTime}</p>
+        </div>
+      </div>
+      <button onclick="localStorage.removeItem('nf_baby_birth');renderBabyAgeWidget();" style="border:none;background:none;cursor:pointer;padding:4px;">
+        <span class="material-symbols-outlined text-variant" style="font-size:18px;">edit</span>
+      </button>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center;">
+      ${[
+        { val: months, label: t('baby_months'), color: 'var(--primary)', bg: 'rgba(196,69,105,0.08)' },
+        { val: remainDays, label: t('baby_days'), color: 'var(--secondary)', bg: 'rgba(142,108,136,0.08)' },
+        { val: hours, label: t('baby_hours'), color: 'var(--tertiary)', bg: 'rgba(67,97,127,0.08)' },
+        { val: minutes, label: t('baby_minutes'), color: '#A3D9C8', bg: 'rgba(163,217,200,0.08)' }
+      ].map(item => `
+        <div style="background:${item.bg};border-radius:var(--radius-xl);padding:12px 6px;">
+          <div style="font-size:28px;font-weight:800;color:${item.color};line-height:1;">${item.val}</div>
+          <div style="font-size:11px;font-weight:600;color:var(--on-surface-variant);margin-top:4px;">${item.label}</div>
+        </div>
+      `).join('')}
+    </div>
+
+    ${totalDays <= 7 ? `<div style="margin-top:12px;text-align:center;padding:8px;background:rgba(163,217,200,0.12);border-radius:var(--radius-lg);"><span style="font-size:14px;">🎉</span> <span class="text-body-sm text-semibold">${t('baby_newborn_msg')}</span></div>` : ''}
+    ${totalDays > 7 && totalWeeks <= 6 ? `<div style="margin-top:12px;text-align:center;padding:8px;background:rgba(180,142,173,0.08);border-radius:var(--radius-lg);"><span class="text-body-sm text-variant">📅 ${t('baby_weeks_old', { n: totalWeeks })}</span></div>` : ''}
+  `;
+
+  // Auto refresh every minute
+  if (babyAgeInterval) clearInterval(babyAgeInterval);
+  babyAgeInterval = setInterval(() => updateBabyAge(), 60000);
+}
+
 async function renderHome() {
   if (!state.couple) return;
 
@@ -603,7 +712,7 @@ async function renderHome() {
 
     // Progress text
     const progText = document.getElementById('home-progress-text');
-    if (progText) progText.textContent = `${data.completedTypes}/3 évaluations complétées`;
+    if (progText) progText.textContent = t('home_evals_text', { n: data.completedTypes });
 
     // Latest eval
     const latestEl = document.getElementById('home-latest-eval');
@@ -612,24 +721,27 @@ async function renderHome() {
       const ago = getTimeAgo(d);
       latestEl.innerHTML = `
         <div class="flex justify-between items-center mb-md">
-          <h3 class="text-headline-sm" style="color:var(--on-surface);">Dernière Évaluation</h3>
+          <h3 class="text-headline-sm" style="color:var(--on-surface);">${t('home_last_eval_title')}</h3>
           <span class="text-label-lg text-variant" style="font-style:italic;">${ago}</span>
         </div>
         <div style="display:flex;align-items:flex-start;gap:var(--space-md);padding:var(--space-lg);background:var(--surface);border-radius:var(--radius-lg);">
           <span class="material-symbols-outlined text-primary" style="margin-top:2px;">assignment_turned_in</span>
           <div>
             <p class="text-body-lg text-semibold" style="color:var(--on-surface);">${capitalize(data.latestEval.type)}</p>
-            <p class="text-body-md text-variant">Score : ${data.latestEval.score}/100</p>
+            <p class="text-body-md text-variant">${t('home_score_label')} : ${data.latestEval.score}/100</p>
           </div>
         </div>
       `;
     } else if (latestEl) {
       latestEl.innerHTML = `
-        <h3 class="text-headline-sm mb-md" style="color:var(--on-surface);">Première Évaluation</h3>
-        <p class="text-body-md text-variant">Commencez votre première évaluation pour découvrir votre profil de couple.</p>
+        <h3 class="text-headline-sm mb-md" style="color:var(--on-surface);">${t('home_first_eval_title')}</h3>
+        <p class="text-body-md text-variant">${t('home_first_eval_text')}</p>
       `;
     }
   } catch (e) { console.error('Dashboard error:', e); }
+
+  // Baby Age Widget
+  renderBabyAgeWidget();
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -778,20 +890,20 @@ async function renderResults() {
     const explEl = document.getElementById('results-explanation');
     if (explEl) {
       if (data.totalEvals === 0) {
-        explEl.innerHTML = 'Complétez vos premières évaluations pour recevoir une analyse personnalisée.';
+        explEl.innerHTML = t('res_first_eval_long');
       } else {
-        let text = 'Votre relation traverse cette phase de transition ';
-        if (globalScore >= 75) text += 'avec une grande résilience. ';
-        else if (globalScore >= 55) text += 'de manière positive. ';
-        else text += 'avec quelques défis à relever. ';
+        let text = t('res_transition');
+        if (globalScore >= 75) text += t('res_resilience');
+        else if (globalScore >= 55) text += t('res_positive');
+        else text += t('res_challenges');
 
         const s = data.scores;
         if (s.psychologique > 0) {
-          if (s.psychologique >= 70) text += `Excellent bien-être psychologique (${s.psychologique}%). `;
-          else if (s.psychologique < 40) text += `Votre bien-être psychologique (${s.psychologique}%) nécessite une attention particulière. `;
+          if (s.psychologique >= 70) text += t('res_excellent_psycho', { score: s.psychologique });
+          else if (s.psychologique < 40) text += t('res_low_psycho', { score: s.psychologique });
         }
-        if (s.conjugal > 0 && s.conjugal < 50) text += `La dimension conjugale (${s.conjugal}%) pourrait être renforcée. `;
-        if (s.sexuel > 0 && s.sexuel < 40) text += `La dimension intime (${s.sexuel}%) mérite un accompagnement. `;
+        if (s.conjugal > 0 && s.conjugal < 50) text += t('res_low_conjugal', { score: s.conjugal });
+        if (s.sexuel > 0 && s.sexuel < 40) text += t('res_low_sexual', { score: s.sexuel });
         explEl.innerHTML = text;
       }
     }
@@ -802,7 +914,7 @@ async function renderResults() {
       alertC.innerHTML = '';
       const low = Object.entries(data.scores).filter(([_, v]) => v > 0 && v < 40).map(([k]) => k);
       if (low.length > 0) {
-        alertC.innerHTML = `<div class="alert-banner alert-banner--warning"><span class="material-symbols-outlined">warning</span><div><strong>Orientation recommandée</strong><p class="text-body-md mt-sm">Score ${low.join(' et ')} faible. Consultez un professionnel.</p></div></div>`;
+        alertC.innerHTML = `<div class="alert-banner alert-banner--warning"><span class="material-symbols-outlined">warning</span><div><strong>${t('res_orientation_title')}</strong><p class="text-body-md mt-sm">${t('res_orientation_text', { types: low.join(' & ') })}</p></div></div>`;
       }
     }
   } catch (e) { console.error('Results error:', e); }
@@ -896,6 +1008,116 @@ function filterTimelineByCategory(category) {
 }
 
 // ══════════════════════════════════════════════════════════════
+//  STATIC ARTICLES VIEWER
+// ══════════════════════════════════════════════════════════════
+const staticArticles = {
+  partner: {
+    icon: 'group', color: 'var(--primary)',
+    title: 'دور الشريك بعد الولادة',
+    type: 'فيديو • 7 دقائق',
+    sections: [
+      { heading: 'الدعم العاطفي', text: 'يحتاج الشريك إلى فهم التغيرات النفسية والجسدية التي تمر بها الأم بعد الولادة. الاستماع بتعاطف والتواجد الدائم هما أهم أشكال الدعم.' },
+      { heading: 'المشاركة في العناية بالطفل', text: 'تغيير الحفاضات، الاستحمام، تهدئة الطفل ليلاً... كلها مهام يمكن للشريك القيام بها لتخفيف العبء عن الأم.' },
+      { heading: 'العناية بالعلاقة', text: 'تخصيص وقت للحوار والتواصل. ليس بالضرورة خروجات كبيرة، بل لحظات صغيرة: كوب شاي معاً، مشاهدة فيلم، أو مجرد الجلوس والحديث.' },
+      { heading: 'فهم التغيرات الجنسية', text: 'التحلي بالصبر وعدم الضغط. التعافي الجسدي والنفسي يأخذ وقتاً. التواصل المفتوح حول الاحتياجات والمخاوف ضروري.' },
+      { heading: 'المساعدة المنزلية', text: 'الطبخ، التنظيف، التسوق... المشاركة في الأعمال المنزلية ليست \"مساعدة\" بل مسؤولية مشتركة، خاصة في فترة ما بعد الولادة.' }
+    ]
+  },
+  intimacy: {
+    icon: 'favorite', color: 'var(--secondary)',
+    title: 'استعادة الحميمية بعد الولادة',
+    type: 'مقال • 8 دقائق',
+    sections: [
+      { heading: 'متى يمكن استئناف العلاقة؟', text: 'لا يوجد وقت محدد. يعتمد على التعافي الجسدي (توقف النزيف، التئام الجروح) والاستعداد النفسي. معظم الأطباء ينصحون بالانتظار 4-6 أسابيع.' },
+      { heading: 'التغيرات الطبيعية', text: 'الجفاف المهبلي شائع خاصة أثناء الرضاعة. انخفاض الرغبة طبيعي بسبب التعب والتغيرات الهرمونية. كلها أمور مؤقتة.' },
+      { heading: 'التواصل مع الشريك', text: 'الحوار المفتوح عن المخاوف والاحتياجات. لا تترددي في التعبير عما تشعرين به. الحميمية ليست فقط جنسية بل عاطفية أيضاً.' },
+      { heading: 'نصائح عملية', text: 'استخدام مزلقات مائية. اختيار الوقت المناسب. البدء ببطء. عدم مقارنة الوضع بما كان قبل الولادة.' },
+      { heading: 'متى تستشيرين المختص؟', text: 'إذا استمر الألم أثناء العلاقة. إذا لم تتحسن الرغبة بعد عدة أشهر. إذا شعرتِ بالقلق أو الاكتئاب.' }
+    ]
+  },
+  breathing: {
+    icon: 'play_circle', color: 'var(--secondary)',
+    title: 'التنفس بعد الولادة',
+    type: 'فيديو • 5 دقائق',
+    sections: [
+      { heading: 'أهمية التنفس', text: 'التنفس العميق يساعد على تقليل التوتر والقلق. يحسن الدورة الدموية ويساعد على تعافي عضلات البطن والحوض.' },
+      { heading: 'تمرين التنفس البطني', text: 'استلقي على ظهرك. ضعي يداً على صدرك وأخرى على بطنك. تنفسي ببطء من الأنف حتى ترتفع يدك على البطن. أخرجي الهواء ببطء من الفم. كرري 10 مرات.' },
+      { heading: 'تمرين 4-7-8', text: 'شهيق لمدة 4 ثوانٍ. احتفاظ بالهواء لمدة 7 ثوانٍ. زفير ببطء لمدة 8 ثوانٍ. يساعد كثيراً على النوم والاسترخاء.' },
+      { heading: 'متى تمارسين؟', text: 'قبل النوم. عند الشعور بالتوتر. أثناء الرضاعة. في أي لحظة هدوء خلال اليوم.' }
+    ]
+  },
+  sleep: {
+    icon: 'psychology', color: 'var(--tertiary)',
+    title: 'إدارة قلة النوم',
+    type: 'دليل • 12 دقيقة',
+    sections: [
+      { heading: 'نامي عندما ينام طفلك', text: 'أهم نصيحة: لا تحاولي إنجاز الأعمال المنزلية أثناء نوم الطفل. الأولوية لراحتك.' },
+      { heading: 'تنظيم النوم', text: 'اجعلي غرفة النوم مظلمة وهادئة. تجنبي الشاشات قبل النوم. حاولي النوم والاستيقاظ في أوقات منتظمة قدر الإمكان.' },
+      { heading: 'تناوب الأدوار ليلاً', text: 'اتفقي مع الشريك على المناوبة. يمكن للشريك إعطاء الحليب المسحوب ليلاً لتستريحي.' },
+      { heading: 'علامات الإرهاق الخطير', text: 'إذا شعرتِ بدوار مستمر أو نسيان شديد أو رغبة في البكاء المستمر، استشيري الطبيب. قلة النوم المزمنة تؤثر على الصحة النفسية.' },
+      { heading: 'طلب المساعدة', text: 'لا عيب في طلب المساعدة من العائلة أو الأصدقاء. استقبال الأم أو الحماة لبضعة أيام قد يكون منقذاً.' }
+    ]
+  },
+  communication: {
+    icon: 'forum', color: 'var(--primary)',
+    title: 'التواصل في الزوجين',
+    type: 'مقال • 10 دقائق',
+    sections: [
+      { heading: 'الحفاظ على الرابط', text: 'وصول المولود يغير ديناميكية العلاقة. من الطبيعي أن يتراجع الاهتمام بالشريك مؤقتاً. لكن التواصل المستمر يحمي العلاقة.' },
+      { heading: 'الاستماع الفعال', text: 'خصصوا وقتاً يومياً للحديث بدون تشتيت. اسمعوا بعضكم دون مقاطعة أو حكم. عبّروا عن مشاعركم بصراحة وبلطف.' },
+      { heading: 'تجنب اللوم', text: 'استخدموا \"أنا أشعر...\" بدلاً من \"أنت دائماً...\". اللوم يبني جداراً بينكما. التعبير عن الاحتياجات بوضوح أفضل.' },
+      { heading: 'وقت للزوجين', text: 'حتى 15 دقيقة يومياً معاً تصنع فرقاً. عشاء بسيط، مشي قصير، أو مجرد الجلوس معاً. ليس الكم بل الجودة.' },
+      { heading: 'متى تطلبون مساعدة مختص؟', text: 'إذا تحولت الخلافات إلى صراخ مستمر. إذا شعرتم بالغربة. إذا لم يعد هناك تواصل. الاستشارة الزوجية ليست فشلاً بل شجاعة.' }
+    ]
+  }
+};
+
+function openStaticArticle(id) {
+  const a = staticArticles[id];
+  if (!a) return;
+
+  // Create overlay
+  const overlay = document.createElement('div');
+  overlay.id = 'static-article-overlay';
+  overlay.style.cssText = 'position:fixed;inset:0;z-index:1000;background:var(--surface);overflow-y:auto;animation:fadeIn 0.3s ease;';
+  overlay.innerHTML = `
+    <div style="max-width:600px;margin:0 auto;padding:var(--space-xl);">
+      <div class="flex items-center gap-md mb-xl">
+        <button onclick="document.getElementById('static-article-overlay').remove();" style="border:none;background:var(--surface-container-high);width:40px;height:40px;border-radius:var(--radius-full);cursor:pointer;display:flex;align-items:center;justify-content:center;">
+          <span class="material-symbols-outlined">arrow_back</span>
+        </button>
+        <div style="flex:1;">
+          <span class="text-label-md text-variant">${a.type}</span>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-bottom:var(--space-2xl);">
+        <div style="width:72px;height:72px;border-radius:var(--radius-full);background:${a.color};display:flex;align-items:center;justify-content:center;margin:0 auto var(--space-lg);">
+          <span class="material-symbols-outlined" style="font-size:36px;color:white;">${a.icon}</span>
+        </div>
+        <h2 class="text-headline-md">${a.title}</h2>
+      </div>
+
+      <div class="space-y-xl">
+        ${a.sections.map((s, i) => `
+          <div style="padding:var(--space-xl);background:var(--surface-container-low);border-radius:var(--radius-xl);border-right:4px solid ${a.color};animation:fadeIn ${0.3 + i*0.1}s ease;">
+            <h3 class="text-body-lg text-semibold mb-md" style="color:${a.color};">${s.heading}</h3>
+            <p class="text-body-md" style="line-height:1.8;">${s.text}</p>
+          </div>
+        `).join('')}
+      </div>
+
+      <div style="text-align:center;margin-top:var(--space-2xl);padding:var(--space-xl);">
+        <button onclick="document.getElementById('static-article-overlay').remove();" class="btn btn--primary btn--full">
+          <span class="material-symbols-outlined" style="font-size:18px;">arrow_back</span> ${t('lib_back_to_library') || 'العودة إلى المكتبة'}
+        </button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+}
+
+// ══════════════════════════════════════════════════════════════
 //  PROFILE
 // ══════════════════════════════════════════════════════════════
 async function renderProfile() {
@@ -910,11 +1132,11 @@ async function renderProfile() {
     document.getElementById('profile-eval-count').textContent = s.evaluations;
     document.getElementById('profile-articles-count').textContent = s.articles_read;
     document.getElementById('profile-streak').textContent = s.streak;
-    document.getElementById('profile-age').textContent = c.partner1_age ? c.partner1_age + ' ans' : '-';
+    document.getElementById('profile-age').textContent = c.partner1_age ? c.partner1_age + ' ' + t('prof_ans') : '-';
     document.getElementById('profile-sex').textContent = c.partner1_sex || '-';
     document.getElementById('profile-marriage').textContent = c.marriage_duration || '-';
     document.getElementById('profile-baby').textContent = c.baby_age || '-';
-    document.getElementById('profile-partner2').textContent = c.partner2_name ? `${c.partner2_name}, ${c.partner2_age || '?'} ans` : 'Non renseigné';
+    document.getElementById('profile-partner2').textContent = c.partner2_name ? `${c.partner2_name}, ${c.partner2_age || '?'} ${t('prof_ans')}` : t('prof_not_set');
   } catch (e) { console.error('Profile error:', e); }
 }
 
@@ -925,6 +1147,62 @@ function renderSageFemme() {
   const container = document.getElementById('sage-femme-content');
   if (!container) return;
   let html = `
+    <!-- Module Allaitement Banner -->
+    <div class="card mb-xl reveal" style="background:linear-gradient(135deg,rgba(196,69,105,0.08),rgba(163,217,200,0.12));border:1px solid rgba(196,69,105,0.15);cursor:pointer;" onclick="navigateTo('breastfeeding')">
+      <div class="card__body flex items-center gap-lg">
+        <div style="width:64px;height:64px;border-radius:var(--radius-full);background:var(--primary-container);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <span class="material-symbols-outlined text-primary" style="font-size:32px;">breastfeeding</span>
+        </div>
+        <div style="flex:1;">
+          <h3 class="text-headline-sm" style="font-size:16px;">${t('bf_module_title')}</h3>
+          <p class="text-body-md text-variant">${t('bf_module_desc')}</p>
+        </div>
+        <span class="material-symbols-outlined text-primary">arrow_forward</span>
+      </div>
+    </div>
+
+    <!-- Module Sexualité Banner -->
+    <div class="card mb-xl reveal" style="background:linear-gradient(135deg,rgba(142,108,136,0.08),rgba(212,107,80,0.10));border:1px solid rgba(142,108,136,0.15);cursor:pointer;animation-delay:0.1s;" onclick="navigateTo('sexuality')">
+      <div class="card__body flex items-center gap-lg">
+        <div style="width:64px;height:64px;border-radius:var(--radius-full);background:var(--secondary-container);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <span class="material-symbols-outlined text-secondary" style="font-size:32px;">favorite</span>
+        </div>
+        <div style="flex:1;">
+          <h3 class="text-headline-sm" style="font-size:16px;">${t('sx_module_title')}</h3>
+          <p class="text-body-md text-variant">${t('sx_module_desc')}</p>
+        </div>
+        <span class="material-symbols-outlined text-secondary">arrow_forward</span>
+      </div>
+    </div>
+
+    <!-- Module Nouveau-né Banner -->
+    <div class="card mb-xl reveal" style="background:linear-gradient(135deg,rgba(67,97,127,0.08),rgba(163,217,200,0.10));border:1px solid rgba(67,97,127,0.15);cursor:pointer;animation-delay:0.15s;" onclick="navigateTo('newborn')">
+      <div class="card__body flex items-center gap-lg">
+        <div style="width:64px;height:64px;border-radius:var(--radius-full);background:var(--tertiary-fixed);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <span class="material-symbols-outlined" style="font-size:32px;color:var(--tertiary);">child_care</span>
+        </div>
+        <div style="flex:1;">
+          <h3 class="text-headline-sm" style="font-size:16px;">${t('nb_module_title')}</h3>
+          <p class="text-body-md text-variant">${t('nb_module_desc')}</p>
+        </div>
+        <span class="material-symbols-outlined" style="color:var(--tertiary);">arrow_forward</span>
+      </div>
+    </div>
+
+    <!-- Module Mythes et Réalités Banner -->
+    <div class="card mb-xl reveal" style="background:linear-gradient(135deg,rgba(40,167,69,0.06),rgba(220,53,69,0.06));border:1px solid rgba(40,167,69,0.15);cursor:pointer;animation-delay:0.2s;" onclick="navigateTo('myths')">
+      <div class="card__body flex items-center gap-lg">
+        <div style="width:64px;height:64px;border-radius:var(--radius-full);background:linear-gradient(135deg,rgba(220,53,69,0.12),rgba(40,167,69,0.12));display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <span class="material-symbols-outlined" style="font-size:32px;color:#28a745;">swap_horiz</span>
+        </div>
+        <div style="flex:1;">
+          <h3 class="text-headline-sm" style="font-size:16px;">${t('my_module_title')}</h3>
+          <p class="text-body-md text-variant">${t('my_module_desc')}</p>
+        </div>
+        <span class="material-symbols-outlined" style="color:#28a745;">arrow_forward</span>
+      </div>
+    </div>
+
     <div class="chips-scroll mb-xl">
       <button class="chip chip--tonal active" data-sf-cat="tous" onclick="filterSF('tous',this)">${t('sf_all')}</button>
       <button class="chip chip--tonal" data-sf-cat="post-partum" onclick="filterSF('post-partum',this)">${t('sf_postpartum')}</button>
@@ -951,6 +1229,927 @@ function filterSF(cat, btn) {
 }
 
 // ══════════════════════════════════════════════════════════════
+//  MODULE: ALLAITEMENT COMPLET (الرضاعة الطبيعية)
+// ══════════════════════════════════════════════════════════════
+
+const bfChapters = [
+  {
+    icon: 'schedule', title: 'الرضاعة في الساعة الأولى',
+    content: `<div class="space-y-md" style="line-height:1.8;">
+      <p>يُنصح بوضع الطفل على صدر الأم مباشرة بعد الولادة.</p>
+      <p>بدء الرضاعة خلال الساعة الأولى يساعد على تحفيز إفراز الحليب.</p>
+      <p>يعزز الرابط العاطفي بين الأم ورضيعها.</p>
+      <p>يساهم اللبأ <strong>(Colostrum)</strong> في تقوية مناعة المولود.</p>
+      <div style="background:var(--primary-container);padding:var(--space-lg);border-radius:var(--radius-xl);margin-top:var(--space-md);">
+        <p style="font-weight:600;color:var(--on-primary-container);"><span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;">info</span> الرضاعة تكون حسب طلب الطفل وليس وفق ساعات محددة، لكن معدل الرضاعة يجب أن يكون كل ساعتين وعليك إيقاظ الطفل إذا كان نائماً خاصة في الأسبوع الأول ليرضع 15 دقيقة من كل ثدي.</p>
+      </div>
+    </div>`
+  },
+  {
+    icon: 'self_improvement', title: 'وضعيات الرضاعة',
+    content: `<div class="space-y-lg" style="line-height:1.8;">
+      <div style="padding:var(--space-lg);background:rgba(196,69,105,0.06);border-radius:var(--radius-xl);border-right:4px solid var(--primary);">
+        <h4 style="font-weight:700;margin-bottom:8px;">🤱 وضعية المهد</h4><p>وهي الأكثر شيوعاً</p>
+      </div>
+      <div style="padding:var(--space-lg);background:rgba(142,108,136,0.08);border-radius:var(--radius-xl);border-right:4px solid var(--secondary);">
+        <h4 style="font-weight:700;margin-bottom:8px;">🏈 وضعية كرة القدم</h4><p>مناسبة بعد الولادة القيصرية وللأمهات اللواتي لديهن توأم</p>
+      </div>
+      <div style="padding:var(--space-lg);background:rgba(212,107,80,0.08);border-radius:var(--radius-xl);border-right:4px solid var(--tertiary);">
+        <h4 style="font-weight:700;margin-bottom:8px;">😴 وضعية الاستلقاء</h4><p>مريحة أثناء الليل وفترات الراحة</p>
+      </div>
+      <div style="padding:var(--space-lg);background:rgba(163,217,200,0.15);border-radius:var(--radius-xl);border-right:4px solid #A3D9C8;">
+        <h4 style="font-weight:700;margin-bottom:8px;">🌿 الوضعية البيولوجية</h4><p>استلقاء الأم مع وضع الطفل على صدرها بشكل طبيعي</p>
+      </div>
+    </div>`
+  },
+  {
+    icon: 'checklist', title: 'علامات الرضاعة الفعالة',
+    content: `<div style="line-height:1.8;">
+      <p style="font-weight:600;margin-bottom:12px;">كيف أعرف أن طفلي يرضع جيداً؟</p>
+      ${['فتح الفم بشكل واسع','دخول جزء كبير من الهالة في فم الطفل','سماع صوت البلع','ارتخاء الطفل بعد الرضاعة','زيادة الوزن تدريجياً','تبليل 6 حفاضات أو أكثر يومياً بعد اليوم الخامس'].map(s => `<div class="flex items-center gap-md mb-md"><span class="material-symbols-outlined text-primary" style="font-size:18px;">check_circle</span><span>${s}</span></div>`).join('')}
+    </div>`
+  },
+  {
+    icon: 'local_hospital', title: 'احتقان الثدي',
+    content: `<div style="line-height:1.8;">
+      <p>يحدث غالباً بين اليوم الثالث والخامس بعد الولادة.</p>
+      <h4 style="font-weight:700;margin:16px 0 8px;">النصائح:</h4>
+      ${['الرضاعة المتكررة','كمادات دافئة قبل الرضاعة','كمادات باردة بعدها','تدليك لطيف للثدي','شفط كمية بسيطة من الحليب إذا كان الثدي ممتلئاً جداً'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="color:#d4a574;font-size:18px;">lightbulb</span><span>${s}</span></div>`).join('')}
+      <div class="alert-banner alert-banner--warning mt-lg"><span class="material-symbols-outlined">warning</span><span>إذا ترافق الاحتقان مع حرارة أو احمرار شديد يجب استشارة مختص.</span></div>
+    </div>`
+  },
+  {
+    icon: 'healing', title: 'تشققات الحلمة',
+    content: `<div style="line-height:1.8;">
+      ${['التأكد من التعلق الصحيح للطفل','وضع قطرات من حليب الأم على الحلمة','ترك الحلمة تجف في الهواء','تجنب الصابون والمواد المهيجة'].map(s => `<div class="flex items-center gap-md mb-md"><span class="material-symbols-outlined text-secondary" style="font-size:18px;">check_circle</span><span>${s}</span></div>`).join('')}
+    </div>`
+  },
+  {
+    icon: 'water_drop', title: 'كيف أحافظ على إنتاج الحليب؟',
+    content: `<div style="line-height:1.8;">
+      ${['الرضاعة المتكررة','الرضاعة الليلية','تفريغ الثدي بانتظام','الراحة والنوم قدر الإمكان','شرب الماء بانتظام','التغذية المتوازنة'].map(s => `<div class="flex items-center gap-md mb-md"><span class="material-symbols-outlined text-primary" style="font-size:18px;">check_circle</span><span>${s}</span></div>`).join('')}
+      <div style="background:var(--primary-container);padding:var(--space-lg);border-radius:var(--radius-xl);margin-top:var(--space-lg);">
+        <p style="font-weight:600;color:var(--on-primary-container);"><span style="font-size:18px;">💡</span> إنتاج الحليب يعتمد على مبدأ العرض والطلب. كلما زادت الرضاعة أو شفط الحليب، زاد إنتاج الحليب.</p>
+      </div>
+    </div>`
+  },
+  {
+    icon: 'restaurant', title: 'تغذية الأم المرضعة',
+    content: `<div style="line-height:1.8;">
+      <div class="alert-banner mb-lg" style="background:var(--primary-container);border:1px solid var(--primary);"><span class="material-symbols-outlined text-primary">info</span><span style="color:var(--on-primary-container);">لا توجد أطعمة سحرية تزيد الحليب بشكل مباشر، لكن التغذية المتوازنة والترطيب الجيد يدعمان الرضاعة الطبيعية (توصيات منظمة الصحة العالمية).</span></div>
+      ${[
+        { cat: '🥩 البروتينات', items: 'البيض، الدجاج، السمك، اللحم، العدس، الحمص، الفول' },
+        { cat: '🥛 مشتقات الحليب', items: 'الحليب، الياغورت، الجبن' },
+        { cat: '🥗 الخضر والفواكه', items: 'التفاح، البرتقال، الموز، الجزر، السبانخ، البروكلي، الطماطم' },
+        { cat: '🌾 الحبوب الكاملة', items: 'الشوفان، الأرز الكامل، الخبز الكامل' },
+        { cat: '🫒 الدهون الجيدة', items: 'زيت الزيتون، اللوز، الجوز، الأفوكادو' },
+        { cat: '💧 الترطيب', items: 'شرب الماء حسب الشعور بالعطش، الاحتفاظ بقارورة ماء أثناء الرضاعة' }
+      ].map(g => `<div style="padding:var(--space-md) var(--space-lg);background:var(--surface-container-low);border-radius:var(--radius-xl);margin-bottom:var(--space-md);">
+        <strong>${g.cat}</strong><br><span class="text-variant">${g.items}</span>
+      </div>`).join('')}
+      <h4 style="font-weight:700;margin:16px 0 8px;">العناصر الغذائية المهمة:</h4>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-md);">
+        <div style="padding:var(--space-md);background:rgba(196,69,105,0.06);border-radius:var(--radius-lg);text-align:center;"><strong>🩸 الحديد</strong><br><small>اللحوم الحمراء، العدس، السبانخ</small></div>
+        <div style="padding:var(--space-md);background:rgba(142,108,136,0.08);border-radius:var(--radius-lg);text-align:center;"><strong>🦴 الكالسيوم</strong><br><small>الحليب ومشتقاته، السردين</small></div>
+        <div style="padding:var(--space-md);background:rgba(163,217,200,0.12);border-radius:var(--radius-lg);text-align:center;"><strong>🐟 أوميغا 3</strong><br><small>السردين، التونة، السلمون</small></div>
+        <div style="padding:var(--space-md);background:rgba(212,165,116,0.12);border-radius:var(--radius-lg);text-align:center;"><strong>☀️ فيتامين D</strong><br><small>التعرض للشمس، المكملات</small></div>
+      </div>
+    </div>`
+  },
+  {
+    icon: 'eco', title: 'أطعمة يُعتقد أنها تساعد على الإرضاع',
+    content: `<div style="line-height:1.8;">
+      <div class="flex" style="flex-wrap:wrap;gap:var(--space-md);margin-bottom:var(--space-xl);">
+        ${['الشوفان','الحلبة','الشمر','اللوز','السمسم'].map(f => `<span style="padding:8px 18px;background:rgba(212,165,116,0.15);border-radius:var(--radius-full);font-weight:600;font-size:14px;">${f}</span>`).join('')}
+      </div>
+      <div style="padding:var(--space-lg);background:rgba(142,108,136,0.08);border-radius:var(--radius-xl);border-right:4px solid var(--secondary);">
+        <p><strong>🔬 ملاحظة علمية:</strong> لا توجد أدلة علمية قوية تثبت أن غذاءً معيناً يزيد إنتاج الحليب بشكل كبير، بينما تعتبر الرضاعة المتكررة العامل الأكثر فعالية.</p>
+      </div>
+    </div>`
+  },
+  {
+    icon: 'kitchen', title: 'حفظ حليب الأم',
+    content: `<div style="line-height:1.8;">
+      <table style="width:100%;border-collapse:collapse;margin-bottom:var(--space-xl);">
+        <tr style="background:var(--primary);color:white;"><th style="padding:12px;text-align:right;border-radius:var(--radius-lg) var(--radius-lg) 0 0;">المكان</th><th style="padding:12px;text-align:center;">المدة</th></tr>
+        <tr style="background:var(--surface-container-low);"><td style="padding:12px;font-weight:600;">🌡️ درجة حرارة الغرفة</td><td style="padding:12px;text-align:center;">4 ساعات</td></tr>
+        <tr><td style="padding:12px;font-weight:600;">❄️ الثلاجة</td><td style="padding:12px;text-align:center;">4 أيام</td></tr>
+        <tr style="background:var(--surface-container-low);"><td style="padding:12px;font-weight:600;">🧊 المجمد</td><td style="padding:12px;text-align:center;">6 أشهر</td></tr>
+      </table>
+      ${['كتابة تاريخ الشفط','عدم إعادة تجميد الحليب المذاب'].map(s => `<div class="flex items-center gap-md mb-md"><span class="material-symbols-outlined text-primary" style="font-size:18px;">check_circle</span><span>${s}</span></div>`).join('')}
+    </div>`
+  },
+  {
+    icon: 'work', title: 'الرضاعة والعودة للعمل',
+    content: `<div style="line-height:1.8;">
+      ${['تعلم شفط الحليب قبل العودة للعمل','إنشاء مخزون من الحليب','احترام شروط التخزين','تنظيم أوقات الشفط والرضاعة'].map(s => `<div class="flex items-center gap-md mb-md"><span class="material-symbols-outlined text-primary" style="font-size:18px;">check_circle</span><span>${s}</span></div>`).join('')}
+    </div>`
+  }
+];
+
+const bfMyths = [
+  { myth: 'يجب إعطاء الماء للرضيع قبل 6 أشهر', reality: 'حليب الأم وحده يكفي خلال الأشهر الستة الأولى' },
+  { myth: 'صغر حجم الثدي يعني قلة الحليب', reality: 'حجم الثدي لا يحدد كمية الحليب المنتجة' },
+  { myth: 'كل بكاء يعني أن الطفل جائع', reality: 'قد يكون البكاء بسبب التعب أو المغص أو الحاجة للاحتضان' },
+  { myth: 'يجب إرضاع الطفل كل 3 ساعات فقط', reality: 'الرضاعة تكون حسب طلب الطفل' },
+  { myth: 'مرض الأم يعني التوقف عن الرضاعة', reality: 'غالباً يمكن الاستمرار بالرضاعة بعد استشارة المختص' },
+  { myth: 'الحليب الصناعي أفضل من حليب الأم', reality: 'حليب الأم هو الغذاء الأمثل للرضيع' },
+  { myth: 'التوتر يفسد الحليب', reality: 'التوتر قد يؤثر مؤقتاً على تدفق الحليب لكنه لا يفسده' },
+  { myth: 'الأم المرضعة يجب أن تأكل لشخصين', reality: 'الجودة الغذائية أهم من الكمية' },
+  { myth: 'الرضاعة المتكررة تعني أن الحليب غير كافٍ', reality: 'الرضاعة المتكررة طبيعية خاصة خلال فترات النمو السريع' },
+  { myth: 'يجب إيقاف الرضاعة عند ظهور الأسنان', reality: 'يمكن مواصلة الرضاعة حتى عمر سنتين أو أكثر' }
+];
+
+const bfQuizQuestions = [
+  'هل يفتح طفلك فمه بشكل واسع قبل الإمساك بالثدي؟',
+  'هل يدخل جزء كبير من الهالة في فم الطفل؟',
+  'هل تشعرين بألم أثناء الرضاعة؟',
+  'هل تسمعين صوت البلع؟',
+  'هل يرضع طفلك من 8 إلى 12 مرة يومياً؟',
+  'هل يهدأ بعد الرضاعة؟',
+  'هل يبلل أكثر من 6 حفاضات يومياً؟',
+  'هل يتبرز بشكل طبيعي؟',
+  'هل يزداد وزنه بشكل طبيعي؟',
+  'هل يصبح الثدي أخف بعد الرضاعة؟',
+  'هل تعانين من تشققات بالحلمة؟',
+  'هل يوجد احمرار أو تورم بالثدي؟',
+  'هل تشعرين بالثقة أثناء الرضاعة؟',
+  'هل ينام الطفل بسرعة قبل إنهاء الرضعة؟',
+  'هل يبكي باستمرار بعد الرضاعة؟',
+  'هل تلجئين للحليب الصناعي بسبب الشك في كمية الحليب؟',
+  'هل أُعطي الطفل ماء أو أعشاب قبل 6 أشهر؟',
+  'هل تتلقين دعماً من الزوج أو العائلة؟'
+];
+// Questions where "No" = good (reverse scored): pain, cracked nipples, redness, sleeps before finishing, cries after, formula, water before 6m
+const bfReverseScored = [2, 10, 11, 13, 14, 15, 16];
+
+let bfQuizAnswers = {};
+let bfCurrentTab = 'guide';
+let bfOpenChapter = -1;
+let bfFlippedCards = {};
+
+function renderBreastfeeding() {
+  const container = document.getElementById('breastfeeding-content');
+  if (!container) return;
+
+  container.innerHTML = `
+    <div class="flex items-center gap-md mb-xl">
+      <button class="top-bar__btn" onclick="navigateTo('sage-femme')"><span class="material-symbols-outlined">arrow_back</span></button>
+      <div style="flex:1;">
+        <h2 class="text-headline-sm">${t('bf_title')}</h2>
+        <p class="text-body-md text-variant">${t('bf_subtitle')}</p>
+      </div>
+      <span style="font-size:36px;">🤱</span>
+    </div>
+
+    <!-- Tabs -->
+    <div style="display:flex;gap:6px;margin-bottom:var(--space-xl);background:var(--surface-container-low);border-radius:var(--radius-xl);padding:4px;overflow-x:auto;">
+      ${[
+        { id: 'guide', icon: 'menu_book', label: t('bf_tab_guide') },
+        { id: 'myths', icon: 'swap_horiz', label: t('bf_tab_myths') },
+        { id: 'quiz', icon: 'quiz', label: t('bf_tab_quiz') },
+        { id: 'log', icon: 'edit_note', label: t('bf_tab_log') }
+      ].map(tab => `
+        <button onclick="bfCurrentTab='${tab.id}';renderBreastfeeding();" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 8px;border:none;border-radius:var(--radius-lg);cursor:pointer;font-family:inherit;font-size:11px;font-weight:600;transition:all 0.2s;${bfCurrentTab===tab.id?'background:var(--primary);color:white;box-shadow:0 2px 8px rgba(196,69,105,0.3);':'background:transparent;color:var(--on-surface-variant);'}">
+          <span class="material-symbols-outlined" style="font-size:20px;">${tab.icon}</span>
+          ${tab.label}
+        </button>
+      `).join('')}
+    </div>
+
+    <div id="bf-tab-content"></div>
+  `;
+
+  const tabContent = document.getElementById('bf-tab-content');
+  if (bfCurrentTab === 'guide') renderBFGuide(tabContent);
+  else if (bfCurrentTab === 'myths') renderBFMyths(tabContent);
+  else if (bfCurrentTab === 'quiz') renderBFQuiz(tabContent);
+  else if (bfCurrentTab === 'log') renderBFLog(tabContent);
+
+  setTimeout(() => initReveal(), 50);
+}
+
+function renderBFGuide(container) {
+  container.innerHTML = `
+    <div class="space-y-md">
+      ${bfChapters.map((ch, i) => `
+        <div class="card card--flat reveal" style="overflow:hidden;animation-delay:${i*0.05}s">
+          <button onclick="bfOpenChapter=bfOpenChapter===${i}?-1:${i};renderBreastfeeding();" style="width:100%;display:flex;align-items:center;gap:var(--space-md);padding:var(--space-lg);border:none;background:transparent;cursor:pointer;font-family:inherit;text-align:right;">
+            <div style="width:40px;height:40px;border-radius:var(--radius-full);background:${bfOpenChapter===i?'var(--primary)':'var(--primary-fixed)'};display:flex;align-items:center;justify-content:center;transition:all 0.3s;flex-shrink:0;">
+              <span class="material-symbols-outlined" style="font-size:20px;color:${bfOpenChapter===i?'white':'var(--primary)'};">${ch.icon}</span>
+            </div>
+            <div style="flex:1;">
+              <span class="text-label-md text-variant">${t('bf_chapter')} ${i+1}</span>
+              <h4 class="text-body-lg text-semibold" style="margin-top:2px;">${ch.title}</h4>
+            </div>
+            <span class="material-symbols-outlined text-variant" style="transition:transform 0.3s;${bfOpenChapter===i?'transform:rotate(180deg)':''}">expand_more</span>
+          </button>
+          ${bfOpenChapter === i ? `<div style="padding:0 var(--space-lg) var(--space-xl);border-top:1px solid var(--outline-variant);padding-top:var(--space-lg);animation:fadeIn 0.3s ease;">${ch.content}</div>` : ''}
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function renderBFMyths(container) {
+  container.innerHTML = `
+    <h3 class="text-headline-sm mb-md reveal">${t('bf_myths_title')}</h3>
+    <p class="text-body-md text-variant mb-xl reveal">${t('bf_myths_desc')}</p>
+    <div class="space-y-lg">
+      ${bfMyths.map((m, i) => {
+        const flipped = bfFlippedCards[i];
+        return `
+        <div class="reveal" style="animation-delay:${i*0.05}s;perspective:600px;">
+          <div onclick="bfFlippedCards[${i}]=!bfFlippedCards[${i}];renderBreastfeeding();" style="cursor:pointer;position:relative;min-height:120px;transition:transform 0.6s;transform-style:preserve-3d;${flipped?'transform:rotateY(180deg)':''}">
+            <!-- Front: Myth -->
+            <div style="position:${flipped?'absolute':'relative'};inset:0;backface-visibility:hidden;padding:var(--space-xl);border-radius:var(--radius-xl);background:linear-gradient(135deg,rgba(220,53,69,0.08),rgba(220,53,69,0.03));border:2px solid rgba(220,53,69,0.2);">
+              <div class="flex items-center gap-sm mb-md">
+                <span style="font-size:20px;">❌</span>
+                <span class="text-label-lg" style="color:var(--error);text-transform:uppercase;">${t('bf_myth')}</span>
+                <span class="material-symbols-outlined text-variant" style="margin-inline-start:auto;font-size:18px;">touch_app</span>
+              </div>
+              <p class="text-body-lg text-semibold" style="line-height:1.6;">${m.myth}</p>
+            </div>
+            <!-- Back: Reality -->
+            <div style="position:absolute;inset:0;backface-visibility:hidden;transform:rotateY(180deg);padding:var(--space-xl);border-radius:var(--radius-xl);background:linear-gradient(135deg,rgba(40,167,69,0.08),rgba(40,167,69,0.03));border:2px solid rgba(40,167,69,0.2);">
+              <div class="flex items-center gap-sm mb-md">
+                <span style="font-size:20px;">✅</span>
+                <span class="text-label-lg" style="color:#28a745;text-transform:uppercase;">${t('bf_reality')}</span>
+              </div>
+              <p class="text-body-lg text-semibold" style="line-height:1.6;">${m.reality}</p>
+            </div>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>
+  `;
+}
+
+function renderBFQuiz(container) {
+  const answeredCount = Object.keys(bfQuizAnswers).length;
+  const allAnswered = answeredCount === bfQuizQuestions.length;
+  let totalScore = 0;
+  if (allAnswered) {
+    bfQuizQuestions.forEach((_, i) => {
+      const isReverse = bfReverseScored.includes(i);
+      const answered = bfQuizAnswers[i];
+      if (isReverse) totalScore += (answered === 'no' ? 2 : 0);
+      else totalScore += (answered === 'yes' ? 2 : 0);
+    });
+  }
+
+  let resultHTML = '';
+  if (allAnswered) {
+    let color, emoji, label, advice;
+    if (totalScore >= 30) { color = '#28a745'; emoji = '🟢'; label = t('bf_quiz_excellent'); advice = 'الرضاعة تسير بشكل جيد.'; }
+    else if (totalScore >= 22) { color = '#ffc107'; emoji = '🟡'; label = t('bf_quiz_good'); advice = 'توجد بعض الصعوبات البسيطة.'; }
+    else if (totalScore >= 15) { color = '#fd7e14'; emoji = '🟠'; label = t('bf_quiz_attention'); advice = 'يوصى باستشارة أخصائية توليد أو رضاعة.'; }
+    else { color = '#dc3545'; emoji = '🔴'; label = t('bf_quiz_urgent'); advice = 'يُنصح بطلب تقييم مهني في أقرب وقت.'; }
+
+    // Check for medical alerts
+    const medicalAlerts = [];
+    if (bfQuizAnswers[11] === 'yes') medicalAlerts.push('احمرار أو تورم بالثدي');
+    if (bfQuizAnswers[14] === 'yes') medicalAlerts.push('بكاء مستمر بعد الرضاعة');
+    if (bfQuizAnswers[16] === 'yes') medicalAlerts.push('إعطاء الماء أو الأعشاب قبل 6 أشهر');
+
+    resultHTML = `
+      <div class="card mb-xl reveal" style="overflow:hidden;">
+        <div style="background:${color};padding:var(--space-2xl);text-align:center;color:white;">
+          <span style="font-size:48px;display:block;margin-bottom:8px;">${emoji}</span>
+          <h3 style="font-size:24px;font-weight:800;">${totalScore}/36</h3>
+          <p style="font-size:16px;font-weight:600;margin-top:4px;">${label}</p>
+        </div>
+        <div class="card__body">
+          <p class="text-body-lg" style="line-height:1.7;text-align:center;">${advice}</p>
+        </div>
+      </div>
+      ${medicalAlerts.length > 0 ? `
+        <div class="alert-banner alert-banner--danger mb-xl reveal">
+          <span class="material-symbols-outlined">emergency</span>
+          <div>
+            <strong>🚨 ${t('bf_quiz_medical_alert')}</strong>
+            <p class="text-body-md mt-sm">${medicalAlerts.join(' — ')}</p>
+            <p class="text-body-md mt-sm" style="font-weight:600;">يُنصح بالتواصل مع أخصائية توليد أو طبيب أطفال في أقرب وقت.</p>
+          </div>
+        </div>
+      ` : ''}
+      <button class="btn btn--outline btn--full mb-xl" onclick="bfQuizAnswers={};renderBreastfeeding();">
+        <span class="material-symbols-outlined">refresh</span> ${t('bf_quiz_retry')}
+      </button>
+    `;
+  }
+
+  container.innerHTML = `
+    <h3 class="text-headline-sm mb-md reveal">${t('bf_quiz_title')}</h3>
+    <p class="text-body-md text-variant mb-lg reveal">${t('bf_quiz_desc')}</p>
+
+    ${!allAnswered ? `
+      <div class="progress-bar mb-lg reveal"><div class="progress-bar__fill" style="width:${(answeredCount/bfQuizQuestions.length)*100}%"></div></div>
+      <p class="text-label-md text-variant mb-xl reveal">${answeredCount}/${bfQuizQuestions.length}</p>
+    ` : ''}
+
+    ${resultHTML}
+
+    <div class="space-y-md">
+      ${bfQuizQuestions.map((q, i) => `
+        <div class="card card--flat reveal" style="animation-delay:${i*0.03}s">
+          <div class="card__body">
+            <p class="text-body-md text-semibold mb-md">${i+1}. ${q}</p>
+            <div class="flex gap-md">
+              <button onclick="bfQuizAnswers[${i}]='yes';renderBreastfeeding();" style="flex:1;padding:10px;border-radius:var(--radius-xl);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.2s;border:2px solid ${bfQuizAnswers[i]==='yes'?'var(--primary)':'var(--outline-variant)'};${bfQuizAnswers[i]==='yes'?'background:var(--primary);color:white;':'background:transparent;color:var(--on-surface);'}">
+                ${t('bf_yes')}
+              </button>
+              <button onclick="bfQuizAnswers[${i}]='no';renderBreastfeeding();" style="flex:1;padding:10px;border-radius:var(--radius-xl);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.2s;border:2px solid ${bfQuizAnswers[i]==='no'?'var(--primary)':'var(--outline-variant)'};${bfQuizAnswers[i]==='no'?'background:var(--primary);color:white;':'background:transparent;color:var(--on-surface);'}">
+                ${t('bf_no')}
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function getBFLogEntries() {
+  try { return JSON.parse(localStorage.getItem('nf_bf_log') || '[]'); } catch { return []; }
+}
+
+function renderBFLog(container) {
+  const entries = getBFLogEntries();
+  const today = new Date().toISOString().split('T')[0];
+  const todayEntries = entries.filter(e => e.date === today);
+  const weekEntries = entries.filter(e => {
+    const d = new Date(e.date);
+    const now = new Date();
+    return (now - d) < 7 * 86400000;
+  });
+
+  const totalFeeds = weekEntries.reduce((s, e) => s + (e.feeds || 0), 0);
+  const avgFeeds = weekEntries.length > 0 ? (totalFeeds / weekEntries.length).toFixed(1) : 0;
+  const totalPumped = weekEntries.reduce((s, e) => s + (e.pumped || 0), 0);
+
+  container.innerHTML = `
+    <h3 class="text-headline-sm mb-lg reveal">${t('bf_log_title')}</h3>
+
+    <!-- Today's entry form -->
+    <div class="card mb-xl reveal">
+      <div class="card__body">
+        <h4 class="text-label-lg text-primary mb-lg" style="text-transform:uppercase;">${t('bf_log_today')}</h4>
+        <div class="space-y-md">
+          <div class="slider-container">
+            <label><span>${t('bf_log_feeds')}</span><span><span id="bf-feeds-val">${todayEntries[0]?.feeds||8}</span></span></label>
+            <input type="range" min="0" max="16" value="${todayEntries[0]?.feeds||8}" id="bf-feeds" oninput="document.getElementById('bf-feeds-val').textContent=this.value">
+          </div>
+          <div class="slider-container">
+            <label><span>${t('bf_log_duration')}</span><span><span id="bf-dur-val">${todayEntries[0]?.duration||15}</span> min</span></label>
+            <input type="range" min="5" max="45" step="5" value="${todayEntries[0]?.duration||15}" id="bf-duration" oninput="document.getElementById('bf-dur-val').textContent=this.value">
+          </div>
+          <div class="slider-container">
+            <label><span>${t('bf_log_pumped')}</span><span><span id="bf-pump-val">${todayEntries[0]?.pumped||0}</span> ml</span></label>
+            <input type="range" min="0" max="300" step="10" value="${todayEntries[0]?.pumped||0}" id="bf-pumped" oninput="document.getElementById('bf-pump-val').textContent=this.value">
+          </div>
+          <p class="text-label-lg mb-sm">${t('bf_log_mood')}</p>
+          <div class="mood-grid" id="bf-mood-grid">
+            ${['😫','😔','😐','😊','😄'].map(m => `<button class="mood-option ${todayEntries[0]?.mood===m?'selected':''}" onclick="document.querySelectorAll('#bf-mood-grid .mood-option').forEach(b=>b.classList.remove('selected'));this.classList.add('selected');this.dataset.val='${m}';" data-val="${m}"><span class="mood-option__emoji">${m}</span></button>`).join('')}
+          </div>
+          <textarea id="bf-notes" class="form-input" rows="2" placeholder="${t('bf_log_notes_placeholder')}" style="resize:none;">${todayEntries[0]?.notes||''}</textarea>
+          <button class="btn btn--primary btn--full" onclick="saveBFLog()">
+            <span class="material-symbols-outlined">save</span> ${t('bf_log_save')}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Weekly stats -->
+    <div class="card card--flat mb-xl reveal">
+      <div class="card__body">
+        <h4 class="text-label-lg text-primary mb-lg" style="text-transform:uppercase;">${t('bf_log_weekly')}</h4>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--space-md);text-align:center;">
+          <div style="padding:var(--space-lg);background:var(--surface-container-low);border-radius:var(--radius-xl);">
+            <div class="text-headline-md text-primary">${avgFeeds}</div>
+            <p class="text-label-md text-variant">${t('bf_log_avg_feeds')}</p>
+          </div>
+          <div style="padding:var(--space-lg);background:var(--surface-container-low);border-radius:var(--radius-xl);">
+            <div class="text-headline-md text-secondary">${weekEntries.length}</div>
+            <p class="text-label-md text-variant">${t('bf_log_days')}</p>
+          </div>
+          <div style="padding:var(--space-lg);background:var(--surface-container-low);border-radius:var(--radius-xl);">
+            <div class="text-headline-md text-tertiary">${totalPumped}</div>
+            <p class="text-label-md text-variant">ml ${t('bf_log_pumped_total')}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- History -->
+    ${entries.length > 0 ? `
+      <h4 class="text-label-lg text-primary mb-md reveal" style="text-transform:uppercase;">${t('bf_log_history')}</h4>
+      <div class="space-y-md">
+        ${entries.slice(0, 7).map(e => `
+          <div class="daily-entry reveal">
+            <span style="font-size:24px;">${e.mood || '😊'}</span>
+            <div style="flex:1;">
+              <div class="flex justify-between text-label-md">
+                <span class="text-primary">${e.feeds || 0} ${t('bf_log_feeds_short')}</span>
+                <span class="text-variant">${e.duration || 0} min</span>
+                ${e.pumped ? `<span class="text-tertiary">${e.pumped} ml</span>` : ''}
+              </div>
+              ${e.notes ? `<p class="text-body-md text-variant mt-sm" style="font-style:italic;">${e.notes}</p>` : ''}
+            </div>
+            <span class="text-label-md text-variant">${e.date}</span>
+          </div>
+        `).join('')}
+      </div>
+    ` : `<p class="text-body-md text-variant text-center reveal">${t('bf_log_empty')}</p>`}
+  `;
+}
+
+function saveBFLog() {
+  const feeds = parseInt(document.getElementById('bf-feeds')?.value || 8);
+  const duration = parseInt(document.getElementById('bf-duration')?.value || 15);
+  const pumped = parseInt(document.getElementById('bf-pumped')?.value || 0);
+  const moodBtn = document.querySelector('#bf-mood-grid .mood-option.selected');
+  const mood = moodBtn?.dataset?.val || '😊';
+  const notes = document.getElementById('bf-notes')?.value?.trim() || '';
+  const today = new Date().toISOString().split('T')[0];
+
+  let entries = getBFLogEntries();
+  const existingIdx = entries.findIndex(e => e.date === today);
+  const entry = { date: today, feeds, duration, pumped, mood, notes };
+  if (existingIdx >= 0) entries[existingIdx] = entry;
+  else entries.unshift(entry);
+
+  localStorage.setItem('nf_bf_log', JSON.stringify(entries));
+
+  const btn = document.querySelector('#bf-tab-content .btn--primary');
+  if (btn) {
+    btn.innerHTML = `<span class="material-symbols-outlined">check</span> ${t('bf_log_saved')}`;
+    btn.style.background = 'var(--primary-container)';
+    btn.style.color = 'var(--on-primary-container)';
+    setTimeout(() => renderBreastfeeding(), 1500);
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+//  MODULE: SEXUALITÉ POST-PARTUM (الحياة الجنسية بعد الولادة)
+// ══════════════════════════════════════════════════════════════
+
+const sxChapters = [
+  {
+    icon: 'schedule', title: 'استئناف العلاقة الجنسية', color: 'var(--primary)',
+    content: `<div class="space-y-md" style="line-height:1.8;">
+      <p>لا يوجد موعد موحّد لاستئناف العلاقة الجنسية بعد الولادة.</p>
+      <p>يعتمد ذلك على التعافي الجسدي والنفسي للأم.</p>
+      ${['يُنصح بالانتظار حتى توقف نزيف النفاس','التئام الجروح في حال وجود تمزق أو Épisiotomie','احترام راحة الأم الجسدية والنفسية','التواصل مع الشريك ضروري خلال هذه المرحلة'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined text-primary" style="font-size:18px;">check_circle</span><span>${s}</span></div>`).join('')}
+    </div>`
+  },
+  {
+    icon: 'water_drop', title: 'الجفاف المهبلي', color: 'var(--secondary)',
+    content: `<div class="space-y-md" style="line-height:1.8;">
+      <p>شائع خاصة أثناء الرضاعة الطبيعية بسبب انخفاض هرمون الإستروجين.</p>
+      <p>يمكن استعمال مزلقات مائية <strong>(Lubrifiants à base d'eau)</strong>.</p>
+      <p>غالباً ما يتحسن تدريجياً مع الوقت.</p>
+    </div>`
+  },
+  {
+    icon: 'healing', title: 'الألم أثناء العلاقة', color: 'var(--error)',
+    content: `<div class="space-y-md" style="line-height:1.8;">
+      <p>قد يظهر خلال الأسابيع أو الأشهر الأولى بعد الولادة.</p>
+      <p style="font-weight:600;color:var(--error);">يجب التوقف إذا كان الألم شديداً.</p>
+      <p>يُنصح باستشارة مختص إذا استمر الألم أو ازداد.</p>
+    </div>`
+  },
+  {
+    icon: 'bedtime', title: 'التعب والرغبة الجنسية', color: 'var(--tertiary)',
+    content: `<div class="space-y-md" style="line-height:1.8;">
+      <p>انخفاض الرغبة الجنسية أمر شائع بعد الولادة.</p>
+      ${['الإرهاق وقلة النوم','التغيرات الهرمونية','التكيف مع دور الأمومة'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="font-size:16px;color:var(--tertiary);">arrow_right</span><span>${s}</span></div>`).join('')}
+      <div style="background:var(--primary-container);padding:var(--space-lg);border-radius:var(--radius-xl);margin-top:var(--space-md);">
+        <p style="font-weight:600;color:var(--on-primary-container);"><span style="font-size:18px;">💡</span> تعود الرغبة تدريجياً لدى أغلب النساء.</p>
+      </div>
+    </div>`
+  },
+  {
+    icon: 'forum', title: 'التواصل بين الزوجين', color: '#A3D9C8',
+    content: `<div class="space-y-md" style="line-height:1.8;">
+      <p>الحوار الصريح حول المشاعر والاحتياجات يساعد على التكيف مع المرحلة الجديدة.</p>
+      <div style="padding:var(--space-lg);background:rgba(163,217,200,0.15);border-radius:var(--radius-xl);border-right:4px solid #A3D9C8;">
+        <p style="font-weight:600;">💕 الحميمية لا تقتصر فقط على العلاقة الجنسية، بل تشمل الدعم العاطفي أيضاً.</p>
+      </div>
+    </div>`
+  },
+  {
+    icon: 'medical_services', title: 'العناية بشق العجان', color: 'var(--primary)',
+    content: `<div class="space-y-lg" style="line-height:1.8;">
+      <div>
+        <h4 style="font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;"><span style="font-size:18px;">🧼</span> كيف يتم تنظيف الجرح؟</h4>
+        ${['غسل اليدين قبل وبعد العناية','تنظيف المنطقة يومياً بالماء الفاتر وصابون لطيف غير معطر','الشطف جيداً ثم التجفيف بلطف دون فرك','يُفضل التجفيف بالتربيت أو ترك المنطقة تجف في الهواء','تغيير الفوط الصحية بانتظام','ارتداء ملابس داخلية قطنية ومريحة','شرب الماء وتناول ألياف لتجنب الإمساك'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined text-primary" style="font-size:16px;">check_circle</span><span>${s}</span></div>`).join('')}
+      </div>
+      <div>
+        <h4 style="font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;"><span style="font-size:18px;">💊</span> لتخفيف الألم</h4>
+        ${['كمادات باردة خلال أول 24 ساعة إذا أوصى المختص','الجلوس على وسادة مريحة','مسكنات موصوفة طبياً'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="font-size:16px;color:#d4a574;">lightbulb</span><span>${s}</span></div>`).join('')}
+      </div>
+      <div>
+        <h4 style="font-weight:700;margin-bottom:12px;color:var(--error);display:flex;align-items:center;gap:8px;"><span style="font-size:18px;">❌</span> ما يجب تجنبه</h4>
+        ${['المطهرات أو الكريمات بدون وصفة طبية','فرك الجرح','الملابس الضيقة'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="font-size:16px;color:var(--error);">block</span><span>${s}</span></div>`).join('')}
+      </div>
+      <div class="alert-banner alert-banner--danger">
+        <span class="material-symbols-outlined">emergency</span>
+        <div>
+          <strong>🚨 علامات الخطر — استشيري الطبيب إذا ظهر:</strong>
+          ${['احمرار متزايد أو تورم شديد','ألم يزداد مع الوقت','إفرازات ذات رائحة كريهة أو قيح','حرارة أكثر من 38 °C','انفتاح الجرح أو نزيف غير طبيعي'].map(s => `<div class="flex items-center gap-sm mt-sm"><span style="color:var(--error);font-size:14px;">⚠️</span><span>${s}</span></div>`).join('')}
+        </div>
+      </div>
+    </div>`
+  }
+];
+
+const sxMyths = [
+  { myth: 'يجب استئناف العلاقة بعد 40 يوماً بالضبط', reality: 'لا يوجد وقت إلزامي ويختلف حسب كل امرأة' },
+  { myth: 'الرضاعة الطبيعية تمنع الحمل %100', reality: 'تقلل الحمل لكنها ليست وسيلة مضمونة' },
+  { myth: 'انخفاض الرغبة الجنسية مشكلة دائمة', reality: 'طبيعي ومؤقت بعد الولادة' },
+  { myth: 'الألم أثناء العلاقة يجب تحمله', reality: 'الألم المستمر يحتاج استشارة' },
+  { myth: 'الجفاف المهبلي مرض', reality: 'غالباً نتيجة تغيرات هرمونية بعد الولادة' }
+];
+
+let sxCurrentTab = 'guide';
+let sxOpenChapter = -1;
+let sxFlippedCards = {};
+
+function renderSexuality() {
+  const container = document.getElementById('sexuality-content');
+  if (!container) return;
+
+  container.innerHTML = `
+    <div class="flex items-center gap-md mb-xl">
+      <button class="top-bar__btn" onclick="navigateTo('sage-femme')"><span class="material-symbols-outlined">arrow_back</span></button>
+      <div style="flex:1;">
+        <h2 class="text-headline-sm">${t('sx_title')}</h2>
+        <p class="text-body-md text-variant">${t('sx_subtitle')}</p>
+      </div>
+      <span style="font-size:36px;">❤️</span>
+    </div>
+
+    <!-- Tabs -->
+    <div style="display:flex;gap:6px;margin-bottom:var(--space-xl);background:var(--surface-container-low);border-radius:var(--radius-xl);padding:4px;overflow-x:auto;">
+      ${[
+        { id: 'guide', icon: 'menu_book', label: t('sx_tab_guide') },
+        { id: 'myths', icon: 'swap_horiz', label: t('sx_tab_myths') },
+        { id: 'consult', icon: 'emergency', label: t('sx_tab_consult') }
+      ].map(tab => `
+        <button onclick="sxCurrentTab='${tab.id}';renderSexuality();" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 8px;border:none;border-radius:var(--radius-lg);cursor:pointer;font-family:inherit;font-size:11px;font-weight:600;transition:all 0.2s;${sxCurrentTab===tab.id?'background:var(--secondary);color:white;box-shadow:0 2px 8px rgba(142,108,136,0.3);':'background:transparent;color:var(--on-surface-variant);'}">
+          <span class="material-symbols-outlined" style="font-size:20px;">${tab.icon}</span>
+          ${tab.label}
+        </button>
+      `).join('')}
+    </div>
+
+    <div id="sx-tab-content"></div>
+  `;
+
+  const tabContent = document.getElementById('sx-tab-content');
+  if (sxCurrentTab === 'guide') renderSXGuide(tabContent);
+  else if (sxCurrentTab === 'myths') renderSXMyths(tabContent);
+  else if (sxCurrentTab === 'consult') renderSXConsult(tabContent);
+
+  setTimeout(() => initReveal(), 50);
+}
+
+function renderSXGuide(container) {
+  container.innerHTML = `
+    <div class="space-y-md">
+      ${sxChapters.map((ch, i) => `
+        <div class="card card--flat reveal" style="overflow:hidden;animation-delay:${i*0.05}s">
+          <button onclick="sxOpenChapter=sxOpenChapter===${i}?-1:${i};renderSexuality();" style="width:100%;display:flex;align-items:center;gap:var(--space-md);padding:var(--space-lg);border:none;background:transparent;cursor:pointer;font-family:inherit;text-align:right;">
+            <div style="width:40px;height:40px;border-radius:var(--radius-full);background:${sxOpenChapter===i?ch.color:'var(--surface-container-high)'};display:flex;align-items:center;justify-content:center;transition:all 0.3s;flex-shrink:0;">
+              <span class="material-symbols-outlined" style="font-size:20px;color:${sxOpenChapter===i?'white':'var(--on-surface-variant)'};">${ch.icon}</span>
+            </div>
+            <h4 class="text-body-lg text-semibold" style="flex:1;">${ch.title}</h4>
+            <span class="material-symbols-outlined text-variant" style="transition:transform 0.3s;${sxOpenChapter===i?'transform:rotate(180deg)':''}">expand_more</span>
+          </button>
+          ${sxOpenChapter === i ? `<div style="padding:0 var(--space-lg) var(--space-xl);border-top:1px solid var(--outline-variant);padding-top:var(--space-lg);animation:fadeIn 0.3s ease;">${ch.content}</div>` : ''}
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function renderSXMyths(container) {
+  container.innerHTML = `
+    <h3 class="text-headline-sm mb-md reveal">${t('sx_myths_title')}</h3>
+    <p class="text-body-md text-variant mb-xl reveal">${t('sx_myths_desc')}</p>
+    <div class="space-y-lg">
+      ${sxMyths.map((m, i) => {
+        const flipped = sxFlippedCards[i];
+        return `
+        <div class="reveal" style="animation-delay:${i*0.05}s;perspective:600px;">
+          <div onclick="sxFlippedCards[${i}]=!sxFlippedCards[${i}];renderSexuality();" style="cursor:pointer;position:relative;min-height:120px;transition:transform 0.6s;transform-style:preserve-3d;${flipped?'transform:rotateY(180deg)':''}">
+            <div style="position:${flipped?'absolute':'relative'};inset:0;backface-visibility:hidden;padding:var(--space-xl);border-radius:var(--radius-xl);background:linear-gradient(135deg,rgba(220,53,69,0.08),rgba(220,53,69,0.03));border:2px solid rgba(220,53,69,0.2);">
+              <div class="flex items-center gap-sm mb-md">
+                <span style="font-size:20px;">❌</span>
+                <span class="text-label-lg" style="color:var(--error);text-transform:uppercase;">${t('bf_myth')}</span>
+                <span class="material-symbols-outlined text-variant" style="margin-inline-start:auto;font-size:18px;">touch_app</span>
+              </div>
+              <p class="text-body-lg text-semibold" style="line-height:1.6;">${m.myth}</p>
+            </div>
+            <div style="position:absolute;inset:0;backface-visibility:hidden;transform:rotateY(180deg);padding:var(--space-xl);border-radius:var(--radius-xl);background:linear-gradient(135deg,rgba(40,167,69,0.08),rgba(40,167,69,0.03));border:2px solid rgba(40,167,69,0.2);">
+              <div class="flex items-center gap-sm mb-md">
+                <span style="font-size:20px;">✅</span>
+                <span class="text-label-lg" style="color:#28a745;text-transform:uppercase;">${t('bf_reality')}</span>
+              </div>
+              <p class="text-body-lg text-semibold" style="line-height:1.6;">${m.reality}</p>
+            </div>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>
+  `;
+}
+
+function renderSXConsult(container) {
+  container.innerHTML = `
+    <div class="card reveal" style="overflow:hidden;">
+      <div style="background:linear-gradient(135deg,var(--error),#8e2020);padding:var(--space-2xl);text-align:center;color:white;">
+        <span class="material-symbols-outlined" style="font-size:48px;margin-bottom:8px;">emergency</span>
+        <h3 class="text-headline-sm">${t('sx_when_consult')}</h3>
+      </div>
+      <div class="card__body">
+        <p class="text-body-md text-variant mb-lg">${t('sx_consult_intro')}</p>
+        ${['ألم شديد أو مستمر أثناء العلاقة','نزيف غير طبيعي بعد العلاقة','جفاف شديد لا يتحسن','فقدان مستمر للرغبة مع تأثير نفسي واضح','أعراض اكتئاب ما بعد الولادة'].map(s => `
+          <div class="flex items-center gap-md mb-lg" style="padding:var(--space-md) var(--space-lg);background:rgba(186,26,26,0.04);border-radius:var(--radius-xl);border-right:3px solid var(--error);">
+            <span class="material-symbols-outlined" style="color:var(--error);font-size:20px;">warning</span>
+            <span class="text-body-md text-semibold">${s}</span>
+          </div>
+        `).join('')}
+        <div style="background:var(--primary-container);padding:var(--space-xl);border-radius:var(--radius-xl);margin-top:var(--space-xl);text-align:center;">
+          <span class="material-symbols-outlined text-primary" style="font-size:32px;">support_agent</span>
+          <p class="text-body-lg text-semibold mt-md" style="color:var(--on-primary-container);">${t('sx_consult_msg')}</p>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ══════════════════════════════════════════════════════════════
+//  MODULE: NOUVEAU-NÉ (المولود الجديد)
+// ══════════════════════════════════════════════════════════════
+
+const nbChapters = [
+  {
+    icon: 'vaccines', title: 'العناية بالحبل السري', color: 'var(--primary)',
+    content: `<div class="space-y-md" style="line-height:1.8;">
+      ${['الحفاظ على نظافة الحبل السري وجفافه','تنظيفه بالكحول الطبي أو الماء حسب توصية المختص','طي الحفاض أسفل الحبل السري','عدم شد الحبل أو محاولة إزالته','يسقط عادة خلال 7 إلى 21 يوماً'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined text-primary" style="font-size:16px;">check_circle</span><span>${s}</span></div>`).join('')}
+      <div class="alert-banner alert-banner--warning mt-lg">
+        <span class="material-symbols-outlined">warning</span>
+        <div><strong>استشيري الطبيب إذا ظهر:</strong> احمرار حول السرة، إفرازات ذات رائحة كريهة، نزيف، أو تأخر السقوط أكثر من 3 أسابيع.</div>
+      </div>
+    </div>`
+  },
+  {
+    icon: 'bathtub', title: 'حمام المولود', color: 'var(--secondary)',
+    content: `<div class="space-y-md" style="line-height:1.8;">
+      <p style="font-weight:600;">🛁 متى وكيف؟</p>
+      ${['أول حمام بعد سقوط الحبل السري (أو حسب توصية المختص)','استخدام ماء دافئ (37°C تقريباً)','صابون لطيف مخصص للأطفال','مدة الحمام 5 إلى 10 دقائق','تجفيف الطفل فوراً بعد الحمام','الحمام 2-3 مرات أسبوعياً كافٍ'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="font-size:16px;color:var(--secondary);">check_circle</span><span>${s}</span></div>`).join('')}
+    </div>`
+  },
+  {
+    icon: 'wb_sunny', title: 'اليرقان (الصفراء)', color: '#daa520',
+    content: `<div class="space-y-md" style="line-height:1.8;">
+      <p>اصفرار الجلد والعينين شائع في الأيام الأولى.</p>
+      <p style="font-weight:600;">الأنواع:</p>
+      <div style="padding:var(--space-md);background:rgba(218,165,32,0.08);border-radius:var(--radius-lg);border-right:3px solid #daa520;margin-bottom:8px;">
+        <strong>يرقان فسيولوجي:</strong> يظهر بعد 48 ساعة، طبيعي ويختفي خلال أسبوعين.
+      </div>
+      <div style="padding:var(--space-md);background:rgba(186,26,26,0.05);border-radius:var(--radius-lg);border-right:3px solid var(--error);margin-bottom:8px;">
+        <strong>يرقان مرضي:</strong> يظهر خلال أول 24 ساعة أو يستمر أكثر من 14 يوماً — يتطلب متابعة طبية.
+      </div>
+      <p><strong>💡</strong> الرضاعة المتكررة تساعد على تقليل اليرقان.</p>
+    </div>`
+  },
+  {
+    icon: 'bedtime', title: 'نوم المولود', color: 'var(--tertiary)',
+    content: `<div class="space-y-md" style="line-height:1.8;">
+      <p>ينام المولود 16 إلى 18 ساعة يومياً في فترات متقطعة.</p>
+      <p style="font-weight:600;">قواعد النوم الآمن:</p>
+      ${['وضع الطفل على ظهره دائماً','استخدام سطح نوم صلب ومسطح','عدم وضع وسائد أو ألعاب في السرير','الحفاظ على درجة حرارة الغرفة مناسبة (18-20°C)','عدم تغطية رأس الطفل أثناء النوم','إبقاء سرير الطفل في غرفة الوالدين خلال الأشهر الأولى'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="font-size:16px;color:var(--tertiary);">check_circle</span><span>${s}</span></div>`).join('')}
+    </div>`
+  },
+  {
+    icon: 'thermostat', title: 'درجة حرارة المولود', color: 'var(--primary)',
+    content: `<div class="space-y-md" style="line-height:1.8;">
+      <p>درجة الحرارة الطبيعية: <strong>36.5°C - 37.5°C</strong></p>
+      ${['قياس الحرارة من المستقيم أدق عند الرضع','ارتداء طبقة واحدة أكثر مما يرتديه البالغ','تجنب التعرض المباشر للشمس أو التيارات الهوائية'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined text-primary" style="font-size:16px;">check_circle</span><span>${s}</span></div>`).join('')}
+      <div class="alert-banner alert-banner--danger mt-md">
+        <span class="material-symbols-outlined">emergency</span>
+        <div><strong>استشيري الطبيب فوراً إذا:</strong> حرارة > 38°C أو < 36°C.</div>
+      </div>
+    </div>`
+  },
+  {
+    icon: 'baby_changing_station', title: 'تغيير الحفاض والعناية بالبشرة', color: '#A3D9C8',
+    content: `<div class="space-y-md" style="line-height:1.8;">
+      ${['تغيير الحفاض فور اتساخه','تنظيف المنطقة بالماء الدافئ وقطن ناعم','التجفيف جيداً قبل وضع حفاض جديد','استخدام كريم واقي عند الحاجة','المسح من الأمام إلى الخلف (خاصة للبنات)','تجنب المناديل المعطرة'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="font-size:16px;color:#A3D9C8;">check_circle</span><span>${s}</span></div>`).join('')}
+    </div>`
+  },
+  {
+    icon: 'vaccines', title: 'التطعيمات', color: 'var(--primary)',
+    content: `<div class="space-y-md" style="line-height:1.8;">
+      <p style="font-weight:600;">التطعيمات الأساسية في تونس:</p>
+      <table style="width:100%;border-collapse:collapse;font-size:13px;margin:12px 0;">
+        <tr style="background:var(--primary-container);"><th style="padding:10px;text-align:right;border-radius:8px 0 0 0;">العمر</th><th style="padding:10px;text-align:right;border-radius:0 8px 0 0;">التطعيم</th></tr>
+        <tr style="background:var(--surface-container-low);"><td style="padding:10px;">عند الولادة</td><td style="padding:10px;">BCG + التهاب الكبد B</td></tr>
+        <tr><td style="padding:10px;">شهران</td><td style="padding:10px;">DTC + شلل الأطفال + التهاب الكبد B</td></tr>
+        <tr style="background:var(--surface-container-low);"><td style="padding:10px;">3 أشهر</td><td style="padding:10px;">DTC + شلل الأطفال</td></tr>
+        <tr><td style="padding:10px;">6 أشهر</td><td style="padding:10px;">DTC + شلل الأطفال + التهاب الكبد B</td></tr>
+        <tr style="background:var(--surface-container-low);"><td style="padding:10px;">9 أشهر</td><td style="padding:10px;">الحصبة</td></tr>
+      </table>
+      <p><strong>💡</strong> احتفظي بدفتر التطعيمات وراجعي المواعيد مع الطبيب.</p>
+    </div>`
+  },
+  {
+    icon: 'emergency', title: 'علامات الخطر عند المولود', color: 'var(--error)',
+    content: `<div class="space-y-md" style="line-height:1.8;">
+      <p style="font-weight:600;color:var(--error);">🚨 اذهبي فوراً إلى الطبيب إذا ظهر أي مما يلي:</p>
+      ${['حرارة أكثر من 38°C أو أقل من 36°C','رفض الرضاعة لأكثر من رضعتين متتاليتين','صعوبة في التنفس أو تنفس سريع','ازرقاق الشفاه أو الأطراف','خمول شديد أو عدم الاستيقاظ','تشنجات','بكاء مستمر لا يتوقف','إسهال شديد أو قيء متكرر','انتفاخ البطن','إفرازات أو نزيف من السرة'].map(s => `<div class="flex items-center gap-md mb-md" style="padding:8px 12px;background:rgba(186,26,26,0.04);border-radius:var(--radius-lg);border-right:3px solid var(--error);">
+          <span class="material-symbols-outlined" style="color:var(--error);font-size:18px;">warning</span><span class="text-semibold">${s}</span></div>`).join('')}
+    </div>`
+  }
+];
+
+let nbOpenChapter = -1;
+let nbCurrentTab = 'guide';
+let nbFlippedCards = {};
+
+const nbMyths = [
+  { myth: 'يجب إعطاء الماء للرضيع قبل 6 أشهر', reality: 'حليب الأم وحده يكفي خلال الأشهر الستة الأولى' },
+  { myth: 'صغر حجم الثدي يعني قلة الحليب', reality: 'حجم الثدي لا يحدد كمية الحليب المنتجة' },
+  { myth: 'كل بكاء يعني أن الطفل جائع', reality: 'قد يكون البكاء بسبب التعب أو المغص أو الحاجة للاحتضان' },
+  { myth: 'يجب إرضاع الطفل كل 3 ساعات فقط', reality: 'الرضاعة تكون حسب طلب الطفل' },
+  { myth: 'مرض الأم يعني التوقف عن الرضاعة', reality: 'غالباً يمكن الاستمرار بالرضاعة بعد استشارة المختص' },
+  { myth: 'الحليب الصناعي أفضل من حليب الأم', reality: 'حليب الأم هو الغذاء الأمثل للرضيع' },
+  { myth: 'التوتر يفسد الحليب', reality: 'التوتر قد يؤثر مؤقتاً على تدفق الحليب لكنه لا يفسده' },
+  { myth: 'الأم المرضعة يجب أن تأكل لشخصين', reality: 'الجودة الغذائية أهم من الكمية' },
+  { myth: 'الرضاعة المتكررة تعني أن الحليب غير كافٍ', reality: 'الرضاعة المتكررة طبيعية خاصة خلال فترات النمو السريع' },
+  { myth: 'يجب إيقاف الرضاعة عند ظهور الأسنان', reality: 'يمكن مواصلة الرضاعة حتى عمر سنتين أو أكثر' }
+];
+
+function renderNewborn() {
+  const container = document.getElementById('newborn-content');
+  if (!container) return;
+  let html = `
+    <div class="flex items-center gap-md mb-xl">
+      <button class="top-bar__btn" onclick="navigateTo('sage-femme')"><span class="material-symbols-outlined">arrow_back</span></button>
+      <div style="flex:1;">
+        <h2 class="text-headline-sm">${t('nb_title')}</h2>
+        <p class="text-body-md text-variant">${t('nb_subtitle')}</p>
+      </div>
+      <span style="font-size:36px;">👶</span>
+    </div>
+    <div style="display:flex;gap:6px;margin-bottom:var(--space-xl);background:var(--surface-container-low);border-radius:var(--radius-xl);padding:4px;">
+      <button onclick="nbCurrentTab='guide';renderNewborn();" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 8px;border:none;border-radius:var(--radius-lg);cursor:pointer;font-family:inherit;font-size:12px;font-weight:600;transition:all 0.2s;${nbCurrentTab==='guide'?'background:var(--tertiary);color:white;box-shadow:0 2px 8px rgba(67,97,127,0.3);':'background:transparent;color:var(--on-surface-variant);'}">
+        <span class="material-symbols-outlined" style="font-size:20px;">menu_book</span>${t('nb_tab_guide')}
+      </button>
+      <button onclick="nbCurrentTab='myths';renderNewborn();" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 8px;border:none;border-radius:var(--radius-lg);cursor:pointer;font-family:inherit;font-size:12px;font-weight:600;transition:all 0.2s;${nbCurrentTab==='myths'?'background:var(--tertiary);color:white;box-shadow:0 2px 8px rgba(67,97,127,0.3);':'background:transparent;color:var(--on-surface-variant);'}">
+        <span class="material-symbols-outlined" style="font-size:20px;">swap_horiz</span>${t('nb_tab_myths')}
+      </button>
+    </div>`;
+  if (nbCurrentTab === 'guide') {
+    html += `<div class="space-y-md">${nbChapters.map((ch, i) => `
+      <div class="card card--flat reveal" style="overflow:hidden;animation-delay:${i*0.05}s">
+        <button onclick="nbOpenChapter=nbOpenChapter===${i}?-1:${i};renderNewborn();" style="width:100%;display:flex;align-items:center;gap:var(--space-md);padding:var(--space-lg);border:none;background:transparent;cursor:pointer;font-family:inherit;text-align:right;">
+          <div style="width:40px;height:40px;border-radius:var(--radius-full);background:${nbOpenChapter===i?ch.color:'var(--surface-container-high)'};display:flex;align-items:center;justify-content:center;transition:all 0.3s;flex-shrink:0;">
+            <span class="material-symbols-outlined" style="font-size:20px;color:${nbOpenChapter===i?'white':'var(--on-surface-variant)'};">${ch.icon}</span>
+          </div>
+          <h4 class="text-body-lg text-semibold" style="flex:1;">${ch.title}</h4>
+          <span class="material-symbols-outlined text-variant" style="transition:transform 0.3s;${nbOpenChapter===i?'transform:rotate(180deg)':''}">expand_more</span>
+        </button>
+        ${nbOpenChapter === i ? `<div style="padding:0 var(--space-lg) var(--space-xl);border-top:1px solid var(--outline-variant);padding-top:var(--space-lg);animation:fadeIn 0.3s ease;">${ch.content}</div>` : ''}
+      </div>`).join('')}</div>`;
+  } else {
+    html += `<h3 class="text-headline-sm mb-md reveal">${t('nb_myths_title')}</h3>
+    <p class="text-body-md text-variant mb-xl reveal">${t('nb_myths_desc')}</p>
+    <div class="space-y-lg">${nbMyths.map((m, i) => {
+      const fl = nbFlippedCards[i];
+      return `<div class="reveal" style="animation-delay:${i*0.04}s;perspective:600px;">
+        <div onclick="nbFlippedCards[${i}]=!nbFlippedCards[${i}];renderNewborn();" style="cursor:pointer;position:relative;min-height:120px;transition:transform 0.6s;transform-style:preserve-3d;${fl?'transform:rotateY(180deg)':''}">
+          <div style="position:${fl?'absolute':'relative'};inset:0;backface-visibility:hidden;padding:var(--space-xl);border-radius:var(--radius-xl);background:linear-gradient(135deg,rgba(220,53,69,0.08),rgba(220,53,69,0.03));border:2px solid rgba(220,53,69,0.2);">
+            <div class="flex items-center gap-sm mb-md"><span style="font-size:20px;">❌</span><span class="text-label-lg" style="color:var(--error);">${t('bf_myth')}</span><span class="material-symbols-outlined text-variant" style="margin-inline-start:auto;font-size:18px;">touch_app</span></div>
+            <p class="text-body-lg text-semibold" style="line-height:1.6;">${m.myth}</p>
+          </div>
+          <div style="position:absolute;inset:0;backface-visibility:hidden;transform:rotateY(180deg);padding:var(--space-xl);border-radius:var(--radius-xl);background:linear-gradient(135deg,rgba(40,167,69,0.08),rgba(40,167,69,0.03));border:2px solid rgba(40,167,69,0.2);">
+            <div class="flex items-center gap-sm mb-md"><span style="font-size:20px;">✅</span><span class="text-label-lg" style="color:#28a745;">${t('bf_reality')}</span></div>
+            <p class="text-body-lg text-semibold" style="line-height:1.6;">${m.reality}</p>
+          </div>
+        </div>
+      </div>`;}).join('')}</div>`;
+  }
+  container.innerHTML = html;
+  setTimeout(() => initReveal(), 50);
+}
+
+// ══════════════════════════════════════════════════════════════
+//  MODULE: MYTHES ET RÉALITÉS (خرافات وحقائق)
+// ══════════════════════════════════════════════════════════════
+
+const allMyths = [
+  // Allaitement
+  { cat: 'breastfeeding', myth: 'يجب إعطاء الماء للرضيع قبل 6 أشهر', reality: 'حليب الأم وحده يكفي خلال الأشهر الستة الأولى' },
+  { cat: 'breastfeeding', myth: 'صغر حجم الثدي يعني قلة الحليب', reality: 'حجم الثدي لا يحدد كمية الحليب المنتجة' },
+  { cat: 'breastfeeding', myth: 'كل بكاء يعني أن الطفل جائع', reality: 'قد يكون البكاء بسبب التعب أو المغص أو الحاجة للاحتضان' },
+  { cat: 'breastfeeding', myth: 'يجب إرضاع الطفل كل 3 ساعات فقط', reality: 'الرضاعة تكون حسب طلب الطفل' },
+  { cat: 'breastfeeding', myth: 'مرض الأم يعني التوقف عن الرضاعة', reality: 'غالباً يمكن الاستمرار بالرضاعة بعد استشارة المختص' },
+  { cat: 'breastfeeding', myth: 'الحليب الصناعي أفضل من حليب الأم', reality: 'حليب الأم هو الغذاء الأمثل للرضيع' },
+  { cat: 'breastfeeding', myth: 'التوتر يفسد الحليب', reality: 'التوتر قد يؤثر مؤقتاً على تدفق الحليب لكنه لا يفسده' },
+  { cat: 'breastfeeding', myth: 'الأم المرضعة يجب أن تأكل لشخصين', reality: 'الجودة الغذائية أهم من الكمية' },
+  { cat: 'breastfeeding', myth: 'الرضاعة المتكررة تعني أن الحليب غير كافٍ', reality: 'الرضاعة المتكررة طبيعية خاصة خلال فترات النمو السريع' },
+  { cat: 'breastfeeding', myth: 'يجب إيقاف الرضاعة عند ظهور الأسنان', reality: 'يمكن مواصلة الرضاعة حتى عمر سنتين أو أكثر' },
+  // Sexualité
+  { cat: 'sexuality', myth: 'يجب استئناف العلاقة بعد 40 يوماً بالضبط', reality: 'لا يوجد وقت إلزامي ويختلف حسب كل امرأة' },
+  { cat: 'sexuality', myth: 'الرضاعة الطبيعية تمنع الحمل %100', reality: 'تقلل الحمل لكنها ليست وسيلة مضمونة' },
+  { cat: 'sexuality', myth: 'انخفاض الرغبة الجنسية مشكلة دائمة', reality: 'طبيعي ومؤقت بعد الولادة' },
+  { cat: 'sexuality', myth: 'الألم أثناء العلاقة يجب تحمله', reality: 'الألم المستمر يحتاج استشارة' },
+  { cat: 'sexuality', myth: 'الجفاف المهبلي مرض', reality: 'غالباً نتيجة تغيرات هرمونية بعد الولادة' },
+  // Nouveau-né
+  { cat: 'newborn', myth: 'يجب لف المولود بإحكام شديد (القماط)', reality: 'اللف اللطيف مفيد لكن الشد المفرط يضر بالمفاصل' },
+  { cat: 'newborn', myth: 'المولود لا يسمع ولا يرى', reality: 'يسمع الأصوات ويرى على مسافة 20-30 سم' },
+  { cat: 'newborn', myth: 'البكاء الكثير يدل على مشكلة صحية دائماً', reality: 'البكاء هو وسيلة التواصل الوحيدة للمولود وغالباً طبيعي' },
+  { cat: 'newborn', myth: 'يجب وضع كحل في عيني المولود', reality: 'الكحل قد يحتوي على مواد سامة ولا ينصح به طبياً' },
+  { cat: 'newborn', myth: 'المولود يحتاج ماء إضافي في الصيف', reality: 'حليب الأم يكفي حتى في الحر خلال الأشهر الستة الأولى' }
+];
+
+let myFlippedCards = {};
+let myFilterCat = 'all';
+
+function renderMyths() {
+  const container = document.getElementById('myths-content');
+  if (!container) return;
+
+  const filtered = myFilterCat === 'all' ? allMyths : allMyths.filter(m => m.cat === myFilterCat);
+
+  container.innerHTML = `
+    <div class="flex items-center gap-md mb-xl">
+      <button class="top-bar__btn" onclick="navigateTo('sage-femme')"><span class="material-symbols-outlined">arrow_back</span></button>
+      <div style="flex:1;">
+        <h2 class="text-headline-sm">${t('my_title')}</h2>
+        <p class="text-body-md text-variant">${t('my_subtitle')}</p>
+      </div>
+      <span style="font-size:36px;">🧠</span>
+    </div>
+
+    <!-- Filters -->
+    <div class="chips-scroll mb-xl">
+      ${[
+        { id: 'all', label: t('sf_all'), count: allMyths.length },
+        { id: 'breastfeeding', label: '🤱 ${t("bf_title")}', count: allMyths.filter(m=>m.cat==='breastfeeding').length },
+        { id: 'sexuality', label: '❤️ ${t("sx_title")}', count: allMyths.filter(m=>m.cat==='sexuality').length },
+        { id: 'newborn', label: '👶 ${t("nb_title")}', count: allMyths.filter(m=>m.cat==='newborn').length }
+      ].map(f => `
+        <button class="chip chip--tonal ${myFilterCat===f.id?'active':''}" onclick="myFilterCat='${f.id}';myFlippedCards={};renderMyths();">
+          ${f.label} <span style="opacity:0.7;font-size:11px;">(${f.count})</span>
+        </button>
+      `).join('')}
+    </div>
+
+    <p class="text-body-md text-variant mb-xl reveal"><span style="font-size:16px;">👆</span> ${t('my_tap_hint')}</p>
+
+    <div class="space-y-lg">
+      ${filtered.map((m, i) => {
+        const flipped = myFlippedCards[i];
+        const catIcon = m.cat === 'breastfeeding' ? '🤱' : m.cat === 'sexuality' ? '❤️' : '👶';
+        return `
+        <div class="reveal" style="animation-delay:${i*0.04}s;perspective:600px;">
+          <div onclick="myFlippedCards[${i}]=!myFlippedCards[${i}];renderMyths();" style="cursor:pointer;position:relative;min-height:120px;transition:transform 0.6s;transform-style:preserve-3d;${flipped?'transform:rotateY(180deg)':''}">
+            <div style="position:${flipped?'absolute':'relative'};inset:0;backface-visibility:hidden;padding:var(--space-xl);border-radius:var(--radius-xl);background:linear-gradient(135deg,rgba(220,53,69,0.08),rgba(220,53,69,0.03));border:2px solid rgba(220,53,69,0.2);">
+              <div class="flex items-center gap-sm mb-md">
+                <span style="font-size:20px;">❌</span>
+                <span class="text-label-lg" style="color:var(--error);text-transform:uppercase;">${t('bf_myth')}</span>
+                <span style="font-size:14px;margin-inline-start:4px;">${catIcon}</span>
+                <span class="material-symbols-outlined text-variant" style="margin-inline-start:auto;font-size:18px;">touch_app</span>
+              </div>
+              <p class="text-body-lg text-semibold" style="line-height:1.6;">${m.myth}</p>
+            </div>
+            <div style="position:absolute;inset:0;backface-visibility:hidden;transform:rotateY(180deg);padding:var(--space-xl);border-radius:var(--radius-xl);background:linear-gradient(135deg,rgba(40,167,69,0.08),rgba(40,167,69,0.03));border:2px solid rgba(40,167,69,0.2);">
+              <div class="flex items-center gap-sm mb-md">
+                <span style="font-size:20px;">✅</span>
+                <span class="text-label-lg" style="color:#28a745;text-transform:uppercase;">${t('bf_reality')}</span>
+                <span style="font-size:14px;margin-inline-start:4px;">${catIcon}</span>
+              </div>
+              <p class="text-body-lg text-semibold" style="line-height:1.6;">${m.reality}</p>
+            </div>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>
+
+    <div class="text-center mt-xl reveal" style="padding:var(--space-xl);background:var(--surface-container-low);border-radius:var(--radius-xl);">
+      <span class="material-symbols-outlined text-primary" style="font-size:32px;">school</span>
+      <p class="text-body-md text-semibold mt-md">${t('my_footer')}</p>
+    </div>
+  `;
+  setTimeout(() => initReveal(), 50);
+}
+
+// ══════════════════════════════════════════════════════════════
 //  SUIVI QUOTIDIEN
 // ══════════════════════════════════════════════════════════════
 async function renderSuivi() {
@@ -964,16 +2163,16 @@ async function renderSuivi() {
   } catch (e) { console.error(e); }
 
   const chartData = entries.slice(0, 7).reverse();
-  const days = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
+  const days = [t('daily_days_dim'), t('daily_days_lun'), t('daily_days_mar'), t('daily_days_mer'), t('daily_days_jeu'), t('daily_days_ven'), t('daily_days_sam')];
 
   container.innerHTML = `
     <h2 class="text-headline-sm mb-md">${t('daily_title')}</h2>
     <p class="text-body-md text-variant mb-xl">${t('daily_subtitle')}</p>
 
     <div class="card card--flat mb-xl"><div class="card__body">
-      <p class="text-label-lg text-variant mb-lg" style="text-transform:uppercase;letter-spacing:0.08em;">HUMEUR DU JOUR</p>
+      <p class="text-label-lg text-variant mb-lg" style="text-transform:uppercase;letter-spacing:0.08em;">${t('daily_mood')}</p>
       <div class="mood-grid">
-        ${['😫|Épuisé', '😔|Triste', '😐|Neutre', '😊|Bien', '😄|Super'].map(m => {
+        ${[`😫|${t('daily_exhausted')}`, `😔|${t('daily_sad')}`, `😐|${t('daily_neutral')}`, `😊|${t('daily_good')}`, `😄|${t('daily_great')}`].map(m => {
           const [emoji, label] = m.split('|');
           return `<button class="mood-option" onclick="selectMood('${emoji}',this)"><span class="mood-option__emoji">${emoji}</span><span class="mood-option__label">${label}</span></button>`;
         }).join('')}
@@ -981,21 +2180,21 @@ async function renderSuivi() {
     </div></div>
 
     <div class="card card--flat mb-xl"><div class="card__body">
-      <div class="slider-container"><label><span>Niveau de stress</span><span><span id="stress-val">5</span>/10</span></label>
+      <div class="slider-container"><label><span>${t('daily_stress')}</span><span><span id="stress-val">5</span>/10</span></label>
         <input type="range" min="0" max="10" value="5" id="slider-stress" oninput="document.getElementById('stress-val').textContent=this.value"></div>
-      <div class="slider-container"><label><span>Satisfaction conjugale</span><span><span id="conj-val">5</span>/10</span></label>
+      <div class="slider-container"><label><span>${t('daily_conjugal')}</span><span><span id="conj-val">5</span>/10</span></label>
         <input type="range" min="0" max="10" value="5" id="slider-conj" oninput="document.getElementById('conj-val').textContent=this.value"></div>
-      <div class="slider-container"><label><span>Satisfaction intime</span><span><span id="intime-val">5</span>/10</span></label>
+      <div class="slider-container"><label><span>${t('daily_intimate')}</span><span><span id="intime-val">5</span>/10</span></label>
         <input type="range" min="0" max="10" value="5" id="slider-intime" oninput="document.getElementById('intime-val').textContent=this.value"></div>
     </div></div>
 
     <button class="btn btn--primary btn--full mb-3xl" id="save-daily-btn" onclick="saveDailyEntry()">
-      <span class="material-symbols-outlined">save</span> Enregistrer mon suivi
+      <span class="material-symbols-outlined">save</span> ${t('daily_save')}
     </button>
 
     ${chartData.length > 0 ? `
     <div class="mini-chart mb-xl reveal">
-      <h3 class="text-headline-sm mb-lg">Évolution récente</h3>
+      <h3 class="text-headline-sm mb-lg">${t('daily_evolution')}</h3>
       <svg viewBox="0 0 340 180" style="width:100%;">
         ${[0,1,2,3,4].map(i => `<line x1="40" y1="${20+i*35}" x2="330" y2="${20+i*35}" stroke="var(--outline-variant)" stroke-width="0.5" stroke-dasharray="4"/>`).join('')}
         <polyline points="${chartData.map((d,i) => `${40+i*(290/Math.max(chartData.length-1,1))},${160-d.stress*14}`).join(' ')}" fill="none" stroke="var(--error)" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
@@ -1004,23 +2203,23 @@ async function renderSuivi() {
         ${chartData.map((d,i) => `<text x="${40+i*(290/Math.max(chartData.length-1,1))}" y="178" text-anchor="middle" font-size="10" fill="var(--on-surface-variant)">${d.day_name||days[new Date(d.created_at).getDay()]}</text>`).join('')}
       </svg>
       <div class="flex justify-center gap-xl mt-md">
-        <div class="flex items-center gap-sm"><span style="width:12px;height:3px;background:var(--primary);border-radius:2px;display:block"></span><span class="text-label-md text-variant">Satisfaction</span></div>
-        <div class="flex items-center gap-sm"><span style="width:12px;height:3px;background:var(--error);border-radius:2px;display:block;opacity:0.7"></span><span class="text-label-md text-variant">Stress</span></div>
+        <div class="flex items-center gap-sm"><span style="width:12px;height:3px;background:var(--primary);border-radius:2px;display:block"></span><span class="text-label-md text-variant">${t('daily_satisfaction')}</span></div>
+        <div class="flex items-center gap-sm"><span style="width:12px;height:3px;background:var(--error);border-radius:2px;display:block;opacity:0.7"></span><span class="text-label-md text-variant">${t('daily_stress_label')}</span></div>
       </div>
     </div>` : ''}
 
-    <h3 class="text-headline-sm mb-lg">Historique récent</h3>
+    <h3 class="text-headline-sm mb-lg">${t('daily_history')}</h3>
     <div class="space-y-md">
       ${entries.length > 0 ? entries.slice(0, 7).map(e => `
         <div class="daily-entry">
           <span class="daily-entry__date">${e.day_name || ''}</span>
           <span style="font-size:24px;">${e.mood}</span>
           <div style="flex:1;"><div class="flex justify-between text-label-md">
-            <span class="text-variant">Stress: ${e.stress}/10</span>
-            <span class="text-primary">Conj: ${e.satisfaction_conjugale}/10</span>
+            <span class="text-variant">${t('daily_stress_label')}: ${e.stress}/10</span>
+            <span class="text-primary">${t('daily_conj_label')}: ${e.satisfaction_conjugale}/10</span>
           </div></div>
         </div>
-      `).join('') : '<p class="text-body-md text-variant text-center">Aucune entrée. Commencez votre suivi ci-dessus !</p>'}
+      `).join('') : `<p class="text-body-md text-variant text-center">${t('daily_no_entries')}</p>`}
     </div>
   `;
   setTimeout(() => initReveal(), 50);
@@ -1044,13 +2243,13 @@ async function saveDailyEntry() {
   try {
     await api('/daily', { method: 'POST', body });
     if (btn) {
-      btn.innerHTML = '<span class="material-symbols-outlined">check</span> Enregistré !';
+      btn.innerHTML = `<span class="material-symbols-outlined">check</span> ${t('daily_saved')}`;
       btn.style.background = 'var(--primary-container)';
       btn.style.color = 'var(--on-primary-container)';
       setTimeout(() => renderSuivi(), 1500);
     }
   } catch (e) {
-    if (btn) btn.innerHTML = '<span class="material-symbols-outlined">error</span> Erreur';
+    if (btn) btn.innerHTML = `<span class="material-symbols-outlined">error</span> ${t('misc_error')}`;
   }
 }
 
@@ -1068,21 +2267,21 @@ async function renderPlan() {
       <div style="width:48px;height:48px;border-radius:var(--radius-full);background:var(--primary-fixed);display:flex;align-items:center;justify-content:center;">
         <span class="material-symbols-outlined text-primary icon-filled">route</span>
       </div>
-      <div><h2 class="text-headline-sm">Plan Personnalisé</h2><p class="text-body-md text-variant">Exercices et conseils adaptés à vos scores</p></div>
+      <div><h2 class="text-headline-sm">${t('plan_title')}</h2><p class="text-body-md text-variant">${t('plan_subtitle')}</p></div>
     </div>
 
     <div class="plan-duration-selector">
       <button class="plan-duration-card ${currentPlanDuration===7?'active':''}" onclick="selectPlanDuration(7)">
         <span class="plan-duration-card__days">7</span>
-        <span class="plan-duration-card__label">jours</span>
+        <span class="plan-duration-card__label">${t('plan_days')}</span>
       </button>
       <button class="plan-duration-card ${currentPlanDuration===14?'active':''}" onclick="selectPlanDuration(14)">
         <span class="plan-duration-card__days">14</span>
-        <span class="plan-duration-card__label">jours</span>
+        <span class="plan-duration-card__label">${t('plan_days')}</span>
       </button>
       <button class="plan-duration-card ${currentPlanDuration===30?'active':''}" onclick="selectPlanDuration(30)">
         <span class="plan-duration-card__days">30</span>
-        <span class="plan-duration-card__label">jours</span>
+        <span class="plan-duration-card__label">${t('plan_days')}</span>
       </button>
     </div>
 
@@ -1113,14 +2312,14 @@ async function loadPlanDetails() {
 
     let focusBanner = '';
     if (data.focusAreas.length > 0) {
-      const areaLabels = { psychologique: 'bien-être psychologique', communication: 'communication conjugale', 'post-partum': 'accompagnement post-partum' };
+      const areaLabels = { psychologique: t('plan_focus_psycho'), communication: t('plan_focus_comm'), 'post-partum': t('plan_focus_pp') };
       focusBanner = `
         <div class="plan-focus-banner reveal">
           <div class="flex items-center gap-md mb-md">
             <span class="material-symbols-outlined text-primary">tips_and_updates</span>
-            <strong class="text-body-lg">Axes prioritaires</strong>
+            <strong class="text-body-lg">${t('plan_focus')}</strong>
           </div>
-          <p class="text-body-md text-variant">Basé sur vos scores, nous recommandons de vous concentrer sur : <strong>${data.focusAreas.map(a => areaLabels[a] || a).join(', ')}</strong>.</p>
+          <p class="text-body-md text-variant">${t('plan_focus_desc')} <strong>${data.focusAreas.map(a => areaLabels[a] || a).join(', ')}</strong>.</p>
         </div>`;
     }
 
@@ -1130,14 +2329,14 @@ async function loadPlanDetails() {
           <h3 class="text-headline-sm mb-sm">${plan.title}</h3>
           <p class="text-body-md text-variant mb-lg">${plan.description}</p>
           <div class="progress-bar"><div class="progress-bar__fill" style="width:${progress}%"></div></div>
-          <p class="text-label-md text-variant mt-sm">${completedDays.length}/${plan.activities.length} activités complétées (${progress}%)</p>
+          <p class="text-label-md text-variant mt-sm">${completedDays.length}/${plan.activities.length} ${t('plan_completed')} (${progress}%)</p>
         </div>
       </div>
 
       ${focusBanner}
 
       <h3 class="text-label-lg text-primary mb-lg" style="text-transform:uppercase;letter-spacing:0.08em;">
-        <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;">checklist</span> ACTIVITÉS
+        <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;">checklist</span> ${t('plan_activities')}
       </h3>
       <div class="space-y-md">
         ${plan.activities.map(a => {
@@ -1161,7 +2360,7 @@ async function loadPlanDetails() {
     `;
     setTimeout(() => initReveal(), 50);
   } catch (e) {
-    detailsEl.innerHTML = '<p class="text-body-md text-variant text-center">Erreur de chargement du plan.</p>';
+    detailsEl.innerHTML = `<p class="text-body-md text-variant text-center">${t('plan_loading_error')}</p>`;
   }
 }
 
@@ -1185,7 +2384,7 @@ async function renderCheckup() {
   const container = document.getElementById('checkup-content');
   if (!container) return;
 
-  container.innerHTML = '<div class="text-center" style="padding:var(--space-4xl);"><span class="material-symbols-outlined" style="font-size:32px;color:var(--outline);animation:spin 1s linear infinite;">hourglass_top</span><p class="text-body-md text-variant mt-lg">Génération du bilan...</p></div>';
+  container.innerHTML = `<div class="text-center" style="padding:var(--space-4xl);"><span class="material-symbols-outlined" style="font-size:32px;color:var(--outline);animation:spin 1s linear infinite;">hourglass_top</span><p class="text-body-md text-variant mt-lg">${t('checkup_generating')}</p></div>`;
 
   try {
     const data = await api('/checkup');
@@ -1193,8 +2392,8 @@ async function renderCheckup() {
     const dateStr = date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
 
     const trendIcon = { up: 'trending_up', down: 'trending_down', stable: 'trending_flat', new: 'new_releases' };
-    const trendLabel = { up: '↑ En hausse', down: '↓ En baisse', stable: '= Stable', new: 'Nouveau' };
-    const typeLabels = { psychologique: 'Psychologique', conjugal: 'Conjugal', sexuel: 'Sexuel' };
+    const trendLabel = { up: t('checkup_trend_up'), down: t('checkup_trend_down'), stable: t('checkup_trend_stable'), new: t('checkup_trend_new') };
+    const typeLabels = { psychologique: t('checkup_psycho'), conjugal: t('checkup_conjugal'), sexuel: t('checkup_sexual') };
     const typeIcons = { psychologique: 'psychology', conjugal: 'favorite', sexuel: 'diversity_3' };
 
     let evolutionSVG = '';
@@ -1214,7 +2413,7 @@ async function renderCheckup() {
 
       evolutionSVG = `
         <div class="card card--flat mb-xl reveal"><div class="card__body">
-          <h3 class="text-headline-sm mb-lg flex items-center gap-sm"><span class="material-symbols-outlined text-primary">show_chart</span> Évolution des scores</h3>
+          <h3 class="text-headline-sm mb-lg flex items-center gap-sm"><span class="material-symbols-outlined text-primary">show_chart</span> ${t('checkup_evolution')}</h3>
           <svg viewBox="0 0 ${svgW} ${svgH}" style="width:100%;">
             ${[0,25,50,75,100].map(v => `<line x1="${pad}" y1="${svgH-pad-(v/100*(svgH-2*pad))}" x2="${svgW-pad}" y2="${svgH-pad-(v/100*(svgH-2*pad))}" stroke="var(--outline-variant)" stroke-width="0.5" stroke-dasharray="4"/><text x="${pad-5}" y="${svgH-pad-(v/100*(svgH-2*pad))+4}" text-anchor="end" font-size="9" fill="var(--outline)">${v}</text>`).join('')}
             ${lines}
@@ -1228,18 +2427,18 @@ async function renderCheckup() {
     container.innerHTML = `
       <div class="checkup-header reveal">
         <div style="position:relative;z-index:1;">
-          <span class="text-label-lg" style="opacity:0.8;">BILAN MENSUEL</span>
+          <span class="text-label-lg" style="opacity:0.8;">${t('checkup_monthly')}</span>
           <h2 class="text-headline-md mt-sm" style="color:white;">${data.couple.partner1_name}${data.couple.partner2_name ? ' & ' + data.couple.partner2_name : ''}</h2>
           <p class="text-body-md mt-sm" style="opacity:0.8;">${dateStr}</p>
           <div style="margin-top:var(--space-xl);display:flex;align-items:baseline;gap:var(--space-md);">
             <span style="font-size:48px;font-weight:700;">${data.globalScore}%</span>
-            <span style="opacity:0.8;">Score Global</span>
+            <span style="opacity:0.8;">${t('checkup_global_score')}</span>
           </div>
         </div>
       </div>
 
       <h3 class="text-label-lg text-primary mb-lg reveal" style="text-transform:uppercase;letter-spacing:0.08em;">
-        SCORES PAR DIMENSION
+        ${t('checkup_by_dimension')}
       </h3>
       <div class="mb-xl reveal">
         ${types.map(t => `
@@ -1263,7 +2462,7 @@ async function renderCheckup() {
 
       ${data.recommendations.length > 0 ? `
         <h3 class="text-label-lg text-primary mb-lg reveal" style="text-transform:uppercase;letter-spacing:0.08em;">
-          RECOMMANDATIONS
+          ${t('checkup_recommendations')}
         </h3>
         <div class="space-y-md mb-xl reveal">
           ${data.recommendations.map(r => `
@@ -1276,16 +2475,16 @@ async function renderCheckup() {
       ` : ''}
 
       <button class="btn btn--primary btn--full mb-xl reveal" onclick="navigateTo('plan')">
-        <span class="material-symbols-outlined">route</span> Commencer un Plan Personnalisé
+        <span class="material-symbols-outlined">route</span> ${t('checkup_start_plan')}
       </button>
 
       <button class="btn btn--outline btn--full mb-xl reveal" onclick="navigateTo('evaluations')">
-        <span class="material-symbols-outlined">assignment</span> Voir les résultats détaillés
+        <span class="material-symbols-outlined">assignment</span> ${t('checkup_see_results')}
       </button>
     `;
     setTimeout(() => initReveal(), 50);
   } catch (e) {
-    container.innerHTML = '<p class="text-body-md text-variant text-center">Complétez au moins une évaluation pour générer votre bilan.</p>';
+    container.innerHTML = `<p class="text-body-md text-variant text-center">${t('checkup_no_data')}</p>`;
   }
 }
 
@@ -1319,7 +2518,7 @@ async function renderTimelineArticle() {
         </div>
         <h1 class="text-headline-md">${article.title}</h1>
         <p class="text-body-md mt-sm" style="opacity:0.8;">
-          <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;">schedule</span> ${article.readTime} min de lecture • Période ${timelineArticleData.period} mois
+          <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;">schedule</span> ${t('timeline_read_time', { n: article.readTime })} • ${t('timeline_period', { period: timelineArticleData.period })}
         </p>
       </div>
       <div class="timeline-article-viewer__body reveal" style="padding:0 var(--space-sm);">
@@ -1327,13 +2526,13 @@ async function renderTimelineArticle() {
       </div>
       <div class="mt-3xl reveal">
         <button class="btn btn--outline btn--full" onclick="navigateTo('library')">
-          <span class="material-symbols-outlined">arrow_back</span> Retour à la bibliothèque
+          <span class="material-symbols-outlined">arrow_back</span> ${t('misc_back_library')}
         </button>
       </div>
     `;
     setTimeout(() => initReveal(), 50);
   } catch (e) {
-    container.innerHTML = '<p class="text-body-md text-variant text-center">Article non trouvé.</p>';
+    container.innerHTML = `<p class="text-body-md text-variant text-center">${t('timeline_article_not_found')}</p>`;
   }
 }
 
@@ -1344,80 +2543,72 @@ async function renderAlerts() {
   const container = document.getElementById('alerts-content');
   if (!container) return;
 
-  container.innerHTML = '<div class="text-center" style="padding:var(--space-3xl);"><span class="material-symbols-outlined" style="font-size:32px;color:var(--outline);animation:spin 1s linear infinite;">hourglass_top</span></div>';
+  // Local medical alerts (always available)
+  const localAlerts = [
+    { type: 'critical', icon: 'breastfeeding', title: t('alert_bf_fever_title'), message: t('alert_bf_fever_msg'), action: t('alert_action_bf'), nav: 'breastfeeding' },
+    { type: 'critical', icon: 'local_hospital', title: t('alert_bf_redness_title'), message: t('alert_bf_redness_msg'), action: t('alert_action_bf'), nav: 'breastfeeding' },
+    { type: 'critical', icon: 'medical_services', title: t('alert_bf_lump_title'), message: t('alert_bf_lump_msg'), action: t('alert_action_bf'), nav: 'breastfeeding' },
+    { type: 'warning', icon: 'child_care', title: t('alert_bf_refuse_title'), message: t('alert_bf_refuse_msg'), action: t('alert_action_bf'), nav: 'breastfeeding' },
+    { type: 'warning', icon: 'monitor_weight', title: t('alert_bf_weight_title'), message: t('alert_bf_weight_msg'), action: t('alert_action_bf'), nav: 'breastfeeding' },
+    { type: 'critical', icon: 'healing', title: t('alert_epis_title'), message: t('alert_epis_msg'), action: t('alert_action_sx'), nav: 'sexuality' },
+    { type: 'warning', icon: 'favorite', title: t('alert_sx_pain_title'), message: t('alert_sx_pain_msg'), action: t('alert_action_sx'), nav: 'sexuality' },
+    { type: 'info', icon: 'psychology', title: t('alert_ppd_title'), message: t('alert_ppd_msg'), action: t('alert_action_eval'), nav: 'home' }
+  ];
 
+  // Try to get server alerts too
+  let serverAlerts = [];
   try {
     const data = await api('/alerts');
+    serverAlerts = data.alerts || [];
+  } catch (e) { /* use local alerts only */ }
 
-    if (data.alerts.length === 0) {
-      container.innerHTML = `
-        <div class="flex items-center gap-md mb-xl">
-          <div style="width:48px;height:48px;border-radius:var(--radius-full);background:var(--primary-fixed);display:flex;align-items:center;justify-content:center;">
-            <span class="material-symbols-outlined text-primary icon-filled">notifications_active</span>
+  const allAlerts = [...localAlerts, ...serverAlerts];
+  const criticalCount = allAlerts.filter(a => a.type === 'critical').length;
+  const warningCount = allAlerts.filter(a => a.type === 'warning').length;
+
+  container.innerHTML = `
+    <div class="flex items-center gap-md mb-xl">
+      <div style="width:48px;height:48px;border-radius:var(--radius-full);background:${criticalCount>0?'var(--error-container)':'#fff3cd'};display:flex;align-items:center;justify-content:center;">
+        <span class="material-symbols-outlined ${criticalCount>0?'text-error':''}" style="${criticalCount===0?'color:#856404':''}">notifications_active</span>
+      </div>
+      <div>
+        <h2 class="text-headline-sm">${t('alerts_title')}</h2>
+        <p class="text-body-md text-variant">${allAlerts.length} ${t('alerts_alert')} • ${criticalCount} ${t('alerts_critical')} • ${warningCount} ${t('alerts_warning')}</p>
+      </div>
+    </div>
+
+    <p class="text-body-md text-variant mb-xl reveal">${t('alerts_medical_intro')}</p>
+
+    <div id="alerts-list">
+      ${allAlerts.map((alert, i) => `
+        <div class="alert-card alert-card--${alert.type} reveal" style="animation-delay:${i*0.08}s;">
+          <div class="alert-card__header">
+            <div class="alert-card__icon">
+              <span class="material-symbols-outlined">${alert.icon}</span>
+            </div>
+            <div>
+              <h4 class="text-body-lg text-semibold">${alert.title}</h4>
+            </div>
           </div>
-          <div><h2 class="text-headline-sm">Alertes & Orientation</h2><p class="text-body-md text-variant">Suivi intelligent de votre bien-être</p></div>
-        </div>
-        <div class="alerts-empty reveal">
-          <span class="material-symbols-outlined icon-filled alerts-empty__icon">verified</span>
-          <h3 class="text-headline-sm mb-md">Tout va bien ! ✨</h3>
-          <p class="text-body-md text-variant">Aucune alerte pour le moment. Continuez votre suivi régulier.</p>
-          <button class="btn btn--primary mt-xl" onclick="navigateTo('home')">
-            <span class="material-symbols-outlined">home</span> Retour à l'accueil
+          <p class="text-body-md" style="line-height:1.6;">${alert.message}</p>
+          <button class="alert-card__action" onclick="navigateTo('${alert.nav || 'sage-femme'}')">
+            <span class="material-symbols-outlined" style="font-size:16px;">${alert.type==='critical'?'emergency':'arrow_forward'}</span>
+            ${alert.action}
           </button>
         </div>
-      `;
-      setTimeout(() => initReveal(), 50);
-      return;
-    }
+      `).join('')}
+    </div>
 
-    const criticalCount = data.alerts.filter(a => a.type === 'critical').length;
-    const warningCount = data.alerts.filter(a => a.type === 'warning').length;
-
-    container.innerHTML = `
-      <div class="flex items-center gap-md mb-xl">
-        <div style="width:48px;height:48px;border-radius:var(--radius-full);background:${criticalCount>0?'var(--error-container)':'#fff3cd'};display:flex;align-items:center;justify-content:center;">
-          <span class="material-symbols-outlined ${criticalCount>0?'text-error':''}" style="${criticalCount===0?'color:#856404':''}">notifications_active</span>
-        </div>
-        <div>
-          <h2 class="text-headline-sm">Alertes & Orientation</h2>
-          <p class="text-body-md text-variant">${data.count} alerte${data.count>1?'s':''} • ${criticalCount} critique${criticalCount>1?'s':''} • ${warningCount} avertissement${warningCount>1?'s':''}</p>
-        </div>
-      </div>
-
-      <div id="alerts-list">
-        ${data.alerts.map((alert, i) => `
-          <div class="alert-card alert-card--${alert.type} reveal" style="animation-delay:${i*0.1}s;">
-            <div class="alert-card__header">
-              <div class="alert-card__icon">
-                <span class="material-symbols-outlined">${alert.icon}</span>
-              </div>
-              <div>
-                <h4 class="text-body-lg text-semibold">${alert.title}</h4>
-                ${alert.professional ? `<span class="text-label-md text-variant">→ ${alert.professional}</span>` : ''}
-              </div>
-            </div>
-            <p class="text-body-md" style="line-height:1.6;">${alert.message}</p>
-            <button class="alert-card__action" onclick="${alert.type==='info'?`navigateTo('home');startQuestionnaire('psychologique')`:`navigateTo('sage-femme')`}">
-              <span class="material-symbols-outlined" style="font-size:16px;">${alert.type==='critical'?'emergency':'arrow_forward'}</span>
-              ${alert.action}
-            </button>
-          </div>
-        `).join('')}
-      </div>
-
-      <div class="glass-card reveal mt-xl" style="padding:var(--space-xl);border:1px solid rgba(214,194,200,0.3);">
-        <h3 class="text-headline-sm text-primary mb-md flex items-center gap-sm">
-          <span class="material-symbols-outlined">info</span> Rappel important
-        </h3>
-        <p class="text-body-md text-variant" style="line-height:1.7;">
-          NurtureFlow est un outil de prévention et de sensibilisation. En cas de détresse, contactez immédiatement un professionnel de santé ou le <strong>3114</strong> (numéro national de prévention du suicide).
-        </p>
-      </div>
-    `;
-    setTimeout(() => initReveal(), 50);
-  } catch (e) {
-    container.innerHTML = '<p class="text-body-md text-variant text-center">Erreur de chargement des alertes.</p>';
-  }
+    <div class="glass-card reveal mt-xl" style="padding:var(--space-xl);border:1px solid rgba(214,194,200,0.3);">
+      <h3 class="text-headline-sm text-primary mb-md flex items-center gap-sm">
+        <span class="material-symbols-outlined">info</span> ${t('alerts_important')}
+      </h3>
+      <p class="text-body-md text-variant" style="line-height:1.7;">
+        ${t('alerts_disclaimer')}
+      </p>
+    </div>
+  `;
+  setTimeout(() => initReveal(), 50);
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -1432,39 +2623,39 @@ async function renderAdmin() {
   try {
     const data = await api('/admin/stats');
 
-    const scoreLabels = { excellent: 'Excellent', bon: 'Bon', moyen: 'Moyen', faible: 'Faible' };
+    const scoreLabels = { excellent: t('res_excellent'), bon: t('res_bon'), moyen: t('res_moyen'), faible: t('res_faible') };
     const scoreColors = { excellent: 'var(--primary)', bon: '#4caf50', moyen: '#ff9800', faible: 'var(--error)' };
     const totalScores = data.scoreDistrib.reduce((s, d) => s + d.count, 0) || 1;
 
     container.innerHTML = `
       <div class="admin-header reveal">
-        <span class="text-label-lg" style="opacity:0.8;">TABLEAU DE BORD</span>
-        <h2 class="text-headline-md mt-sm" style="color:white;">Administration NurtureFlow</h2>
-        <p class="text-body-md mt-sm" style="opacity:0.8;">Vue d'ensemble de la plateforme</p>
+        <span class="text-label-lg" style="opacity:0.8;">${t('admin_dashboard')}</span>
+        <h2 class="text-headline-md mt-sm" style="color:white;">${t('admin_title')}</h2>
+        <p class="text-body-md mt-sm" style="opacity:0.8;">${t('admin_subtitle')}</p>
       </div>
 
       <div class="admin-stat-grid reveal">
         <div class="admin-stat-card">
           <span class="admin-stat-card__value">${data.totalCouples}</span>
-          <span class="admin-stat-card__label">Couples inscrits</span>
+          <span class="admin-stat-card__label">${t('admin_couples')}</span>
         </div>
         <div class="admin-stat-card">
           <span class="admin-stat-card__value">${data.activeCouples}</span>
-          <span class="admin-stat-card__label">Actifs (7j)</span>
+          <span class="admin-stat-card__label">${t('admin_active')}</span>
         </div>
         <div class="admin-stat-card">
           <span class="admin-stat-card__value">${data.totalEvals}</span>
-          <span class="admin-stat-card__label">Évaluations</span>
+          <span class="admin-stat-card__label">${t('admin_evals')}</span>
         </div>
         <div class="admin-stat-card">
           <span class="admin-stat-card__value">${data.totalDaily}</span>
-          <span class="admin-stat-card__label">Suivis quotidiens</span>
+          <span class="admin-stat-card__label">${t('admin_daily')}</span>
         </div>
       </div>
 
       <div class="card card--flat mb-xl reveal"><div class="card__body">
         <h3 class="text-headline-sm mb-lg flex items-center gap-sm">
-          <span class="material-symbols-outlined text-primary">analytics</span> Scores Moyens Globaux
+          <span class="material-symbols-outlined text-primary">analytics</span> ${t('admin_avg_scores')}
         </h3>
         ${['psychologique', 'conjugal', 'sexuel'].map(t => `
           <div class="flex items-center justify-between mb-md">
@@ -1478,7 +2669,7 @@ async function renderAdmin() {
       ${data.scoreDistrib.length > 0 ? `
       <div class="card card--flat mb-xl reveal"><div class="card__body">
         <h3 class="text-headline-sm mb-lg flex items-center gap-sm">
-          <span class="material-symbols-outlined text-primary">pie_chart</span> Distribution des Scores
+          <span class="material-symbols-outlined text-primary">pie_chart</span> ${t('admin_score_distrib')}
         </h3>
         <div class="admin-distrib-bar">
           ${data.scoreDistrib.map(d => `<div class="admin-distrib-bar__segment" style="width:${(d.count/totalScores*100)}%;background:${scoreColors[d.level]||'var(--outline)'}"></div>`).join('')}
@@ -1491,7 +2682,7 @@ async function renderAdmin() {
 
       <div class="card card--flat mb-xl reveal"><div class="card__body">
         <h3 class="text-headline-sm mb-lg flex items-center gap-sm">
-          <span class="material-symbols-outlined text-primary">assessment</span> Évaluations par Type
+          <span class="material-symbols-outlined text-primary">assessment</span> ${t('admin_evals_by_type')}
         </h3>
         <div class="grid-3">
           <div class="text-center">
@@ -1510,7 +2701,7 @@ async function renderAdmin() {
       </div></div>
 
       <h3 class="text-label-lg text-primary mb-lg reveal" style="text-transform:uppercase;letter-spacing:0.08em;">
-        <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;">group</span> COUPLES RÉCENTS
+        <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;">group</span> ${t('admin_recent_couples')}
       </h3>
       <div class="mb-xl reveal">
         ${data.recentCouples.map(c => `
@@ -1532,10 +2723,10 @@ async function renderAdmin() {
     container.innerHTML = `
       <div class="text-center" style="padding:var(--space-4xl);">
         <span class="material-symbols-outlined" style="font-size:48px;color:var(--error);">lock</span>
-        <h3 class="text-headline-sm mt-lg">Accès restreint</h3>
-        <p class="text-body-md text-variant mt-md">Cette section est réservée à l'administrateur.</p>
+        <h3 class="text-headline-sm mt-lg">${t('admin_restricted')}</h3>
+        <p class="text-body-md text-variant mt-md">${t('admin_restricted_msg')}</p>
         <button class="btn btn--primary mt-xl" onclick="navigateTo('home')">
-          <span class="material-symbols-outlined">home</span> Retour
+          <span class="material-symbols-outlined">home</span> ${t('admin_return')}
         </button>
       </div>
     `;
@@ -1562,19 +2753,19 @@ async function viewAdminCouple(id) {
       </div>
 
       <div class="card card--flat mb-xl reveal"><div class="card__body">
-        <h3 class="text-label-lg text-primary mb-md" style="text-transform:uppercase;">INFORMATIONS</h3>
+        <h3 class="text-label-lg text-primary mb-md" style="text-transform:uppercase;">${t('admin_info')}</h3>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-md);">
-          <div><p class="text-label-md text-variant">Âge P1</p><p class="text-body-lg text-semibold">${c.partner1_age || '-'} ans</p></div>
-          <div><p class="text-label-md text-variant">Sexe P1</p><p class="text-body-lg text-semibold">${c.partner1_sex || '-'}</p></div>
-          <div><p class="text-label-md text-variant">Âge P2</p><p class="text-body-lg text-semibold">${c.partner2_age || '-'} ans</p></div>
-          <div><p class="text-label-md text-variant">Sexe P2</p><p class="text-body-lg text-semibold">${c.partner2_sex || '-'}</p></div>
-          <div><p class="text-label-md text-variant">Mariage</p><p class="text-body-lg text-semibold">${c.marriage_duration || '-'}</p></div>
-          <div><p class="text-label-md text-variant">Âge bébé</p><p class="text-body-lg text-semibold">${c.baby_age || '-'}</p></div>
+          <div><p class="text-label-md text-variant">${t('admin_age_p1')}</p><p class="text-body-lg text-semibold">${c.partner1_age || '-'} ${t('prof_ans')}</p></div>
+          <div><p class="text-label-md text-variant">${t('admin_sex_p1')}</p><p class="text-body-lg text-semibold">${c.partner1_sex || '-'}</p></div>
+          <div><p class="text-label-md text-variant">${t('admin_age_p2')}</p><p class="text-body-lg text-semibold">${c.partner2_age || '-'} ${t('prof_ans')}</p></div>
+          <div><p class="text-label-md text-variant">${t('admin_sex_p2')}</p><p class="text-body-lg text-semibold">${c.partner2_sex || '-'}</p></div>
+          <div><p class="text-label-md text-variant">${t('admin_marriage')}</p><p class="text-body-lg text-semibold">${c.marriage_duration || '-'}</p></div>
+          <div><p class="text-label-md text-variant">${t('admin_baby_age')}</p><p class="text-body-lg text-semibold">${c.baby_age || '-'}</p></div>
         </div>
       </div></div>
 
       <div class="card card--flat mb-xl reveal"><div class="card__body">
-        <h3 class="text-label-lg text-primary mb-md" style="text-transform:uppercase;">ÉVALUATIONS (${data.evaluations.length})</h3>
+        <h3 class="text-label-lg text-primary mb-md" style="text-transform:uppercase;">${t('admin_evals_count', { n: data.evaluations.length })}</h3>
         ${data.evaluations.length > 0 ? data.evaluations.map(e => `
           <div class="flex justify-between items-center mb-md" style="padding:var(--space-md);background:var(--surface);border-radius:var(--radius-lg);">
             <div>
@@ -1583,23 +2774,23 @@ async function viewAdminCouple(id) {
             </div>
             <span class="text-headline-sm text-primary">${e.score}%</span>
           </div>
-        `).join('') : '<p class="text-body-md text-variant">Aucune évaluation</p>'}
+        `).join('') : `<p class="text-body-md text-variant">${t('admin_no_eval')}</p>`}
       </div></div>
 
       <div class="card card--flat mb-xl reveal"><div class="card__body">
-        <h3 class="text-label-lg text-primary mb-md" style="text-transform:uppercase;">SUIVI QUOTIDIEN (${data.dailyEntries.length})</h3>
+        <h3 class="text-label-lg text-primary mb-md" style="text-transform:uppercase;">${t('admin_daily_count', { n: data.dailyEntries.length })}</h3>
         ${data.dailyEntries.length > 0 ? data.dailyEntries.map(d => `
           <div class="flex items-center gap-md mb-sm" style="padding:var(--space-sm) var(--space-md);background:var(--surface);border-radius:var(--radius-lg);">
             <span style="font-size:20px;">${d.mood}</span>
             <span class="text-label-md text-variant">${new Date(d.created_at).toLocaleDateString('fr-FR')}</span>
-            <span class="text-label-md" style="margin-left:auto;">Stress: ${d.stress}/10</span>
+            <span class="text-label-md" style="margin-left:auto;">${t('daily_stress_label')}: ${d.stress}/10</span>
           </div>
-        `).join('') : '<p class="text-body-md text-variant">Aucun suivi</p>'}
+        `).join('') : `<p class="text-body-md text-variant">${t('admin_no_daily')}</p>`}
       </div></div>
     `;
     setTimeout(() => initReveal(), 50);
   } catch (e) {
-    container.innerHTML = '<p class="text-body-md text-variant text-center">Erreur de chargement.</p>';
+    container.innerHTML = `<p class="text-body-md text-variant text-center">${t('admin_loading_error')}</p>`;
   }
 }
 
@@ -1712,7 +2903,7 @@ function renderSemaines() {
   container.innerHTML = `
     <div class="flex items-center gap-md mb-xl">
       <button class="top-bar__btn" onclick="navigateTo('home')"><span class="material-symbols-outlined">arrow_back</span></button>
-      <h2 class="text-headline-sm">Semaines Post-Partum</h2>
+      <h2 class="text-headline-sm">${t('sem_title')}</h2>
     </div>
 
     <!-- Week selector -->
@@ -1724,36 +2915,36 @@ function renderSemaines() {
 
     <div class="card mb-xl reveal" style="overflow:visible;">
       <div class="card__body">
-        <span style="display:inline-block;background:var(--primary-container);color:var(--on-primary-container);padding:4px 14px;border-radius:var(--radius-full);font-size:12px;font-weight:700;letter-spacing:0.05em;margin-bottom:12px;">SEMAINE ${w.num}</span>
+        <span style="display:inline-block;background:var(--primary-container);color:var(--on-primary-container);padding:4px 14px;border-radius:var(--radius-full);font-size:12px;font-weight:700;letter-spacing:0.05em;margin-bottom:12px;">${t('sem_week')} ${w.num}</span>
         <h2 class="text-display-lg-mobile" style="margin-bottom:var(--space-xl);">${w.title}</h2>
 
         <!-- Suivi Médical -->
         <div style="background:var(--surface-container-low);border-radius:var(--radius-xl);padding:var(--space-xl);margin-bottom:var(--space-xl);border-left:4px solid var(--primary);">
-          <h3 class="text-label-lg text-primary mb-md flex items-center gap-sm"><span class="material-symbols-outlined" style="font-size:18px;">medical_services</span> SUIVI MÉDICAL</h3>
+          <h3 class="text-label-lg text-primary mb-md flex items-center gap-sm"><span class="material-symbols-outlined" style="font-size:18px;">medical_services</span> ${t('sem_medical')}</h3>
           <p class="text-body-md" style="line-height:1.7;">${w.medical}</p>
         </div>
 
         <!-- Pour la Maman -->
         <div style="background:rgba(196,69,105,0.06);border-radius:var(--radius-xl);padding:var(--space-xl);margin-bottom:var(--space-xl);border-left:4px solid var(--primary);">
-          <h3 class="flex items-center gap-sm mb-lg" style="color:var(--primary);font-size:18px;font-weight:600;"><span>♀</span> Pour la Maman</h3>
+          <h3 class="flex items-center gap-sm mb-lg" style="color:var(--primary);font-size:18px;font-weight:600;"><span>♀</span> ${t('sem_maman')}</h3>
           ${w.maman.map(m => `<div class="flex items-center gap-md mb-md"><span class="material-symbols-outlined" style="color:var(--primary);font-size:18px;">check_circle</span><span class="text-body-md">${m}</span></div>`).join('')}
         </div>
 
         <!-- Pour le Couple -->
         <div style="background:rgba(142,108,136,0.08);border-radius:var(--radius-xl);padding:var(--space-xl);margin-bottom:var(--space-xl);border-left:4px solid var(--secondary);">
-          <h3 class="flex items-center gap-sm mb-lg" style="color:var(--secondary);font-size:18px;font-weight:600;"><span>♂♀</span> Pour le Couple</h3>
+          <h3 class="flex items-center gap-sm mb-lg" style="color:var(--secondary);font-size:18px;font-weight:600;"><span>♂♀</span> ${t('sem_couple')}</h3>
           ${w.couple.map(c => `<div class="flex items-center gap-md mb-md"><span class="material-symbols-outlined" style="color:var(--secondary);font-size:18px;">favorite</span><span class="text-body-md">${c}</span></div>`).join('')}
         </div>
 
         <!-- Message du Bébé -->
         <div style="background:rgba(212,107,80,0.08);border-radius:var(--radius-xl);padding:var(--space-xl);margin-bottom:var(--space-xl);border-left:4px solid var(--tertiary);">
-          <h3 class="flex items-center gap-sm mb-md" style="color:var(--tertiary);font-size:18px;font-weight:600;"><span>👶</span> Message du Bébé</h3>
+          <h3 class="flex items-center gap-sm mb-md" style="color:var(--tertiary);font-size:18px;font-weight:600;"><span>👶</span> ${t('sem_bebe')}</h3>
           <p class="text-body-md" style="line-height:1.7;font-style:italic;">${w.bebe}</p>
         </div>
 
         <!-- Solutions Pratiques -->
         <div style="background:rgba(212,165,116,0.1);border-radius:var(--radius-xl);padding:var(--space-xl);border-left:4px solid #d4a574;">
-          <h3 class="flex items-center gap-sm mb-lg" style="color:#d4a574;font-size:18px;font-weight:600;"><span>💡</span> Solutions Pratiques</h3>
+          <h3 class="flex items-center gap-sm mb-lg" style="color:#d4a574;font-size:18px;font-weight:600;"><span>💡</span> ${t('sem_solutions')}</h3>
           ${w.solutions.map(s => `<div class="flex items-center gap-md mb-md"><span class="material-symbols-outlined" style="color:#d4a574;font-size:18px;">lightbulb</span><span class="text-body-md">${s}</span></div>`).join('')}
         </div>
       </div>
@@ -1761,9 +2952,9 @@ function renderSemaines() {
 
     <!-- Navigation -->
     <div class="flex justify-between items-center" style="padding:var(--space-lg) 0;">
-      <button class="btn btn--outline btn--sm" onclick="currentWeek=Math.max(0,currentWeek-1);renderSemaines();" ${currentWeek === 0 ? 'disabled style="opacity:0.3"' : ''}>← Précédent</button>
-      <span class="text-label-lg text-variant">Semaine ${w.num} sur 12</span>
-      <button class="btn btn--outline btn--sm" onclick="currentWeek=Math.min(11,currentWeek+1);renderSemaines();" ${currentWeek === 11 ? 'disabled style="opacity:0.3"' : ''}>Suivant →</button>
+      <button class="btn btn--outline btn--sm" onclick="currentWeek=Math.max(0,currentWeek-1);renderSemaines();" ${currentWeek === 0 ? 'disabled style="opacity:0.3"' : ''}>${t('sem_prev')}</button>
+      <span class="text-label-lg text-variant">${t('sem_week_of', { n: w.num })}</span>
+      <button class="btn btn--outline btn--sm" onclick="currentWeek=Math.min(11,currentWeek+1);renderSemaines();" ${currentWeek === 11 ? 'disabled style="opacity:0.3"' : ''}>${t('sem_next')}</button>
     </div>
   `;
   setTimeout(() => initReveal(), 50);
@@ -1780,7 +2971,7 @@ function getJournalEntries() {
 function saveJournalEntry() {
   const need = document.getElementById('journal-need')?.value?.trim();
   const sweet = document.getElementById('journal-sweet')?.value?.trim();
-  if (!journalMood) { alert('Sélectionnez votre humeur !'); return; }
+  if (!journalMood) { alert(t('journal_select_mood')); return; }
   const entries = getJournalEntries();
   entries.unshift({
     role: journalRole,
@@ -1805,30 +2996,30 @@ function renderJournal() {
   container.innerHTML = `
     <div class="flex items-center gap-md mb-xl">
       <button class="top-bar__btn" onclick="navigateTo('home')"><span class="material-symbols-outlined">arrow_back</span></button>
-      <h2 class="text-headline-sm">Journal de Bord</h2>
+      <h2 class="text-headline-sm">${t('journal_title')}</h2>
     </div>
 
     <!-- Espace d'Expression Banner -->
     <div class="reveal mb-xl" style="background:linear-gradient(135deg,rgba(196,69,105,0.1),rgba(142,108,136,0.1));border-radius:var(--radius-xl);padding:var(--space-xl);display:flex;align-items:center;gap:var(--space-lg);">
       <div style="width:56px;height:56px;border-radius:var(--radius-full);background:rgba(196,69,105,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span class="material-symbols-outlined text-primary" style="font-size:28px;">favorite</span></div>
-      <div><h3 class="text-headline-sm" style="font-size:16px;">Espace d'Expression</h3><p class="text-body-md text-variant">Un cocon pour communiquer vos sentiments sans filtre et avec amour.</p></div>
+      <div><h3 class="text-headline-sm" style="font-size:16px;">${t('journal_expression')}</h3><p class="text-body-md text-variant">${t('journal_expression_desc')}</p></div>
     </div>
 
     <div class="card mb-xl reveal">
       <div class="card__body">
         <div class="flex justify-between items-center mb-lg">
-          <h3 class="text-headline-sm">Notre Journal de Bord</h3>
-          <span style="background:var(--primary);color:white;padding:2px 10px;border-radius:var(--radius-full);font-size:10px;font-weight:700;">MISE À JOUR EN DIRECT</span>
+          <h3 class="text-headline-sm">${t('journal_our_journal')}</h3>
+          <span style="background:var(--primary);color:white;padding:2px 10px;border-radius:var(--radius-full);font-size:10px;font-weight:700;">${t('journal_live')}</span>
         </div>
 
         <!-- Toggle Maman / Partenaire -->
         <div style="display:flex;border:2px solid var(--outline-variant);border-radius:var(--radius-full);overflow:hidden;margin-bottom:var(--space-xl);">
-          <button style="flex:1;padding:12px;font-size:14px;font-weight:600;border:none;cursor:pointer;transition:all 0.2s;${journalRole==='maman'?'background:var(--primary-container);color:var(--on-primary-container);':'background:transparent;color:var(--on-surface-variant);'}" onclick="journalRole='maman';renderJournal();">♀ Maman</button>
-          <button style="flex:1;padding:12px;font-size:14px;font-weight:600;border:none;cursor:pointer;transition:all 0.2s;${journalRole==='partenaire'?'background:var(--primary-container);color:var(--on-primary-container);':'background:transparent;color:var(--on-surface-variant);'}" onclick="journalRole='partenaire';renderJournal();">♂ Partenaire</button>
+          <button style="flex:1;padding:12px;font-size:14px;font-weight:600;border:none;cursor:pointer;transition:all 0.2s;${journalRole==='maman'?'background:var(--primary-container);color:var(--on-primary-container);':'background:transparent;color:var(--on-surface-variant);'}" onclick="journalRole='maman';renderJournal();">${t('journal_maman')}</button>
+          <button style="flex:1;padding:12px;font-size:14px;font-weight:600;border:none;cursor:pointer;transition:all 0.2s;${journalRole==='partenaire'?'background:var(--primary-container);color:var(--on-primary-container);':'background:transparent;color:var(--on-surface-variant);'}" onclick="journalRole='partenaire';renderJournal();">${t('journal_partner')}</button>
         </div>
 
         <!-- Mood -->
-        <h4 class="text-label-lg mb-md" style="text-transform:uppercase;letter-spacing:0.08em;">AUJOURD'HUI, JE ME SENS :</h4>
+        <h4 class="text-label-lg mb-md" style="text-transform:uppercase;letter-spacing:0.08em;">${t('journal_today_feel')}</h4>
         <div class="mood-grid mb-xl">
           ${moods.map(m => `
             <button class="mood-option ${journalMood===m?'selected':''}" onclick="journalMood='${m}';document.querySelectorAll('.mood-option').forEach(b=>b.classList.remove('selected'));this.classList.add('selected');">
@@ -1838,32 +3029,32 @@ function renderJournal() {
         </div>
 
         <!-- Need -->
-        <h4 class="text-label-lg mb-md" style="text-transform:uppercase;letter-spacing:0.08em;">CE DONT J'AI BESOIN :</h4>
-        <textarea id="journal-need" class="form-input mb-xl" rows="3" placeholder="Ex: Un peu de sommeil, un câlin doux..." style="resize:none;"></textarea>
+        <h4 class="text-label-lg mb-md" style="text-transform:uppercase;letter-spacing:0.08em;">${t('journal_need')}</h4>
+        <textarea id="journal-need" class="form-input mb-xl" rows="3" placeholder="${t('journal_need_placeholder')}" style="resize:none;"></textarea>
 
         <!-- Sweet word -->
-        <h4 class="text-label-lg mb-md" style="text-transform:uppercase;letter-spacing:0.08em;">MOT DOUX POUR MON PARTENAIRE :</h4>
-        <textarea id="journal-sweet" class="form-input mb-xl" rows="3" placeholder="Ex: Merci pour le biberon de cette nuit..." style="resize:none;"></textarea>
+        <h4 class="text-label-lg mb-md" style="text-transform:uppercase;letter-spacing:0.08em;">${t('journal_sweet')}</h4>
+        <textarea id="journal-sweet" class="form-input mb-xl" rows="3" placeholder="${t('journal_sweet_placeholder')}" style="resize:none;"></textarea>
 
         <!-- Save -->
-        <button class="btn btn--primary btn--full" onclick="saveJournalEntry()">ENREGISTRER MON ÉTAT</button>
+        <button class="btn btn--primary btn--full" onclick="saveJournalEntry()">${t('journal_save')}</button>
       </div>
     </div>
 
     <!-- Saved notes -->
     <div class="card card--flat reveal">
       <div class="card__body">
-        <h4 class="text-label-lg text-primary mb-lg" style="text-transform:uppercase;letter-spacing:0.08em;">NOTES ENREGISTRÉES DE LA SEMAINE :</h4>
+        <h4 class="text-label-lg text-primary mb-lg" style="text-transform:uppercase;letter-spacing:0.08em;">${t('journal_saved_notes')}</h4>
         ${thisWeek.length > 0 ? thisWeek.map(e => `
           <div style="padding:var(--space-lg);background:var(--surface-container-low);border-radius:var(--radius-xl);margin-bottom:var(--space-md);border-left:4px solid ${e.role==='maman'?'var(--primary)':'var(--secondary)'};">
             <div class="flex justify-between items-center mb-sm">
-              <span class="text-label-lg">${e.mood} ${e.role === 'maman' ? '♀ Maman' : '♂ Partenaire'}</span>
+              <span class="text-label-lg">${e.mood} ${e.role === 'maman' ? t('journal_maman') : t('journal_partner')}</span>
               <span class="text-label-md text-variant">${new Date(e.date).toLocaleDateString('fr-FR')}</span>
             </div>
-            ${e.need ? `<p class="text-body-md mb-sm"><strong>Besoin :</strong> ${e.need}</p>` : ''}
+            ${e.need ? `<p class="text-body-md mb-sm"><strong>${t('journal_need_label')} :</strong> ${e.need}</p>` : ''}
             ${e.sweet ? `<p class="text-body-md" style="color:var(--primary);font-style:italic;">💕 ${e.sweet}</p>` : ''}
           </div>
-        `).join('') : '<p class="text-body-md text-variant text-center" style="font-style:italic;">Aucune note pour le moment. Exprimez vos sentiments ci-dessus.</p>'}
+        `).join('') : `<p class="text-body-md text-variant text-center" style="font-style:italic;">${t('journal_no_notes')}</p>`}
       </div>
     </div>
   `;
@@ -1896,7 +3087,7 @@ const rasQuestions = [
   'Je suis amoureux(se) de mon/ma partenaire.',
   'Il y a peu de problèmes dans notre relation.'
 ];
-const freqLabels = ['Jamais','Rarement','Parfois','Fréquemment','Toujours'];
+const freqLabels = () => [t('scales_never'), t('scales_rarely'), t('scales_sometimes'), t('scales_frequently'), t('scales_always')];
 
 let currentScale = 'pisq12';
 let scaleAnswers = {};
@@ -1907,72 +3098,75 @@ function renderEchelles() {
   const maxScore = currentScale === 'pisq12' ? 48 : 28;
   const answeredCount = Object.keys(scaleAnswers).filter(k => k.startsWith(currentScale)).length;
   const totalScore = Object.keys(scaleAnswers).filter(k => k.startsWith(currentScale)).reduce((sum, k) => sum + scaleAnswers[k], 0);
+  const allAnswered = answeredCount === questions.length;
 
   let diagnosis = '';
   let diagClass = '';
-  if (answeredCount === questions.length) {
-    const pct = totalScore / maxScore * 100;
-    if (pct <= 37) { diagnosis = `⚠️ SCORE FAIBLE (${totalScore}/${maxScore})`; diagClass = 'color:var(--error);'; }
-    else if (pct <= 62) { diagnosis = `⚡ SCORE MODÉRÉ (${totalScore}/${maxScore})`; diagClass = 'color:#d4a574;'; }
-    else if (pct <= 87) { diagnosis = `✅ BON SCORE (${totalScore}/${maxScore})`; diagClass = 'color:var(--secondary);'; }
-    else { diagnosis = `🌟 EXCELLENT SCORE (${totalScore}/${maxScore})`; diagClass = 'color:var(--primary);'; }
-  }
+  let diagDetail = '';
 
   const diagTexts = {
     pisq12: {
-      low: 'Votre sexualité actuelle est source de souffrance, d\'appréhension ou de frustration intense. Ne restez pas dans le silence. Des solutions simples existent (rééducation périnéale, traitement de la sécheresse, écoute clinique). Nous vous encourageons vivement à en parler ouvertement à votre sage-femme ou un spécialiste.',
-      mod: 'Votre sexualité se reconstruit progressivement. Certains aspects restent difficiles, mais vous êtes sur la bonne voie. La patience et la communication avec votre partenaire sont essentielles.',
-      good: 'Votre sexualité post-partum se porte bien ! Continuez à communiquer avec votre partenaire et à prendre soin de vous.',
-      excellent: 'Félicitations ! Votre sexualité est épanouie. Continuez à entretenir cette belle complicité avec votre partenaire.'
+      low: 'حياتك الجنسية الحالية مصدر معاناة أو قلق. لا تبقي صامتة. توجد حلول بسيطة (إعادة تأهيل العجان، علاج الجفاف). نشجعك على التحدث مع القابلة أو المختص.',
+      mod: 'حياتك الجنسية تتعافى تدريجياً. بعض الجوانب لا تزال صعبة لكنك على الطريق الصحيح. الصبر والتواصل مع الشريك ضروريان.',
+      good: 'حياتك الجنسية بعد الولادة جيدة! واصلي التواصل مع شريكك والعناية بنفسك.',
+      excellent: 'تهانينا! حياتك الجنسية مزدهرة. واصلي تعزيز هذا التناغم مع شريكك.'
     },
     ras: {
-      low: 'Votre satisfaction conjugale semble fragilisée. Il serait bénéfique d\'en discuter en couple ou avec un professionnel pour retrouver un équilibre.',
-      mod: 'Votre relation traverse des ajustements normaux. La communication bienveillante est la clé pour renforcer votre lien.',
-      good: 'Votre couple semble solide ! Continuez à cultiver vos moments à deux.',
-      excellent: 'Votre relation est très épanouissante ! Vous avez trouvé un bel équilibre de couple.'
+      low: 'رضاك الزوجي يبدو هشاً. سيكون مفيداً مناقشة الأمر مع الشريك أو مختص لاستعادة التوازن.',
+      mod: 'علاقتك تمر بتعديلات طبيعية. التواصل الطيب هو المفتاح لتقوية الرابط بينكما.',
+      good: 'علاقتكما تبدو متينة! واصلا تخصيص وقت لكما.',
+      excellent: 'علاقتكما مزدهرة جداً! وجدتما توازناً جميلاً.'
     }
   };
+
+  if (answeredCount > 0) {
+    const pct = totalScore / maxScore * 100;
+    if (pct <= 37) { diagnosis = `${t('scales_low')} (${totalScore}/${maxScore})`; diagClass = 'color:var(--error);'; diagDetail = diagTexts[currentScale].low; }
+    else if (pct <= 62) { diagnosis = `${t('scales_moderate')} (${totalScore}/${maxScore})`; diagClass = 'color:#d4a574;'; diagDetail = diagTexts[currentScale].mod; }
+    else if (pct <= 87) { diagnosis = `${t('scales_good')} (${totalScore}/${maxScore})`; diagClass = 'color:var(--secondary);'; diagDetail = diagTexts[currentScale].good; }
+    else { diagnosis = `${t('scales_excellent')} (${totalScore}/${maxScore})`; diagClass = 'color:var(--primary);'; diagDetail = diagTexts[currentScale].excellent; }
+  }
 
   container.innerHTML = `
     <div class="flex items-center gap-md mb-xl">
       <button class="top-bar__btn" onclick="navigateTo('home')"><span class="material-symbols-outlined">arrow_back</span></button>
-      <h2 class="text-headline-sm">Échelles Cliniques</h2>
+      <h2 class="text-headline-sm">${t('scales_title')}</h2>
     </div>
 
     <!-- Header -->
     <div class="reveal text-center mb-xl" style="background:linear-gradient(135deg,rgba(196,69,105,0.08),rgba(142,108,136,0.05));border-radius:var(--radius-xl);padding:var(--space-2xl);">
-      <span style="display:inline-block;background:var(--primary);color:white;padding:4px 16px;border-radius:var(--radius-full);font-size:11px;font-weight:700;letter-spacing:0.08em;margin-bottom:12px;">OUTILS D'ÉVALUATION CLINIQUE</span>
-      <h2 class="text-display-lg-mobile mb-sm">Mesurer pour Mieux Accompagner</h2>
-      <p class="text-body-md text-variant">Les questionnaires PISQ-12 (Sexualité) et Échelle RAS (Satisfaction conjugale) vous permettent de prendre le pouls de votre intimité.</p>
+      <span style="display:inline-block;background:var(--primary);color:white;padding:4px 16px;border-radius:var(--radius-full);font-size:11px;font-weight:700;letter-spacing:0.08em;margin-bottom:12px;">${t('scales_tools')}</span>
+      <h2 class="text-display-lg-mobile mb-sm">${t('scales_measure')}</h2>
+      <p class="text-body-md text-variant">${t('scales_desc')}</p>
     </div>
 
     <!-- Scale toggle -->
     <div style="display:flex;gap:var(--space-md);margin-bottom:var(--space-xl);" class="reveal">
-      <button style="flex:1;padding:14px;border-radius:var(--radius-xl);font-size:14px;font-weight:700;cursor:pointer;transition:all 0.2s;border:2px solid ${currentScale==='pisq12'?'var(--primary)':'var(--outline-variant)'};${currentScale==='pisq12'?'background:var(--primary);color:white;':'background:transparent;color:var(--on-surface);'}" onclick="currentScale='pisq12';scaleAnswers={};renderEchelles();">❤ Échelle PISQ-12<br><span style="font-size:11px;font-weight:400;">(Sexualité)</span></button>
-      <button style="flex:1;padding:14px;border-radius:var(--radius-xl);font-size:14px;font-weight:700;cursor:pointer;transition:all 0.2s;border:2px solid ${currentScale==='ras'?'var(--primary)':'var(--outline-variant)'};${currentScale==='ras'?'background:var(--primary);color:white;':'background:transparent;color:var(--on-surface);'}" onclick="currentScale='ras';scaleAnswers={};renderEchelles();">🤝 Échelle RAS<br><span style="font-size:11px;font-weight:400;">(Satisfaction)</span></button>
+      <button style="flex:1;padding:14px;border-radius:var(--radius-xl);font-size:14px;font-weight:700;cursor:pointer;transition:all 0.2s;border:2px solid ${currentScale==='pisq12'?'var(--primary)':'var(--outline-variant)'};${currentScale==='pisq12'?'background:var(--primary);color:white;':'background:transparent;color:var(--on-surface);'}" onclick="currentScale='pisq12';scaleAnswers={};renderEchelles();">${t('scales_pisq12_title')}<br><span style="font-size:11px;font-weight:400;">${t('scales_pisq12_sub')}</span></button>
+      <button style="flex:1;padding:14px;border-radius:var(--radius-xl);font-size:14px;font-weight:700;cursor:pointer;transition:all 0.2s;border:2px solid ${currentScale==='ras'?'var(--primary)':'var(--outline-variant)'};${currentScale==='ras'?'background:var(--primary);color:white;':'background:transparent;color:var(--on-surface);'}" onclick="currentScale='ras';scaleAnswers={};renderEchelles();">${t('scales_ras_title')}<br><span style="font-size:11px;font-weight:400;">${t('scales_ras_sub')}</span></button>
     </div>
 
     <!-- Score display -->
     <div class="card mb-xl reveal">
       <div class="card__body text-center">
-        <h3 class="text-label-lg text-variant mb-md" style="text-transform:uppercase;">VOTRE SCORE ACTUEL</h3>
+        <h3 class="text-label-lg text-variant mb-md" style="text-transform:uppercase;">${t('scales_current_score')}</h3>
         <div class="text-display-lg text-primary" style="font-size:56px;font-weight:800;">${totalScore}</div>
-        <p class="text-body-md text-variant">sur ${maxScore} (Répondu : ${answeredCount}/${questions.length})</p>
+        <p class="text-body-md text-variant">${t('scales_out_of', { max: maxScore, answered: answeredCount, total: questions.length })}</p>
+        <div style="margin-top:12px;height:8px;background:var(--surface-container-high);border-radius:4px;overflow:hidden;">
+          <div style="width:${(answeredCount/questions.length)*100}%;height:100%;background:${allAnswered?'var(--primary)':'var(--secondary)'};border-radius:4px;transition:width 0.3s;"></div>
+        </div>
+        <p class="text-label-md mt-sm" style="${allAnswered?'color:var(--primary);':'color:var(--on-surface-variant);'}">${allAnswered ? '✅ ' + t('scales_all_answered') : '⏳ ' + t('scales_remaining', { n: questions.length - answeredCount })}</p>
       </div>
     </div>
 
     ${diagnosis ? `
-    <div class="card card--flat mb-xl reveal">
+    <div class="card card--flat mb-xl reveal" id="scale-result">
       <div class="card__body">
-        <h4 class="text-label-lg text-variant mb-md" style="text-transform:uppercase;">DIAGNOSTIC & CONSEILS ADAPTÉS :</h4>
+        <h4 class="text-label-lg text-variant mb-md" style="text-transform:uppercase;">${t('scales_diag')}</h4>
+        ${!allAnswered ? '<p class="text-body-sm text-variant mb-md" style="font-style:italic;">⚠️ ' + t('scales_partial_warning') + '</p>' : ''}
         <div style="padding:var(--space-xl);background:var(--surface-container-low);border-radius:var(--radius-xl);border-left:4px solid var(--primary);">
           <h4 style="font-weight:700;${diagClass}margin-bottom:8px;">${diagnosis}</h4>
-          <p class="text-body-md" style="line-height:1.7;">${
-            totalScore/maxScore <= 0.37 ? diagTexts[currentScale].low :
-            totalScore/maxScore <= 0.62 ? diagTexts[currentScale].mod :
-            totalScore/maxScore <= 0.87 ? diagTexts[currentScale].good :
-            diagTexts[currentScale].excellent
-          }</p>
+          <p class="text-body-md" style="line-height:1.7;">${diagDetail}</p>
         </div>
       </div>
     </div>` : ''}
@@ -1980,34 +3174,47 @@ function renderEchelles() {
     <!-- Questions -->
     <div class="card mb-xl reveal">
       <div class="card__body">
-        <h3 class="text-headline-sm mb-lg">Questionnaire ${currentScale === 'pisq12' ? 'PISQ-12 : Sexualité après l\'accouchement' : 'RAS : Satisfaction conjugale'}</h3>
-        <p class="text-body-md text-variant mb-xl">Veuillez cocher la fréquence qui correspond le mieux à votre situation actuelle.</p>
-        ${questions.map((q, i) => `
-          <div style="padding:var(--space-xl);background:var(--surface-container-low);border-radius:var(--radius-xl);margin-bottom:var(--space-lg);">
-            <p class="text-body-lg text-semibold mb-lg">${i+1}. ${q}</p>
+        <h3 class="text-headline-sm mb-lg">${currentScale === 'pisq12' ? t('scales_pisq12_q_title') : t('scales_ras_q_title')}</h3>
+        <p class="text-body-md text-variant mb-xl">${t('scales_instruction')}</p>
+        ${questions.map((q, i) => {
+          const answered = scaleAnswers[currentScale+'_'+i] !== undefined;
+          return `
+          <div style="padding:var(--space-xl);background:${answered ? 'rgba(163,217,200,0.08)' : 'var(--surface-container-low)'};border-radius:var(--radius-xl);margin-bottom:var(--space-lg);border:2px solid ${answered ? 'rgba(163,217,200,0.3)' : 'transparent'};transition:all 0.2s;">
+            <p class="text-body-lg text-semibold mb-lg">${i+1}. ${q} ${answered ? '<span style="color:var(--secondary);">✓</span>' : ''}</p>
             <div style="display:flex;flex-wrap:wrap;gap:var(--space-sm);">
-              ${freqLabels.map((label, val) => `
+              ${freqLabels().map((label, val) => `
                 <button style="padding:8px 16px;border-radius:var(--radius-full);font-size:13px;font-weight:500;cursor:pointer;transition:all 0.2s;border:2px solid ${scaleAnswers[currentScale+'_'+i]===val?'var(--primary)':'var(--outline-variant)'};${scaleAnswers[currentScale+'_'+i]===val?'background:var(--primary);color:white;':'background:transparent;color:var(--on-surface);'}"
                   onclick="scaleAnswers['${currentScale}_${i}']=${val};renderEchelles();">${label}</button>
               `).join('')}
             </div>
-          </div>
-        `).join('')}
+          </div>`;
+        }).join('')}
       </div>
     </div>
 
     <!-- Actions -->
     <div class="flex flex-col gap-md mb-xl reveal">
-      <button class="btn btn--primary btn--full" onclick="renderEchelles();">CALCULER & ANALYSER</button>
-      <button class="btn btn--outline btn--full" onclick="scaleAnswers={};renderEchelles();">Réinitialiser le test</button>
+      <button class="btn btn--primary btn--full" onclick="calculateScale();" ${answeredCount === 0 ? 'disabled style="opacity:0.5;"' : ''}>${t('scales_calculate')}</button>
+      <button class="btn btn--outline btn--full" onclick="scaleAnswers={};renderEchelles();">${t('scales_reset')}</button>
     </div>
 
     <!-- Privacy note -->
     <div class="reveal" style="background:rgba(196,69,105,0.05);border-radius:var(--radius-xl);padding:var(--space-xl);">
-      <p class="text-body-md"><span style="font-size:16px;">🔒</span> <strong>Respect de la vie privée :</strong> Aucune donnée n'est envoyée vers un serveur. Les résultats sont calculés localement pour garantir la confidentialité de vos données.</p>
+      <p class="text-body-md"><span style="font-size:16px;">🔒</span> <strong>${t('scales_privacy')}</strong> ${t('scales_privacy_text')}</p>
     </div>
   `;
   setTimeout(() => initReveal(), 50);
+}
+
+function calculateScale() {
+  const questions = currentScale === 'pisq12' ? pisq12Questions : rasQuestions;
+  const answeredCount = Object.keys(scaleAnswers).filter(k => k.startsWith(currentScale)).length;
+  if (answeredCount === 0) return;
+  renderEchelles();
+  setTimeout(() => {
+    const result = document.getElementById('scale-result');
+    if (result) result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 100);
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -2048,14 +3255,14 @@ function renderTounsi() {
   container.innerHTML = `
     <div class="flex items-center gap-md mb-xl">
       <button class="top-bar__btn" onclick="navigateTo('home')"><span class="material-symbols-outlined">arrow_back</span></button>
-      <h2 class="text-headline-sm">Coin Tunisien</h2>
+      <h2 class="text-headline-sm">${t('tounsi_title')}</h2>
     </div>
 
     <!-- Header -->
     <div class="reveal text-center mb-xl" style="background:linear-gradient(135deg,rgba(212,165,116,0.15),rgba(196,69,105,0.05));border-radius:var(--radius-xl);padding:var(--space-2xl);">
-      <span style="display:inline-block;background:#d4a574;color:white;padding:4px 16px;border-radius:var(--radius-full);font-size:11px;font-weight:700;letter-spacing:0.08em;margin-bottom:12px;">SAGESSE DE CHEZ NOUS</span>
-      <h2 class="text-display-lg-mobile mb-sm">Le Coin Bien-être & "Bil Tounsi"</h2>
-      <p class="text-body-md text-variant">Mêler la rigueur médicale de la sage-femme tunisienne à la chaleur bienveillante de nos traditions culinaires et spirituelles.</p>
+      <span style="display:inline-block;background:#d4a574;color:white;padding:4px 16px;border-radius:var(--radius-full);font-size:11px;font-weight:700;letter-spacing:0.08em;margin-bottom:12px;">${t('tounsi_wisdom')}</span>
+      <h2 class="text-display-lg-mobile mb-sm">${t('tounsi_main_title')}</h2>
+      <p class="text-body-md text-variant">${t('tounsi_main_desc')}</p>
     </div>
 
     <!-- Paroles Chaleureuses -->
@@ -2063,10 +3270,10 @@ function renderTounsi() {
       <div class="card__body">
         <div class="flex items-center gap-sm mb-lg">
           <span style="font-size:20px;">✨</span>
-          <h3 style="font-size:16px;font-weight:700;">PAROLES CHALEUREUSES — <span style="color:var(--primary);">كلام دافي</span></h3>
+          <h3 style="font-size:16px;font-weight:700;">${t('tounsi_paroles_title')} — <span style="color:var(--primary);">${t('tounsi_paroles_ar')}</span></h3>
         </div>
-        <h3 class="text-headline-sm mb-md">Le Générateur de Réconfort</h3>
-        <p class="text-body-md text-variant mb-xl">La fatigue pèse sur le couple ? Cliquez pour générer un mot tendre traditionnel en dialecte tunisien à souffler à votre partenaire pour apaiser les cœurs.</p>
+        <h3 class="text-headline-sm mb-md">${t('tounsi_generator')}</h3>
+        <p class="text-body-md text-variant mb-xl">${t('tounsi_generator_desc')}</p>
 
         <div style="background:linear-gradient(135deg,rgba(196,69,105,0.08),rgba(212,165,116,0.1));border-radius:var(--radius-xl);padding:var(--space-2xl);text-align:center;margin-bottom:var(--space-xl);">
           <p style="font-size:22px;font-weight:700;color:var(--on-surface);line-height:1.6;margin-bottom:12px;direction:rtl;">" ${p.ar} "</p>
@@ -2074,7 +3281,7 @@ function renderTounsi() {
         </div>
 
         <button class="btn btn--primary btn--full" onclick="currentParole=Math.floor(Math.random()*tounsiParoles.length);renderTounsi();">
-          <span class="material-symbols-outlined" style="font-size:20px;margin-right:8px;">refresh</span> Générer une nouvelle parole
+          <span class="material-symbols-outlined" style="font-size:20px;margin-right:8px;">refresh</span> ${t('tounsi_generate_btn')}
         </button>
       </div>
     </div>
@@ -2085,8 +3292,8 @@ function renderTounsi() {
         <div class="flex items-center gap-md mb-xl">
           <div style="width:48px;height:48px;border-radius:var(--radius-full);background:rgba(212,165,116,0.2);display:flex;align-items:center;justify-content:center;"><span style="font-size:24px;">🫖</span></div>
           <div>
-            <h3 class="text-headline-sm" style="font-size:16px;">La Diététique d'El Nefsa (النفاسة)</h3>
-            <p class="text-label-lg" style="color:#d4a574;text-transform:uppercase;">SOUTENIR LE LAIT ET L'ÉNERGIE</p>
+            <h3 class="text-headline-sm" style="font-size:16px;">${t('tounsi_nefsa_title')}</h3>
+            <p class="text-label-lg" style="color:#d4a574;text-transform:uppercase;">${t('tounsi_nefsa_sub')}</p>
           </div>
         </div>
 
@@ -2103,7 +3310,7 @@ function renderTounsi() {
     </div>
 
     <!-- Articles bien-être -->
-    <h3 class="text-label-lg text-primary mb-lg reveal" style="text-transform:uppercase;letter-spacing:0.1em;">ARTICLES BIEN-ÊTRE</h3>
+    <h3 class="text-label-lg text-primary mb-lg reveal" style="text-transform:uppercase;letter-spacing:0.1em;">${t('tounsi_articles')}</h3>
     ${tounsiArticles.map(a => `
       <div class="card card--flat mb-lg reveal">
         <div class="card__body">
@@ -2116,8 +3323,8 @@ function renderTounsi() {
 
     <!-- Footer -->
     <div class="reveal text-center mt-xl mb-xl" style="padding:var(--space-2xl);opacity:0.7;">
-      <p class="text-body-md text-semibold">© 2026 NurtureFlow — De la conjugalité à la parentalité.</p>
-      <p class="text-body-md text-variant" style="margin-top:4px;">Créé pour guider, soutenir et encourager le dialogue bienveillant. Ne remplace pas l'avis d'une sage-femme ou d'un médecin.</p>
+      <p class="text-body-md text-semibold">${t('tounsi_footer')}</p>
+      <p class="text-body-md text-variant" style="margin-top:4px;">${t('tounsi_footer_sub')}</p>
     </div>
   `;
   setTimeout(() => initReveal(), 50);
@@ -2129,10 +3336,10 @@ function renderTounsi() {
 function capitalize(str) { return str.charAt(0).toUpperCase() + str.slice(1); }
 function getTimeAgo(date) {
   const diff = Math.floor((Date.now() - date.getTime()) / 1000);
-  if (diff < 60) return 'À l\'instant';
-  if (diff < 3600) return `Il y a ${Math.floor(diff / 60)} min`;
-  if (diff < 86400) return `Il y a ${Math.floor(diff / 3600)}h`;
+  if (diff < 60) return t('misc_just_now');
+  if (diff < 3600) return t('misc_ago_min', { n: Math.floor(diff / 60) });
+  if (diff < 86400) return t('misc_ago_hours', { n: Math.floor(diff / 3600) });
   const days = Math.floor(diff / 86400);
-  if (days === 1) return 'Hier';
-  return `Il y a ${days} jours`;
+  if (days === 1) return t('misc_yesterday');
+  return t('misc_ago_days', { n: days });
 }
