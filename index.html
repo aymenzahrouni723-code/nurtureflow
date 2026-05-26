@@ -39,10 +39,25 @@
   <header class="top-bar" id="topBar" style="display:none;">
     <button class="top-bar__btn" id="menuBtn"><span class="material-symbols-outlined">menu</span></button>
     <span class="top-bar__title">NurtureFlow</span>
-    <div class="top-bar__avatar" onclick="navigateTo('profile')">
-      <img src="https://ui-avatars.com/api/?name=U&background=c44569&color=fff&size=80" alt="Avatar" id="topbar-avatar"/>
+    <div style="display:flex;align-items:center;gap:var(--space-sm);">
+      <button class="top-bar__btn" id="notifBtn" onclick="toggleNotifications()" style="position:relative;">
+        <span class="material-symbols-outlined">notifications</span>
+        <span id="notif-badge" style="display:none;position:absolute;top:4px;right:4px;width:10px;height:10px;background:var(--error);border-radius:50%;border:2px solid var(--surface);"></span>
+      </button>
+      <div class="top-bar__avatar" onclick="navigateTo('profile')">
+        <img src="https://ui-avatars.com/api/?name=U&background=c44569&color=fff&size=80" alt="Avatar" id="topbar-avatar"/>
+      </div>
     </div>
   </header>
+
+  <!-- NOTIFICATION PANEL -->
+  <div id="notif-panel" style="display:none;position:fixed;top:56px;right:8px;left:8px;max-width:400px;margin-left:auto;z-index:900;background:var(--surface);border-radius:0 0 var(--radius-xl) var(--radius-xl);box-shadow:0 8px 32px rgba(0,0,0,0.18);border:1px solid var(--outline-variant);border-top:none;max-height:70vh;overflow-y:auto;animation:slideDown 0.25s ease;">
+    <div style="padding:var(--space-lg) var(--space-xl);border-bottom:1px solid var(--outline-variant);display:flex;justify-content:space-between;align-items:center;">
+      <h3 class="text-headline-sm" style="font-size:16px;">🔔 <span data-i18n="notif_title">Notifications</span></h3>
+      <button onclick="clearNotifications()" class="text-label-md text-primary" style="border:none;background:none;cursor:pointer;" data-i18n="notif_clear">Tout effacer</button>
+    </div>
+    <div id="notif-list" style="padding:var(--space-md);"></div>
+  </div>
 
   <!-- DRAWER -->
   <div class="drawer-overlay" id="drawerOverlay"></div>

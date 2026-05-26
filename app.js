@@ -564,6 +564,179 @@ async function createNewCouple() {
 // ══════════════════════════════════════════════════════════════
 //  HOME / DASHBOARD
 // ══════════════════════════════════════════════════════════════
+
+// ══════════════════════════════════════════════════════════════
+//  NOTIFICATION SYSTEM
+// ══════════════════════════════════════════════════════════════
+function getNotifications() {
+  return JSON.parse(localStorage.getItem('nf_notifications') || '[]');
+}
+function saveNotifications(notifs) {
+  localStorage.setItem('nf_notifications', JSON.stringify(notifs));
+}
+
+function generateSmartNotifications() {
+  const notifs = getNotifications();
+  const now = new Date();
+  const today = now.toISOString().split('T')[0];
+  const existingIds = notifs.map(n => n.id);
+
+  const newNotifs = [];
+
+  // 1. Baby age milestones
+  const babyBirth = localStorage.getItem('nf_baby_birth');
+  if (babyBirth) {
+    const birth = new Date(babyBirth);
+    const days = Math.floor((now - birth) / 86400000);
+    const weeks = Math.floor(days / 7);
+    const months = Math.floor(days / 30.44);
+
+    const milestones = [
+      { day: 1, icon: '🎉', id: 'mile_1d', msg: t('notif_baby_born') },
+      { day: 7, icon: '🎊', id: 'mile_1w', msg: t('notif_baby_1week') },
+      { day: 14, icon: '🌟', id: 'mile_2w', msg: t('notif_baby_2weeks') },
+      { day: 30, icon: '🎂', id: 'mile_1m', msg: t('notif_baby_1month') },
+      { day: 60, icon: '🌸', id: 'mile_2m', msg: t('notif_baby_2months') },
+      { day: 90, icon: '🎈', id: 'mile_3m', msg: t('notif_baby_3months') },
+    ];
+
+    for (const m of milestones) {
+      if (days >= m.day && !existingIds.includes(m.id)) {
+        newNotifs.push({ id: m.id, icon: m.icon, msg: m.msg, time: now.toISOString(), read: false, type: 'milestone' });
+      }
+    }
+  }
+
+  // 2. Daily wellness tip
+  const tipId = 'tip_' + today;
+  if (!existingIds.includes(tipId)) {
+    const tips = [
+      { icon: '💧', msg: t('notif_tip_water') },
+      { icon: '🧘', msg: t('notif_tip_breathe') },
+      { icon: '❤️', msg: t('notif_tip_hug') },
+      { icon: '🌙', msg: t('notif_tip_sleep') },
+      { icon: '🤱', msg: t('notif_tip_breastfeed') },
+      { icon: '🚶', msg: t('notif_tip_walk') },
+      { icon: '💬', msg: t('notif_tip_talk') },
+    ];
+    const tip = tips[now.getDay() % tips.length];
+    newNotifs.push({ id: tipId, icon: tip.icon, msg: tip.msg, time: now.toISOString(), read: false, type: 'tip' });
+  }
+
+  // 3. Evaluation reminder (if no eval in 7 days)
+  const lastEvalCheck = localStorage.getItem('nf_last_eval_date');
+  const evalReminderId = 'eval_remind_' + today;
+  if (!lastEvalCheck && !existingIds.includes(evalReminderId)) {
+    newNotifs.push({ id: evalReminderId, icon: '📋', msg: t('notif_eval_reminder'), time: now.toISOString(), read: false, type: 'reminder' });
+  }
+
+  // 4. Welcome notification (first time)
+  if (!existingIds.includes('welcome')) {
+    newNotifs.push({ id: 'welcome', icon: '👋', msg: t('notif_welcome'), time: now.toISOString(), read: false, type: 'welcome' });
+  }
+
+  if (newNotifs.length > 0) {
+    const all = [...newNotifs, ...notifs].slice(0, 30); // Keep max 30
+    saveNotifications(all);
+  }
+
+  updateNotifBadge();
+}
+
+function updateNotifBadge() {
+  const notifs = getNotifications();
+  const unread = notifs.filter(n => !n.read).length;
+  const badge = document.getElementById('notif-badge');
+  const btn = document.getElementById('notifBtn');
+  if (badge) badge.style.display = unread > 0 ? 'block' : 'none';
+  if (btn) {
+    if (unread > 0) btn.classList.add('has-notif');
+    else btn.classList.remove('has-notif');
+  }
+}
+
+function toggleNotifications() {
+  const panel = document.getElementById('notif-panel');
+  if (!panel) return;
+  const isOpen = panel.style.display !== 'none';
+  panel.style.display = isOpen ? 'none' : 'block';
+  if (!isOpen) renderNotifList();
+}
+
+function renderNotifList() {
+  const list = document.getElementById('notif-list');
+  if (!list) return;
+  const notifs = getNotifications();
+
+  if (notifs.length === 0) {
+    list.innerHTML = `
+      <div class="notif-empty">
+        <div class="notif-empty__icon">🔔</div>
+        <p class="text-body-md">${t('notif_empty')}</p>
+      </div>
+    `;
+    return;
+  }
+
+  const typeColors = {
+    milestone: { bg: 'rgba(163,217,200,0.15)', color: 'var(--secondary)' },
+    tip: { bg: 'rgba(196,69,105,0.08)', color: 'var(--primary)' },
+    reminder: { bg: 'rgba(67,97,127,0.08)', color: 'var(--tertiary)' },
+    welcome: { bg: 'rgba(180,142,173,0.12)', color: 'var(--secondary)' },
+  };
+
+  list.innerHTML = notifs.map((n, i) => {
+    const tc = typeColors[n.type] || typeColors.tip;
+    const timeAgo = getNotifTimeAgo(new Date(n.time));
+    return `
+      <div class="notif-item ${n.read ? '' : 'notif-item--unread'}" onclick="markNotifRead(${i})">
+        <div class="notif-item__icon" style="background:${tc.bg};">
+          <span style="font-size:22px;">${n.icon}</span>
+        </div>
+        <div style="flex:1;min-width:0;">
+          <p class="text-body-md" style="line-height:1.5;">${n.msg}</p>
+          <div class="notif-item__time">${timeAgo}</div>
+        </div>
+        ${!n.read ? '<div style="width:8px;height:8px;background:var(--primary);border-radius:50%;flex-shrink:0;margin-top:6px;"></div>' : ''}
+      </div>
+    `;
+  }).join('');
+}
+
+function markNotifRead(index) {
+  const notifs = getNotifications();
+  if (notifs[index]) notifs[index].read = true;
+  saveNotifications(notifs);
+  renderNotifList();
+  updateNotifBadge();
+}
+
+function clearNotifications() {
+  saveNotifications([]);
+  renderNotifList();
+  updateNotifBadge();
+}
+
+function getNotifTimeAgo(date) {
+  const now = new Date();
+  const diffMin = Math.floor((now - date) / 60000);
+  if (diffMin < 1) return t('notif_just_now') || 'الآن';
+  if (diffMin < 60) return `${diffMin} ${t('notif_min_ago') || 'د'}`;
+  const diffHrs = Math.floor(diffMin / 60);
+  if (diffHrs < 24) return `${diffHrs} ${t('notif_hrs_ago') || 'س'}`;
+  const diffDays = Math.floor(diffHrs / 24);
+  return `${diffDays} ${t('notif_days_ago') || 'ي'}`;
+}
+
+// Close notification panel when clicking outside
+document.addEventListener('click', (e) => {
+  const panel = document.getElementById('notif-panel');
+  const btn = document.getElementById('notifBtn');
+  if (panel && panel.style.display !== 'none' && !panel.contains(e.target) && !btn.contains(e.target)) {
+    panel.style.display = 'none';
+  }
+});
+
 // ══════════════════════════════════════════════════════════════
 //  BABY AGE WIDGET
 // ══════════════════════════════════════════════════════════════
@@ -742,6 +915,9 @@ async function renderHome() {
 
   // Baby Age Widget
   renderBabyAgeWidget();
+
+  // Smart Notifications
+  generateSmartNotifications();
 }
 
 // ══════════════════════════════════════════════════════════════
