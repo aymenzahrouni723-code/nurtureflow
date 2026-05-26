@@ -681,6 +681,13 @@ fr: {
   notif_tip_breastfeed: 'Position confortable pour l\'allaitement : dos soutenu, coussins sous les bras.',
   notif_tip_walk: 'Une petite promenade de 15 min améliore l\'humeur et renforce le lien avec bébé.',
   notif_tip_talk: 'Prenez 10 minutes pour discuter avec votre partenaire. La communication renforce le couple.',
+  notif_eval_done: 'Évaluation complétée',
+  notif_eval_psycho: 'Psychologique',
+  notif_eval_conjugal: 'Conjugal',
+  notif_eval_sexual: 'Sexuel',
+  notif_mood_saved: 'Votre humeur du jour a été enregistrée ! 😊',
+  notif_journal_saved: 'Entrée journal sauvegardée ! 📝',
+  notif_scale_done: 'Échelle clinique calculée :',
 },
 
 // ═══════════════════════════════════════
@@ -1328,6 +1335,13 @@ ar: {
   notif_tip_breastfeed: 'وضعية مريحة للرضاعة: ظهر مسنود، وسائد تحت الذراعين.',
   notif_tip_walk: 'نزهة قصيرة 15 دقيقة تحسن المزاج وتقوي الرابط مع الطفل.',
   notif_tip_talk: 'خصصي 10 دقائق للحديث مع شريكك. التواصل يقوي الزوجين.',
+  notif_eval_done: 'تم إكمال التقييم',
+  notif_eval_psycho: 'نفسي',
+  notif_eval_conjugal: 'زوجي',
+  notif_eval_sexual: 'جنسي',
+  notif_mood_saved: 'تم تسجيل مزاجك اليوم! 😊',
+  notif_journal_saved: 'تم حفظ يومياتك! 📝',
+  notif_scale_done: 'تم حساب مقياس:',
 },
 
 // ═══════════════════════════════════════

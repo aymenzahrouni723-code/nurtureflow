@@ -728,6 +728,18 @@ function getNotifTimeAgo(date) {
   return `${diffDays} ${t('notif_days_ago') || 'ي'}`;
 }
 
+// Push a single notification from any section
+function pushNotification(id, icon, msg, type = 'info') {
+  const notifs = getNotifications();
+  if (notifs.some(n => n.id === id)) return; // No duplicates
+  notifs.unshift({ id, icon, msg, time: new Date().toISOString(), read: false, type });
+  saveNotifications(notifs.slice(0, 30));
+  updateNotifBadge();
+  // Shake the bell
+  const btn = document.getElementById('notifBtn');
+  if (btn) { btn.classList.remove('has-notif'); void btn.offsetWidth; btn.classList.add('has-notif'); }
+}
+
 // Close notification panel when clicking outside
 document.addEventListener('click', (e) => {
   const panel = document.getElementById('notif-panel');
@@ -1013,6 +1025,10 @@ async function nextQuestion() {
 
     try {
       await api('/evaluations', { method: 'POST', body: { type, answers, score } });
+      const typeLabels = { psychologique: t('notif_eval_psycho'), conjugal: t('notif_eval_conjugal'), sexuel: t('notif_eval_sexual') };
+      const now = new Date().toISOString().split('T')[0];
+      pushNotification('eval_done_' + type + '_' + now, '✅', (t('notif_eval_done') || 'Évaluation complétée') + ' — ' + (typeLabels[type] || type) + ' : ' + score + '/100', 'milestone');
+      localStorage.setItem('nf_last_eval_date', now);
     } catch (e) { console.error('Save eval error:', e); }
 
     navigateTo('evaluations');
@@ -2424,6 +2440,8 @@ async function saveDailyEntry() {
       btn.style.color = 'var(--on-primary-container)';
       setTimeout(() => renderSuivi(), 1500);
     }
+    const now = new Date().toISOString().split('T')[0];
+    pushNotification('mood_' + now, body.mood, t('notif_mood_saved') || 'تم تسجيل مزاجك اليوم!', 'tip');
   } catch (e) {
     if (btn) btn.innerHTML = `<span class="material-symbols-outlined">error</span> ${t('misc_error')}`;
   }
@@ -3158,6 +3176,8 @@ function saveJournalEntry() {
   });
   localStorage.setItem('nf_journal', JSON.stringify(entries));
   journalMood = null;
+  const now = new Date().toISOString().split('T')[0];
+  pushNotification('journal_' + now, '📝', t('notif_journal_saved') || 'تم حفظ يومياتك!', 'tip');
   renderJournal();
 }
 function renderJournal() {
@@ -3386,6 +3406,9 @@ function calculateScale() {
   const questions = currentScale === 'pisq12' ? pisq12Questions : rasQuestions;
   const answeredCount = Object.keys(scaleAnswers).filter(k => k.startsWith(currentScale)).length;
   if (answeredCount === 0) return;
+  const scaleName = currentScale === 'pisq12' ? 'PISQ-12' : 'RAS';
+  const now = new Date().toISOString().split('T')[0];
+  pushNotification('scale_' + currentScale + '_' + now, '📊', (t('notif_scale_done') || 'تم حساب مقياس') + ' ' + scaleName, 'reminder');
   renderEchelles();
   setTimeout(() => {
     const result = document.getElementById('scale-result');
