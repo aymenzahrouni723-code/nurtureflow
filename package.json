@@ -8,10 +8,11 @@
     "dev": "node server.js"
   },
   "dependencies": {
-    "express": "^4.21.0",
-    "sql.js": "^1.11.0",
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
     "express-session": "^1.18.0",
-    "cors": "^2.8.5"
+    "nodemailer": "^8.0.9",
+    "sql.js": "^1.11.0"
   }
 }

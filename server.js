@@ -231,6 +231,66 @@ async function startServer() {
     res.json({ success: true });
   });
 
+  // ═══════════════════ FORGOT PASSWORD ═══════════════════
+
+  app.post('/api/auth/forgot-password', async (req, res) => {
+    try {
+      const { email } = req.body;
+      if (!email) return res.status(400).json({ error: 'Email requis' });
+
+      const couple = queryOne('SELECT * FROM couples WHERE partner1_email = ?', [email]);
+      if (!couple) return res.status(404).json({ error: 'Aucun compte trouvé avec cet email' });
+
+      // Generate a new random password
+      const newPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-4).toUpperCase();
+
+      // Hash and update in DB
+      const hash = bcrypt.hashSync(newPassword, 10);
+      runSQL('UPDATE couples SET password = ? WHERE id = ?', [hash, couple.id]);
+
+      // Send email via nodemailer
+      const nodemailer = require('nodemailer');
+
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'aymenzahrouni723@gmail.com',
+          pass: 'ckmx vanb qghs vftp'
+        }
+      });
+
+      const mailOptions = {
+        from: '"NurtureFlow 🌸" <aymenzahrouni723@gmail.com>',
+        to: email,
+        subject: '🔐 NurtureFlow - Votre nouveau mot de passe',
+        html: `
+          <div style="font-family:'Segoe UI',Tahoma,sans-serif;max-width:500px;margin:0 auto;padding:30px;background:#faf6f8;border-radius:16px;">
+            <div style="text-align:center;margin-bottom:24px;">
+              <h1 style="color:#C44569;font-size:28px;margin:0;">NurtureFlow 🌸</h1>
+              <p style="color:#666;font-size:14px;">من الحياة الزوجية إلى الأبوة</p>
+            </div>
+            <div style="background:white;padding:24px;border-radius:12px;border:1px solid #f0e0e5;">
+              <h2 style="color:#333;font-size:18px;margin:0 0 16px;">مرحباً ${couple.partner1_name} 👋</h2>
+              <p style="color:#555;line-height:1.6;">تم إعادة تعيين كلمة المرور الخاصة بك. إليك كلمة المرور الجديدة:</p>
+              <div style="background:#C44569;color:white;padding:16px;border-radius:10px;text-align:center;font-size:22px;font-weight:bold;letter-spacing:2px;margin:16px 0;">
+                ${newPassword}
+              </div>
+              <p style="color:#888;font-size:13px;line-height:1.5;">⚠️ ننصحك بتغيير كلمة المرور هذه بعد تسجيل الدخول.<br>إذا لم تطلبي إعادة التعيين، تجاهلي هذا البريد.</p>
+            </div>
+            <p style="text-align:center;color:#aaa;font-size:12px;margin-top:20px;">© 2026 NurtureFlow — صُمم بحب ❤️</p>
+          </div>
+        `
+      };
+
+      await transporter.sendMail(mailOptions);
+      console.log(`  📧  Mot de passe envoyé à ${email}`);
+      res.json({ success: true, message: 'Mot de passe envoyé par email' });
+    } catch (err) {
+      console.error('Forgot password error:', err);
+      res.status(500).json({ error: 'Erreur lors de l\'envoi de l\'email: ' + err.message });
+    }
+  });
+
   // ═══════════════════ PROFILE ═══════════════════
 
   app.get('/api/profile', requireAuth, (req, res) => {

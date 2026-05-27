@@ -288,6 +288,11 @@ function showLogin() {
       <button class="btn btn--primary btn--full mt-xl" onclick="doLogin()">
         <span class="material-symbols-outlined">login</span> ${t('auth_login')}
       </button>
+      <div class="text-center mt-lg">
+        <button onclick="showForgotPassword()" style="font-size:14px;color:var(--primary);background:none;border:none;cursor:pointer;font-family:inherit;text-decoration:underline;opacity:0.85;">
+          <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;margin-right:4px;">lock_reset</span>${t('forgot_password')}
+        </button>
+      </div>
       <div class="text-center mt-xl">
         <p class="text-body-md text-variant">${t('auth_no_account')}</p>
         <button class="text-primary text-semibold mt-sm" style="font-size:16px;" onclick="showRegister()">
@@ -305,6 +310,68 @@ function showLogin() {
       </div>
     </div>
   `;
+}
+
+// ── Forgot Password ──
+function showForgotPassword() {
+  const c = document.getElementById('auth-content');
+  c.innerHTML = `
+    <div class="text-center mb-3xl" style="padding-top:80px;">
+      <span class="material-symbols-outlined icon-filled" style="font-size:56px;color:var(--primary);">lock_reset</span>
+      <h1 class="text-display-lg-mobile text-primary mt-lg">${t('forgot_title')}</h1>
+      <p class="text-body-lg text-variant mt-sm">${t('forgot_subtitle')}</p>
+    </div>
+    <div id="forgot-msg" class="mb-lg" style="display:none;"></div>
+    <div class="space-y-lg">
+      <div>
+        <label class="text-label-lg text-variant" style="display:block;margin-bottom:6px;">${t('auth_email')}</label>
+        <input type="email" id="forgot-email" placeholder="${t('forgot_email_placeholder')}"
+          style="width:100%;padding:16px;background:var(--surface-container-low);border:1px solid var(--outline-variant);border-radius:var(--radius-xl);font-size:16px;color:var(--on-surface);outline:none;">
+      </div>
+      <button class="btn btn--primary btn--full mt-xl" id="forgot-btn" onclick="doForgotPassword()">
+        <span class="material-symbols-outlined">send</span> ${t('forgot_send_btn')}
+      </button>
+      <div class="text-center mt-xl">
+        <button class="text-primary text-semibold" style="font-size:16px;" onclick="showLogin()">
+          <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;">arrow_back</span> ${t('forgot_back_login')}
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+async function doForgotPassword() {
+  const email = document.getElementById('forgot-email').value.trim();
+  const msgEl = document.getElementById('forgot-msg');
+  const btn = document.getElementById('forgot-btn');
+
+  if (!email) {
+    msgEl.style.display = 'block';
+    msgEl.innerHTML = `<div class="alert-banner alert-banner--danger"><span class="material-symbols-outlined">error</span><span>${t('forgot_error_email')}</span></div>`;
+    return;
+  }
+
+  btn.disabled = true;
+  btn.innerHTML = `<span class="material-symbols-outlined">hourglass_top</span> ${t('forgot_sending')}`;
+
+  try {
+    await api('/auth/forgot-password', { method: 'POST', body: { email } });
+    msgEl.style.display = 'block';
+    msgEl.innerHTML = `
+      <div class="alert-banner" style="background:var(--primary-container);border:1px solid var(--primary);">
+        <span class="material-symbols-outlined text-primary">check_circle</span>
+        <span class="text-primary">${t('forgot_success')}</span>
+      </div>`;
+    btn.innerHTML = `<span class="material-symbols-outlined">check</span> ${t('forgot_success').split('!')[0]}`;
+    btn.style.background = 'var(--primary-container)';
+    btn.style.color = 'var(--on-primary-container)';
+    setTimeout(() => showLogin(), 4000);
+  } catch (e) {
+    msgEl.style.display = 'block';
+    msgEl.innerHTML = `<div class="alert-banner alert-banner--danger"><span class="material-symbols-outlined">error</span><span>${e.message}</span></div>`;
+    btn.disabled = false;
+    btn.innerHTML = `<span class="material-symbols-outlined">send</span> ${t('forgot_send_btn')}`;
+  }
 }
 
 function showRegister() {
