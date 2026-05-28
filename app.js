@@ -1,9 +1,9 @@
 /* ============================================================
-   NurtureFlow â€” Frontend Application
+   NurtureFlow &#8212; Frontend Application
    SPA avec appels API vers le backend Express
    ============================================================ */
 
-// â”€â”€ API Helper â”€â”€
+// &#8211;&#8211; API Helper &#8211;&#8211;
 async function api(endpoint, options = {}) {
   const config = {
     headers: { 'Content-Type': 'application/json' },
@@ -19,7 +19,7 @@ async function api(endpoint, options = {}) {
   return data;
 }
 
-// â”€â”€ State â”€â”€
+// &#8211;&#8211; State &#8211;&#8211;
 const state = {
   currentScreen: 'auth',
   authenticated: false,
@@ -31,7 +31,7 @@ const state = {
   currentMood: null
 };
 
-// â”€â”€ Questionnaire Data (translated) â”€â”€
+// &#8211;&#8211; Questionnaire Data (translated) &#8211;&#8211;
 function getQuestionnaires() {
   return {
     psychologique: {
@@ -135,13 +135,13 @@ document.addEventListener('DOMContentLoaded', () => {
   checkAuth();
 });
 
-// â”€â”€ Splash â”€â”€
+// &#8211;&#8211; Splash &#8211;&#8211;
 function initSplash() {
   const splash = document.getElementById('splash');
   if (splash) setTimeout(() => { splash.classList.add('hide'); setTimeout(() => splash.remove(), 600); }, 2000);
 }
 
-// â”€â”€ Check auth on load â”€â”€
+// &#8211;&#8211; Check auth on load &#8211;&#8211;
 async function checkAuth() {
   try {
     const data = await api('/auth/me');
@@ -232,7 +232,7 @@ function showScreen(screenId) {
   setTimeout(() => initReveal(), 100);
 }
 
-// â”€â”€ Drawer â”€â”€
+// &#8211;&#8211; Drawer &#8211;&#8211;
 function initDrawer() {
   document.getElementById('menuBtn')?.addEventListener('click', () => {
     document.getElementById('drawer').classList.add('open');
@@ -248,7 +248,7 @@ function closeDrawer() {
   document.getElementById('drawerOverlay')?.classList.remove('open');
 }
 
-// â”€â”€ Scroll & Reveal â”€â”€
+// &#8211;&#8211; Scroll & Reveal &#8211;&#8211;
 function initScrollEffects() {
   window.addEventListener('scroll', () => {
     const topBar = document.getElementById('topBar');
@@ -263,7 +263,7 @@ function initReveal() {
 }
 
 // ══════════════════════════════════════════════════════════════
-//  AUTH â€” LOGIN / REGISTER
+//  AUTH &#8212; LOGIN / REGISTER
 // ══════════════════════════════════════════════════════════════
 function showLogin() {
   const c = document.getElementById('auth-content');
@@ -312,7 +312,7 @@ function showLogin() {
   `;
 }
 
-// â”€â”€ Forgot Password â”€â”€
+// &#8211;&#8211; Forgot Password &#8211;&#8211;
 function showForgotPassword() {
   const c = document.getElementById('auth-content');
   c.innerHTML = `
@@ -727,7 +727,7 @@ async function createNewCouple() {
         <span class="material-symbols-outlined text-primary">check_circle</span>
         <div>
           <strong class="text-primary">${t('nc_success')}</strong>
-          <p class="text-body-md mt-sm"><strong>${body.partner1_name}</strong> & <strong>${body.partner2_name || 'â€”'}</strong></p>
+          <p class="text-body-md mt-sm"><strong>${body.partner1_name}</strong> & <strong>${body.partner2_name || '&#8212;'}</strong></p>
           <p class="text-body-md text-variant">${body.partner1_email}</p>
         </div>
       </div>
@@ -776,12 +776,12 @@ function generateSmartNotifications() {
     const months = Math.floor(days / 30.44);
 
     const milestones = [
-      { day: 1, icon: 'ðŸŽ‰', id: 'mile_1d', msg: t('notif_baby_born') },
-      { day: 7, icon: 'ðŸŽŠ', id: 'mile_1w', msg: t('notif_baby_1week') },
-      { day: 14, icon: 'ðŸŒŸ', id: 'mile_2w', msg: t('notif_baby_2weeks') },
-      { day: 30, icon: 'ðŸŽ‚', id: 'mile_1m', msg: t('notif_baby_1month') },
-      { day: 60, icon: 'ðŸŒ¸', id: 'mile_2m', msg: t('notif_baby_2months') },
-      { day: 90, icon: 'ðŸŽˆ', id: 'mile_3m', msg: t('notif_baby_3months') },
+      { day: 1, icon: '&#130928;', id: 'mile_1d', msg: t('notif_baby_born') },
+      { day: 7, icon: '&#130912;', id: 'mile_1w', msg: t('notif_baby_1week') },
+      { day: 14, icon: '&#128184;', id: 'mile_2w', msg: t('notif_baby_2weeks') },
+      { day: 30, icon: '&#130906;', id: 'mile_1m', msg: t('notif_baby_1month') },
+      { day: 60, icon: '&#128184;', id: 'mile_2m', msg: t('notif_baby_2months') },
+      { day: 90, icon: '&#130886;', id: 'mile_3m', msg: t('notif_baby_3months') },
     ];
 
     for (const m of milestones) {
@@ -795,13 +795,13 @@ function generateSmartNotifications() {
   const tipId = 'tip_' + today;
   if (!existingIds.includes(tipId)) {
     const tips = [
-      { icon: 'ðŸ’§', msg: t('notif_tip_water') },
-      { icon: 'ðŸ§˜', msg: t('notif_tip_breathe') },
-      { icon: 'â¤ï¸', msg: t('notif_tip_hug') },
-      { icon: 'ðŸŒ™', msg: t('notif_tip_sleep') },
-      { icon: 'ðŸ¤±', msg: t('notif_tip_breastfeed') },
-      { icon: 'ðŸš¶', msg: t('notif_tip_walk') },
-      { icon: 'ðŸ’¬', msg: t('notif_tip_talk') },
+      { icon: '&#128615;', msg: t('notif_tip_water') },
+      { icon: '&#129500;', msg: t('notif_tip_breathe') },
+      { icon: '&#10084;ï¸', msg: t('notif_tip_hug') },
+      { icon: '&#128162;', msg: t('notif_tip_sleep') },
+      { icon: '&#129329;', msg: t('notif_tip_breastfeed') },
+      { icon: '&#129142;', msg: t('notif_tip_walk') },
+      { icon: '&#128620;', msg: t('notif_tip_talk') },
     ];
     const tip = tips[now.getDay() % tips.length];
     newNotifs.push({ id: tipId, icon: tip.icon, msg: tip.msg, time: now.toISOString(), read: false, type: 'tip' });
@@ -811,12 +811,12 @@ function generateSmartNotifications() {
   const lastEvalCheck = localStorage.getItem('nf_last_eval_date');
   const evalReminderId = 'eval_remind_' + today;
   if (!lastEvalCheck && !existingIds.includes(evalReminderId)) {
-    newNotifs.push({ id: evalReminderId, icon: 'ðŸ“‹', msg: t('notif_eval_reminder'), time: now.toISOString(), read: false, type: 'reminder' });
+    newNotifs.push({ id: evalReminderId, icon: '&#128825;', msg: t('notif_eval_reminder'), time: now.toISOString(), read: false, type: 'reminder' });
   }
 
   // 4. Welcome notification (first time)
   if (!existingIds.includes('welcome')) {
-    newNotifs.push({ id: 'welcome', icon: 'ðŸ‘‹', msg: t('notif_welcome'), time: now.toISOString(), read: false, type: 'welcome' });
+    newNotifs.push({ id: 'welcome', icon: '&#128569;', msg: t('notif_welcome'), time: now.toISOString(), read: false, type: 'welcome' });
   }
 
   if (newNotifs.length > 0) {
@@ -855,7 +855,7 @@ function renderNotifList() {
   if (notifs.length === 0) {
     list.innerHTML = `
       <div class="notif-empty">
-        <div class="notif-empty__icon">ðŸ””</div>
+        <div class="notif-empty__icon">&#128861;</div>
         <p class="text-body-md">${t('notif_empty')}</p>
       </div>
     `;
@@ -947,7 +947,7 @@ function renderBabyAgeWidget() {
     // Show input form
     widget.innerHTML = `
       <div class="flex items-center gap-md mb-lg">
-        <span style="font-size:32px;">ðŸ‘¶</span>
+        <span style="font-size:32px;">&#128566;</span>
         <div>
           <h3 class="text-headline-sm" style="font-size:16px;">${t('baby_title')}</h3>
           <p class="text-body-md text-variant">${t('baby_enter_info')}</p>
@@ -1007,10 +1007,10 @@ function updateBabyAge() {
   widget.innerHTML = `
     <div class="flex items-center justify-between mb-lg">
       <div class="flex items-center gap-md">
-        <span style="font-size:32px;">ðŸ‘¶</span>
+        <span style="font-size:32px;">&#128566;</span>
         <div>
           <h3 class="text-headline-sm" style="font-size:16px;">${t('baby_age_title')}</h3>
-          <p class="text-body-sm text-variant">ðŸŽ‚ ${birthStr} â€¢ ${birthTime}</p>
+          <p class="text-body-sm text-variant">&#130906; ${birthStr} &#8226; ${birthTime}</p>
         </div>
       </div>
       <button onclick="localStorage.removeItem('nf_baby_birth');renderBabyAgeWidget();" style="border:none;background:none;cursor:pointer;padding:4px;">
@@ -1032,8 +1032,8 @@ function updateBabyAge() {
       `).join('')}
     </div>
 
-    ${totalDays <= 7 ? `<div style="margin-top:12px;text-align:center;padding:8px;background:rgba(163,217,200,0.12);border-radius:var(--radius-lg);"><span style="font-size:14px;">ðŸŽ‰</span> <span class="text-body-sm text-semibold">${t('baby_newborn_msg')}</span></div>` : ''}
-    ${totalDays > 7 && totalWeeks <= 6 ? `<div style="margin-top:12px;text-align:center;padding:8px;background:rgba(180,142,173,0.08);border-radius:var(--radius-lg);"><span class="text-body-sm text-variant">ðŸ“… ${t('baby_weeks_old', { n: totalWeeks })}</span></div>` : ''}
+    ${totalDays <= 7 ? `<div style="margin-top:12px;text-align:center;padding:8px;background:rgba(163,217,200,0.12);border-radius:var(--radius-lg);"><span style="font-size:14px;">&#130928;</span> <span class="text-body-sm text-semibold">${t('baby_newborn_msg')}</span></div>` : ''}
+    ${totalDays > 7 && totalWeeks <= 6 ? `<div style="margin-top:12px;text-align:center;padding:8px;background:rgba(180,142,173,0.08);border-radius:var(--radius-lg);"><span class="text-body-sm text-variant">&#128806; ${t('baby_weeks_old', { n: totalWeeks })}</span></div>` : ''}
   `;
 
   // Auto refresh every minute
@@ -1044,7 +1044,7 @@ function updateBabyAge() {
 async function renderHome() {
   if (!state.couple) return;
 
-  // Update name â€” show both partners
+  // Update name &#8212; show both partners
   const nameEl = document.getElementById('home-name');
   if (nameEl) {
     const name1 = state.couple.partner1_name || '';
@@ -1058,7 +1058,7 @@ async function renderHome() {
     adminLink.style.display = state.couple.partner1_email === 'admin@nurtureflow.com' ? 'flex' : 'none';
   }
 
-  // Update drawer â€” show both names
+  // Update drawer &#8212; show both names
   const drawerName = document.getElementById('drawer-name');
   if (drawerName) {
     const n1 = state.couple.partner1_name || '';
@@ -1219,7 +1219,7 @@ async function nextQuestion() {
       await api('/evaluations', { method: 'POST', body: { type, answers, score } });
       const typeLabels = { psychologique: t('notif_eval_psycho'), conjugal: t('notif_eval_conjugal'), sexuel: t('notif_eval_sexual') };
       const now = new Date().toISOString().split('T')[0];
-      pushNotification('eval_done_' + type + '_' + now, 'âœ…', (t('notif_eval_done') || 'Ã‰valuation complétée') + ' â€” ' + (typeLabels[type] || type) + ' : ' + score + '/100', 'milestone');
+      pushNotification('eval_done_' + type + '_' + now, '&#9989;', (t('notif_eval_done') || 'Ã‰valuation complétée') + ' &#8212; ' + (typeLabels[type] || type) + ' : ' + score + '/100', 'milestone');
       localStorage.setItem('nf_last_eval_date', now);
     } catch (e) { console.error('Save eval error:', e); }
 
@@ -1398,7 +1398,7 @@ const staticArticles = {
   partner: {
     icon: 'group', color: 'var(--primary)',
     title: 'Ø¯ÙˆØ± Ø§Ù„Ø´Ø±ÙŠÙƒ Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©',
-    type: 'ÙÙŠØ¯ÙŠÙˆ â€¢ 7 Ø¯Ù‚Ø§Ø¦Ù‚',
+    type: 'ÙÙŠØ¯ÙŠÙˆ &#8226; 7 Ø¯Ù‚Ø§Ø¦Ù‚',
     sections: [
       { heading: 'Ø§Ù„Ø¯Ø¹Ù… Ø§Ù„Ø¹Ø§Ø·ÙÙŠ', text: 'ÙŠØ­ØªØ§Ø¬ Ø§Ù„Ø´Ø±ÙŠÙƒ Ø¥Ù„Ù‰ ÙÙ‡Ù… Ø§Ù„ØªØºÙŠØ±Ø§Øª Ø§Ù„Ù†ÙØ³ÙŠØ© ÙˆØ§Ù„Ø¬Ø³Ø¯ÙŠØ© Ø§Ù„ØªÙŠ ØªÙ…Ø± Ø¨Ù‡Ø§ Ø§Ù„Ø£Ù… Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©. Ø§Ù„Ø§Ø³ØªÙ…Ø§Ø¹ Ø¨ØªØ¹Ø§Ø·Ù ÙˆØ§Ù„ØªÙˆØ§Ø¬Ø¯ Ø§Ù„Ø¯Ø§Ø¦Ù… Ù‡Ù…Ø§ Ø£Ù‡Ù… Ø£Ø´ÙƒØ§Ù„ Ø§Ù„Ø¯Ø¹Ù….' },
       { heading: 'Ø§Ù„Ù…Ø´Ø§Ø±ÙƒØ© ÙÙŠ Ø§Ù„Ø¹Ù†Ø§ÙŠØ© Ø¨Ø§Ù„Ø·ÙÙ„', text: 'ØªØºÙŠÙŠØ± Ø§Ù„Ø­ÙØ§Ø¶Ø§ØªØŒ Ø§Ù„Ø§Ø³ØªØ­Ù…Ø§Ù…ØŒ ØªÙ‡Ø¯Ø¦Ø© Ø§Ù„Ø·ÙÙ„ Ù„ÙŠÙ„Ø§Ù‹... ÙƒÙ„Ù‡Ø§ Ù…Ù‡Ø§Ù… ÙŠÙ…ÙƒÙ† Ù„Ù„Ø´Ø±ÙŠÙƒ Ø§Ù„Ù‚ÙŠØ§Ù… Ø¨Ù‡Ø§ Ù„ØªØ®ÙÙŠÙ Ø§Ù„Ø¹Ø¨Ø¡ Ø¹Ù† Ø§Ù„Ø£Ù….' },
@@ -1410,7 +1410,7 @@ const staticArticles = {
   intimacy: {
     icon: 'favorite', color: 'var(--secondary)',
     title: 'Ø§Ø³ØªØ¹Ø§Ø¯Ø© Ø§Ù„Ø­Ù…ÙŠÙ…ÙŠØ© Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©',
-    type: 'Ù…Ù‚Ø§Ù„ â€¢ 8 Ø¯Ù‚Ø§Ø¦Ù‚',
+    type: 'Ù…Ù‚Ø§Ù„ &#8226; 8 Ø¯Ù‚Ø§Ø¦Ù‚',
     sections: [
       { heading: 'Ù…ØªÙ‰ ÙŠÙ…ÙƒÙ† Ø§Ø³ØªØ¦Ù†Ø§Ù Ø§Ù„Ø¹Ù„Ø§Ù‚Ø©ØŸ', text: 'Ù„Ø§ ÙŠÙˆØ¬Ø¯ ÙˆÙ‚Øª Ù…Ø­Ø¯Ø¯. ÙŠØ¹ØªÙ…Ø¯ Ø¹Ù„Ù‰ Ø§Ù„ØªØ¹Ø§ÙÙŠ Ø§Ù„Ø¬Ø³Ø¯ÙŠ (ØªÙˆÙ‚Ù Ø§Ù„Ù†Ø²ÙŠÙØŒ Ø§Ù„ØªØ¦Ø§Ù… Ø§Ù„Ø¬Ø±ÙˆØ­) ÙˆØ§Ù„Ø§Ø³ØªØ¹Ø¯Ø§Ø¯ Ø§Ù„Ù†ÙØ³ÙŠ. Ù…Ø¹Ø¸Ù… Ø§Ù„Ø£Ø·Ø¨Ø§Ø¡ ÙŠÙ†ØµØ­ÙˆÙ† Ø¨Ø§Ù„Ø§Ù†ØªØ¸Ø§Ø± 4-6 Ø£Ø³Ø§Ø¨ÙŠØ¹.' },
       { heading: 'Ø§Ù„ØªØºÙŠØ±Ø§Øª Ø§Ù„Ø·Ø¨ÙŠØ¹ÙŠØ©', text: 'Ø§Ù„Ø¬ÙØ§Ù Ø§Ù„Ù…Ù‡Ø¨Ù„ÙŠ Ø´Ø§Ø¦Ø¹ Ø®Ø§ØµØ© Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ø±Ø¶Ø§Ø¹Ø©. Ø§Ù†Ø®ÙØ§Ø¶ Ø§Ù„Ø±ØºØ¨Ø© Ø·Ø¨ÙŠØ¹ÙŠ Ø¨Ø³Ø¨Ø¨ Ø§Ù„ØªØ¹Ø¨ ÙˆØ§Ù„ØªØºÙŠØ±Ø§Øª Ø§Ù„Ù‡Ø±Ù…ÙˆÙ†ÙŠØ©. ÙƒÙ„Ù‡Ø§ Ø£Ù…ÙˆØ± Ù…Ø¤Ù‚ØªØ©.' },
@@ -1422,7 +1422,7 @@ const staticArticles = {
   breathing: {
     icon: 'play_circle', color: 'var(--secondary)',
     title: 'Ø§Ù„ØªÙ†ÙØ³ Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©',
-    type: 'ÙÙŠØ¯ÙŠÙˆ â€¢ 5 Ø¯Ù‚Ø§Ø¦Ù‚',
+    type: 'ÙÙŠØ¯ÙŠÙˆ &#8226; 5 Ø¯Ù‚Ø§Ø¦Ù‚',
     sections: [
       { heading: 'Ø£Ù‡Ù…ÙŠØ© Ø§Ù„ØªÙ†ÙØ³', text: 'Ø§Ù„ØªÙ†ÙØ³ Ø§Ù„Ø¹Ù…ÙŠÙ‚ ÙŠØ³Ø§Ø¹Ø¯ Ø¹Ù„Ù‰ ØªÙ‚Ù„ÙŠÙ„ Ø§Ù„ØªÙˆØªØ± ÙˆØ§Ù„Ù‚Ù„Ù‚. ÙŠØ­Ø³Ù† Ø§Ù„Ø¯ÙˆØ±Ø© Ø§Ù„Ø¯Ù…ÙˆÙŠØ© ÙˆÙŠØ³Ø§Ø¹Ø¯ Ø¹Ù„Ù‰ ØªØ¹Ø§ÙÙŠ Ø¹Ø¶Ù„Ø§Øª Ø§Ù„Ø¨Ø·Ù† ÙˆØ§Ù„Ø­ÙˆØ¶.' },
       { heading: 'ØªÙ…Ø±ÙŠÙ† Ø§Ù„ØªÙ†ÙØ³ Ø§Ù„Ø¨Ø·Ù†ÙŠ', text: 'Ø§Ø³ØªÙ„Ù‚ÙŠ Ø¹Ù„Ù‰ Ø¸Ù‡Ø±Ùƒ. Ø¶Ø¹ÙŠ ÙŠØ¯Ø§Ù‹ Ø¹Ù„Ù‰ ØµØ¯Ø±Ùƒ ÙˆØ£Ø®Ø±Ù‰ Ø¹Ù„Ù‰ Ø¨Ø·Ù†Ùƒ. ØªÙ†ÙØ³ÙŠ Ø¨Ø¨Ø·Ø¡ Ù…Ù† Ø§Ù„Ø£Ù†Ù Ø­ØªÙ‰ ØªØ±ØªÙØ¹ ÙŠØ¯Ùƒ Ø¹Ù„Ù‰ Ø§Ù„Ø¨Ø·Ù†. Ø£Ø®Ø±Ø¬ÙŠ Ø§Ù„Ù‡ÙˆØ§Ø¡ Ø¨Ø¨Ø·Ø¡ Ù…Ù† Ø§Ù„ÙÙ…. ÙƒØ±Ø±ÙŠ 10 Ù…Ø±Ø§Øª.' },
@@ -1433,7 +1433,7 @@ const staticArticles = {
   sleep: {
     icon: 'psychology', color: 'var(--tertiary)',
     title: 'Ø¥Ø¯Ø§Ø±Ø© Ù‚Ù„Ø© Ø§Ù„Ù†ÙˆÙ…',
-    type: 'Ø¯Ù„ÙŠÙ„ â€¢ 12 Ø¯Ù‚ÙŠÙ‚Ø©',
+    type: 'Ø¯Ù„ÙŠÙ„ &#8226; 12 Ø¯Ù‚ÙŠÙ‚Ø©',
     sections: [
       { heading: 'Ù†Ø§Ù…ÙŠ Ø¹Ù†Ø¯Ù…Ø§ ÙŠÙ†Ø§Ù… Ø·ÙÙ„Ùƒ', text: 'Ø£Ù‡Ù… Ù†ØµÙŠØ­Ø©: Ù„Ø§ ØªØ­Ø§ÙˆÙ„ÙŠ Ø¥Ù†Ø¬Ø§Ø² Ø§Ù„Ø£Ø¹Ù…Ø§Ù„ Ø§Ù„Ù…Ù†Ø²Ù„ÙŠØ© Ø£Ø«Ù†Ø§Ø¡ Ù†ÙˆÙ… Ø§Ù„Ø·ÙÙ„. Ø§Ù„Ø£ÙˆÙ„ÙˆÙŠØ© Ù„Ø±Ø§Ø­ØªÙƒ.' },
       { heading: 'ØªÙ†Ø¸ÙŠÙ… Ø§Ù„Ù†ÙˆÙ…', text: 'Ø§Ø¬Ø¹Ù„ÙŠ ØºØ±ÙØ© Ø§Ù„Ù†ÙˆÙ… Ù…Ø¸Ù„Ù…Ø© ÙˆÙ‡Ø§Ø¯Ø¦Ø©. ØªØ¬Ù†Ø¨ÙŠ Ø§Ù„Ø´Ø§Ø´Ø§Øª Ù‚Ø¨Ù„ Ø§Ù„Ù†ÙˆÙ…. Ø­Ø§ÙˆÙ„ÙŠ Ø§Ù„Ù†ÙˆÙ… ÙˆØ§Ù„Ø§Ø³ØªÙŠÙ‚Ø§Ø¸ ÙÙŠ Ø£ÙˆÙ‚Ø§Øª Ù…Ù†ØªØ¸Ù…Ø© Ù‚Ø¯Ø± Ø§Ù„Ø¥Ù…ÙƒØ§Ù†.' },
@@ -1445,7 +1445,7 @@ const staticArticles = {
   communication: {
     icon: 'forum', color: 'var(--primary)',
     title: 'Ø§Ù„ØªÙˆØ§ØµÙ„ ÙÙŠ Ø§Ù„Ø²ÙˆØ¬ÙŠÙ†',
-    type: 'Ù…Ù‚Ø§Ù„ â€¢ 10 Ø¯Ù‚Ø§Ø¦Ù‚',
+    type: 'Ù…Ù‚Ø§Ù„ &#8226; 10 Ø¯Ù‚Ø§Ø¦Ù‚',
     sections: [
       { heading: 'Ø§Ù„Ø­ÙØ§Ø¸ Ø¹Ù„Ù‰ Ø§Ù„Ø±Ø§Ø¨Ø·', text: 'ÙˆØµÙˆÙ„ Ø§Ù„Ù…ÙˆÙ„ÙˆØ¯ ÙŠØºÙŠØ± Ø¯ÙŠÙ†Ø§Ù…ÙŠÙƒÙŠØ© Ø§Ù„Ø¹Ù„Ø§Ù‚Ø©. Ù…Ù† Ø§Ù„Ø·Ø¨ÙŠØ¹ÙŠ Ø£Ù† ÙŠØªØ±Ø§Ø¬Ø¹ Ø§Ù„Ø§Ù‡ØªÙ…Ø§Ù… Ø¨Ø§Ù„Ø´Ø±ÙŠÙƒ Ù…Ø¤Ù‚ØªØ§Ù‹. Ù„ÙƒÙ† Ø§Ù„ØªÙˆØ§ØµÙ„ Ø§Ù„Ù…Ø³ØªÙ…Ø± ÙŠØ­Ù…ÙŠ Ø§Ù„Ø¹Ù„Ø§Ù‚Ø©.' },
       { heading: 'Ø§Ù„Ø§Ø³ØªÙ…Ø§Ø¹ Ø§Ù„ÙØ¹Ø§Ù„', text: 'Ø®ØµØµÙˆØ§ ÙˆÙ‚ØªØ§Ù‹ ÙŠÙˆÙ…ÙŠØ§Ù‹ Ù„Ù„Ø­Ø¯ÙŠØ« Ø¨Ø¯ÙˆÙ† ØªØ´ØªÙŠØª. Ø§Ø³Ù…Ø¹ÙˆØ§ Ø¨Ø¹Ø¶ÙƒÙ… Ø¯ÙˆÙ† Ù…Ù‚Ø§Ø·Ø¹Ø© Ø£Ùˆ Ø­ÙƒÙ…. Ø¹Ø¨Ù‘Ø±ÙˆØ§ Ø¹Ù† Ù…Ø´Ø§Ø¹Ø±ÙƒÙ… Ø¨ØµØ±Ø§Ø­Ø© ÙˆØ¨Ù„Ø·Ù.' },
@@ -1633,16 +1633,16 @@ const bfChapters = [
     icon: 'self_improvement', title: 'ÙˆØ¶Ø¹ÙŠØ§Øª Ø§Ù„Ø±Ø¶Ø§Ø¹Ø©',
     content: `<div class="space-y-lg" style="line-height:1.8;">
       <div style="padding:var(--space-lg);background:rgba(196,69,105,0.06);border-radius:var(--radius-xl);border-right:4px solid var(--primary);">
-        <h4 style="font-weight:700;margin-bottom:8px;">ðŸ¤± ÙˆØ¶Ø¹ÙŠØ© Ø§Ù„Ù…Ù‡Ø¯</h4><p>ÙˆÙ‡ÙŠ Ø§Ù„Ø£ÙƒØ«Ø± Ø´ÙŠÙˆØ¹Ø§Ù‹</p>
+        <h4 style="font-weight:700;margin-bottom:8px;">&#129329; ÙˆØ¶Ø¹ÙŠØ© Ø§Ù„Ù…Ù‡Ø¯</h4><p>ÙˆÙ‡ÙŠ Ø§Ù„Ø£ÙƒØ«Ø± Ø´ÙŠÙˆØ¹Ø§Ù‹</p>
       </div>
       <div style="padding:var(--space-lg);background:rgba(142,108,136,0.08);border-radius:var(--radius-xl);border-right:4px solid var(--secondary);">
-        <h4 style="font-weight:700;margin-bottom:8px;">ðŸˆ ÙˆØ¶Ø¹ÙŠØ© ÙƒØ±Ø© Ø§Ù„Ù‚Ø¯Ù…</h4><p>Ù…Ù†Ø§Ø³Ø¨Ø© Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø© Ø§Ù„Ù‚ÙŠØµØ±ÙŠØ© ÙˆÙ„Ù„Ø£Ù…Ù‡Ø§Øª Ø§Ù„Ù„ÙˆØ§ØªÙŠ Ù„Ø¯ÙŠÙ‡Ù† ØªÙˆØ£Ù…</p>
+        <h4 style="font-weight:700;margin-bottom:8px;">&#127942; ÙˆØ¶Ø¹ÙŠØ© ÙƒØ±Ø© Ø§Ù„Ù‚Ø¯Ù…</h4><p>Ù…Ù†Ø§Ø³Ø¨Ø© Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø© Ø§Ù„Ù‚ÙŠØµØ±ÙŠØ© ÙˆÙ„Ù„Ø£Ù…Ù‡Ø§Øª Ø§Ù„Ù„ÙˆØ§ØªÙŠ Ù„Ø¯ÙŠÙ‡Ù† ØªÙˆØ£Ù…</p>
       </div>
       <div style="padding:var(--space-lg);background:rgba(212,107,80,0.08);border-radius:var(--radius-xl);border-right:4px solid var(--tertiary);">
-        <h4 style="font-weight:700;margin-bottom:8px;">ðŸ˜´ ÙˆØ¶Ø¹ÙŠØ© Ø§Ù„Ø§Ø³ØªÙ„Ù‚Ø§Ø¡</h4><p>Ù…Ø±ÙŠØ­Ø© Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ù„ÙŠÙ„ ÙˆÙØªØ±Ø§Øª Ø§Ù„Ø±Ø§Ø­Ø©</p>
+        <h4 style="font-weight:700;margin-bottom:8px;">&#128820; ÙˆØ¶Ø¹ÙŠØ© Ø§Ù„Ø§Ø³ØªÙ„Ù‚Ø§Ø¡</h4><p>Ù…Ø±ÙŠØ­Ø© Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ù„ÙŠÙ„ ÙˆÙØªØ±Ø§Øª Ø§Ù„Ø±Ø§Ø­Ø©</p>
       </div>
       <div style="padding:var(--space-lg);background:rgba(163,217,200,0.15);border-radius:var(--radius-xl);border-right:4px solid #A3D9C8;">
-        <h4 style="font-weight:700;margin-bottom:8px;">ðŸŒ¿ Ø§Ù„ÙˆØ¶Ø¹ÙŠØ© Ø§Ù„Ø¨ÙŠÙˆÙ„ÙˆØ¬ÙŠØ©</h4><p>Ø§Ø³ØªÙ„Ù‚Ø§Ø¡ Ø§Ù„Ø£Ù… Ù…Ø¹ ÙˆØ¶Ø¹ Ø§Ù„Ø·ÙÙ„ Ø¹Ù„Ù‰ ØµØ¯Ø±Ù‡Ø§ Ø¨Ø´ÙƒÙ„ Ø·Ø¨ÙŠØ¹ÙŠ</p>
+        <h4 style="font-weight:700;margin-bottom:8px;">&#128191; Ø§Ù„ÙˆØ¶Ø¹ÙŠØ© Ø§Ù„Ø¨ÙŠÙˆÙ„ÙˆØ¬ÙŠØ©</h4><p>Ø§Ø³ØªÙ„Ù‚Ø§Ø¡ Ø§Ù„Ø£Ù… Ù…Ø¹ ÙˆØ¶Ø¹ Ø§Ù„Ø·ÙÙ„ Ø¹Ù„Ù‰ ØµØ¯Ø±Ù‡Ø§ Ø¨Ø´ÙƒÙ„ Ø·Ø¨ÙŠØ¹ÙŠ</p>
       </div>
     </div>`
   },
@@ -1673,7 +1673,7 @@ const bfChapters = [
     content: `<div style="line-height:1.8;">
       ${['Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ù…ØªÙƒØ±Ø±Ø©','Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ù„ÙŠÙ„ÙŠØ©','ØªÙØ±ÙŠØº Ø§Ù„Ø«Ø¯ÙŠ Ø¨Ø§Ù†ØªØ¸Ø§Ù…','Ø§Ù„Ø±Ø§Ø­Ø© ÙˆØ§Ù„Ù†ÙˆÙ… Ù‚Ø¯Ø± Ø§Ù„Ø¥Ù…ÙƒØ§Ù†','Ø´Ø±Ø¨ Ø§Ù„Ù…Ø§Ø¡ Ø¨Ø§Ù†ØªØ¸Ø§Ù…','Ø§Ù„ØªØºØ°ÙŠØ© Ø§Ù„Ù…ØªÙˆØ§Ø²Ù†Ø©'].map(s => `<div class="flex items-center gap-md mb-md"><span class="material-symbols-outlined text-primary" style="font-size:18px;">check_circle</span><span>${s}</span></div>`).join('')}
       <div style="background:var(--primary-container);padding:var(--space-lg);border-radius:var(--radius-xl);margin-top:var(--space-lg);">
-        <p style="font-weight:600;color:var(--on-primary-container);"><span style="font-size:18px;">ðŸ’¡</span> Ø¥Ù†ØªØ§Ø¬ Ø§Ù„Ø­Ù„ÙŠØ¨ ÙŠØ¹ØªÙ…Ø¯ Ø¹Ù„Ù‰ Ù…Ø¨Ø¯Ø£ Ø§Ù„Ø¹Ø±Ø¶ ÙˆØ§Ù„Ø·Ù„Ø¨. ÙƒÙ„Ù…Ø§ Ø²Ø§Ø¯Øª Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø£Ùˆ Ø´ÙØ· Ø§Ù„Ø­Ù„ÙŠØ¨ØŒ Ø²Ø§Ø¯ Ø¥Ù†ØªØ§Ø¬ Ø§Ù„Ø­Ù„ÙŠØ¨.</p>
+        <p style="font-weight:600;color:var(--on-primary-container);"><span style="font-size:18px;">&#128609;</span> Ø¥Ù†ØªØ§Ø¬ Ø§Ù„Ø­Ù„ÙŠØ¨ ÙŠØ¹ØªÙ…Ø¯ Ø¹Ù„Ù‰ Ù…Ø¨Ø¯Ø£ Ø§Ù„Ø¹Ø±Ø¶ ÙˆØ§Ù„Ø·Ù„Ø¨. ÙƒÙ„Ù…Ø§ Ø²Ø§Ø¯Øª Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø£Ùˆ Ø´ÙØ· Ø§Ù„Ø­Ù„ÙŠØ¨ØŒ Ø²Ø§Ø¯ Ø¥Ù†ØªØ§Ø¬ Ø§Ù„Ø­Ù„ÙŠØ¨.</p>
       </div>
     </div>`
   },
@@ -1682,21 +1682,21 @@ const bfChapters = [
     content: `<div style="line-height:1.8;">
       <div class="alert-banner mb-lg" style="background:var(--primary-container);border:1px solid var(--primary);"><span class="material-symbols-outlined text-primary">info</span><span style="color:var(--on-primary-container);">Ù„Ø§ ØªÙˆØ¬Ø¯ Ø£Ø·Ø¹Ù…Ø© Ø³Ø­Ø±ÙŠØ© ØªØ²ÙŠØ¯ Ø§Ù„Ø­Ù„ÙŠØ¨ Ø¨Ø´ÙƒÙ„ Ù…Ø¨Ø§Ø´Ø±ØŒ Ù„ÙƒÙ† Ø§Ù„ØªØºØ°ÙŠØ© Ø§Ù„Ù…ØªÙˆØ§Ø²Ù†Ø© ÙˆØ§Ù„ØªØ±Ø·ÙŠØ¨ Ø§Ù„Ø¬ÙŠØ¯ ÙŠØ¯Ø¹Ù…Ø§Ù† Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ø·Ø¨ÙŠØ¹ÙŠØ© (ØªÙˆØµÙŠØ§Øª Ù…Ù†Ø¸Ù…Ø© Ø§Ù„ØµØ­Ø© Ø§Ù„Ø¹Ø§Ù„Ù…ÙŠØ©).</span></div>
       ${[
-        { cat: 'ðŸ¥© Ø§Ù„Ø¨Ø±ÙˆØªÙŠÙ†Ø§Øª', items: 'Ø§Ù„Ø¨ÙŠØ¶ØŒ Ø§Ù„Ø¯Ø¬Ø§Ø¬ØŒ Ø§Ù„Ø³Ù…ÙƒØŒ Ø§Ù„Ù„Ø­Ù…ØŒ Ø§Ù„Ø¹Ø¯Ø³ØŒ Ø§Ù„Ø­Ù…ØµØŒ Ø§Ù„ÙÙˆÙ„' },
-        { cat: 'ðŸ¥› Ù…Ø´ØªÙ‚Ø§Øª Ø§Ù„Ø­Ù„ÙŠØ¨', items: 'Ø§Ù„Ø­Ù„ÙŠØ¨ØŒ Ø§Ù„ÙŠØ§ØºÙˆØ±ØªØŒ Ø§Ù„Ø¬Ø¨Ù†' },
-        { cat: 'ðŸ¥— Ø§Ù„Ø®Ø¶Ø± ÙˆØ§Ù„ÙÙˆØ§ÙƒÙ‡', items: 'Ø§Ù„ØªÙØ§Ø­ØŒ Ø§Ù„Ø¨Ø±ØªÙ‚Ø§Ù„ØŒ Ø§Ù„Ù…ÙˆØ²ØŒ Ø§Ù„Ø¬Ø²Ø±ØŒ Ø§Ù„Ø³Ø¨Ø§Ù†Ø®ØŒ Ø§Ù„Ø¨Ø±ÙˆÙƒÙ„ÙŠØŒ Ø§Ù„Ø·Ù…Ø§Ø·Ù…' },
-        { cat: 'ðŸŒ¾ Ø§Ù„Ø­Ø¨ÙˆØ¨ Ø§Ù„ÙƒØ§Ù…Ù„Ø©', items: 'Ø§Ù„Ø´ÙˆÙØ§Ù†ØŒ Ø§Ù„Ø£Ø±Ø² Ø§Ù„ÙƒØ§Ù…Ù„ØŒ Ø§Ù„Ø®Ø¨Ø² Ø§Ù„ÙƒØ§Ù…Ù„' },
-        { cat: 'ðŸ«’ Ø§Ù„Ø¯Ù‡ÙˆÙ† Ø§Ù„Ø¬ÙŠØ¯Ø©', items: 'Ø²ÙŠØª Ø§Ù„Ø²ÙŠØªÙˆÙ†ØŒ Ø§Ù„Ù„ÙˆØ²ØŒ Ø§Ù„Ø¬ÙˆØ²ØŒ Ø§Ù„Ø£ÙÙˆÙƒØ§Ø¯Ùˆ' },
-        { cat: 'ðŸ’§ Ø§Ù„ØªØ±Ø·ÙŠØ¨', items: 'Ø´Ø±Ø¨ Ø§Ù„Ù…Ø§Ø¡ Ø­Ø³Ø¨ Ø§Ù„Ø´Ø¹ÙˆØ± Ø¨Ø§Ù„Ø¹Ø·Ø´ØŒ Ø§Ù„Ø§Ø­ØªÙØ§Ø¸ Ø¨Ù‚Ø§Ø±ÙˆØ±Ø© Ù…Ø§Ø¡ Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ø±Ø¶Ø§Ø¹Ø©' }
+        { cat: '&#129385; Ø§Ù„Ø¨Ø±ÙˆØªÙŠÙ†Ø§Øª', items: 'Ø§Ù„Ø¨ÙŠØ¶ØŒ Ø§Ù„Ø¯Ø¬Ø§Ø¬ØŒ Ø§Ù„Ø³Ù…ÙƒØŒ Ø§Ù„Ù„Ø­Ù…ØŒ Ø§Ù„Ø¹Ø¯Ø³ØŒ Ø§Ù„Ø­Ù…ØµØŒ Ø§Ù„ÙÙˆÙ„' },
+        { cat: '&#129402; Ù…Ø´ØªÙ‚Ø§Øª Ø§Ù„Ø­Ù„ÙŠØ¨', items: 'Ø§Ù„Ø­Ù„ÙŠØ¨ØŒ Ø§Ù„ÙŠØ§ØºÙˆØ±ØªØŒ Ø§Ù„Ø¬Ø¨Ù†' },
+        { cat: '&#129364; Ø§Ù„Ø®Ø¶Ø± ÙˆØ§Ù„ÙÙˆØ§ÙƒÙ‡', items: 'Ø§Ù„ØªÙØ§Ø­ØŒ Ø§Ù„Ø¨Ø±ØªÙ‚Ø§Ù„ØŒ Ø§Ù„Ù…ÙˆØ²ØŒ Ø§Ù„Ø¬Ø²Ø±ØŒ Ø§Ù„Ø³Ø¨Ø§Ù†Ø®ØŒ Ø§Ù„Ø¨Ø±ÙˆÙƒÙ„ÙŠØŒ Ø§Ù„Ø·Ù…Ø§Ø·Ù…' },
+        { cat: '&#128190; Ø§Ù„Ø­Ø¨ÙˆØ¨ Ø§Ù„ÙƒØ§Ù…Ù„Ø©', items: 'Ø§Ù„Ø´ÙˆÙØ§Ù†ØŒ Ø§Ù„Ø£Ø±Ø² Ø§Ù„ÙƒØ§Ù…Ù„ØŒ Ø§Ù„Ø®Ø¨Ø² Ø§Ù„ÙƒØ§Ù…Ù„' },
+        { cat: '&#129753; Ø§Ù„Ø¯Ù‡ÙˆÙ† Ø§Ù„Ø¬ÙŠØ¯Ø©', items: 'Ø²ÙŠØª Ø§Ù„Ø²ÙŠØªÙˆÙ†ØŒ Ø§Ù„Ù„ÙˆØ²ØŒ Ø§Ù„Ø¬ÙˆØ²ØŒ Ø§Ù„Ø£ÙÙˆÙƒØ§Ø¯Ùˆ' },
+        { cat: '&#128615; Ø§Ù„ØªØ±Ø·ÙŠØ¨', items: 'Ø´Ø±Ø¨ Ø§Ù„Ù…Ø§Ø¡ Ø­Ø³Ø¨ Ø§Ù„Ø´Ø¹ÙˆØ± Ø¨Ø§Ù„Ø¹Ø·Ø´ØŒ Ø§Ù„Ø§Ø­ØªÙØ§Ø¸ Ø¨Ù‚Ø§Ø±ÙˆØ±Ø© Ù…Ø§Ø¡ Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ø±Ø¶Ø§Ø¹Ø©' }
       ].map(g => `<div style="padding:var(--space-md) var(--space-lg);background:var(--surface-container-low);border-radius:var(--radius-xl);margin-bottom:var(--space-md);">
         <strong>${g.cat}</strong><br><span class="text-variant">${g.items}</span>
       </div>`).join('')}
       <h4 style="font-weight:700;margin:16px 0 8px;">Ø§Ù„Ø¹Ù†Ø§ØµØ± Ø§Ù„ØºØ°Ø§Ø¦ÙŠØ© Ø§Ù„Ù…Ù‡Ù…Ø©:</h4>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-md);">
-        <div style="padding:var(--space-md);background:rgba(196,69,105,0.06);border-radius:var(--radius-lg);text-align:center;"><strong>ðŸ©¸ Ø§Ù„Ø­Ø¯ÙŠØ¯</strong><br><small>Ø§Ù„Ù„Ø­ÙˆÙ… Ø§Ù„Ø­Ù…Ø±Ø§Ø¡ØŒ Ø§Ù„Ø¹Ø¯Ø³ØŒ Ø§Ù„Ø³Ø¨Ø§Ù†Ø®</small></div>
-        <div style="padding:var(--space-md);background:rgba(142,108,136,0.08);border-radius:var(--radius-lg);text-align:center;"><strong>ðŸ¦´ Ø§Ù„ÙƒØ§Ù„Ø³ÙŠÙˆÙ…</strong><br><small>Ø§Ù„Ø­Ù„ÙŠØ¨ ÙˆÙ…Ø´ØªÙ‚Ø§ØªÙ‡ØŒ Ø§Ù„Ø³Ø±Ø¯ÙŠÙ†</small></div>
-        <div style="padding:var(--space-md);background:rgba(163,217,200,0.12);border-radius:var(--radius-lg);text-align:center;"><strong>ðŸŸ Ø£ÙˆÙ…ÙŠØºØ§ 3</strong><br><small>Ø§Ù„Ø³Ø±Ø¯ÙŠÙ†ØŒ Ø§Ù„ØªÙˆÙ†Ø©ØŒ Ø§Ù„Ø³Ù„Ù…ÙˆÙ†</small></div>
-        <div style="padding:var(--space-md);background:rgba(212,165,116,0.12);border-radius:var(--radius-lg);text-align:center;"><strong>â˜€ï¸ ÙÙŠØªØ§Ù…ÙŠÙ† D</strong><br><small>Ø§Ù„ØªØ¹Ø±Ø¶ Ù„Ù„Ø´Ù…Ø³ØŒ Ø§Ù„Ù…ÙƒÙ…Ù„Ø§Øª</small></div>
+        <div style="padding:var(--space-md);background:rgba(196,69,105,0.06);border-radius:var(--radius-lg);text-align:center;"><strong>&#129656; Ø§Ù„Ø­Ø¯ÙŠØ¯</strong><br><small>Ø§Ù„Ù„Ø­ÙˆÙ… Ø§Ù„Ø­Ù…Ø±Ø§Ø¡ØŒ Ø§Ù„Ø¹Ø¯Ø³ØŒ Ø§Ù„Ø³Ø¨Ø§Ù†Ø®</small></div>
+        <div style="padding:var(--space-md);background:rgba(142,108,136,0.08);border-radius:var(--radius-lg);text-align:center;"><strong>&#129460; Ø§Ù„ÙƒØ§Ù„Ø³ÙŠÙˆÙ…</strong><br><small>Ø§Ù„Ø­Ù„ÙŠØ¨ ÙˆÙ…Ø´ØªÙ‚Ø§ØªÙ‡ØŒ Ø§Ù„Ø³Ø±Ø¯ÙŠÙ†</small></div>
+        <div style="padding:var(--space-md);background:rgba(163,217,200,0.12);border-radius:var(--radius-lg);text-align:center;"><strong>&#128056; Ø£ÙˆÙ…ÙŠØºØ§ 3</strong><br><small>Ø§Ù„Ø³Ø±Ø¯ÙŠÙ†ØŒ Ø§Ù„ØªÙˆÙ†Ø©ØŒ Ø§Ù„Ø³Ù„Ù…ÙˆÙ†</small></div>
+        <div style="padding:var(--space-md);background:rgba(212,165,116,0.12);border-radius:var(--radius-lg);text-align:center;"><strong>&#9728;ï¸ ÙÙŠØªØ§Ù…ÙŠÙ† D</strong><br><small>Ø§Ù„ØªØ¹Ø±Ø¶ Ù„Ù„Ø´Ù…Ø³ØŒ Ø§Ù„Ù…ÙƒÙ…Ù„Ø§Øª</small></div>
       </div>
     </div>`
   },
@@ -1707,7 +1707,7 @@ const bfChapters = [
         ${['Ø§Ù„Ø´ÙˆÙØ§Ù†','Ø§Ù„Ø­Ù„Ø¨Ø©','Ø§Ù„Ø´Ù…Ø±','Ø§Ù„Ù„ÙˆØ²','Ø§Ù„Ø³Ù…Ø³Ù…'].map(f => `<span style="padding:8px 18px;background:rgba(212,165,116,0.15);border-radius:var(--radius-full);font-weight:600;font-size:14px;">${f}</span>`).join('')}
       </div>
       <div style="padding:var(--space-lg);background:rgba(142,108,136,0.08);border-radius:var(--radius-xl);border-right:4px solid var(--secondary);">
-        <p><strong>ðŸ”¬ Ù…Ù„Ø§Ø­Ø¸Ø© Ø¹Ù„Ù…ÙŠØ©:</strong> Ù„Ø§ ØªÙˆØ¬Ø¯ Ø£Ø¯Ù„Ø© Ø¹Ù„Ù…ÙŠØ© Ù‚ÙˆÙŠØ© ØªØ«Ø¨Øª Ø£Ù† ØºØ°Ø§Ø¡Ù‹ Ù…Ø¹ÙŠÙ†Ø§Ù‹ ÙŠØ²ÙŠØ¯ Ø¥Ù†ØªØ§Ø¬ Ø§Ù„Ø­Ù„ÙŠØ¨ Ø¨Ø´ÙƒÙ„ ÙƒØ¨ÙŠØ±ØŒ Ø¨ÙŠÙ†Ù…Ø§ ØªØ¹ØªØ¨Ø± Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ù…ØªÙƒØ±Ø±Ø© Ø§Ù„Ø¹Ø§Ù…Ù„ Ø§Ù„Ø£ÙƒØ«Ø± ÙØ¹Ø§Ù„ÙŠØ©.</p>
+        <p><strong>&#128876; Ù…Ù„Ø§Ø­Ø¸Ø© Ø¹Ù„Ù…ÙŠØ©:</strong> Ù„Ø§ ØªÙˆØ¬Ø¯ Ø£Ø¯Ù„Ø© Ø¹Ù„Ù…ÙŠØ© Ù‚ÙˆÙŠØ© ØªØ«Ø¨Øª Ø£Ù† ØºØ°Ø§Ø¡Ù‹ Ù…Ø¹ÙŠÙ†Ø§Ù‹ ÙŠØ²ÙŠØ¯ Ø¥Ù†ØªØ§Ø¬ Ø§Ù„Ø­Ù„ÙŠØ¨ Ø¨Ø´ÙƒÙ„ ÙƒØ¨ÙŠØ±ØŒ Ø¨ÙŠÙ†Ù…Ø§ ØªØ¹ØªØ¨Ø± Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ù…ØªÙƒØ±Ø±Ø© Ø§Ù„Ø¹Ø§Ù…Ù„ Ø§Ù„Ø£ÙƒØ«Ø± ÙØ¹Ø§Ù„ÙŠØ©.</p>
       </div>
     </div>`
   },
@@ -1716,9 +1716,9 @@ const bfChapters = [
     content: `<div style="line-height:1.8;">
       <table style="width:100%;border-collapse:collapse;margin-bottom:var(--space-xl);">
         <tr style="background:var(--primary);color:white;"><th style="padding:12px;text-align:right;border-radius:var(--radius-lg) var(--radius-lg) 0 0;">Ø§Ù„Ù…ÙƒØ§Ù†</th><th style="padding:12px;text-align:center;">Ø§Ù„Ù…Ø¯Ø©</th></tr>
-        <tr style="background:var(--surface-container-low);"><td style="padding:12px;font-weight:600;">ðŸŒ¡ï¸ Ø¯Ø±Ø¬Ø© Ø­Ø±Ø§Ø±Ø© Ø§Ù„ØºØ±ÙØ©</td><td style="padding:12px;text-align:center;">4 Ø³Ø§Ø¹Ø§Øª</td></tr>
-        <tr><td style="padding:12px;font-weight:600;">â„ï¸ Ø§Ù„Ø«Ù„Ø§Ø¬Ø©</td><td style="padding:12px;text-align:center;">4 Ø£ÙŠØ§Ù…</td></tr>
-        <tr style="background:var(--surface-container-low);"><td style="padding:12px;font-weight:600;">ðŸ§Š Ø§Ù„Ù…Ø¬Ù…Ø¯</td><td style="padding:12px;text-align:center;">6 Ø£Ø´Ù‡Ø±</td></tr>
+        <tr style="background:var(--surface-container-low);"><td style="padding:12px;font-weight:600;">&#128161;ï¸ Ø¯Ø±Ø¬Ø© Ø­Ø±Ø§Ø±Ø© Ø§Ù„ØºØ±ÙØ©</td><td style="padding:12px;text-align:center;">4 Ø³Ø§Ø¹Ø§Øª</td></tr>
+        <tr><td style="padding:12px;font-weight:600;">&#10084;ï¸ Ø§Ù„Ø«Ù„Ø§Ø¬Ø©</td><td style="padding:12px;text-align:center;">4 Ø£ÙŠØ§Ù…</td></tr>
+        <tr style="background:var(--surface-container-low);"><td style="padding:12px;font-weight:600;">&#129504; Ø§Ù„Ù…Ø¬Ù…Ø¯</td><td style="padding:12px;text-align:center;">6 Ø£Ø´Ù‡Ø±</td></tr>
       </table>
       ${['ÙƒØªØ§Ø¨Ø© ØªØ§Ø±ÙŠØ® Ø§Ù„Ø´ÙØ·','Ø¹Ø¯Ù… Ø¥Ø¹Ø§Ø¯Ø© ØªØ¬Ù…ÙŠØ¯ Ø§Ù„Ø­Ù„ÙŠØ¨ Ø§Ù„Ù…Ø°Ø§Ø¨'].map(s => `<div class="flex items-center gap-md mb-md"><span class="material-symbols-outlined text-primary" style="font-size:18px;">check_circle</span><span>${s}</span></div>`).join('')}
     </div>`
@@ -1783,7 +1783,7 @@ function renderBreastfeeding() {
         <h2 class="text-headline-sm">${t('bf_title')}</h2>
         <p class="text-body-md text-variant">${t('bf_subtitle')}</p>
       </div>
-      <span style="font-size:36px;">ðŸ¤±</span>
+      <span style="font-size:36px;">&#129329;</span>
     </div>
 
     <!-- Tabs -->
@@ -1848,7 +1848,7 @@ function renderBFMyths(container) {
             <!-- Front: Myth -->
             <div style="position:${flipped?'absolute':'relative'};inset:0;backface-visibility:hidden;padding:var(--space-xl);border-radius:var(--radius-xl);background:linear-gradient(135deg,rgba(220,53,69,0.08),rgba(220,53,69,0.03));border:2px solid rgba(220,53,69,0.2);">
               <div class="flex items-center gap-sm mb-md">
-                <span style="font-size:20px;">âŒ</span>
+                <span style="font-size:20px;">&#10060;</span>
                 <span class="text-label-lg" style="color:var(--error);text-transform:uppercase;">${t('bf_myth')}</span>
                 <span class="material-symbols-outlined text-variant" style="margin-inline-start:auto;font-size:18px;">touch_app</span>
               </div>
@@ -1857,7 +1857,7 @@ function renderBFMyths(container) {
             <!-- Back: Reality -->
             <div style="position:absolute;inset:0;backface-visibility:hidden;transform:rotateY(180deg);padding:var(--space-xl);border-radius:var(--radius-xl);background:linear-gradient(135deg,rgba(40,167,69,0.08),rgba(40,167,69,0.03));border:2px solid rgba(40,167,69,0.2);">
               <div class="flex items-center gap-sm mb-md">
-                <span style="font-size:20px;">âœ…</span>
+                <span style="font-size:20px;">&#9989;</span>
                 <span class="text-label-lg" style="color:#28a745;text-transform:uppercase;">${t('bf_reality')}</span>
               </div>
               <p class="text-body-lg text-semibold" style="line-height:1.6;">${m.reality}</p>
@@ -1885,10 +1885,10 @@ function renderBFQuiz(container) {
   let resultHTML = '';
   if (allAnswered) {
     let color, emoji, label, advice;
-    if (totalScore >= 30) { color = '#28a745'; emoji = 'ðŸŸ¢'; label = t('bf_quiz_excellent'); advice = 'Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© ØªØ³ÙŠØ± Ø¨Ø´ÙƒÙ„ Ø¬ÙŠØ¯.'; }
-    else if (totalScore >= 22) { color = '#ffc107'; emoji = 'ðŸŸ¡'; label = t('bf_quiz_good'); advice = 'ØªÙˆØ¬Ø¯ Ø¨Ø¹Ø¶ Ø§Ù„ØµØ¹ÙˆØ¨Ø§Øª Ø§Ù„Ø¨Ø³ÙŠØ·Ø©.'; }
-    else if (totalScore >= 15) { color = '#fd7e14'; emoji = 'ðŸŸ '; label = t('bf_quiz_attention'); advice = 'ÙŠÙˆØµÙ‰ Ø¨Ø§Ø³ØªØ´Ø§Ø±Ø© Ø£Ø®ØµØ§Ø¦ÙŠØ© ØªÙˆÙ„ÙŠØ¯ Ø£Ùˆ Ø±Ø¶Ø§Ø¹Ø©.'; }
-    else { color = '#dc3545'; emoji = 'ðŸ”´'; label = t('bf_quiz_urgent'); advice = 'ÙŠÙÙ†ØµØ­ Ø¨Ø·Ù„Ø¨ ØªÙ‚ÙŠÙŠÙ… Ù…Ù‡Ù†ÙŠ ÙÙŠ Ø£Ù‚Ø±Ø¨ ÙˆÙ‚Øª.'; }
+    if (totalScore >= 30) { color = '#28a745'; emoji = '&#130594;'; label = t('bf_quiz_excellent'); advice = 'Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© ØªØ³ÙŠØ± Ø¨Ø´ÙƒÙ„ Ø¬ÙŠØ¯.'; }
+    else if (totalScore >= 22) { color = '#ffc107'; emoji = '&#130593;'; label = t('bf_quiz_good'); advice = 'ØªÙˆØ¬Ø¯ Ø¨Ø¹Ø¶ Ø§Ù„ØµØ¹ÙˆØ¨Ø§Øª Ø§Ù„Ø¨Ø³ÙŠØ·Ø©.'; }
+    else if (totalScore >= 15) { color = '#fd7e14'; emoji = '&#130592;'; label = t('bf_quiz_attention'); advice = 'ÙŠÙˆØµÙ‰ Ø¨Ø§Ø³ØªØ´Ø§Ø±Ø© Ø£Ø®ØµØ§Ø¦ÙŠØ© ØªÙˆÙ„ÙŠØ¯ Ø£Ùˆ Ø±Ø¶Ø§Ø¹Ø©.'; }
+    else { color = '#dc3545'; emoji = '&#128884;'; label = t('bf_quiz_urgent'); advice = 'ÙŠÙÙ†ØµØ­ Ø¨Ø·Ù„Ø¨ ØªÙ‚ÙŠÙŠÙ… Ù…Ù‡Ù†ÙŠ ÙÙŠ Ø£Ù‚Ø±Ø¨ ÙˆÙ‚Øª.'; }
 
     // Check for medical alerts
     const medicalAlerts = [];
@@ -1911,8 +1911,8 @@ function renderBFQuiz(container) {
         <div class="alert-banner alert-banner--danger mb-xl reveal">
           <span class="material-symbols-outlined">emergency</span>
           <div>
-            <strong>ðŸš¨ ${t('bf_quiz_medical_alert')}</strong>
-            <p class="text-body-md mt-sm">${medicalAlerts.join(' â€” ')}</p>
+            <strong>&#129128; ${t('bf_quiz_medical_alert')}</strong>
+            <p class="text-body-md mt-sm">${medicalAlerts.join(' &#8212; ')}</p>
             <p class="text-body-md mt-sm" style="font-weight:600;">ÙŠÙÙ†ØµØ­ Ø¨Ø§Ù„ØªÙˆØ§ØµÙ„ Ù…Ø¹ Ø£Ø®ØµØ§Ø¦ÙŠØ© ØªÙˆÙ„ÙŠØ¯ Ø£Ùˆ Ø·Ø¨ÙŠØ¨ Ø£Ø·ÙØ§Ù„ ÙÙŠ Ø£Ù‚Ø±Ø¨ ÙˆÙ‚Øª.</p>
           </div>
         </div>
@@ -1994,7 +1994,7 @@ function renderBFLog(container) {
           </div>
           <p class="text-label-lg mb-sm">${t('bf_log_mood')}</p>
           <div class="mood-grid" id="bf-mood-grid">
-            ${['ðŸ˜«','ðŸ˜”','ðŸ˜','ðŸ˜Š','ðŸ˜„'].map(m => `<button class="mood-option ${todayEntries[0]?.mood===m?'selected':''}" onclick="document.querySelectorAll('#bf-mood-grid .mood-option').forEach(b=>b.classList.remove('selected'));this.classList.add('selected');this.dataset.val='${m}';" data-val="${m}"><span class="mood-option__emoji">${m}</span></button>`).join('')}
+            ${['&#128811;','&#128797;','&#128784;','&#128800;','&#128798;'].map(m => `<button class="mood-option ${todayEntries[0]?.mood===m?'selected':''}" onclick="document.querySelectorAll('#bf-mood-grid .mood-option').forEach(b=>b.classList.remove('selected'));this.classList.add('selected');this.dataset.val='${m}';" data-val="${m}"><span class="mood-option__emoji">${m}</span></button>`).join('')}
           </div>
           <textarea id="bf-notes" class="form-input" rows="2" placeholder="${t('bf_log_notes_placeholder')}" style="resize:none;">${todayEntries[0]?.notes||''}</textarea>
           <button class="btn btn--primary btn--full" onclick="saveBFLog()">
@@ -2031,7 +2031,7 @@ function renderBFLog(container) {
       <div class="space-y-md">
         ${entries.slice(0, 7).map(e => `
           <div class="daily-entry reveal">
-            <span style="font-size:24px;">${e.mood || 'ðŸ˜Š'}</span>
+            <span style="font-size:24px;">${e.mood || '&#128800;'}</span>
             <div style="flex:1;">
               <div class="flex justify-between text-label-md">
                 <span class="text-primary">${e.feeds || 0} ${t('bf_log_feeds_short')}</span>
@@ -2053,7 +2053,7 @@ function saveBFLog() {
   const duration = parseInt(document.getElementById('bf-duration')?.value || 15);
   const pumped = parseInt(document.getElementById('bf-pumped')?.value || 0);
   const moodBtn = document.querySelector('#bf-mood-grid .mood-option.selected');
-  const mood = moodBtn?.dataset?.val || 'ðŸ˜Š';
+  const mood = moodBtn?.dataset?.val || '&#128800;';
   const notes = document.getElementById('bf-notes')?.value?.trim() || '';
   const today = new Date().toISOString().split('T')[0];
 
@@ -2109,7 +2109,7 @@ const sxChapters = [
       <p>Ø§Ù†Ø®ÙØ§Ø¶ Ø§Ù„Ø±ØºØ¨Ø© Ø§Ù„Ø¬Ù†Ø³ÙŠØ© Ø£Ù…Ø± Ø´Ø§Ø¦Ø¹ Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©.</p>
       ${['Ø§Ù„Ø¥Ø±Ù‡Ø§Ù‚ ÙˆÙ‚Ù„Ø© Ø§Ù„Ù†ÙˆÙ…','Ø§Ù„ØªØºÙŠØ±Ø§Øª Ø§Ù„Ù‡Ø±Ù…ÙˆÙ†ÙŠØ©','Ø§Ù„ØªÙƒÙŠÙ Ù…Ø¹ Ø¯ÙˆØ± Ø§Ù„Ø£Ù…ÙˆÙ…Ø©'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="font-size:16px;color:var(--tertiary);">arrow_right</span><span>${s}</span></div>`).join('')}
       <div style="background:var(--primary-container);padding:var(--space-lg);border-radius:var(--radius-xl);margin-top:var(--space-md);">
-        <p style="font-weight:600;color:var(--on-primary-container);"><span style="font-size:18px;">ðŸ’¡</span> ØªØ¹ÙˆØ¯ Ø§Ù„Ø±ØºØ¨Ø© ØªØ¯Ø±ÙŠØ¬ÙŠØ§Ù‹ Ù„Ø¯Ù‰ Ø£ØºÙ„Ø¨ Ø§Ù„Ù†Ø³Ø§Ø¡.</p>
+        <p style="font-weight:600;color:var(--on-primary-container);"><span style="font-size:18px;">&#128609;</span> ØªØ¹ÙˆØ¯ Ø§Ù„Ø±ØºØ¨Ø© ØªØ¯Ø±ÙŠØ¬ÙŠØ§Ù‹ Ù„Ø¯Ù‰ Ø£ØºÙ„Ø¨ Ø§Ù„Ù†Ø³Ø§Ø¡.</p>
       </div>
     </div>`
   },
@@ -2118,7 +2118,7 @@ const sxChapters = [
     content: `<div class="space-y-md" style="line-height:1.8;">
       <p>Ø§Ù„Ø­ÙˆØ§Ø± Ø§Ù„ØµØ±ÙŠØ­ Ø­ÙˆÙ„ Ø§Ù„Ù…Ø´Ø§Ø¹Ø± ÙˆØ§Ù„Ø§Ø­ØªÙŠØ§Ø¬Ø§Øª ÙŠØ³Ø§Ø¹Ø¯ Ø¹Ù„Ù‰ Ø§Ù„ØªÙƒÙŠÙ Ù…Ø¹ Ø§Ù„Ù…Ø±Ø­Ù„Ø© Ø§Ù„Ø¬Ø¯ÙŠØ¯Ø©.</p>
       <div style="padding:var(--space-lg);background:rgba(163,217,200,0.15);border-radius:var(--radius-xl);border-right:4px solid #A3D9C8;">
-        <p style="font-weight:600;">ðŸ’• Ø§Ù„Ø­Ù…ÙŠÙ…ÙŠØ© Ù„Ø§ ØªÙ‚ØªØµØ± ÙÙ‚Ø· Ø¹Ù„Ù‰ Ø§Ù„Ø¹Ù„Ø§Ù‚Ø© Ø§Ù„Ø¬Ù†Ø³ÙŠØ©ØŒ Ø¨Ù„ ØªØ´Ù…Ù„ Ø§Ù„Ø¯Ø¹Ù… Ø§Ù„Ø¹Ø§Ø·ÙÙŠ Ø£ÙŠØ¶Ø§Ù‹.</p>
+        <p style="font-weight:600;">&#128610; Ø§Ù„Ø­Ù…ÙŠÙ…ÙŠØ© Ù„Ø§ ØªÙ‚ØªØµØ± ÙÙ‚Ø· Ø¹Ù„Ù‰ Ø§Ù„Ø¹Ù„Ø§Ù‚Ø© Ø§Ù„Ø¬Ù†Ø³ÙŠØ©ØŒ Ø¨Ù„ ØªØ´Ù…Ù„ Ø§Ù„Ø¯Ø¹Ù… Ø§Ù„Ø¹Ø§Ø·ÙÙŠ Ø£ÙŠØ¶Ø§Ù‹.</p>
       </div>
     </div>`
   },
@@ -2126,22 +2126,22 @@ const sxChapters = [
     icon: 'medical_services', title: 'Ø§Ù„Ø¹Ù†Ø§ÙŠØ© Ø¨Ø´Ù‚ Ø§Ù„Ø¹Ø¬Ø§Ù†', color: 'var(--primary)',
     content: `<div class="space-y-lg" style="line-height:1.8;">
       <div>
-        <h4 style="font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;"><span style="font-size:18px;">ðŸ§¼</span> ÙƒÙŠÙ ÙŠØªÙ… ØªÙ†Ø¸ÙŠÙ Ø§Ù„Ø¬Ø±Ø­ØŸ</h4>
+        <h4 style="font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;"><span style="font-size:18px;">&#129532;</span> ÙƒÙŠÙ ÙŠØªÙ… ØªÙ†Ø¸ÙŠÙ Ø§Ù„Ø¬Ø±Ø­ØŸ</h4>
         ${['ØºØ³Ù„ Ø§Ù„ÙŠØ¯ÙŠÙ† Ù‚Ø¨Ù„ ÙˆØ¨Ø¹Ø¯ Ø§Ù„Ø¹Ù†Ø§ÙŠØ©','ØªÙ†Ø¸ÙŠÙ Ø§Ù„Ù…Ù†Ø·Ù‚Ø© ÙŠÙˆÙ…ÙŠØ§Ù‹ Ø¨Ø§Ù„Ù…Ø§Ø¡ Ø§Ù„ÙØ§ØªØ± ÙˆØµØ§Ø¨ÙˆÙ† Ù„Ø·ÙŠÙ ØºÙŠØ± Ù…Ø¹Ø·Ø±','Ø§Ù„Ø´Ø·Ù Ø¬ÙŠØ¯Ø§Ù‹ Ø«Ù… Ø§Ù„ØªØ¬ÙÙŠÙ Ø¨Ù„Ø·Ù Ø¯ÙˆÙ† ÙØ±Ùƒ','ÙŠÙÙØ¶Ù„ Ø§Ù„ØªØ¬ÙÙŠÙ Ø¨Ø§Ù„ØªØ±Ø¨ÙŠØª Ø£Ùˆ ØªØ±Ùƒ Ø§Ù„Ù…Ù†Ø·Ù‚Ø© ØªØ¬Ù ÙÙŠ Ø§Ù„Ù‡ÙˆØ§Ø¡','ØªØºÙŠÙŠØ± Ø§Ù„ÙÙˆØ· Ø§Ù„ØµØ­ÙŠØ© Ø¨Ø§Ù†ØªØ¸Ø§Ù…','Ø§Ø±ØªØ¯Ø§Ø¡ Ù…Ù„Ø§Ø¨Ø³ Ø¯Ø§Ø®Ù„ÙŠØ© Ù‚Ø·Ù†ÙŠØ© ÙˆÙ…Ø±ÙŠØ­Ø©','Ø´Ø±Ø¨ Ø§Ù„Ù…Ø§Ø¡ ÙˆØªÙ†Ø§ÙˆÙ„ Ø£Ù„ÙŠØ§Ù Ù„ØªØ¬Ù†Ø¨ Ø§Ù„Ø¥Ù…Ø³Ø§Ùƒ'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined text-primary" style="font-size:16px;">check_circle</span><span>${s}</span></div>`).join('')}
       </div>
       <div>
-        <h4 style="font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;"><span style="font-size:18px;">ðŸ’Š</span> Ù„ØªØ®ÙÙŠÙ Ø§Ù„Ø£Ù„Ù…</h4>
+        <h4 style="font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;"><span style="font-size:18px;">&#128608;</span> Ù„ØªØ®ÙÙŠÙ Ø§Ù„Ø£Ù„Ù…</h4>
         ${['ÙƒÙ…Ø§Ø¯Ø§Øª Ø¨Ø§Ø±Ø¯Ø© Ø®Ù„Ø§Ù„ Ø£ÙˆÙ„ 24 Ø³Ø§Ø¹Ø© Ø¥Ø°Ø§ Ø£ÙˆØµÙ‰ Ø§Ù„Ù…Ø®ØªØµ','Ø§Ù„Ø¬Ù„ÙˆØ³ Ø¹Ù„Ù‰ ÙˆØ³Ø§Ø¯Ø© Ù…Ø±ÙŠØ­Ø©','Ù…Ø³ÙƒÙ†Ø§Øª Ù…ÙˆØµÙˆÙØ© Ø·Ø¨ÙŠØ§Ù‹'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="font-size:16px;color:#d4a574;">lightbulb</span><span>${s}</span></div>`).join('')}
       </div>
       <div>
-        <h4 style="font-weight:700;margin-bottom:12px;color:var(--error);display:flex;align-items:center;gap:8px;"><span style="font-size:18px;">âŒ</span> Ù…Ø§ ÙŠØ¬Ø¨ ØªØ¬Ù†Ø¨Ù‡</h4>
+        <h4 style="font-weight:700;margin-bottom:12px;color:var(--error);display:flex;align-items:center;gap:8px;"><span style="font-size:18px;">&#10060;</span> Ù…Ø§ ÙŠØ¬Ø¨ ØªØ¬Ù†Ø¨Ù‡</h4>
         ${['Ø§Ù„Ù…Ø·Ù‡Ø±Ø§Øª Ø£Ùˆ Ø§Ù„ÙƒØ±ÙŠÙ…Ø§Øª Ø¨Ø¯ÙˆÙ† ÙˆØµÙØ© Ø·Ø¨ÙŠØ©','ÙØ±Ùƒ Ø§Ù„Ø¬Ø±Ø­','Ø§Ù„Ù…Ù„Ø§Ø¨Ø³ Ø§Ù„Ø¶ÙŠÙ‚Ø©'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="font-size:16px;color:var(--error);">block</span><span>${s}</span></div>`).join('')}
       </div>
       <div class="alert-banner alert-banner--danger">
         <span class="material-symbols-outlined">emergency</span>
         <div>
-          <strong>ðŸš¨ Ø¹Ù„Ø§Ù…Ø§Øª Ø§Ù„Ø®Ø·Ø± â€” Ø§Ø³ØªØ´ÙŠØ±ÙŠ Ø§Ù„Ø·Ø¨ÙŠØ¨ Ø¥Ø°Ø§ Ø¸Ù‡Ø±:</strong>
-          ${['Ø§Ø­Ù…Ø±Ø§Ø± Ù…ØªØ²Ø§ÙŠØ¯ Ø£Ùˆ ØªÙˆØ±Ù… Ø´Ø¯ÙŠØ¯','Ø£Ù„Ù… ÙŠØ²Ø¯Ø§Ø¯ Ù…Ø¹ Ø§Ù„ÙˆÙ‚Øª','Ø¥ÙØ±Ø§Ø²Ø§Øª Ø°Ø§Øª Ø±Ø§Ø¦Ø­Ø© ÙƒØ±ÙŠÙ‡Ø© Ø£Ùˆ Ù‚ÙŠØ­','Ø­Ø±Ø§Ø±Ø© Ø£ÙƒØ«Ø± Ù…Ù† 38 Â°C','Ø§Ù†ÙØªØ§Ø­ Ø§Ù„Ø¬Ø±Ø­ Ø£Ùˆ Ù†Ø²ÙŠÙ ØºÙŠØ± Ø·Ø¨ÙŠØ¹ÙŠ'].map(s => `<div class="flex items-center gap-sm mt-sm"><span style="color:var(--error);font-size:14px;">âš ï¸</span><span>${s}</span></div>`).join('')}
+          <strong>&#129128; Ø¹Ù„Ø§Ù…Ø§Øª Ø§Ù„Ø®Ø·Ø± &#8212; Ø§Ø³ØªØ´ÙŠØ±ÙŠ Ø§Ù„Ø·Ø¨ÙŠØ¨ Ø¥Ø°Ø§ Ø¸Ù‡Ø±:</strong>
+          ${['Ø§Ø­Ù…Ø±Ø§Ø± Ù…ØªØ²Ø§ÙŠØ¯ Ø£Ùˆ ØªÙˆØ±Ù… Ø´Ø¯ÙŠØ¯','Ø£Ù„Ù… ÙŠØ²Ø¯Ø§Ø¯ Ù…Ø¹ Ø§Ù„ÙˆÙ‚Øª','Ø¥ÙØ±Ø§Ø²Ø§Øª Ø°Ø§Øª Ø±Ø§Ø¦Ø­Ø© ÙƒØ±ÙŠÙ‡Ø© Ø£Ùˆ Ù‚ÙŠØ­','Ø­Ø±Ø§Ø±Ø© Ø£ÙƒØ«Ø± Ù…Ù† 38 Â°C','Ø§Ù†ÙØªØ§Ø­ Ø§Ù„Ø¬Ø±Ø­ Ø£Ùˆ Ù†Ø²ÙŠÙ ØºÙŠØ± Ø·Ø¨ÙŠØ¹ÙŠ'].map(s => `<div class="flex items-center gap-sm mt-sm"><span style="color:var(--error);font-size:14px;">&#9888;ï¸</span><span>${s}</span></div>`).join('')}
         </div>
       </div>
     </div>`
@@ -2171,7 +2171,7 @@ function renderSexuality() {
         <h2 class="text-headline-sm">${t('sx_title')}</h2>
         <p class="text-body-md text-variant">${t('sx_subtitle')}</p>
       </div>
-      <span style="font-size:36px;">â¤ï¸</span>
+      <span style="font-size:36px;">&#10084;ï¸</span>
     </div>
 
     <!-- Tabs -->
@@ -2230,7 +2230,7 @@ function renderSXMyths(container) {
           <div onclick="sxFlippedCards[${i}]=!sxFlippedCards[${i}];renderSexuality();" style="cursor:pointer;position:relative;min-height:120px;transition:transform 0.6s;transform-style:preserve-3d;${flipped?'transform:rotateY(180deg)':''}">
             <div style="position:${flipped?'absolute':'relative'};inset:0;backface-visibility:hidden;padding:var(--space-xl);border-radius:var(--radius-xl);background:linear-gradient(135deg,rgba(220,53,69,0.08),rgba(220,53,69,0.03));border:2px solid rgba(220,53,69,0.2);">
               <div class="flex items-center gap-sm mb-md">
-                <span style="font-size:20px;">âŒ</span>
+                <span style="font-size:20px;">&#10060;</span>
                 <span class="text-label-lg" style="color:var(--error);text-transform:uppercase;">${t('bf_myth')}</span>
                 <span class="material-symbols-outlined text-variant" style="margin-inline-start:auto;font-size:18px;">touch_app</span>
               </div>
@@ -2238,7 +2238,7 @@ function renderSXMyths(container) {
             </div>
             <div style="position:absolute;inset:0;backface-visibility:hidden;transform:rotateY(180deg);padding:var(--space-xl);border-radius:var(--radius-xl);background:linear-gradient(135deg,rgba(40,167,69,0.08),rgba(40,167,69,0.03));border:2px solid rgba(40,167,69,0.2);">
               <div class="flex items-center gap-sm mb-md">
-                <span style="font-size:20px;">âœ…</span>
+                <span style="font-size:20px;">&#9989;</span>
                 <span class="text-label-lg" style="color:#28a745;text-transform:uppercase;">${t('bf_reality')}</span>
               </div>
               <p class="text-body-lg text-semibold" style="line-height:1.6;">${m.reality}</p>
@@ -2292,7 +2292,7 @@ const nbChapters = [
   {
     icon: 'bathtub', title: 'Ø­Ù…Ø§Ù… Ø§Ù„Ù…ÙˆÙ„ÙˆØ¯', color: 'var(--secondary)',
     content: `<div class="space-y-md" style="line-height:1.8;">
-      <p style="font-weight:600;">ðŸ› Ù…ØªÙ‰ ÙˆÙƒÙŠÙØŸ</p>
+      <p style="font-weight:600;">&#130689; Ù…ØªÙ‰ ÙˆÙƒÙŠÙØŸ</p>
       ${['Ø£ÙˆÙ„ Ø­Ù…Ø§Ù… Ø¨Ø¹Ø¯ Ø³Ù‚ÙˆØ· Ø§Ù„Ø­Ø¨Ù„ Ø§Ù„Ø³Ø±ÙŠ (Ø£Ùˆ Ø­Ø³Ø¨ ØªÙˆØµÙŠØ© Ø§Ù„Ù…Ø®ØªØµ)','Ø§Ø³ØªØ®Ø¯Ø§Ù… Ù…Ø§Ø¡ Ø¯Ø§ÙØ¦ (37Â°C ØªÙ‚Ø±ÙŠØ¨Ø§Ù‹)','ØµØ§Ø¨ÙˆÙ† Ù„Ø·ÙŠÙ Ù…Ø®ØµØµ Ù„Ù„Ø£Ø·ÙØ§Ù„','Ù…Ø¯Ø© Ø§Ù„Ø­Ù…Ø§Ù… 5 Ø¥Ù„Ù‰ 10 Ø¯Ù‚Ø§Ø¦Ù‚','ØªØ¬ÙÙŠÙ Ø§Ù„Ø·ÙÙ„ ÙÙˆØ±Ø§Ù‹ Ø¨Ø¹Ø¯ Ø§Ù„Ø­Ù…Ø§Ù…','Ø§Ù„Ø­Ù…Ø§Ù… 2-3 Ù…Ø±Ø§Øª Ø£Ø³Ø¨ÙˆØ¹ÙŠØ§Ù‹ ÙƒØ§ÙÙ'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="font-size:16px;color:var(--secondary);">check_circle</span><span>${s}</span></div>`).join('')}
     </div>`
   },
@@ -2305,9 +2305,9 @@ const nbChapters = [
         <strong>ÙŠØ±Ù‚Ø§Ù† ÙØ³ÙŠÙˆÙ„ÙˆØ¬ÙŠ:</strong> ÙŠØ¸Ù‡Ø± Ø¨Ø¹Ø¯ 48 Ø³Ø§Ø¹Ø©ØŒ Ø·Ø¨ÙŠØ¹ÙŠ ÙˆÙŠØ®ØªÙÙŠ Ø®Ù„Ø§Ù„ Ø£Ø³Ø¨ÙˆØ¹ÙŠÙ†.
       </div>
       <div style="padding:var(--space-md);background:rgba(186,26,26,0.05);border-radius:var(--radius-lg);border-right:3px solid var(--error);margin-bottom:8px;">
-        <strong>ÙŠØ±Ù‚Ø§Ù† Ù…Ø±Ø¶ÙŠ:</strong> ÙŠØ¸Ù‡Ø± Ø®Ù„Ø§Ù„ Ø£ÙˆÙ„ 24 Ø³Ø§Ø¹Ø© Ø£Ùˆ ÙŠØ³ØªÙ…Ø± Ø£ÙƒØ«Ø± Ù…Ù† 14 ÙŠÙˆÙ…Ø§Ù‹ â€” ÙŠØªØ·Ù„Ø¨ Ù…ØªØ§Ø¨Ø¹Ø© Ø·Ø¨ÙŠØ©.
+        <strong>ÙŠØ±Ù‚Ø§Ù† Ù…Ø±Ø¶ÙŠ:</strong> ÙŠØ¸Ù‡Ø± Ø®Ù„Ø§Ù„ Ø£ÙˆÙ„ 24 Ø³Ø§Ø¹Ø© Ø£Ùˆ ÙŠØ³ØªÙ…Ø± Ø£ÙƒØ«Ø± Ù…Ù† 14 ÙŠÙˆÙ…Ø§Ù‹ &#8212; ÙŠØªØ·Ù„Ø¨ Ù…ØªØ§Ø¨Ø¹Ø© Ø·Ø¨ÙŠØ©.
       </div>
-      <p><strong>ðŸ’¡</strong> Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ù…ØªÙƒØ±Ø±Ø© ØªØ³Ø§Ø¹Ø¯ Ø¹Ù„Ù‰ ØªÙ‚Ù„ÙŠÙ„ Ø§Ù„ÙŠØ±Ù‚Ø§Ù†.</p>
+      <p><strong>&#128609;</strong> Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ù…ØªÙƒØ±Ø±Ø© ØªØ³Ø§Ø¹Ø¯ Ø¹Ù„Ù‰ ØªÙ‚Ù„ÙŠÙ„ Ø§Ù„ÙŠØ±Ù‚Ø§Ù†.</p>
     </div>`
   },
   {
@@ -2347,13 +2347,13 @@ const nbChapters = [
         <tr><td style="padding:10px;">6 Ø£Ø´Ù‡Ø±</td><td style="padding:10px;">DTC + Ø´Ù„Ù„ Ø§Ù„Ø£Ø·ÙØ§Ù„ + Ø§Ù„ØªÙ‡Ø§Ø¨ Ø§Ù„ÙƒØ¨Ø¯ B</td></tr>
         <tr style="background:var(--surface-container-low);"><td style="padding:10px;">9 Ø£Ø´Ù‡Ø±</td><td style="padding:10px;">Ø§Ù„Ø­ØµØ¨Ø©</td></tr>
       </table>
-      <p><strong>ðŸ’¡</strong> Ø§Ø­ØªÙØ¸ÙŠ Ø¨Ø¯ÙØªØ± Ø§Ù„ØªØ·Ø¹ÙŠÙ…Ø§Øª ÙˆØ±Ø§Ø¬Ø¹ÙŠ Ø§Ù„Ù…ÙˆØ§Ø¹ÙŠØ¯ Ù…Ø¹ Ø§Ù„Ø·Ø¨ÙŠØ¨.</p>
+      <p><strong>&#128609;</strong> Ø§Ø­ØªÙØ¸ÙŠ Ø¨Ø¯ÙØªØ± Ø§Ù„ØªØ·Ø¹ÙŠÙ…Ø§Øª ÙˆØ±Ø§Ø¬Ø¹ÙŠ Ø§Ù„Ù…ÙˆØ§Ø¹ÙŠØ¯ Ù…Ø¹ Ø§Ù„Ø·Ø¨ÙŠØ¨.</p>
     </div>`
   },
   {
     icon: 'emergency', title: 'Ø¹Ù„Ø§Ù…Ø§Øª Ø§Ù„Ø®Ø·Ø± Ø¹Ù†Ø¯ Ø§Ù„Ù…ÙˆÙ„ÙˆØ¯', color: 'var(--error)',
     content: `<div class="space-y-md" style="line-height:1.8;">
-      <p style="font-weight:600;color:var(--error);">ðŸš¨ Ø§Ø°Ù‡Ø¨ÙŠ ÙÙˆØ±Ø§Ù‹ Ø¥Ù„Ù‰ Ø§Ù„Ø·Ø¨ÙŠØ¨ Ø¥Ø°Ø§ Ø¸Ù‡Ø± Ø£ÙŠ Ù…Ù…Ø§ ÙŠÙ„ÙŠ:</p>
+      <p style="font-weight:600;color:var(--error);">&#129128; Ø§Ø°Ù‡Ø¨ÙŠ ÙÙˆØ±Ø§Ù‹ Ø¥Ù„Ù‰ Ø§Ù„Ø·Ø¨ÙŠØ¨ Ø¥Ø°Ø§ Ø¸Ù‡Ø± Ø£ÙŠ Ù…Ù…Ø§ ÙŠÙ„ÙŠ:</p>
       ${['Ø­Ø±Ø§Ø±Ø© Ø£ÙƒØ«Ø± Ù…Ù† 38Â°C Ø£Ùˆ Ø£Ù‚Ù„ Ù…Ù† 36Â°C','Ø±ÙØ¶ Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ù„Ø£ÙƒØ«Ø± Ù…Ù† Ø±Ø¶Ø¹ØªÙŠÙ† Ù…ØªØªØ§Ù„ÙŠØªÙŠÙ†','ØµØ¹ÙˆØ¨Ø© ÙÙŠ Ø§Ù„ØªÙ†ÙØ³ Ø£Ùˆ ØªÙ†ÙØ³ Ø³Ø±ÙŠØ¹','Ø§Ø²Ø±Ù‚Ø§Ù‚ Ø§Ù„Ø´ÙØ§Ù‡ Ø£Ùˆ Ø§Ù„Ø£Ø·Ø±Ø§Ù','Ø®Ù…ÙˆÙ„ Ø´Ø¯ÙŠØ¯ Ø£Ùˆ Ø¹Ø¯Ù… Ø§Ù„Ø§Ø³ØªÙŠÙ‚Ø§Ø¸','ØªØ´Ù†Ø¬Ø§Øª','Ø¨ÙƒØ§Ø¡ Ù…Ø³ØªÙ…Ø± Ù„Ø§ ÙŠØªÙˆÙ‚Ù','Ø¥Ø³Ù‡Ø§Ù„ Ø´Ø¯ÙŠØ¯ Ø£Ùˆ Ù‚ÙŠØ¡ Ù…ØªÙƒØ±Ø±','Ø§Ù†ØªÙØ§Ø® Ø§Ù„Ø¨Ø·Ù†','Ø¥ÙØ±Ø§Ø²Ø§Øª Ø£Ùˆ Ù†Ø²ÙŠÙ Ù…Ù† Ø§Ù„Ø³Ø±Ø©'].map(s => `<div class="flex items-center gap-md mb-md" style="padding:8px 12px;background:rgba(186,26,26,0.04);border-radius:var(--radius-lg);border-right:3px solid var(--error);">
           <span class="material-symbols-outlined" style="color:var(--error);font-size:18px;">warning</span><span class="text-semibold">${s}</span></div>`).join('')}
     </div>`
@@ -2387,7 +2387,7 @@ function renderNewborn() {
         <h2 class="text-headline-sm">${t('nb_title')}</h2>
         <p class="text-body-md text-variant">${t('nb_subtitle')}</p>
       </div>
-      <span style="font-size:36px;">ðŸ‘¶</span>
+      <span style="font-size:36px;">&#128566;</span>
     </div>
     <div style="display:flex;gap:6px;margin-bottom:var(--space-xl);background:var(--surface-container-low);border-radius:var(--radius-xl);padding:4px;">
       <button onclick="nbCurrentTab='guide';renderNewborn();" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 8px;border:none;border-radius:var(--radius-lg);cursor:pointer;font-family:inherit;font-size:12px;font-weight:600;transition:all 0.2s;${nbCurrentTab==='guide'?'background:var(--tertiary);color:white;box-shadow:0 2px 8px rgba(67,97,127,0.3);':'background:transparent;color:var(--on-surface-variant);'}">
@@ -2417,11 +2417,11 @@ function renderNewborn() {
       return `<div class="reveal" style="animation-delay:${i*0.04}s;perspective:600px;">
         <div onclick="nbFlippedCards[${i}]=!nbFlippedCards[${i}];renderNewborn();" style="cursor:pointer;position:relative;min-height:120px;transition:transform 0.6s;transform-style:preserve-3d;${fl?'transform:rotateY(180deg)':''}">
           <div style="position:${fl?'absolute':'relative'};inset:0;backface-visibility:hidden;padding:var(--space-xl);border-radius:var(--radius-xl);background:linear-gradient(135deg,rgba(220,53,69,0.08),rgba(220,53,69,0.03));border:2px solid rgba(220,53,69,0.2);">
-            <div class="flex items-center gap-sm mb-md"><span style="font-size:20px;">âŒ</span><span class="text-label-lg" style="color:var(--error);">${t('bf_myth')}</span><span class="material-symbols-outlined text-variant" style="margin-inline-start:auto;font-size:18px;">touch_app</span></div>
+            <div class="flex items-center gap-sm mb-md"><span style="font-size:20px;">&#10060;</span><span class="text-label-lg" style="color:var(--error);">${t('bf_myth')}</span><span class="material-symbols-outlined text-variant" style="margin-inline-start:auto;font-size:18px;">touch_app</span></div>
             <p class="text-body-lg text-semibold" style="line-height:1.6;">${m.myth}</p>
           </div>
           <div style="position:absolute;inset:0;backface-visibility:hidden;transform:rotateY(180deg);padding:var(--space-xl);border-radius:var(--radius-xl);background:linear-gradient(135deg,rgba(40,167,69,0.08),rgba(40,167,69,0.03));border:2px solid rgba(40,167,69,0.2);">
-            <div class="flex items-center gap-sm mb-md"><span style="font-size:20px;">âœ…</span><span class="text-label-lg" style="color:#28a745;">${t('bf_reality')}</span></div>
+            <div class="flex items-center gap-sm mb-md"><span style="font-size:20px;">&#9989;</span><span class="text-label-lg" style="color:#28a745;">${t('bf_reality')}</span></div>
             <p class="text-body-lg text-semibold" style="line-height:1.6;">${m.reality}</p>
           </div>
         </div>
@@ -2477,16 +2477,16 @@ function renderMyths() {
         <h2 class="text-headline-sm">${t('my_title')}</h2>
         <p class="text-body-md text-variant">${t('my_subtitle')}</p>
       </div>
-      <span style="font-size:36px;">ðŸ§ </span>
+      <span style="font-size:36px;">&#129504;</span>
     </div>
 
     <!-- Filters -->
     <div class="chips-scroll mb-xl">
       ${[
         { id: 'all', label: t('sf_all'), count: allMyths.length },
-        { id: 'breastfeeding', label: 'ðŸ¤± ${t("bf_title")}', count: allMyths.filter(m=>m.cat==='breastfeeding').length },
-        { id: 'sexuality', label: 'â¤ï¸ ${t("sx_title")}', count: allMyths.filter(m=>m.cat==='sexuality').length },
-        { id: 'newborn', label: 'ðŸ‘¶ ${t("nb_title")}', count: allMyths.filter(m=>m.cat==='newborn').length }
+        { id: 'breastfeeding', label: '&#129329; ${t("bf_title")}', count: allMyths.filter(m=>m.cat==='breastfeeding').length },
+        { id: 'sexuality', label: '&#10084;ï¸ ${t("sx_title")}', count: allMyths.filter(m=>m.cat==='sexuality').length },
+        { id: 'newborn', label: '&#128566; ${t("nb_title")}', count: allMyths.filter(m=>m.cat==='newborn').length }
       ].map(f => `
         <button class="chip chip--tonal ${myFilterCat===f.id?'active':''}" onclick="myFilterCat='${f.id}';myFlippedCards={};renderMyths();">
           ${f.label} <span style="opacity:0.7;font-size:11px;">(${f.count})</span>
@@ -2494,18 +2494,18 @@ function renderMyths() {
       `).join('')}
     </div>
 
-    <p class="text-body-md text-variant mb-xl reveal"><span style="font-size:16px;">ðŸ‘†</span> ${t('my_tap_hint')}</p>
+    <p class="text-body-md text-variant mb-xl reveal"><span style="font-size:16px;">&#128544;</span> ${t('my_tap_hint')}</p>
 
     <div class="space-y-lg">
       ${filtered.map((m, i) => {
         const flipped = myFlippedCards[i];
-        const catIcon = m.cat === 'breastfeeding' ? 'ðŸ¤±' : m.cat === 'sexuality' ? 'â¤ï¸' : 'ðŸ‘¶';
+        const catIcon = m.cat === 'breastfeeding' ? '&#129329;' : m.cat === 'sexuality' ? '&#10084;ï¸' : '&#128566;';
         return `
         <div class="reveal" style="animation-delay:${i*0.04}s;perspective:600px;">
           <div onclick="myFlippedCards[${i}]=!myFlippedCards[${i}];renderMyths();" style="cursor:pointer;position:relative;min-height:120px;transition:transform 0.6s;transform-style:preserve-3d;${flipped?'transform:rotateY(180deg)':''}">
             <div style="position:${flipped?'absolute':'relative'};inset:0;backface-visibility:hidden;padding:var(--space-xl);border-radius:var(--radius-xl);background:linear-gradient(135deg,rgba(220,53,69,0.08),rgba(220,53,69,0.03));border:2px solid rgba(220,53,69,0.2);">
               <div class="flex items-center gap-sm mb-md">
-                <span style="font-size:20px;">âŒ</span>
+                <span style="font-size:20px;">&#10060;</span>
                 <span class="text-label-lg" style="color:var(--error);text-transform:uppercase;">${t('bf_myth')}</span>
                 <span style="font-size:14px;margin-inline-start:4px;">${catIcon}</span>
                 <span class="material-symbols-outlined text-variant" style="margin-inline-start:auto;font-size:18px;">touch_app</span>
@@ -2514,7 +2514,7 @@ function renderMyths() {
             </div>
             <div style="position:absolute;inset:0;backface-visibility:hidden;transform:rotateY(180deg);padding:var(--space-xl);border-radius:var(--radius-xl);background:linear-gradient(135deg,rgba(40,167,69,0.08),rgba(40,167,69,0.03));border:2px solid rgba(40,167,69,0.2);">
               <div class="flex items-center gap-sm mb-md">
-                <span style="font-size:20px;">âœ…</span>
+                <span style="font-size:20px;">&#9989;</span>
                 <span class="text-label-lg" style="color:#28a745;text-transform:uppercase;">${t('bf_reality')}</span>
                 <span style="font-size:14px;margin-inline-start:4px;">${catIcon}</span>
               </div>
@@ -2556,7 +2556,7 @@ async function renderSuivi() {
     <div class="card card--flat mb-xl"><div class="card__body">
       <p class="text-label-lg text-variant mb-lg" style="text-transform:uppercase;letter-spacing:0.08em;">${t('daily_mood')}</p>
       <div class="mood-grid">
-        ${[`ðŸ˜«|${t('daily_exhausted')}`, `ðŸ˜”|${t('daily_sad')}`, `ðŸ˜|${t('daily_neutral')}`, `ðŸ˜Š|${t('daily_good')}`, `ðŸ˜„|${t('daily_great')}`].map(m => {
+        ${[`&#128811;|${t('daily_exhausted')}`, `&#128797;|${t('daily_sad')}`, `&#128784;|${t('daily_neutral')}`, `&#128800;|${t('daily_good')}`, `&#128798;|${t('daily_great')}`].map(m => {
           const [emoji, label] = m.split('|');
           return `<button class="mood-option" onclick="selectMood('${emoji}',this)"><span class="mood-option__emoji">${emoji}</span><span class="mood-option__label">${label}</span></button>`;
         }).join('')}
@@ -2617,7 +2617,7 @@ function selectMood(emoji, el) {
 
 async function saveDailyEntry() {
   const body = {
-    mood: state.currentMood || 'ðŸ˜Š',
+    mood: state.currentMood || '&#128800;',
     stress: parseInt(document.getElementById('slider-stress')?.value || 5),
     satisfaction_conjugale: parseInt(document.getElementById('slider-conj')?.value || 5),
     satisfaction_intime: parseInt(document.getElementById('slider-intime')?.value || 5)
@@ -3258,7 +3258,7 @@ function saveJournalEntry() {
   localStorage.setItem('nf_journal', JSON.stringify(entries));
   journalMood = null;
   const now = new Date().toISOString().split('T')[0];
-  pushNotification('journal_' + now, 'ðŸ“', t('notif_journal_saved') || 'ØªÙ… Ø­ÙØ¸ ÙŠÙˆÙ…ÙŠØ§ØªÙƒ!', 'tip');
+  pushNotification('journal_' + now, '&#128797;', t('notif_journal_saved') || 'ØªÙ… Ø­ÙØ¸ ÙŠÙˆÙ…ÙŠØ§ØªÙƒ!', 'tip');
   renderJournal();
 }
 function renderJournal() {
@@ -3269,7 +3269,7 @@ function renderJournal() {
     const now = new Date();
     return (now - d) < 7 * 24 * 60 * 60 * 1000;
   });
-  const moods = ['â¤ï¸','ðŸ¤©','ðŸ˜°','â˜€ï¸','ðŸ¤'];
+  const moods = ['&#10084;&#65039;','&#129321;','&#128560;','&#9728;&#65039;','&#129309;'];
   container.innerHTML = `
     <div class="flex items-center gap-md mb-xl">
       <button class="top-bar__btn" onclick="navigateTo('home')"><span class="material-symbols-outlined">arrow_back</span></button>
@@ -3329,7 +3329,7 @@ function renderJournal() {
               <span class="text-label-md text-variant">${new Date(e.date).toLocaleDateString('fr-FR')}</span>
             </div>
             ${e.need ? `<p class="text-body-md mb-sm"><strong>${t('journal_need_label')} :</strong> ${e.need}</p>` : ''}
-            ${e.sweet ? `<p class="text-body-md" style="color:var(--primary);font-style:italic;">ðŸ’• ${e.sweet}</p>` : ''}
+            ${e.sweet ? `<p class="text-body-md" style="color:var(--primary);font-style:italic;">&#128610; ${e.sweet}</p>` : ''}
           </div>
         `).join('') : `<p class="text-body-md text-variant text-center" style="font-style:italic;">${t('journal_no_notes')}</p>`}
       </div>
@@ -3459,7 +3459,7 @@ function renderEchelles() {
         <div style="margin-top:12px;height:8px;background:var(--surface-container-high);border-radius:4px;overflow:hidden;">
           <div style="width:${(answeredCount/questions.length)*100}%;height:100%;background:${allAnswered?'var(--primary)':'var(--secondary)'};border-radius:4px;transition:width 0.3s;"></div>
         </div>
-        <p class="text-label-md mt-sm" style="${allAnswered?'color:var(--primary);':'color:var(--on-surface-variant);'}">${allAnswered ? 'âœ… ' + t('scales_all_answered') : 'â³ ' + t('scales_remaining', { n: questions.length - answeredCount })}</p>
+        <p class="text-label-md mt-sm" style="${allAnswered?'color:var(--primary);':'color:var(--on-surface-variant);'}">${allAnswered ? '&#9989; ' + t('scales_all_answered') : '&#8947; ' + t('scales_remaining', { n: questions.length - answeredCount })}</p>
       </div>
     </div>
 
@@ -3467,7 +3467,7 @@ function renderEchelles() {
     <div class="card card--flat mb-xl reveal" id="scale-result">
       <div class="card__body">
         <h4 class="text-label-lg text-variant mb-md" style="text-transform:uppercase;">${t('scales_diag')}</h4>
-        ${!allAnswered ? '<p class="text-body-sm text-variant mb-md" style="font-style:italic;">âš ï¸ ' + t('scales_partial_warning') + '</p>' : ''}
+        ${!allAnswered ? '<p class="text-body-sm text-variant mb-md" style="font-style:italic;">&#9888;ï¸ ' + t('scales_partial_warning') + '</p>' : ''}
         <div style="padding:var(--space-xl);background:var(--surface-container-low);border-radius:var(--radius-xl);border-left:4px solid var(--primary);">
           <h4 style="font-weight:700;${diagClass}margin-bottom:8px;">${diagnosis}</h4>
           <p class="text-body-md" style="line-height:1.7;">${diagDetail}</p>
@@ -3504,7 +3504,7 @@ function renderEchelles() {
 
     <!-- Privacy note -->
     <div class="reveal" style="background:rgba(196,69,105,0.05);border-radius:var(--radius-xl);padding:var(--space-xl);">
-      <p class="text-body-md"><span style="font-size:16px;">ðŸ”’</span> <strong>${t('scales_privacy')}</strong> ${t('scales_privacy_text')}</p>
+      <p class="text-body-md"><span style="font-size:16px;">&#128857;</span> <strong>${t('scales_privacy')}</strong> ${t('scales_privacy_text')}</p>
     </div>
   `;
   setTimeout(() => initReveal(), 50);
@@ -3516,7 +3516,7 @@ function calculateScale() {
   if (answeredCount === 0) return;
   const scaleName = currentScale === 'pisq12' ? 'PISQ-12' : 'RAS';
   const now = new Date().toISOString().split('T')[0];
-  pushNotification('scale_' + currentScale + '_' + now, 'ðŸ“Š', (t('notif_scale_done') || 'ØªÙ… Ø­Ø³Ø§Ø¨ Ù…Ù‚ÙŠØ§Ø³') + ' ' + scaleName, 'reminder');
+  pushNotification('scale_' + currentScale + '_' + now, '&#128800;', (t('notif_scale_done') || 'ØªÙ… Ø­Ø³Ø§Ø¨ Ù…Ù‚ÙŠØ§Ø³') + ' ' + scaleName, 'reminder');
   renderEchelles();
   setTimeout(() => {
     const result = document.getElementById('scale-result');
@@ -3593,8 +3593,8 @@ function renderTounsi() {
     <div class="card mb-xl reveal">
       <div class="card__body">
         <div class="flex items-center gap-sm mb-lg">
-          <span style="font-size:20px;">âœ¨</span>
-          <h3 style="font-size:16px;font-weight:700;">${t('tounsi_paroles_title')} â€” <span style="color:var(--primary);">${t('tounsi_paroles_ar')}</span></h3>
+          <span style="font-size:20px;">&#10024;</span>
+          <h3 style="font-size:16px;font-weight:700;">${t('tounsi_paroles_title')} &#8212; <span style="color:var(--primary);">${t('tounsi_paroles_ar')}</span></h3>
         </div>
         <h3 class="text-headline-sm mb-md">${t('tounsi_generator')}</h3>
         <p class="text-body-md text-variant mb-xl">${t('tounsi_generator_desc')}</p>
@@ -3614,7 +3614,7 @@ function renderTounsi() {
     <div class="card mb-xl reveal">
       <div class="card__body">
         <div class="flex items-center gap-md mb-xl">
-          <div style="width:48px;height:48px;border-radius:var(--radius-full);background:rgba(212,165,116,0.2);display:flex;align-items:center;justify-content:center;"><span style="font-size:24px;">ðŸ«–</span></div>
+          <div style="width:48px;height:48px;border-radius:var(--radius-full);background:rgba(212,165,116,0.2);display:flex;align-items:center;justify-content:center;"><span style="font-size:24px;">&#129747;</span></div>
           <div>
             <h3 class="text-headline-sm" style="font-size:16px;">${t('tounsi_nefsa_title')}</h3>
             <p class="text-label-lg" style="color:#d4a574;text-transform:uppercase;">${t('tounsi_nefsa_sub')}</p>
