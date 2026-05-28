@@ -2689,8 +2689,36 @@ async function loadPlanDetails() {
   const detailsEl = document.getElementById('plan-details');
   if (!detailsEl) return;
 
+  // Fallback plan data when API fails
+  const fallbackPlans = {
+    7: { title: currentLang==='ar' ? '\u062e\u0637\u0629 \u0633\u0631\u064a\u0639\u0629 \u2014 7 \u0623\u064a\u0627\u0645' : currentLang==='en' ? 'Express Plan \u2014 7 days' : 'Plan Express \u2014 7 jours',
+         description: currentLang==='ar' ? '\u0628\u0631\u0646\u0627\u0645\u062c \u0645\u0643\u062b\u0641 \u0644\u062a\u062d\u0633\u064a\u0646 \u062d\u064a\u0627\u062a\u0643\u0645\u0627.' : currentLang==='en' ? 'An intensive program to quickly improve your couple life.' : 'Un programme intensif.',
+         activities: [
+           { day:1, type:'communication', title: currentLang==='ar'?'\u0631\u0633\u0627\u0644\u0629 \u062a\u0642\u062f\u064a\u0631':currentLang==='en'?'Appreciation Letter':'Lettre d\'appr\u00e9ciation', desc: currentLang==='ar'?'\u0627\u0643\u062a\u0628\u0627 3 \u0623\u0634\u064a\u0627\u0621 \u064a\u062d\u0628\u0647\u0627 \u0643\u0644 \u0648\u0627\u062d\u062f.':currentLang==='en'?'Write 3 things you love about your partner.':'\u00c9crivez 3 choses que vous aimez.', icon:'edit_note' },
+           { day:2, type:'psychologique', title: currentLang==='ar'?'\u062a\u0623\u0645\u0644 \u0645\u0634\u062a\u0631\u0643':currentLang==='en'?'Shared Meditation':'M\u00e9ditation \u00e0 deux', desc: currentLang==='ar'?'10 \u062f\u0642\u0627\u0626\u0642 \u062a\u0646\u0641\u0633 \u0645\u062a\u0632\u0627\u0645\u0646.':currentLang==='en'?'10 min synchronized breathing.':'10 min de respiration.', icon:'self_improvement' },
+           { day:3, type:'couple', title: currentLang==='ar'?'\u0633\u0647\u0631\u0629 \u0628\u062f\u0648\u0646 \u0634\u0627\u0634\u0627\u062a':currentLang==='en'?'Screen-Free Evening':'Soir\u00e9e sans \u00e9crans', desc: currentLang==='ar'?'\u0623\u0637\u0641\u0626\u0627 \u0627\u0644\u0634\u0627\u0634\u0627\u062a \u0628\u0639\u062f 8 \u0645\u0633\u0627\u0621.':currentLang==='en'?'Turn off screens after 8pm.':'\u00c9teignez les \u00e9crans.', icon:'devices_off' },
+           { day:4, type:'post-partum', title: currentLang==='ar'?'\u062a\u062f\u0644\u064a\u0643':currentLang==='en'?'Relaxing Massage':'Massage relaxant', desc: currentLang==='ar'?'\u062a\u062f\u0644\u064a\u0643 15 \u062f\u0642\u064a\u0642\u0629.':currentLang==='en'?'Give each other a 15-min massage.':'Massage de 15 min.', icon:'spa' },
+           { day:5, type:'communication', title: currentLang==='ar'?'\u0645\u0631\u0627\u062c\u0639\u0629 \u0639\u0627\u0637\u0641\u064a\u0629':currentLang==='en'?'Emotional Check-in':'Check-in \u00e9motionnel', desc: currentLang==='ar'?'\u0643\u064a\u0641 \u062a\u0634\u0639\u0631\u064a\u0646\u061f':currentLang==='en'?'How do you really feel?':'Comment te sens-tu ?', icon:'forum' },
+           { day:6, type:'couple', title: currentLang==='ar'?'\u0635\u0648\u0631 \u0630\u0643\u0631\u064a\u0627\u062a':currentLang==='en'?'Memory Photos':'Photo souvenir', desc: currentLang==='ar'?'\u0634\u0627\u0647\u062f\u0627 \u0635\u0648\u0631\u0643\u0645\u0627.':currentLang==='en'?'Look at your photos together.':'Regardez vos photos.', icon:'photo_library' },
+           { day:7, type:'psychologique', title: currentLang==='ar'?'\u062a\u0642\u064a\u064a\u0645':currentLang==='en'?'Review & Gratitude':'Bilan et gratitude', desc: currentLang==='ar'?'\u0642\u064a\u0645\u0627 \u0627\u0644\u0623\u0633\u0628\u0648\u0639.':currentLang==='en'?'Review the week.':'Bilan de la semaine.', icon:'celebration' }
+         ]},
+    14: { title: currentLang==='ar'?'\u062e\u0637\u0629 \u0627\u0644\u062a\u0648\u0627\u0632\u0646 \u2014 14 \u064a\u0648\u0645':currentLang==='en'?'Balance Plan \u2014 14 days':'Plan \u00c9quilibre \u2014 14 jours',
+          description: currentLang==='ar'?'\u0623\u0633\u0628\u0648\u0639\u0627\u0646 \u0644\u062a\u0639\u0632\u064a\u0632 \u0639\u0644\u0627\u0642\u062a\u0643\u0645\u0627.':currentLang==='en'?'Two weeks to strengthen your relationship.':'Deux semaines pour renforcer votre relation.',
+          activities: Array.from({length:14}, (_,i)=>({day:i+1, type:['communication','psychologique','couple','post-partum'][i%4], title:(currentLang==='ar'?'\u0627\u0644\u064a\u0648\u0645':currentLang==='en'?'Day':'Jour')+' '+(i+1), desc:currentLang==='ar'?'\u0646\u0634\u0627\u0637 \u064a\u0648\u0645\u064a.':currentLang==='en'?'Daily activity.':'Activit\u00e9 quotidienne.', icon:['edit_note','self_improvement','favorite','spa'][i%4]}))},
+    30: { title: currentLang==='ar'?'\u062e\u0637\u0629 \u0627\u0644\u062a\u062d\u0648\u0644 \u2014 30 \u064a\u0648\u0645':currentLang==='en'?'Transformation Plan \u2014 30 days':'Plan Transformation \u2014 30 jours',
+          description: currentLang==='ar'?'\u0634\u0647\u0631 \u0643\u0627\u0645\u0644 \u0644\u062a\u063a\u064a\u064a\u0631 \u062d\u064a\u0627\u062a\u0643\u0645\u0627.':currentLang==='en'?'A full month to transform your couple life.':'Un mois pour transformer votre vie.',
+          activities: [1,2,3,5,7,10,12,14,16,18,20,22,25,27,30].map((d,i)=>({day:d, type:['communication','psychologique','couple','post-partum'][i%4], title:(currentLang==='ar'?'\u0627\u0644\u064a\u0648\u0645':currentLang==='en'?'Day':'Jour')+' '+d, desc:currentLang==='ar'?'\u0646\u0634\u0627\u0637 \u0644\u062a\u0642\u0648\u064a\u0629 \u0639\u0644\u0627\u0642\u062a\u0643\u0645\u0627.':currentLang==='en'?'Activity to strengthen your bond.':'Activit\u00e9 pour votre relation.', icon:['edit_note','self_improvement','favorite','spa'][i%4]}))}
+  };
+
+  let data;
   try {
-    const data = await api(`/plan/${currentPlanDuration}?lang=${currentLang}`);
+    data = await api(`/plan/${currentPlanDuration}?lang=${currentLang}`);
+  } catch (apiErr) {
+    console.warn('Plan API failed, using local fallback:', apiErr.message);
+    data = { plan: fallbackPlans[currentPlanDuration] || fallbackPlans[7], scores: {}, focusAreas: [], completedDays: [] };
+  }
+
+  try {
     const plan = data.plan;
     const completedDays = data.completedDays || [];
     const progress = plan.activities.length > 0
