@@ -374,6 +374,123 @@ async function doForgotPassword() {
   }
 }
 
+// ══════════════════════════════════════════════════════════════
+//  EDIT PROFILE
+// ══════════════════════════════════════════════════════════════
+function showEditProfile() {
+  const c = state.couple;
+  if (!c) return;
+
+  // Create modal overlay
+  const overlay = document.createElement('div');
+  overlay.id = 'edit-profile-modal';
+  overlay.style.cssText = 'position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;padding:16px;animation:fadeIn 0.25s ease;';
+  overlay.innerHTML = `
+    <div style="background:var(--surface);border-radius:var(--radius-xl);max-width:480px;width:100%;max-height:90vh;overflow-y:auto;padding:var(--space-xl);box-shadow:0 16px 48px rgba(0,0,0,0.2);">
+      <div class="flex justify-between items-center mb-xl">
+        <div class="flex items-center gap-md">
+          <span class="material-symbols-outlined text-primary" style="font-size:28px;">edit</span>
+          <h2 class="text-headline-sm">${t('edit_title')}</h2>
+        </div>
+        <button onclick="closeEditProfile()" style="background:none;border:none;cursor:pointer;padding:8px;">
+          <span class="material-symbols-outlined text-outline">close</span>
+        </button>
+      </div>
+
+      <div id="edit-msg" class="mb-lg" style="display:none;"></div>
+
+      <h3 class="text-label-lg text-primary mb-md" style="text-transform:uppercase;letter-spacing:0.08em;">
+        <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;">person</span> ${t('auth_partner1')}
+      </h3>
+      <div class="space-y-md mb-xl">
+        <input type="text" id="edit-name1" value="${c.partner1_name || ''}" placeholder="${t('auth_firstname')}" class="form-input">
+        <div class="grid-2">
+          <input type="number" id="edit-age1" value="${c.partner1_age || ''}" placeholder="${t('auth_age')}" class="form-input">
+          <select id="edit-sex1" class="form-input">
+            <option value="Femme" ${c.partner1_sex==='Femme'?'selected':''}>${t('auth_woman')}</option>
+            <option value="Homme" ${c.partner1_sex==='Homme'?'selected':''}>${t('auth_man')}</option>
+          </select>
+        </div>
+      </div>
+
+      <h3 class="text-label-lg text-secondary mb-md" style="text-transform:uppercase;letter-spacing:0.08em;">
+        <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;">person</span> ${t('auth_partner2')}
+      </h3>
+      <div class="space-y-md mb-xl">
+        <input type="text" id="edit-name2" value="${c.partner2_name || ''}" placeholder="${t('auth_firstname')}" class="form-input">
+        <div class="grid-2">
+          <input type="number" id="edit-age2" value="${c.partner2_age || ''}" placeholder="${t('auth_age')}" class="form-input">
+          <select id="edit-sex2" class="form-input">
+            <option value="Homme" ${c.partner2_sex==='Homme'?'selected':''}>${t('auth_man')}</option>
+            <option value="Femme" ${c.partner2_sex==='Femme'?'selected':''}>${t('auth_woman')}</option>
+          </select>
+        </div>
+      </div>
+
+      <h3 class="text-label-lg text-primary mb-md" style="text-transform:uppercase;letter-spacing:0.08em;">
+        <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;">info</span> ${t('edit_other_info')}
+      </h3>
+      <div class="space-y-md mb-xl">
+        <input type="text" id="edit-marriage" value="${c.marriage_duration || ''}" placeholder="${t('auth_marriage_duration')}" class="form-input">
+        <input type="text" id="edit-baby" value="${c.baby_age || ''}" placeholder="${t('auth_baby_age')}" class="form-input">
+      </div>
+
+      <button onclick="saveEditProfile()" class="btn btn--primary w-full" id="edit-save-btn" style="padding:14px;font-size:16px;border-radius:var(--radius-xl);display:flex;align-items:center;justify-content:center;gap:8px;">
+        <span class="material-symbols-outlined">save</span> ${t('edit_save')}
+      </button>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeEditProfile(); });
+}
+
+function closeEditProfile() {
+  const modal = document.getElementById('edit-profile-modal');
+  if (modal) modal.remove();
+}
+
+async function saveEditProfile() {
+  const btn = document.getElementById('edit-save-btn');
+  const msgEl = document.getElementById('edit-msg');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="material-symbols-outlined" style="animation:spin 1s linear infinite;">hourglass_top</span>';
+
+  try {
+    const body = {
+      partner1_name: document.getElementById('edit-name1').value.trim(),
+      partner1_age: parseInt(document.getElementById('edit-age1').value) || 0,
+      partner1_sex: document.getElementById('edit-sex1').value,
+      partner2_name: document.getElementById('edit-name2').value.trim(),
+      partner2_age: parseInt(document.getElementById('edit-age2').value) || 0,
+      partner2_sex: document.getElementById('edit-sex2').value,
+      marriage_duration: document.getElementById('edit-marriage').value.trim(),
+      baby_age: document.getElementById('edit-baby').value.trim()
+    };
+
+    const data = await api('/profile', { method: 'PUT', body });
+    state.couple = data.couple;
+
+    // Show success
+    msgEl.style.display = 'block';
+    msgEl.innerHTML = `<div class="alert-banner alert-banner--success" style="background:rgba(163,217,200,0.15);border:1px solid rgba(163,217,200,0.4);border-radius:var(--radius-xl);padding:12px 16px;display:flex;align-items:center;gap:8px;">
+      <span class="material-symbols-outlined" style="color:#4CAF50;">check_circle</span>
+      <span style="color:var(--on-surface);">${t('edit_success')}</span>
+    </div>`;
+
+    // Refresh the profile and home screens
+    setTimeout(() => {
+      closeEditProfile();
+      renderHome();
+      navigateTo('profile');
+    }, 1200);
+  } catch (e) {
+    msgEl.style.display = 'block';
+    msgEl.innerHTML = `<div class="alert-banner alert-banner--danger"><span class="material-symbols-outlined">error</span><span>${e.message}</span></div>`;
+    btn.disabled = false;
+    btn.innerHTML = `<span class="material-symbols-outlined">save</span> ${t('edit_save')}`;
+  }
+}
+
 function showRegister() {
   const c = document.getElementById('auth-content');
   c.innerHTML = `
@@ -927,9 +1044,13 @@ function updateBabyAge() {
 async function renderHome() {
   if (!state.couple) return;
 
-  // Update name
+  // Update name — show both partners
   const nameEl = document.getElementById('home-name');
-  if (nameEl) nameEl.textContent = `${t('home_hello')}, ${state.couple.partner1_name}`;
+  if (nameEl) {
+    const name1 = state.couple.partner1_name || '';
+    const name2 = state.couple.partner2_name || '';
+    nameEl.textContent = name2 ? `${t('home_hello')}, ${name1} & ${name2}` : `${t('home_hello')}, ${name1}`;
+  }
 
   // Show admin link if admin
   const adminLink = document.getElementById('drawer-admin-link');
@@ -937,9 +1058,13 @@ async function renderHome() {
     adminLink.style.display = state.couple.partner1_email === 'admin@nurtureflow.com' ? 'flex' : 'none';
   }
 
-  // Update drawer
+  // Update drawer — show both names
   const drawerName = document.getElementById('drawer-name');
-  if (drawerName) drawerName.textContent = state.couple.partner1_name;
+  if (drawerName) {
+    const n1 = state.couple.partner1_name || '';
+    const n2 = state.couple.partner2_name || '';
+    drawerName.textContent = n2 ? `${n1} & ${n2}` : n1;
+  }
   const drawerSub = document.getElementById('drawer-sub');
   if (drawerSub) drawerSub.textContent = state.couple.marriage_duration ? `${t('drawer_couple_since')} ${state.couple.marriage_duration}` : t('drawer_welcome');
 
@@ -1208,7 +1333,7 @@ async function renderLibrary() {
 
 async function loadTimelineArticles(period) {
   try {
-    const data = await api(`/timeline/${period}`);
+    const data = await api(`/timeline/${period}?lang=${currentLang}`);
     const articlesContainer = document.getElementById('timeline-dynamic-articles');
     if (!articlesContainer) {
       // Create dynamic articles container after static content
@@ -1243,7 +1368,7 @@ async function loadTimelineArticles(period) {
               <div class="flex items-center gap-md mt-sm">
                 <span class="text-label-md text-variant">${a.category}</span>
                 <span class="text-label-md text-outline flex items-center gap-sm">
-                  <span class="material-symbols-outlined" style="font-size:14px;">schedule</span> ${a.readTime} min
+                  <span class="material-symbols-outlined" style="font-size:14px;">schedule</span> ${a.readTime} ${currentLang==='ar'?'\u062f\u0642\u064a\u0642\u0629':'min'}
                 </span>
               </div>
             </div>
@@ -2565,7 +2690,7 @@ async function loadPlanDetails() {
   if (!detailsEl) return;
 
   try {
-    const data = await api(`/plan/${currentPlanDuration}`);
+    const data = await api(`/plan/${currentPlanDuration}?lang=${currentLang}`);
     const plan = data.plan;
     const completedDays = data.completedDays || [];
     const progress = plan.activities.length > 0
@@ -2604,7 +2729,7 @@ async function loadPlanDetails() {
           const done = completedDays.includes(a.day);
           return `
             <div class="plan-activity ${done?'completed':''} reveal" id="plan-act-${a.day}">
-              <div class="plan-activity__day"><span>J${a.day}</span></div>
+              <div class="plan-activity__day"><span>${currentLang==='ar'?'\u064a':'J'}${a.day}</span></div>
               <div class="plan-activity__body">
                 <div class="flex items-center gap-sm">
                   <span class="material-symbols-outlined" style="font-size:18px;color:var(--primary);">${a.icon}</span>

@@ -701,6 +701,13 @@ fr: {
   forgot_error_not_found: 'لا يوجد حساب بهذا البريد',
   forgot_error_send: 'خطأ في الإرسال. حاولي مجدداً.',
   forgot_back_login: 'العودة لتسجيل الدخول',
+
+  // Edit Profile
+  edit_title: 'تعديل الملف الشخصي',
+  edit_other_info: 'معلومات أخرى',
+  edit_save: 'حفظ التعديلات',
+  edit_success: 'تم تحديث الملف بنجاح!',
+  prof_edit_profile: 'تعديل الملف الشخصي',
 },
 
 // ═══════════════════════════════════════
@@ -1368,6 +1375,13 @@ ar: {
   forgot_error_not_found: 'لا يوجد حساب بهذا البريد',
   forgot_error_send: 'خطأ في الإرسال. حاولي مجدداً.',
   forgot_back_login: 'العودة لتسجيل الدخول',
+
+  // Edit Profile
+  edit_title: 'تعديل الملف الشخصي',
+  edit_other_info: 'معلومات أخرى',
+  edit_save: 'حفظ التعديلات',
+  edit_success: 'تم تحديث الملف بنجاح!',
+  prof_edit_profile: 'تعديل الملف الشخصي',
 },
 
 // ═══════════════════════════════════════
@@ -2004,6 +2018,13 @@ en: {
   forgot_error_not_found: 'No account found with this email',
   forgot_error_send: 'Error sending email. Please try again.',
   forgot_back_login: 'Back to login',
+
+  // Edit Profile
+  edit_title: 'Edit Profile',
+  edit_other_info: 'Other Information',
+  edit_save: 'Save Changes',
+  edit_success: 'Profile updated successfully!',
+  prof_edit_profile: 'Edit Profile',
 }
 
 };

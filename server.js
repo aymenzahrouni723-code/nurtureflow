@@ -41,8 +41,10 @@ function queryOne(sql, params = []) {
 
 function runSQL(sql, params = []) {
   db.run(sql, params);
+  const result = db.exec("SELECT last_insert_rowid()");
+  const lastId = result[0]?.values[0][0] || 0;
   saveDB();
-  return { lastId: db.exec("SELECT last_insert_rowid()")[0]?.values[0][0] || 0 };
+  return { lastId };
 }
 
 // ── Start app ──
@@ -193,6 +195,7 @@ async function startServer() {
 
       req.session.coupleId = lastId;
       const couple = queryOne('SELECT * FROM couples WHERE id = ?', [lastId]);
+      if (!couple) return res.status(500).json({ error: 'Erreur lors de la cr\u00e9ation du compte' });
       delete couple.password;
       res.status(201).json({ success: true, couple });
     } catch (err) {
@@ -433,67 +436,109 @@ async function startServer() {
   // ═══════════════════ PLAN PERSONNALISÉ ═══════════════════
 
   const planTemplates = {
-    7: {
-      title: 'Plan Express — 7 jours',
-      description: 'Un programme intensif pour améliorer rapidement votre quotidien de couple.',
-      activities: [
-        { day: 1, type: 'communication', title: 'Lettre d\'appréciation', desc: 'Écrivez chacun 3 choses que vous aimez chez votre partenaire. Partagez-les ce soir.', icon: 'edit_note' },
-        { day: 2, type: 'psychologique', title: 'Méditation à deux', desc: '10 minutes de respiration synchronisée. Asseyez-vous face à face, respirez ensemble.', icon: 'self_improvement' },
-        { day: 3, type: 'couple', title: 'Soirée sans écrans', desc: 'Éteignez tous les écrans après 20h. Jouez à un jeu, cuisinez ensemble ou discutez.', icon: 'devices_off' },
-        { day: 4, type: 'post-partum', title: 'Massage relaxant', desc: 'Offrez-vous mutuellement un massage de 15 minutes. Utilisez une huile douce.', icon: 'spa' },
-        { day: 5, type: 'communication', title: 'Check-in émotionnel', desc: 'Posez-vous mutuellement : Comment te sens-tu vraiment ? Écoutez sans juger.', icon: 'forum' },
-        { day: 6, type: 'couple', title: 'Photo souvenir', desc: 'Regardez ensemble vos photos de couple. Racontez vos souvenirs préférés.', icon: 'photo_library' },
-        { day: 7, type: 'psychologique', title: 'Bilan et gratitude', desc: 'Faites le bilan de la semaine. Qu\'avez-vous appris ? Qu\'allez-vous continuer ?', icon: 'celebration' }
-      ]
+    fr: {
+      7: { title: 'Plan Express \u2014 7 jours', description: 'Un programme intensif pour am\u00e9liorer rapidement votre quotidien de couple.',
+        activities: [
+          { day: 1, type: 'communication', title: 'Lettre d\'appr\u00e9ciation', desc: '\u00c9crivez chacun 3 choses que vous aimez chez votre partenaire.', icon: 'edit_note' },
+          { day: 2, type: 'psychologique', title: 'M\u00e9ditation \u00e0 deux', desc: '10 minutes de respiration synchronis\u00e9e. Asseyez-vous face \u00e0 face.', icon: 'self_improvement' },
+          { day: 3, type: 'couple', title: 'Soir\u00e9e sans \u00e9crans', desc: '\u00c9teignez tous les \u00e9crans apr\u00e8s 20h. Jouez, cuisinez ou discutez.', icon: 'devices_off' },
+          { day: 4, type: 'post-partum', title: 'Massage relaxant', desc: 'Offrez-vous mutuellement un massage de 15 minutes.', icon: 'spa' },
+          { day: 5, type: 'communication', title: 'Check-in \u00e9motionnel', desc: 'Comment te sens-tu vraiment ? \u00c9coutez sans juger.', icon: 'forum' },
+          { day: 6, type: 'couple', title: 'Photo souvenir', desc: 'Regardez ensemble vos photos de couple et racontez vos souvenirs.', icon: 'photo_library' },
+          { day: 7, type: 'psychologique', title: 'Bilan et gratitude', desc: 'Faites le bilan de la semaine. Qu\'avez-vous appris ?', icon: 'celebration' }
+        ]},
+      14: { title: 'Plan \u00c9quilibre \u2014 14 jours', description: 'Deux semaines pour renforcer les fondations de votre relation.',
+        activities: [
+          { day: 1, type: 'communication', title: 'Rituel du matin', desc: 'Dites une chose positive \u00e0 votre partenaire chaque matin.', icon: 'wb_sunny' },
+          { day: 2, type: 'psychologique', title: 'Journal de gratitude', desc: '\u00c9crivez 3 moments de gratitude li\u00e9s \u00e0 votre famille.', icon: 'menu_book' },
+          { day: 3, type: 'couple', title: 'Date \u00e0 la maison', desc: 'Pr\u00e9parez un d\u00eener sp\u00e9cial quand b\u00e9b\u00e9 dort.', icon: 'dinner_dining' },
+          { day: 4, type: 'post-partum', title: 'Exercice de Kegel', desc: 'Pratiquez les exercices du p\u00e9rin\u00e9e. 3 s\u00e9ries de 10.', icon: 'fitness_center' },
+          { day: 5, type: 'communication', title: '\u00c9coute active', desc: 'L\'un parle, l\'autre \u00e9coute 20 min sans interrompre.', icon: 'hearing' },
+          { day: 6, type: 'psychologique', title: 'Promenade en famille', desc: 'Sortez marcher 30 min ensemble avec b\u00e9b\u00e9.', icon: 'directions_walk' },
+          { day: 7, type: 'couple', title: 'C\u00e2lin de reconnexion', desc: 'Prenez-vous dans les bras 2 minutes sans rien dire.', icon: 'favorite' },
+          { day: 8, type: 'communication', title: 'R\u00e9partition des t\u00e2ches', desc: 'Revisitez la r\u00e9partition des t\u00e2ches ensemble.', icon: 'checklist' },
+          { day: 9, type: 'psychologique', title: 'Respiration guid\u00e9e', desc: '15 min de coh\u00e9rence cardiaque. Inspirez 5s, expirez 5s.', icon: 'air' },
+          { day: 10, type: 'couple', title: 'Surprise attentionn\u00e9e', desc: 'Pr\u00e9parez une petite surprise pour votre partenaire.', icon: 'card_giftcard' },
+          { day: 11, type: 'post-partum', title: 'Consultation sage-femme', desc: 'Planifiez un bilan post-partum avec votre sage-femme.', icon: 'medical_services' },
+          { day: 12, type: 'communication', title: 'Projets futurs', desc: 'O\u00f9 vous voyez-vous dans 5 ans en famille ?', icon: 'rocket_launch' },
+          { day: 13, type: 'psychologique', title: 'Temps personnel', desc: 'Accordez-vous chacun 2h de temps libre.', icon: 'person' },
+          { day: 14, type: 'couple', title: 'C\u00e9l\u00e9bration', desc: 'C\u00e9l\u00e9brez ces 2 semaines de progr\u00e8s !', icon: 'celebration' }
+        ]},
+      30: { title: 'Plan Transformation \u2014 30 jours', description: 'Un mois complet pour transformer votre vie de couple.',
+        activities: [
+          { day: 1, type: 'communication', title: 'Contrat de bienveillance', desc: '\u00c9tablissez 5 r\u00e8gles de communication bienveillante.', icon: 'handshake' },
+          { day: 2, type: 'psychologique', title: 'Scan corporel', desc: 'Allongez-vous 10 min. Rel\u00e2chez les tensions.', icon: 'accessibility_new' },
+          { day: 3, type: 'couple', title: 'Album de famille', desc: 'Commencez un album photo de votre famille.', icon: 'photo_album' },
+          { day: 5, type: 'communication', title: 'Langage d\'amour', desc: 'Paroles, service, cadeaux, toucher ou temps ?', icon: 'translate' },
+          { day: 7, type: 'couple', title: 'Rendez-vous hebdo', desc: 'M\u00eame 30 min comptent pour un rendez-vous couple.', icon: 'event' },
+          { day: 10, type: 'psychologique', title: 'Gestion du stress', desc: 'Identifiez 3 sources de stress et trouvez des solutions.', icon: 'psychology' },
+          { day: 12, type: 'post-partum', title: 'Yoga postnatal', desc: '20 minutes de yoga postnatal suffisent.', icon: 'self_improvement' },
+          { day: 14, type: 'couple', title: 'Bilan mi-parcours', desc: 'Qu\'est-ce qui fonctionne ? Que faut-il ajuster ?', icon: 'assessment' },
+          { day: 16, type: 'communication', title: 'Lettre \u00e0 b\u00e9b\u00e9', desc: '\u00c9crivez une lettre \u00e0 votre enfant.', icon: 'mail' },
+          { day: 18, type: 'psychologique', title: 'R\u00e9seau de soutien', desc: 'Contactez un ami ou un membre de la famille.', icon: 'group' },
+          { day: 20, type: 'couple', title: 'Playlist du couple', desc: 'Cr\u00e9ez une playlist de vos chansons pr\u00e9f\u00e9r\u00e9es.', icon: 'music_note' },
+          { day: 22, type: 'post-partum', title: 'Reprise sportive', desc: 'Marche rapide, natation ou pilates.', icon: 'pool' },
+          { day: 25, type: 'communication', title: 'R\u00e9solution de conflits', desc: 'Technique DESC : D\u00e9crire, Exprimer, Sp\u00e9cifier, Cons\u00e9quences.', icon: 'balance' },
+          { day: 27, type: 'psychologique', title: 'Vision board', desc: 'Cr\u00e9ez un tableau de vision pour votre famille.', icon: 'dashboard' },
+          { day: 30, type: 'couple', title: 'Renouvellement des v\u0153ux', desc: 'Que promettez-vous pour l\'avenir ?', icon: 'volunteer_activism' }
+        ]}
     },
-    14: {
-      title: 'Plan Équilibre — 14 jours',
-      description: 'Deux semaines pour renforcer les fondations de votre relation parentale.',
-      activities: [
-        { day: 1, type: 'communication', title: 'Rituel du matin', desc: 'Chaque matin, dites une chose positive à votre partenaire avant de commencer la journée.', icon: 'wb_sunny' },
-        { day: 2, type: 'psychologique', title: 'Journal de gratitude', desc: 'Écrivez chacun 3 moments de gratitude liés à votre famille. Partagez-les.', icon: 'menu_book' },
-        { day: 3, type: 'couple', title: 'Date à la maison', desc: 'Préparez un dîner spécial quand bébé dort. Mettez une musique douce.', icon: 'dinner_dining' },
-        { day: 4, type: 'post-partum', title: 'Exercice de Kegel', desc: 'Pratiquez ensemble les exercices du périnée. 3 séries de 10 contractions.', icon: 'fitness_center' },
-        { day: 5, type: 'communication', title: 'Écoute active', desc: 'Pendant 20 min, l\'un parle et l\'autre écoute sans interrompre. Puis inversez.', icon: 'hearing' },
-        { day: 6, type: 'psychologique', title: 'Promenade en famille', desc: 'Sortez marcher 30 minutes ensemble avec bébé. Profitez du plein air.', icon: 'directions_walk' },
-        { day: 7, type: 'couple', title: 'Câlin de reconnexion', desc: 'Prenez-vous dans les bras pendant 2 minutes sans rien dire. Juste être ensemble.', icon: 'favorite' },
-        { day: 8, type: 'communication', title: 'Répartition des tâches', desc: 'Revisitez ensemble la répartition des tâches. Trouvez un meilleur équilibre.', icon: 'checklist' },
-        { day: 9, type: 'psychologique', title: 'Respiration guidée', desc: 'Faites 15 min de cohérence cardiaque ensemble. Inspirez 5s, expirez 5s.', icon: 'air' },
-        { day: 10, type: 'couple', title: 'Surprise attentionnée', desc: 'Préparez une petite surprise pour votre partenaire. Un mot, un geste, un cadeau.', icon: 'card_giftcard' },
-        { day: 11, type: 'post-partum', title: 'Consultation sage-femme', desc: 'Planifiez un rendez-vous avec votre sage-femme pour un bilan post-partum.', icon: 'medical_services' },
-        { day: 12, type: 'communication', title: 'Projets futurs', desc: 'Discutez de vos rêves et projets de famille. Où vous voyez-vous dans 5 ans ?', icon: 'rocket_launch' },
-        { day: 13, type: 'psychologique', title: 'Temps personnel', desc: 'Accordez-vous chacun 2h de temps libre. Faites ce qui vous ressource.', icon: 'person' },
-        { day: 14, type: 'couple', title: 'Célébration', desc: 'Célébrez ces 2 semaines de progrès. Écrivez vos engagements pour l\'avenir.', icon: 'celebration' }
-      ]
-    },
-    30: {
-      title: 'Plan Transformation — 30 jours',
-      description: 'Un mois complet pour transformer votre vie de couple et de famille.',
-      activities: [
-        { day: 1, type: 'communication', title: 'Contrat de bienveillance', desc: 'Établissez ensemble 5 règles de communication bienveillante.', icon: 'handshake' },
-        { day: 2, type: 'psychologique', title: 'Scan corporel', desc: 'Allongez-vous 10 min. Scannez mentalement chaque partie du corps. Relâchez les tensions.', icon: 'accessibility_new' },
-        { day: 3, type: 'couple', title: 'Album de famille', desc: 'Commencez un album photo/journal de votre nouvelle famille.', icon: 'photo_album' },
-        { day: 5, type: 'communication', title: 'Langage d\'amour', desc: 'Identifiez votre langage d\'amour principal. Paroles, service, cadeaux, toucher, temps ?', icon: 'translate' },
-        { day: 7, type: 'couple', title: 'Rendez-vous hebdo', desc: 'Instaurez un rendez-vous couple hebdomadaire. Même 30 min comptent.', icon: 'event' },
-        { day: 10, type: 'psychologique', title: 'Gestion du stress', desc: 'Identifiez vos 3 sources de stress principales. Trouvez une solution pour chacune.', icon: 'psychology' },
-        { day: 12, type: 'post-partum', title: 'Yoga postnatal', desc: 'Essayez une séance de yoga postnatal (vidéo en ligne). 20 minutes suffisent.', icon: 'self_improvement' },
-        { day: 14, type: 'couple', title: 'Bilan mi-parcours', desc: 'Évaluez vos progrès. Qu\'est-ce qui fonctionne ? Que faut-il ajuster ?', icon: 'assessment' },
-        { day: 16, type: 'communication', title: 'Lettre à bébé', desc: 'Écrivez chacun une lettre à votre enfant. Racontez ce que vous ressentez.', icon: 'mail' },
-        { day: 18, type: 'psychologique', title: 'Réseau de soutien', desc: 'Contactez un ami ou un membre de la famille. Entretenez votre réseau social.', icon: 'group' },
-        { day: 20, type: 'couple', title: 'Playlist du couple', desc: 'Créez une playlist de vos chansons préférées. Écoutez-la ensemble.', icon: 'music_note' },
-        { day: 22, type: 'post-partum', title: 'Reprise sportive', desc: 'Commencez une activité physique douce. Marche rapide, natation, ou pilates.', icon: 'pool' },
-        { day: 25, type: 'communication', title: 'Résolution de conflits', desc: 'Apprenez la technique DESC : Décrire, Exprimer, Spécifier, Conséquences.', icon: 'balance' },
-        { day: 27, type: 'psychologique', title: 'Vision board', desc: 'Créez ensemble un tableau de vision pour votre famille. Collez vos rêves.', icon: 'dashboard' },
-        { day: 30, type: 'couple', title: 'Renouvellement des vœux', desc: 'Renouvelez vos engagements mutuels. Que promettez-vous pour l\'avenir ?', icon: 'volunteer_activism' }
-      ]
+    ar: {
+      7: { title: '\u062e\u0637\u0629 \u0633\u0631\u064a\u0639\u0629 \u2014 7 \u0623\u064a\u0627\u0645', description: '\u0628\u0631\u0646\u0627\u0645\u062c \u0645\u0643\u062b\u0641 \u0644\u062a\u062d\u0633\u064a\u0646 \u062d\u064a\u0627\u062a\u0643\u0645\u0627 \u0627\u0644\u0632\u0648\u062c\u064a\u0629 \u0628\u0633\u0631\u0639\u0629.',
+        activities: [
+          { day: 1, type: 'communication', title: '\u0631\u0633\u0627\u0644\u0629 \u062a\u0642\u062f\u064a\u0631', desc: '\u0627\u0643\u062a\u0628\u0627 \u0643\u0644 \u0648\u0627\u062d\u062f 3 \u0623\u0634\u064a\u0627\u0621 \u064a\u062d\u0628\u0647\u0627 \u0641\u064a \u0634\u0631\u064a\u0643\u0647. \u0634\u0627\u0631\u0643\u0627\u0647\u0627 \u0627\u0644\u0645\u0633\u0627\u0621.', icon: 'edit_note' },
+          { day: 2, type: 'psychologique', title: '\u062a\u0623\u0645\u0644 \u0645\u0634\u062a\u0631\u0643', desc: '10 \u062f\u0642\u0627\u0626\u0642 \u062a\u0646\u0641\u0633 \u0645\u062a\u0632\u0627\u0645\u0646. \u0627\u062c\u0644\u0633\u0627 \u0648\u062c\u0647\u0627\u064b \u0644\u0648\u062c\u0647.', icon: 'self_improvement' },
+          { day: 3, type: 'couple', title: '\u0633\u0647\u0631\u0629 \u0628\u062f\u0648\u0646 \u0634\u0627\u0634\u0627\u062a', desc: '\u0623\u0637\u0641\u0626\u0627 \u0627\u0644\u0634\u0627\u0634\u0627\u062a \u0628\u0639\u062f 8 \u0645\u0633\u0627\u0621\u064b. \u0627\u0644\u0639\u0628\u0627 \u0623\u0648 \u0627\u0637\u0628\u062e\u0627 \u0645\u0639\u0627\u064b.', icon: 'devices_off' },
+          { day: 4, type: 'post-partum', title: '\u062a\u062f\u0644\u064a\u0643 \u0627\u0633\u062a\u0631\u062e\u0627\u0626\u064a', desc: '\u0642\u062f\u0645\u0627 \u0644\u0628\u0639\u0636\u0643\u0645\u0627 \u062a\u062f\u0644\u064a\u0643\u0627\u064b 15 \u062f\u0642\u064a\u0642\u0629.', icon: 'spa' },
+          { day: 5, type: 'communication', title: '\u0645\u0631\u0627\u062c\u0639\u0629 \u0639\u0627\u0637\u0641\u064a\u0629', desc: '\u0643\u064a\u0641 \u062a\u0634\u0639\u0631\u064a\u0646 \u062d\u0642\u0627\u064b\u061f \u0627\u0633\u062a\u0645\u0639\u0627 \u062f\u0648\u0646 \u062d\u0643\u0645.', icon: 'forum' },
+          { day: 6, type: 'couple', title: '\u0635\u0648\u0631 \u0630\u0643\u0631\u064a\u0627\u062a', desc: '\u0634\u0627\u0647\u062f\u0627 \u0635\u0648\u0631\u0643\u0645\u0627 \u0648\u0627\u0631\u0648\u064a\u0627 \u0630\u0643\u0631\u064a\u0627\u062a\u0643\u0645\u0627 \u0627\u0644\u0645\u0641\u0636\u0644\u0629.', icon: 'photo_library' },
+          { day: 7, type: 'psychologique', title: '\u062a\u0642\u064a\u064a\u0645 \u0648\u0627\u0645\u062a\u0646\u0627\u0646', desc: '\u0642\u064a\u0645\u0627 \u0627\u0644\u0623\u0633\u0628\u0648\u0639. \u0645\u0627\u0630\u0627 \u062a\u0639\u0644\u0645\u062a\u0645\u0627\u061f', icon: 'celebration' }
+        ]},
+      14: { title: '\u062e\u0637\u0629 \u0627\u0644\u062a\u0648\u0627\u0632\u0646 \u2014 14 \u064a\u0648\u0645', description: '\u0623\u0633\u0628\u0648\u0639\u0627\u0646 \u0644\u062a\u0639\u0632\u064a\u0632 \u0623\u0633\u0633 \u0639\u0644\u0627\u0642\u062a\u0643\u0645\u0627 \u0627\u0644\u0623\u0628\u0648\u064a\u0629.',
+        activities: [
+          { day: 1, type: 'communication', title: '\u0637\u0642\u0633 \u0627\u0644\u0635\u0628\u0627\u062d', desc: '\u0643\u0644 \u0635\u0628\u0627\u062d \u0642\u0648\u0644\u0627 \u0634\u064a\u0626\u0627\u064b \u0625\u064a\u062c\u0627\u0628\u064a\u0627\u064b \u0644\u0634\u0631\u064a\u0643\u0643\u0645\u0627.', icon: 'wb_sunny' },
+          { day: 2, type: 'psychologique', title: '\u064a\u0648\u0645\u064a\u0627\u062a \u0627\u0644\u0627\u0645\u062a\u0646\u0627\u0646', desc: '\u0627\u0643\u062a\u0628\u0627 3 \u0644\u062d\u0638\u0627\u062a \u0627\u0645\u062a\u0646\u0627\u0646 \u0645\u0631\u062a\u0628\u0637\u0629 \u0628\u0639\u0627\u0626\u0644\u062a\u0643\u0645\u0627.', icon: 'menu_book' },
+          { day: 3, type: 'couple', title: '\u0645\u0648\u0639\u062f \u0641\u064a \u0627\u0644\u0628\u064a\u062a', desc: '\u062d\u0636\u0631\u0627 \u0639\u0634\u0627\u0621\u064b \u062e\u0627\u0635\u0627\u064b \u0639\u0646\u062f\u0645\u0627 \u064a\u0646\u0627\u0645 \u0627\u0644\u0637\u0641\u0644.', icon: 'dinner_dining' },
+          { day: 4, type: 'post-partum', title: '\u062a\u0645\u0627\u0631\u064a\u0646 \u0643\u064a\u062c\u0644', desc: '\u0645\u0627\u0631\u0633\u0627 \u062a\u0645\u0627\u0631\u064a\u0646 \u0642\u0627\u0639 \u0627\u0644\u062d\u0648\u0636. 3 \u0645\u062c\u0645\u0648\u0639\u0627\u062a \u0645\u0646 10.', icon: 'fitness_center' },
+          { day: 5, type: 'communication', title: '\u0627\u0644\u0627\u0633\u062a\u0645\u0627\u0639 \u0627\u0644\u0641\u0639\u0627\u0644', desc: '\u0648\u0627\u062d\u062f \u064a\u062a\u0643\u0644\u0645 \u0648\u0627\u0644\u0622\u062e\u0631 \u064a\u0633\u062a\u0645\u0639 20 \u062f\u0642\u064a\u0642\u0629. \u062b\u0645 \u0628\u062f\u0644\u0627.', icon: 'hearing' },
+          { day: 6, type: 'psychologique', title: '\u0646\u0632\u0647\u0629 \u0639\u0627\u0626\u0644\u064a\u0629', desc: '\u0627\u0645\u0634\u064a\u0627 30 \u062f\u0642\u064a\u0642\u0629 \u0645\u0639 \u0627\u0644\u0637\u0641\u0644 \u0641\u064a \u0627\u0644\u0647\u0648\u0627\u0621 \u0627\u0644\u0637\u0644\u0642.', icon: 'directions_walk' },
+          { day: 7, type: 'couple', title: '\u0639\u0646\u0627\u0642 \u0625\u0639\u0627\u062f\u0629 \u0627\u0644\u062a\u0648\u0627\u0635\u0644', desc: '\u0627\u062d\u062a\u0636\u0646\u0627 \u0628\u0639\u0636\u0643\u0645\u0627 \u062f\u0642\u064a\u0642\u062a\u064a\u0646 \u062f\u0648\u0646 \u0643\u0644\u0627\u0645.', icon: 'favorite' },
+          { day: 8, type: 'communication', title: '\u062a\u0648\u0632\u064a\u0639 \u0627\u0644\u0645\u0647\u0627\u0645', desc: '\u0631\u0627\u062c\u0639\u0627 \u062a\u0648\u0632\u064a\u0639 \u0627\u0644\u0645\u0647\u0627\u0645 \u0627\u0644\u0645\u0646\u0632\u0644\u064a\u0629 \u0628\u062a\u0648\u0627\u0632\u0646.', icon: 'checklist' },
+          { day: 9, type: 'psychologique', title: '\u062a\u0646\u0641\u0633 \u0645\u0648\u062c\u0647', desc: '15 \u062f\u0642\u064a\u0642\u0629 \u062a\u0645\u0627\u0633\u0643 \u0642\u0644\u0628\u064a. \u0634\u0647\u064a\u0642 5\u062b \u0632\u0641\u064a\u0631 5\u062b.', icon: 'air' },
+          { day: 10, type: 'couple', title: '\u0645\u0641\u0627\u062c\u0623\u0629 \u0644\u0637\u064a\u0641\u0629', desc: '\u062d\u0636\u0631\u0627 \u0645\u0641\u0627\u062c\u0623\u0629 \u0635\u063a\u064a\u0631\u0629 \u0644\u0634\u0631\u064a\u0643\u0643\u0645\u0627.', icon: 'card_giftcard' },
+          { day: 11, type: 'post-partum', title: '\u0627\u0633\u062a\u0634\u0627\u0631\u0629 \u0627\u0644\u0642\u0627\u0628\u0644\u0629', desc: '\u062e\u0637\u0637\u0627 \u0644\u0645\u0648\u0639\u062f \u062a\u0642\u064a\u064a\u0645 \u0645\u0627 \u0628\u0639\u062f \u0627\u0644\u0648\u0644\u0627\u062f\u0629.', icon: 'medical_services' },
+          { day: 12, type: 'communication', title: '\u0645\u0634\u0627\u0631\u064a\u0639 \u0627\u0644\u0645\u0633\u062a\u0642\u0628\u0644', desc: '\u0623\u064a\u0646 \u062a\u0631\u064a\u0627\u0646 \u0623\u0646\u0641\u0633\u0643\u0645\u0627 \u0628\u0639\u062f 5 \u0633\u0646\u0648\u0627\u062a\u061f', icon: 'rocket_launch' },
+          { day: 13, type: 'psychologique', title: '\u0648\u0642\u062a \u0634\u062e\u0635\u064a', desc: '\u0627\u0645\u0646\u062d\u0627 \u0623\u0646\u0641\u0633\u0643\u0645\u0627 \u0633\u0627\u0639\u062a\u064a\u0646 \u0645\u0646 \u0627\u0644\u0631\u0627\u062d\u0629.', icon: 'person' },
+          { day: 14, type: 'couple', title: '\u0627\u062d\u062a\u0641\u0627\u0644', desc: '\u0627\u062d\u062a\u0641\u0644\u0627 \u0628\u0623\u0633\u0628\u0648\u0639\u064a\u0646 \u0645\u0646 \u0627\u0644\u062a\u0642\u062f\u0645!', icon: 'celebration' }
+        ]},
+      30: { title: '\u062e\u0637\u0629 \u0627\u0644\u062a\u062d\u0648\u0644 \u2014 30 \u064a\u0648\u0645', description: '\u0634\u0647\u0631 \u0643\u0627\u0645\u0644 \u0644\u062a\u063a\u064a\u064a\u0631 \u062d\u064a\u0627\u062a\u0643\u0645\u0627 \u0643\u0632\u0648\u062c\u064a\u0646 \u0648\u0639\u0627\u0626\u0644\u0629.',
+        activities: [
+          { day: 1, type: 'communication', title: '\u0639\u0642\u062f \u0627\u0644\u0644\u0637\u0641', desc: '\u0636\u0639\u0627 5 \u0642\u0648\u0627\u0639\u062f \u0644\u0644\u062a\u0648\u0627\u0635\u0644 \u0627\u0644\u0644\u0637\u064a\u0641.', icon: 'handshake' },
+          { day: 2, type: 'psychologique', title: '\u0641\u062d\u0635 \u0627\u0644\u062c\u0633\u062f', desc: '\u0627\u0633\u062a\u0644\u0642\u064a\u0627 10 \u062f\u0642\u0627\u0626\u0642 \u0648\u0623\u0631\u062e\u064a\u0627 \u0627\u0644\u062a\u0648\u062a\u0631\u0627\u062a.', icon: 'accessibility_new' },
+          { day: 3, type: 'couple', title: '\u0623\u0644\u0628\u0648\u0645 \u0627\u0644\u0639\u0627\u0626\u0644\u0629', desc: '\u0627\u0628\u062f\u0622 \u0623\u0644\u0628\u0648\u0645 \u0635\u0648\u0631 \u0644\u0639\u0627\u0626\u0644\u062a\u0643\u0645\u0627.', icon: 'photo_album' },
+          { day: 5, type: 'communication', title: '\u0644\u063a\u0629 \u0627\u0644\u062d\u0628', desc: '\u0643\u0644\u0645\u0627\u062a\u060c \u062e\u062f\u0645\u0629\u060c \u0647\u062f\u0627\u064a\u0627\u060c \u0644\u0645\u0633 \u0623\u0648 \u0648\u0642\u062a\u061f', icon: 'translate' },
+          { day: 7, type: 'couple', title: '\u0645\u0648\u0639\u062f \u0623\u0633\u0628\u0648\u0639\u064a', desc: '\u062d\u062a\u0649 30 \u062f\u0642\u064a\u0642\u0629 \u062a\u0643\u0641\u064a \u0644\u0645\u0648\u0639\u062f \u0627\u0644\u0632\u0648\u062c\u064a\u0646.', icon: 'event' },
+          { day: 10, type: 'psychologique', title: '\u0625\u062f\u0627\u0631\u0629 \u0627\u0644\u062a\u0648\u062a\u0631', desc: '\u062d\u062f\u062f\u0627 3 \u0645\u0635\u0627\u062f\u0631 \u062a\u0648\u062a\u0631 \u0648\u062c\u062f\u0627 \u062d\u0644\u0648\u0644\u0627\u064b.', icon: 'psychology' },
+          { day: 12, type: 'post-partum', title: '\u064a\u0648\u063a\u0627 \u0628\u0639\u062f \u0627\u0644\u0648\u0644\u0627\u062f\u0629', desc: '20 \u062f\u0642\u064a\u0642\u0629 \u064a\u0648\u063a\u0627 \u0628\u0639\u062f \u0627\u0644\u0648\u0644\u0627\u062f\u0629 \u062a\u0643\u0641\u064a.', icon: 'self_improvement' },
+          { day: 14, type: 'couple', title: '\u062a\u0642\u064a\u064a\u0645 \u0645\u0646\u062a\u0635\u0641 \u0627\u0644\u0645\u0633\u0627\u0631', desc: '\u0645\u0627 \u0627\u0644\u0630\u064a \u064a\u0646\u062c\u062d\u061f \u0645\u0627 \u064a\u062d\u062a\u0627\u062c \u062a\u0639\u062f\u064a\u0644\u061f', icon: 'assessment' },
+          { day: 16, type: 'communication', title: '\u0631\u0633\u0627\u0644\u0629 \u0644\u0644\u0637\u0641\u0644', desc: '\u0627\u0643\u062a\u0628\u0627 \u0631\u0633\u0627\u0644\u0629 \u0644\u0637\u0641\u0644\u0643\u0645\u0627.', icon: 'mail' },
+          { day: 18, type: 'psychologique', title: '\u0634\u0628\u0643\u0629 \u0627\u0644\u062f\u0639\u0645', desc: '\u062a\u0648\u0627\u0635\u0644\u0627 \u0645\u0639 \u0635\u062f\u064a\u0642 \u0623\u0648 \u0641\u0631\u062f \u0645\u0646 \u0627\u0644\u0639\u0627\u0626\u0644\u0629.', icon: 'group' },
+          { day: 20, type: 'couple', title: '\u0642\u0627\u0626\u0645\u0629 \u0623\u063a\u0627\u0646\u064a', desc: '\u0623\u0646\u0634\u0626\u0627 \u0642\u0627\u0626\u0645\u0629 \u0623\u063a\u0627\u0646\u064a\u0643\u0645\u0627 \u0627\u0644\u0645\u0641\u0636\u0644\u0629.', icon: 'music_note' },
+          { day: 22, type: 'post-partum', title: '\u0627\u0633\u062a\u0626\u0646\u0627\u0641 \u0627\u0644\u0631\u064a\u0627\u0636\u0629', desc: '\u0645\u0634\u064a \u0633\u0631\u064a\u0639\u060c \u0633\u0628\u0627\u062d\u0629 \u0623\u0648 \u0628\u064a\u0644\u0627\u062a\u0633.', icon: 'pool' },
+          { day: 25, type: 'communication', title: '\u062d\u0644 \u0627\u0644\u0646\u0632\u0627\u0639\u0627\u062a', desc: '\u062a\u0642\u0646\u064a\u0629 DESC: \u0648\u0635\u0641\u060c \u062a\u0639\u0628\u064a\u0631\u060c \u062a\u062d\u062f\u064a\u062f\u060c \u0646\u062a\u0627\u0626\u062c.', icon: 'balance' },
+          { day: 27, type: 'psychologique', title: '\u0644\u0648\u062d\u0629 \u0627\u0644\u0631\u0624\u064a\u0629', desc: '\u0623\u0646\u0634\u0626\u0627 \u0644\u0648\u062d\u0629 \u0631\u0624\u064a\u0629 \u0644\u0639\u0627\u0626\u0644\u062a\u0643\u0645\u0627.', icon: 'dashboard' },
+          { day: 30, type: 'couple', title: '\u062a\u062c\u062f\u064a\u062f \u0627\u0644\u0639\u0647\u0648\u062f', desc: '\u0645\u0627\u0630\u0627 \u062a\u0639\u062f\u0627\u0646 \u0644\u0644\u0645\u0633\u062a\u0642\u0628\u0644\u061f', icon: 'volunteer_activism' }
+        ]}
     }
   };
 
   app.get('/api/plan/:duration', requireAuth, (req, res) => {
     const duration = parseInt(req.params.duration);
-    if (![7, 14, 30].includes(duration)) return res.status(400).json({ error: 'Durée invalide' });
+    if (![7, 14, 30].includes(duration)) return res.status(400).json({ error: 'Dur\u00e9e invalide' });
 
-    const plan = planTemplates[duration];
+    const lang = req.query.lang || 'fr';
+    const templates = planTemplates[lang] || planTemplates.fr;
+    const plan = templates[duration];
 
     // Get scores to personalize recommendations
     const types = ['psychologique', 'conjugal', 'sexuel'];
@@ -615,45 +660,72 @@ async function startServer() {
     });
   });
 
-  // ═══════════════════ TIMELINE POST-PARTUM ═══════════════════
-
   const timelineContent = {
-    '0-3': [
-      { id: 't1', title: 'Les premiers jours', category: 'santé mentale', icon: 'child_care', readTime: 8, content: 'Les premiers jours après l\'accouchement sont un tourbillon d\'émotions. Le baby blues touche 50 à 80% des femmes entre J3 et J10. C\'est normal et passager. Fatigue, pleurs, irritabilité, sentiment d\'être dépassée — tout cela fait partie du processus d\'adaptation. Si ces symptômes persistent au-delà de 2 semaines, parlez-en à un professionnel.' },
-      { id: 't2', title: 'Allaitement : les bases', category: 'allaitement', icon: 'breastfeeding', readTime: 10, content: 'L\'allaitement s\'installe progressivement. Les premières 48h, c\'est le colostrum (or liquide !) qui nourrit bébé. La montée de lait arrive vers J3-J5. Positions recommandées : madone, ballon de rugby, allongée. Si douleurs, vérifiez la prise au sein. N\'hésitez pas à consulter une consultante en lactation.' },
-      { id: 't3', title: 'Récupération physique', category: 'vie de couple', icon: 'healing', readTime: 7, content: 'Votre corps a besoin de temps. Les lochies (saignements) durent 4-6 semaines. Cicatrisation : épisiotomie (2-3 semaines), césarienne (6-8 semaines). Repos maximum les 10 premiers jours. Évitez les efforts physiques. La rééducation du périnée commencera vers 6-8 semaines post-partum.' },
-      { id: 't4', title: 'Sommeil du nouveau-né', category: 'santé mentale', icon: 'bedtime', readTime: 6, content: 'Un nouveau-né dort 16-17h par jour, en cycles de 2-4h. Le sommeil se régularise progressivement. Conseil : dormez quand bébé dort. Organisez des tours de garde avec votre partenaire. La privation de sommeil est le facteur n°1 de stress postnatal.' },
-      { id: 't5', title: 'Le couple après bébé', category: 'vie de couple', icon: 'favorite', readTime: 9, content: 'L\'arrivée du premier enfant est la transition la plus intense pour un couple. 70% des couples rapportent une baisse de satisfaction conjugale. C\'est NORMAL. La clé : maintenir la communication, exprimer ses besoins, partager les responsabilités, et surtout, ne pas oublier que vous êtes un couple avant d\'être parents.' }
-    ],
-    '3-6': [
-      { id: 't6', title: 'Reprise de la sexualité', category: 'sexualité', icon: 'diversity_3', readTime: 8, content: 'Il n\'y a pas de délai imposé pour reprendre une activité sexuelle. Écoutez votre corps et vos envies. La sécheresse vaginale est fréquente (surtout pendant l\'allaitement) — utilisez un lubrifiant. Communiquez ouvertement avec votre partenaire sur vos désirs et appréhensions. La tendresse et l\'intimité non sexuelle sont tout aussi importantes.' },
-      { id: 't7', title: 'Retour au travail', category: 'santé mentale', icon: 'work', readTime: 7, content: 'Le retour au travail peut être source d\'anxiété. Planifiez la transition : mode de garde, organisation du quotidien, tire-lait si allaitement. Acceptez que la culpabilité est normale mais pas justifiée. Vous restez une mère/un père formidable même en travaillant.' },
-      { id: 't8', title: 'Diversification alimentaire', category: 'allaitement', icon: 'restaurant', readTime: 10, content: 'Vers 4-6 mois, bébé montre des signes de préparation : tient sa tête, s\'intéresse à la nourriture, perd le réflexe d\'extrusion. Commencez par des légumes doux (carotte, courge, courgette) en purée lisse. Un aliment nouveau tous les 3 jours pour détecter les allergies.' },
-      { id: 't9', title: 'Rééducation périnéale', category: 'vie de couple', icon: 'fitness_center', readTime: 6, content: 'La rééducation périnéale est recommandée pour toutes les femmes. 10 séances en moyenne avec un kinésithérapeute spécialisé. Exercices de Kegel à faire chez soi. Bénéfices : prévention de l\'incontinence, amélioration du confort intime, meilleure confiance corporelle.' },
-      { id: 't10', title: 'Gérer les conflits parentaux', category: 'vie de couple', icon: 'balance', readTime: 8, content: 'Les désaccords sur l\'éducation sont inévitables. Règle d\'or : discutez en privé, jamais devant l\'enfant. Trouvez des compromis. Respectez les différences de style parental. Si les conflits s\'intensifient, une thérapie de couple peut aider à retrouver l\'harmonie.' }
-    ],
-    '6-12': [
-      { id: 't11', title: 'Développement de bébé', category: 'santé mentale', icon: 'child_care', readTime: 7, content: '6-12 mois : c\'est l\'explosion du développement ! Bébé rampe, s\'assied, commence à se lever. Les premiers mots apparaissent (mama, papa). L\'angoisse de séparation est normale vers 8-9 mois. Votre rôle : offrir un environnement sécurisé et stimulant.' },
-      { id: 't12', title: 'Retrouver son identité', category: 'santé mentale', icon: 'person', readTime: 9, content: 'Après la période intensive des premiers mois, il est temps de retrouver votre identité au-delà du rôle de parent. Reprenez une activité personnelle, voyez vos amis, cultivez vos passions. Un parent épanoui élève un enfant épanoui.' },
-      { id: 't13', title: 'Contraception à long terme', category: 'sexualité', icon: 'medication', readTime: 6, content: 'C\'est le moment de réfléchir à une contraception adaptée à long terme. Options : DIU cuivre (10 ans), DIU hormonal (5 ans), implant (3 ans), pilule. Discutez avec votre gynécologue pour choisir la méthode qui vous convient le mieux en couple.' },
-      { id: 't14', title: 'Projet de fratrie', category: 'vie de couple', icon: 'family_restroom', readTime: 8, content: 'La question du deuxième enfant se pose souvent vers la fin de la première année. Il n\'y a pas de timing parfait. L\'OMS recommande 18-24 mois entre deux grossesses. Prenez cette décision ensemble, quand vous vous sentez prêts physiquement et émotionnellement.' },
-      { id: 't15', title: 'Bilan de la première année', category: 'vie de couple', icon: 'celebration', readTime: 10, content: 'Félicitations, vous avez survécu à la première année ! C\'est un accomplissement majeur. Prenez le temps de faire le bilan : ce que vous avez appris, comment votre relation a évolué, vos fiertés. Célébrez cette étape ensemble — vous le méritez.' }
-    ]
+    fr: {
+      '0-3': [
+        { id: 't1', title: 'Les premiers jours', category: 'sant\u00e9 mentale', icon: 'child_care', readTime: 8, content: 'Les premiers jours apr\u00e8s l\'accouchement sont un tourbillon d\'\u00e9motions. Le baby blues touche 50 \u00e0 80% des femmes.' },
+        { id: 't2', title: 'Allaitement : les bases', category: 'allaitement', icon: 'breastfeeding', readTime: 10, content: 'L\'allaitement s\'installe progressivement. Le colostrum nourrit b\u00e9b\u00e9 les 48 premi\u00e8res heures.' },
+        { id: 't3', title: 'R\u00e9cup\u00e9ration physique', category: 'vie de couple', icon: 'healing', readTime: 7, content: 'Votre corps a besoin de temps. Les lochies durent 4-6 semaines. Repos maximum les 10 premiers jours.' },
+        { id: 't4', title: 'Sommeil du nouveau-n\u00e9', category: 'sant\u00e9 mentale', icon: 'bedtime', readTime: 6, content: 'Un nouveau-n\u00e9 dort 16-17h par jour en cycles de 2-4h. Dormez quand b\u00e9b\u00e9 dort.' },
+        { id: 't5', title: 'Le couple apr\u00e8s b\u00e9b\u00e9', category: 'vie de couple', icon: 'favorite', readTime: 9, content: '70% des couples rapportent une baisse de satisfaction conjugale. Maintenez la communication.' }
+      ],
+      '3-6': [
+        { id: 't6', title: 'Reprise de la sexualit\u00e9', category: 'sexualit\u00e9', icon: 'diversity_3', readTime: 8, content: 'Il n\'y a pas de d\u00e9lai impos\u00e9. \u00c9coutez votre corps et communiquez avec votre partenaire.' },
+        { id: 't7', title: 'Retour au travail', category: 'sant\u00e9 mentale', icon: 'work', readTime: 7, content: 'Planifiez la transition : mode de garde, organisation. La culpabilit\u00e9 est normale.' },
+        { id: 't8', title: 'Diversification alimentaire', category: 'allaitement', icon: 'restaurant', readTime: 10, content: 'Vers 4-6 mois, commencez par des l\u00e9gumes doux. Un aliment nouveau tous les 3 jours.' },
+        { id: 't9', title: 'R\u00e9\u00e9ducation p\u00e9rin\u00e9ale', category: 'vie de couple', icon: 'fitness_center', readTime: 6, content: '10 s\u00e9ances avec un kin\u00e9. Exercices de Kegel \u00e0 la maison.' },
+        { id: 't10', title: 'G\u00e9rer les conflits', category: 'vie de couple', icon: 'balance', readTime: 8, content: 'Discutez en priv\u00e9, jamais devant l\'enfant. Trouvez des compromis.' }
+      ],
+      '6-12': [
+        { id: 't11', title: 'D\u00e9veloppement de b\u00e9b\u00e9', category: 'sant\u00e9 mentale', icon: 'child_care', readTime: 7, content: 'B\u00e9b\u00e9 rampe, s\'assied, se l\u00e8ve. Les premiers mots apparaissent.' },
+        { id: 't12', title: 'Retrouver son identit\u00e9', category: 'sant\u00e9 mentale', icon: 'person', readTime: 9, content: 'Reprenez une activit\u00e9 personnelle. Un parent \u00e9panoui \u00e9l\u00e8ve un enfant \u00e9panoui.' },
+        { id: 't13', title: 'Contraception', category: 'sexualit\u00e9', icon: 'medication', readTime: 6, content: 'DIU, implant, pilule. Discutez avec votre gyn\u00e9cologue.' },
+        { id: 't14', title: 'Projet de fratrie', category: 'vie de couple', icon: 'family_restroom', readTime: 8, content: 'L\'OMS recommande 18-24 mois entre deux grossesses.' },
+        { id: 't15', title: 'Bilan de l\'ann\u00e9e', category: 'vie de couple', icon: 'celebration', readTime: 10, content: 'F\u00e9licitations ! C\u00e9l\u00e9brez et faites le bilan ensemble.' }
+      ]
+    },
+    ar: {
+      '0-3': [
+        { id: 't1', title: '\u0627\u0644\u0623\u064a\u0627\u0645 \u0627\u0644\u0623\u0648\u0644\u0649', category: '\u0627\u0644\u0635\u062d\u0629 \u0627\u0644\u0646\u0641\u0633\u064a\u0629', icon: 'child_care', readTime: 8, content: '\u0627\u0644\u0623\u064a\u0627\u0645 \u0627\u0644\u0623\u0648\u0644\u0649 \u0628\u0639\u062f \u0627\u0644\u0648\u0644\u0627\u062f\u0629 \u0632\u0648\u0628\u0639\u0629 \u0645\u0634\u0627\u0639\u0631. \u0627\u0643\u062a\u0626\u0627\u0628 \u0645\u0627 \u0628\u0639\u062f \u0627\u0644\u0648\u0644\u0627\u062f\u0629 \u064a\u0635\u064a\u0628 50-80% \u0645\u0646 \u0627\u0644\u0646\u0633\u0627\u0621.' },
+        { id: 't2', title: '\u0627\u0644\u0631\u0636\u0627\u0639\u0629: \u0627\u0644\u0623\u0633\u0627\u0633\u064a\u0627\u062a', category: '\u0627\u0644\u0631\u0636\u0627\u0639\u0629', icon: 'breastfeeding', readTime: 10, content: '\u0627\u0644\u0631\u0636\u0627\u0639\u0629 \u062a\u062a\u0631\u0633\u062e \u062a\u062f\u0631\u064a\u062c\u064a\u0627\u064b. \u0627\u0644\u0644\u0628\u0623 \u064a\u063a\u0630\u064a \u0627\u0644\u0637\u0641\u0644 \u0641\u064a \u0623\u0648\u0644 48 \u0633\u0627\u0639\u0629.' },
+        { id: 't3', title: '\u0627\u0644\u062a\u0639\u0627\u0641\u064a \u0627\u0644\u062c\u0633\u062f\u064a', category: '\u062d\u064a\u0627\u0629 \u0627\u0644\u0632\u0648\u062c\u064a\u0646', icon: 'healing', readTime: 7, content: '\u062c\u0633\u0645\u0643 \u064a\u062d\u062a\u0627\u062c \u0648\u0642\u062a\u0627\u064b. \u0627\u0644\u0646\u0632\u064a\u0641 \u064a\u0633\u062a\u0645\u0631 4-6 \u0623\u0633\u0627\u0628\u064a\u0639. \u0627\u0644\u0631\u0627\u062d\u0629 \u0627\u0644\u0642\u0635\u0648\u0649 \u0641\u064a \u0623\u0648\u0644 10 \u0623\u064a\u0627\u0645.' },
+        { id: 't4', title: '\u0646\u0648\u0645 \u0627\u0644\u0645\u0648\u0644\u0648\u062f', category: '\u0627\u0644\u0635\u062d\u0629 \u0627\u0644\u0646\u0641\u0633\u064a\u0629', icon: 'bedtime', readTime: 6, content: '\u0627\u0644\u0645\u0648\u0644\u0648\u062f \u064a\u0646\u0627\u0645 16-17 \u0633\u0627\u0639\u0629 \u064a\u0648\u0645\u064a\u0627\u064b. \u0646\u0627\u0645\u064a \u0639\u0646\u062f\u0645\u0627 \u064a\u0646\u0627\u0645.' },
+        { id: 't5', title: '\u0627\u0644\u0632\u0648\u062c\u064a\u0646 \u0628\u0639\u062f \u0627\u0644\u0637\u0641\u0644', category: '\u062d\u064a\u0627\u0629 \u0627\u0644\u0632\u0648\u062c\u064a\u0646', icon: 'favorite', readTime: 9, content: '70% \u0645\u0646 \u0627\u0644\u0623\u0632\u0648\u0627\u062c \u064a\u0644\u0627\u062d\u0638\u0648\u0646 \u0627\u0646\u062e\u0641\u0627\u0636\u0627\u064b \u0641\u064a \u0627\u0644\u0631\u0636\u0627. \u062d\u0627\u0641\u0638\u0627 \u0639\u0644\u0649 \u0627\u0644\u062a\u0648\u0627\u0635\u0644.' }
+      ],
+      '3-6': [
+        { id: 't6', title: '\u0627\u0633\u062a\u0626\u0646\u0627\u0641 \u0627\u0644\u0639\u0644\u0627\u0642\u0629 \u0627\u0644\u062d\u0645\u064a\u0645\u0629', category: '\u0627\u0644\u062d\u064a\u0627\u0629 \u0627\u0644\u062c\u0646\u0633\u064a\u0629', icon: 'diversity_3', readTime: 8, content: '\u0644\u0627 \u064a\u0648\u062c\u062f \u0645\u0648\u0639\u062f \u0645\u062d\u062f\u062f. \u0627\u0633\u062a\u0645\u0639\u064a \u0644\u062c\u0633\u0645\u0643 \u0648\u062a\u0648\u0627\u0635\u0644\u064a \u0645\u0639 \u0634\u0631\u064a\u0643\u0643.' },
+        { id: 't7', title: '\u0627\u0644\u0639\u0648\u062f\u0629 \u0644\u0644\u0639\u0645\u0644', category: '\u0627\u0644\u0635\u062d\u0629 \u0627\u0644\u0646\u0641\u0633\u064a\u0629', icon: 'work', readTime: 7, content: '\u062e\u0637\u0637\u064a \u0644\u0644\u0627\u0646\u062a\u0642\u0627\u0644. \u0627\u0644\u0634\u0639\u0648\u0631 \u0628\u0627\u0644\u0630\u0646\u0628 \u0637\u0628\u064a\u0639\u064a.' },
+        { id: 't8', title: '\u0627\u0644\u062a\u0646\u0648\u064a\u0639 \u0627\u0644\u063a\u0630\u0627\u0626\u064a', category: '\u0627\u0644\u0631\u0636\u0627\u0639\u0629', icon: 'restaurant', readTime: 10, content: '\u0645\u0646 4-6 \u0623\u0634\u0647\u0631\u060c \u0627\u0628\u062f\u0626\u064a \u0628\u062e\u0636\u0631\u0648\u0627\u062a \u0644\u0637\u064a\u0641\u0629. \u0637\u0639\u0627\u0645 \u062c\u062f\u064a\u062f \u0643\u0644 3 \u0623\u064a\u0627\u0645.' },
+        { id: 't9', title: '\u0625\u0639\u0627\u062f\u0629 \u062a\u0623\u0647\u064a\u0644 \u0642\u0627\u0639 \u0627\u0644\u062d\u0648\u0636', category: '\u062d\u064a\u0627\u0629 \u0627\u0644\u0632\u0648\u062c\u064a\u0646', icon: 'fitness_center', readTime: 6, content: '10 \u062c\u0644\u0633\u0627\u062a \u0645\u0639 \u0623\u062e\u0635\u0627\u0626\u064a. \u062a\u0645\u0627\u0631\u064a\u0646 \u0643\u064a\u062c\u0644 \u0641\u064a \u0627\u0644\u0645\u0646\u0632\u0644.' },
+        { id: 't10', title: '\u0625\u062f\u0627\u0631\u0629 \u0627\u0644\u062e\u0644\u0627\u0641\u0627\u062a', category: '\u062d\u064a\u0627\u0629 \u0627\u0644\u0632\u0648\u062c\u064a\u0646', icon: 'balance', readTime: 8, content: '\u062a\u0646\u0627\u0642\u0634\u0627 \u0639\u0644\u0649 \u0627\u0646\u0641\u0631\u0627\u062f. \u0627\u0628\u062d\u062b\u0627 \u0639\u0646 \u062d\u0644\u0648\u0644 \u0648\u0633\u0637.' }
+      ],
+      '6-12': [
+        { id: 't11', title: '\u0646\u0645\u0648 \u0627\u0644\u0637\u0641\u0644', category: '\u0627\u0644\u0635\u062d\u0629 \u0627\u0644\u0646\u0641\u0633\u064a\u0629', icon: 'child_care', readTime: 7, content: '\u0627\u0644\u0637\u0641\u0644 \u064a\u062d\u0628\u0648\u060c \u064a\u062c\u0644\u0633\u060c \u064a\u0642\u0641. \u0627\u0644\u0643\u0644\u0645\u0627\u062a \u0627\u0644\u0623\u0648\u0644\u0649 \u062a\u0638\u0647\u0631.' },
+        { id: 't12', title: '\u0627\u0633\u062a\u0639\u0627\u062f\u0629 \u0627\u0644\u0647\u0648\u064a\u0629', category: '\u0627\u0644\u0635\u062d\u0629 \u0627\u0644\u0646\u0641\u0633\u064a\u0629', icon: 'person', readTime: 9, content: '\u0627\u0633\u062a\u0623\u0646\u0641\u064a \u0646\u0634\u0627\u0637\u0627\u064b \u0634\u062e\u0635\u064a\u0627\u064b. \u0627\u0644\u0648\u0627\u0644\u062f \u0627\u0644\u0633\u0639\u064a\u062f \u064a\u0631\u0628\u064a \u0637\u0641\u0644\u0627\u064b \u0633\u0639\u064a\u062f\u0627\u064b.' },
+        { id: 't13', title: '\u0648\u0633\u0627\u0626\u0644 \u0645\u0646\u0639 \u0627\u0644\u062d\u0645\u0644', category: '\u0627\u0644\u062d\u064a\u0627\u0629 \u0627\u0644\u062c\u0646\u0633\u064a\u0629', icon: 'medication', readTime: 6, content: '\u0627\u0644\u0644\u0648\u0644\u0628\u060c \u0627\u0644\u063a\u0631\u0633\u0629\u060c \u0627\u0644\u062d\u0628\u0648\u0628. \u0627\u0633\u062a\u0634\u064a\u0631\u064a \u0637\u0628\u064a\u0628\u062a\u0643.' },
+        { id: 't14', title: '\u0645\u0634\u0631\u0648\u0639 \u0627\u0644\u0623\u062e\u0648\u0629', category: '\u062d\u064a\u0627\u0629 \u0627\u0644\u0632\u0648\u062c\u064a\u0646', icon: 'family_restroom', readTime: 8, content: '\u064a\u0646\u0635\u062d \u0628~18-24 \u0634\u0647\u0631\u0627\u064b \u0628\u064a\u0646 \u062d\u0645\u0644\u064a\u0646.' },
+        { id: 't15', title: '\u062d\u0635\u064a\u0644\u0629 \u0627\u0644\u0633\u0646\u0629 \u0627\u0644\u0623\u0648\u0644\u0649', category: '\u062d\u064a\u0627\u0629 \u0627\u0644\u0632\u0648\u062c\u064a\u0646', icon: 'celebration', readTime: 10, content: '\u0645\u0628\u0631\u0648\u0643! \u0627\u062d\u062a\u0641\u0644\u0627 \u0648\u0642\u064a\u0645\u0627 \u0645\u0633\u0627\u0631\u0643\u0645\u0627 \u0645\u0639\u0627\u064b.' }
+      ]
+    }
   };
 
   app.get('/api/timeline/:period', (req, res) => {
     const period = req.params.period;
-    const content = timelineContent[period];
-    if (!content) return res.status(404).json({ error: 'Période non trouvée' });
+    const lang = req.query.lang || 'fr';
+    const langContent = timelineContent[lang] || timelineContent.fr;
+    const content = langContent[period];
+    if (!content) return res.status(404).json({ error: 'P\u00e9riode non trouv\u00e9e' });
     res.json({ period, articles: content });
   });
 
   app.get('/api/timeline', (req, res) => {
+    const lang = req.query.lang || 'fr';
+    const langContent = timelineContent[lang] || timelineContent.fr;
     res.json({
       periods: [
-        { id: '0-3', label: '0-3 mois', desc: 'Les premiers pas', count: timelineContent['0-3'].length },
-        { id: '3-6', label: '3-6 mois', desc: 'S\'installer dans le rôle', count: timelineContent['3-6'].length },
-        { id: '6-12', label: '6-12 mois', desc: 'Grandir ensemble', count: timelineContent['6-12'].length }
+        { id: '0-3', label: '0-3', desc: lang==='ar'?'\u0627\u0644\u062e\u0637\u0648\u0627\u062a \u0627\u0644\u0623\u0648\u0644\u0649':'Les premiers pas', count: langContent['0-3'].length },
+        { id: '3-6', label: '3-6', desc: lang==='ar'?'\u0627\u0644\u062a\u0623\u0642\u0644\u0645 \u0641\u064a \u0627\u0644\u062f\u0648\u0631':'S\'installer', count: langContent['3-6'].length },
+        { id: '6-12', label: '6-12', desc: lang==='ar'?'\u0627\u0644\u0646\u0645\u0648 \u0645\u0639\u0627\u064b':'Grandir ensemble', count: langContent['6-12'].length }
       ]
     });
   });
