@@ -1,9 +1,9 @@
 /* ============================================================
-   NurtureFlow — Frontend Application
+   NurtureFlow â€” Frontend Application
    SPA avec appels API vers le backend Express
    ============================================================ */
 
-// ── API Helper ──
+// â”€â”€ API Helper â”€â”€
 async function api(endpoint, options = {}) {
   const config = {
     headers: { 'Content-Type': 'application/json' },
@@ -19,7 +19,7 @@ async function api(endpoint, options = {}) {
   return data;
 }
 
-// ── State ──
+// â”€â”€ State â”€â”€
 const state = {
   currentScreen: 'auth',
   authenticated: false,
@@ -31,7 +31,7 @@ const state = {
   currentMood: null
 };
 
-// ── Questionnaire Data (translated) ──
+// â”€â”€ Questionnaire Data (translated) â”€â”€
 function getQuestionnaires() {
   return {
     psychologique: {
@@ -116,9 +116,9 @@ const images = {
   library: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA_RVwSRojNQlvzaGMnJZZdc50mbYPZ5Q_ZE-QCjDDRe2llIpMpGHkgKIOa1-IDCWjtYllW0Ap22mYOYbXxl584d5cvvt6x1jxjdiFzv9nXfJW2TKQ1Dc_EjKysk1sbk-UuZpMXGJTWA2GwTYTQtuMYeP-AUwQI39tF-SFF3vmcUHTwukDZsk5JSnGEJwsGfoWA0tfrA9R9ODAMeqLbJF0shKmroDnUeZZ1VvufD4V9R9CYaluQD7OsiNaQmVJ0mmtLUHbgBdyHtxI'
 };
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  INIT
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize language direction
   const langInfo = LANGS[currentLang];
@@ -135,13 +135,13 @@ document.addEventListener('DOMContentLoaded', () => {
   checkAuth();
 });
 
-// ── Splash ──
+// â”€â”€ Splash â”€â”€
 function initSplash() {
   const splash = document.getElementById('splash');
   if (splash) setTimeout(() => { splash.classList.add('hide'); setTimeout(() => splash.remove(), 600); }, 2000);
 }
 
-// ── Check auth on load ──
+// â”€â”€ Check auth on load â”€â”€
 async function checkAuth() {
   try {
     const data = await api('/auth/me');
@@ -157,9 +157,9 @@ async function checkAuth() {
   }
 }
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  NAVIGATION
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function initNavigation() {
   document.querySelectorAll('[data-nav]').forEach(btn => {
     btn.addEventListener('click', () => navigateTo(btn.dataset.nav));
@@ -232,7 +232,7 @@ function showScreen(screenId) {
   setTimeout(() => initReveal(), 100);
 }
 
-// ── Drawer ──
+// â”€â”€ Drawer â”€â”€
 function initDrawer() {
   document.getElementById('menuBtn')?.addEventListener('click', () => {
     document.getElementById('drawer').classList.add('open');
@@ -248,7 +248,7 @@ function closeDrawer() {
   document.getElementById('drawerOverlay')?.classList.remove('open');
 }
 
-// ── Scroll & Reveal ──
+// â”€â”€ Scroll & Reveal â”€â”€
 function initScrollEffects() {
   window.addEventListener('scroll', () => {
     const topBar = document.getElementById('topBar');
@@ -262,9 +262,9 @@ function initReveal() {
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 }
 
-// ══════════════════════════════════════════════════════════════
-//  AUTH — LOGIN / REGISTER
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  AUTH â€” LOGIN / REGISTER
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function showLogin() {
   const c = document.getElementById('auth-content');
   c.innerHTML = `
@@ -312,7 +312,7 @@ function showLogin() {
   `;
 }
 
-// ── Forgot Password ──
+// â”€â”€ Forgot Password â”€â”€
 function showForgotPassword() {
   const c = document.getElementById('auth-content');
   c.innerHTML = `
@@ -374,9 +374,9 @@ async function doForgotPassword() {
   }
 }
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  EDIT PROFILE
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function showEditProfile() {
   const c = state.couple;
   if (!c) return;
@@ -607,9 +607,9 @@ async function doLogout() {
   showLogin();
 }
 
-// ══════════════════════════════════════════════════════════════
-//  NOUVEAU COUPLE (depuis l'intérieur de l'app)
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  NOUVEAU COUPLE (depuis l'intÃ©rieur de l'app)
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function renderNewCouple() {
   const c = document.getElementById('new-couple-content');
   c.innerHTML = `
@@ -727,7 +727,7 @@ async function createNewCouple() {
         <span class="material-symbols-outlined text-primary">check_circle</span>
         <div>
           <strong class="text-primary">${t('nc_success')}</strong>
-          <p class="text-body-md mt-sm"><strong>${body.partner1_name}</strong> & <strong>${body.partner2_name || '—'}</strong></p>
+          <p class="text-body-md mt-sm"><strong>${body.partner1_name}</strong> & <strong>${body.partner2_name || 'â€”'}</strong></p>
           <p class="text-body-md text-variant">${body.partner1_email}</p>
         </div>
       </div>
@@ -745,13 +745,13 @@ async function createNewCouple() {
   }
 }
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  HOME / DASHBOARD
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  NOTIFICATION SYSTEM
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function getNotifications() {
   return JSON.parse(localStorage.getItem('nf_notifications') || '[]');
 }
@@ -776,12 +776,12 @@ function generateSmartNotifications() {
     const months = Math.floor(days / 30.44);
 
     const milestones = [
-      { day: 1, icon: '🎉', id: 'mile_1d', msg: t('notif_baby_born') },
-      { day: 7, icon: '🎊', id: 'mile_1w', msg: t('notif_baby_1week') },
-      { day: 14, icon: '🌟', id: 'mile_2w', msg: t('notif_baby_2weeks') },
-      { day: 30, icon: '🎂', id: 'mile_1m', msg: t('notif_baby_1month') },
-      { day: 60, icon: '🌸', id: 'mile_2m', msg: t('notif_baby_2months') },
-      { day: 90, icon: '🎈', id: 'mile_3m', msg: t('notif_baby_3months') },
+      { day: 1, icon: 'ðŸŽ‰', id: 'mile_1d', msg: t('notif_baby_born') },
+      { day: 7, icon: 'ðŸŽŠ', id: 'mile_1w', msg: t('notif_baby_1week') },
+      { day: 14, icon: 'ðŸŒŸ', id: 'mile_2w', msg: t('notif_baby_2weeks') },
+      { day: 30, icon: 'ðŸŽ‚', id: 'mile_1m', msg: t('notif_baby_1month') },
+      { day: 60, icon: 'ðŸŒ¸', id: 'mile_2m', msg: t('notif_baby_2months') },
+      { day: 90, icon: 'ðŸŽˆ', id: 'mile_3m', msg: t('notif_baby_3months') },
     ];
 
     for (const m of milestones) {
@@ -795,13 +795,13 @@ function generateSmartNotifications() {
   const tipId = 'tip_' + today;
   if (!existingIds.includes(tipId)) {
     const tips = [
-      { icon: '💧', msg: t('notif_tip_water') },
-      { icon: '🧘', msg: t('notif_tip_breathe') },
-      { icon: '❤️', msg: t('notif_tip_hug') },
-      { icon: '🌙', msg: t('notif_tip_sleep') },
-      { icon: '🤱', msg: t('notif_tip_breastfeed') },
-      { icon: '🚶', msg: t('notif_tip_walk') },
-      { icon: '💬', msg: t('notif_tip_talk') },
+      { icon: 'ðŸ’§', msg: t('notif_tip_water') },
+      { icon: 'ðŸ§˜', msg: t('notif_tip_breathe') },
+      { icon: 'â¤ï¸', msg: t('notif_tip_hug') },
+      { icon: 'ðŸŒ™', msg: t('notif_tip_sleep') },
+      { icon: 'ðŸ¤±', msg: t('notif_tip_breastfeed') },
+      { icon: 'ðŸš¶', msg: t('notif_tip_walk') },
+      { icon: 'ðŸ’¬', msg: t('notif_tip_talk') },
     ];
     const tip = tips[now.getDay() % tips.length];
     newNotifs.push({ id: tipId, icon: tip.icon, msg: tip.msg, time: now.toISOString(), read: false, type: 'tip' });
@@ -811,12 +811,12 @@ function generateSmartNotifications() {
   const lastEvalCheck = localStorage.getItem('nf_last_eval_date');
   const evalReminderId = 'eval_remind_' + today;
   if (!lastEvalCheck && !existingIds.includes(evalReminderId)) {
-    newNotifs.push({ id: evalReminderId, icon: '📋', msg: t('notif_eval_reminder'), time: now.toISOString(), read: false, type: 'reminder' });
+    newNotifs.push({ id: evalReminderId, icon: 'ðŸ“‹', msg: t('notif_eval_reminder'), time: now.toISOString(), read: false, type: 'reminder' });
   }
 
   // 4. Welcome notification (first time)
   if (!existingIds.includes('welcome')) {
-    newNotifs.push({ id: 'welcome', icon: '👋', msg: t('notif_welcome'), time: now.toISOString(), read: false, type: 'welcome' });
+    newNotifs.push({ id: 'welcome', icon: 'ðŸ‘‹', msg: t('notif_welcome'), time: now.toISOString(), read: false, type: 'welcome' });
   }
 
   if (newNotifs.length > 0) {
@@ -855,7 +855,7 @@ function renderNotifList() {
   if (notifs.length === 0) {
     list.innerHTML = `
       <div class="notif-empty">
-        <div class="notif-empty__icon">🔔</div>
+        <div class="notif-empty__icon">ðŸ””</div>
         <p class="text-body-md">${t('notif_empty')}</p>
       </div>
     `;
@@ -904,12 +904,12 @@ function clearNotifications() {
 function getNotifTimeAgo(date) {
   const now = new Date();
   const diffMin = Math.floor((now - date) / 60000);
-  if (diffMin < 1) return t('notif_just_now') || 'الآن';
-  if (diffMin < 60) return `${diffMin} ${t('notif_min_ago') || 'د'}`;
+  if (diffMin < 1) return t('notif_just_now') || 'Ø§Ù„Ø¢Ù†';
+  if (diffMin < 60) return `${diffMin} ${t('notif_min_ago') || 'Ø¯'}`;
   const diffHrs = Math.floor(diffMin / 60);
-  if (diffHrs < 24) return `${diffHrs} ${t('notif_hrs_ago') || 'س'}`;
+  if (diffHrs < 24) return `${diffHrs} ${t('notif_hrs_ago') || 'Ø³'}`;
   const diffDays = Math.floor(diffHrs / 24);
-  return `${diffDays} ${t('notif_days_ago') || 'ي'}`;
+  return `${diffDays} ${t('notif_days_ago') || 'ÙŠ'}`;
 }
 
 // Push a single notification from any section
@@ -933,9 +933,9 @@ document.addEventListener('click', (e) => {
   }
 });
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  BABY AGE WIDGET
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 let babyAgeInterval = null;
 
 function renderBabyAgeWidget() {
@@ -947,7 +947,7 @@ function renderBabyAgeWidget() {
     // Show input form
     widget.innerHTML = `
       <div class="flex items-center gap-md mb-lg">
-        <span style="font-size:32px;">👶</span>
+        <span style="font-size:32px;">ðŸ‘¶</span>
         <div>
           <h3 class="text-headline-sm" style="font-size:16px;">${t('baby_title')}</h3>
           <p class="text-body-md text-variant">${t('baby_enter_info')}</p>
@@ -1007,10 +1007,10 @@ function updateBabyAge() {
   widget.innerHTML = `
     <div class="flex items-center justify-between mb-lg">
       <div class="flex items-center gap-md">
-        <span style="font-size:32px;">👶</span>
+        <span style="font-size:32px;">ðŸ‘¶</span>
         <div>
           <h3 class="text-headline-sm" style="font-size:16px;">${t('baby_age_title')}</h3>
-          <p class="text-body-sm text-variant">🎂 ${birthStr} • ${birthTime}</p>
+          <p class="text-body-sm text-variant">ðŸŽ‚ ${birthStr} â€¢ ${birthTime}</p>
         </div>
       </div>
       <button onclick="localStorage.removeItem('nf_baby_birth');renderBabyAgeWidget();" style="border:none;background:none;cursor:pointer;padding:4px;">
@@ -1032,8 +1032,8 @@ function updateBabyAge() {
       `).join('')}
     </div>
 
-    ${totalDays <= 7 ? `<div style="margin-top:12px;text-align:center;padding:8px;background:rgba(163,217,200,0.12);border-radius:var(--radius-lg);"><span style="font-size:14px;">🎉</span> <span class="text-body-sm text-semibold">${t('baby_newborn_msg')}</span></div>` : ''}
-    ${totalDays > 7 && totalWeeks <= 6 ? `<div style="margin-top:12px;text-align:center;padding:8px;background:rgba(180,142,173,0.08);border-radius:var(--radius-lg);"><span class="text-body-sm text-variant">📅 ${t('baby_weeks_old', { n: totalWeeks })}</span></div>` : ''}
+    ${totalDays <= 7 ? `<div style="margin-top:12px;text-align:center;padding:8px;background:rgba(163,217,200,0.12);border-radius:var(--radius-lg);"><span style="font-size:14px;">ðŸŽ‰</span> <span class="text-body-sm text-semibold">${t('baby_newborn_msg')}</span></div>` : ''}
+    ${totalDays > 7 && totalWeeks <= 6 ? `<div style="margin-top:12px;text-align:center;padding:8px;background:rgba(180,142,173,0.08);border-radius:var(--radius-lg);"><span class="text-body-sm text-variant">ðŸ“… ${t('baby_weeks_old', { n: totalWeeks })}</span></div>` : ''}
   `;
 
   // Auto refresh every minute
@@ -1044,7 +1044,7 @@ function updateBabyAge() {
 async function renderHome() {
   if (!state.couple) return;
 
-  // Update name — show both partners
+  // Update name â€” show both partners
   const nameEl = document.getElementById('home-name');
   if (nameEl) {
     const name1 = state.couple.partner1_name || '';
@@ -1058,7 +1058,7 @@ async function renderHome() {
     adminLink.style.display = state.couple.partner1_email === 'admin@nurtureflow.com' ? 'flex' : 'none';
   }
 
-  // Update drawer — show both names
+  // Update drawer â€” show both names
   const drawerName = document.getElementById('drawer-name');
   if (drawerName) {
     const n1 = state.couple.partner1_name || '';
@@ -1070,7 +1070,7 @@ async function renderHome() {
 
   // Update current lang label
   const langLabel = document.getElementById('current-lang-label');
-  if (langLabel) langLabel.textContent = LANGS[currentLang]?.label || 'Français';
+  if (langLabel) langLabel.textContent = LANGS[currentLang]?.label || 'FranÃ§ais';
 
   try {
     const data = await api('/dashboard');
@@ -1124,9 +1124,9 @@ async function renderHome() {
   generateSmartNotifications();
 }
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  QUESTIONNAIRE
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function startQuestionnaire(type) {
   state.currentQuestionnaireType = type;
   state.currentQuestion = 0;
@@ -1219,7 +1219,7 @@ async function nextQuestion() {
       await api('/evaluations', { method: 'POST', body: { type, answers, score } });
       const typeLabels = { psychologique: t('notif_eval_psycho'), conjugal: t('notif_eval_conjugal'), sexuel: t('notif_eval_sexual') };
       const now = new Date().toISOString().split('T')[0];
-      pushNotification('eval_done_' + type + '_' + now, '✅', (t('notif_eval_done') || 'Évaluation complétée') + ' — ' + (typeLabels[type] || type) + ' : ' + score + '/100', 'milestone');
+      pushNotification('eval_done_' + type + '_' + now, 'âœ…', (t('notif_eval_done') || 'Ã‰valuation complÃ©tÃ©e') + ' â€” ' + (typeLabels[type] || type) + ' : ' + score + '/100', 'milestone');
       localStorage.setItem('nf_last_eval_date', now);
     } catch (e) { console.error('Save eval error:', e); }
 
@@ -1230,9 +1230,9 @@ async function nextQuestion() {
 function prevQuestion() { if (state.currentQuestion > 0) { state.currentQuestion--; renderQuestionnaire(); } }
 function exitQuestionnaire() { navigateTo('home'); }
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  RESULTS
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 async function renderResults() {
   try {
     const data = await api('/evaluations/scores');
@@ -1304,9 +1304,9 @@ async function renderResults() {
   } catch (e) { console.error('Results error:', e); }
 }
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  LIBRARY
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 async function renderLibrary() {
   // Timeline toggles
   document.querySelectorAll('.timeline-toggle__btn').forEach(btn => {
@@ -1391,67 +1391,67 @@ function filterTimelineByCategory(category) {
   });
 }
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  STATIC ARTICLES VIEWER
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 const staticArticles = {
   partner: {
     icon: 'group', color: 'var(--primary)',
-    title: 'دور الشريك بعد الولادة',
-    type: 'فيديو • 7 دقائق',
+    title: 'Ø¯ÙˆØ± Ø§Ù„Ø´Ø±ÙŠÙƒ Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©',
+    type: 'ÙÙŠØ¯ÙŠÙˆ â€¢ 7 Ø¯Ù‚Ø§Ø¦Ù‚',
     sections: [
-      { heading: 'الدعم العاطفي', text: 'يحتاج الشريك إلى فهم التغيرات النفسية والجسدية التي تمر بها الأم بعد الولادة. الاستماع بتعاطف والتواجد الدائم هما أهم أشكال الدعم.' },
-      { heading: 'المشاركة في العناية بالطفل', text: 'تغيير الحفاضات، الاستحمام، تهدئة الطفل ليلاً... كلها مهام يمكن للشريك القيام بها لتخفيف العبء عن الأم.' },
-      { heading: 'العناية بالعلاقة', text: 'تخصيص وقت للحوار والتواصل. ليس بالضرورة خروجات كبيرة، بل لحظات صغيرة: كوب شاي معاً، مشاهدة فيلم، أو مجرد الجلوس والحديث.' },
-      { heading: 'فهم التغيرات الجنسية', text: 'التحلي بالصبر وعدم الضغط. التعافي الجسدي والنفسي يأخذ وقتاً. التواصل المفتوح حول الاحتياجات والمخاوف ضروري.' },
-      { heading: 'المساعدة المنزلية', text: 'الطبخ، التنظيف، التسوق... المشاركة في الأعمال المنزلية ليست \"مساعدة\" بل مسؤولية مشتركة، خاصة في فترة ما بعد الولادة.' }
+      { heading: 'Ø§Ù„Ø¯Ø¹Ù… Ø§Ù„Ø¹Ø§Ø·ÙÙŠ', text: 'ÙŠØ­ØªØ§Ø¬ Ø§Ù„Ø´Ø±ÙŠÙƒ Ø¥Ù„Ù‰ ÙÙ‡Ù… Ø§Ù„ØªØºÙŠØ±Ø§Øª Ø§Ù„Ù†ÙØ³ÙŠØ© ÙˆØ§Ù„Ø¬Ø³Ø¯ÙŠØ© Ø§Ù„ØªÙŠ ØªÙ…Ø± Ø¨Ù‡Ø§ Ø§Ù„Ø£Ù… Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©. Ø§Ù„Ø§Ø³ØªÙ…Ø§Ø¹ Ø¨ØªØ¹Ø§Ø·Ù ÙˆØ§Ù„ØªÙˆØ§Ø¬Ø¯ Ø§Ù„Ø¯Ø§Ø¦Ù… Ù‡Ù…Ø§ Ø£Ù‡Ù… Ø£Ø´ÙƒØ§Ù„ Ø§Ù„Ø¯Ø¹Ù….' },
+      { heading: 'Ø§Ù„Ù…Ø´Ø§Ø±ÙƒØ© ÙÙŠ Ø§Ù„Ø¹Ù†Ø§ÙŠØ© Ø¨Ø§Ù„Ø·ÙÙ„', text: 'ØªØºÙŠÙŠØ± Ø§Ù„Ø­ÙØ§Ø¶Ø§ØªØŒ Ø§Ù„Ø§Ø³ØªØ­Ù…Ø§Ù…ØŒ ØªÙ‡Ø¯Ø¦Ø© Ø§Ù„Ø·ÙÙ„ Ù„ÙŠÙ„Ø§Ù‹... ÙƒÙ„Ù‡Ø§ Ù…Ù‡Ø§Ù… ÙŠÙ…ÙƒÙ† Ù„Ù„Ø´Ø±ÙŠÙƒ Ø§Ù„Ù‚ÙŠØ§Ù… Ø¨Ù‡Ø§ Ù„ØªØ®ÙÙŠÙ Ø§Ù„Ø¹Ø¨Ø¡ Ø¹Ù† Ø§Ù„Ø£Ù….' },
+      { heading: 'Ø§Ù„Ø¹Ù†Ø§ÙŠØ© Ø¨Ø§Ù„Ø¹Ù„Ø§Ù‚Ø©', text: 'ØªØ®ØµÙŠØµ ÙˆÙ‚Øª Ù„Ù„Ø­ÙˆØ§Ø± ÙˆØ§Ù„ØªÙˆØ§ØµÙ„. Ù„ÙŠØ³ Ø¨Ø§Ù„Ø¶Ø±ÙˆØ±Ø© Ø®Ø±ÙˆØ¬Ø§Øª ÙƒØ¨ÙŠØ±Ø©ØŒ Ø¨Ù„ Ù„Ø­Ø¸Ø§Øª ØµØºÙŠØ±Ø©: ÙƒÙˆØ¨ Ø´Ø§ÙŠ Ù…Ø¹Ø§Ù‹ØŒ Ù…Ø´Ø§Ù‡Ø¯Ø© ÙÙŠÙ„Ù…ØŒ Ø£Ùˆ Ù…Ø¬Ø±Ø¯ Ø§Ù„Ø¬Ù„ÙˆØ³ ÙˆØ§Ù„Ø­Ø¯ÙŠØ«.' },
+      { heading: 'ÙÙ‡Ù… Ø§Ù„ØªØºÙŠØ±Ø§Øª Ø§Ù„Ø¬Ù†Ø³ÙŠØ©', text: 'Ø§Ù„ØªØ­Ù„ÙŠ Ø¨Ø§Ù„ØµØ¨Ø± ÙˆØ¹Ø¯Ù… Ø§Ù„Ø¶ØºØ·. Ø§Ù„ØªØ¹Ø§ÙÙŠ Ø§Ù„Ø¬Ø³Ø¯ÙŠ ÙˆØ§Ù„Ù†ÙØ³ÙŠ ÙŠØ£Ø®Ø° ÙˆÙ‚ØªØ§Ù‹. Ø§Ù„ØªÙˆØ§ØµÙ„ Ø§Ù„Ù…ÙØªÙˆØ­ Ø­ÙˆÙ„ Ø§Ù„Ø§Ø­ØªÙŠØ§Ø¬Ø§Øª ÙˆØ§Ù„Ù…Ø®Ø§ÙˆÙ Ø¶Ø±ÙˆØ±ÙŠ.' },
+      { heading: 'Ø§Ù„Ù…Ø³Ø§Ø¹Ø¯Ø© Ø§Ù„Ù…Ù†Ø²Ù„ÙŠØ©', text: 'Ø§Ù„Ø·Ø¨Ø®ØŒ Ø§Ù„ØªÙ†Ø¸ÙŠÙØŒ Ø§Ù„ØªØ³ÙˆÙ‚... Ø§Ù„Ù…Ø´Ø§Ø±ÙƒØ© ÙÙŠ Ø§Ù„Ø£Ø¹Ù…Ø§Ù„ Ø§Ù„Ù…Ù†Ø²Ù„ÙŠØ© Ù„ÙŠØ³Øª \"Ù…Ø³Ø§Ø¹Ø¯Ø©\" Ø¨Ù„ Ù…Ø³Ø¤ÙˆÙ„ÙŠØ© Ù…Ø´ØªØ±ÙƒØ©ØŒ Ø®Ø§ØµØ© ÙÙŠ ÙØªØ±Ø© Ù…Ø§ Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©.' }
     ]
   },
   intimacy: {
     icon: 'favorite', color: 'var(--secondary)',
-    title: 'استعادة الحميمية بعد الولادة',
-    type: 'مقال • 8 دقائق',
+    title: 'Ø§Ø³ØªØ¹Ø§Ø¯Ø© Ø§Ù„Ø­Ù…ÙŠÙ…ÙŠØ© Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©',
+    type: 'Ù…Ù‚Ø§Ù„ â€¢ 8 Ø¯Ù‚Ø§Ø¦Ù‚',
     sections: [
-      { heading: 'متى يمكن استئناف العلاقة؟', text: 'لا يوجد وقت محدد. يعتمد على التعافي الجسدي (توقف النزيف، التئام الجروح) والاستعداد النفسي. معظم الأطباء ينصحون بالانتظار 4-6 أسابيع.' },
-      { heading: 'التغيرات الطبيعية', text: 'الجفاف المهبلي شائع خاصة أثناء الرضاعة. انخفاض الرغبة طبيعي بسبب التعب والتغيرات الهرمونية. كلها أمور مؤقتة.' },
-      { heading: 'التواصل مع الشريك', text: 'الحوار المفتوح عن المخاوف والاحتياجات. لا تترددي في التعبير عما تشعرين به. الحميمية ليست فقط جنسية بل عاطفية أيضاً.' },
-      { heading: 'نصائح عملية', text: 'استخدام مزلقات مائية. اختيار الوقت المناسب. البدء ببطء. عدم مقارنة الوضع بما كان قبل الولادة.' },
-      { heading: 'متى تستشيرين المختص؟', text: 'إذا استمر الألم أثناء العلاقة. إذا لم تتحسن الرغبة بعد عدة أشهر. إذا شعرتِ بالقلق أو الاكتئاب.' }
+      { heading: 'Ù…ØªÙ‰ ÙŠÙ…ÙƒÙ† Ø§Ø³ØªØ¦Ù†Ø§Ù Ø§Ù„Ø¹Ù„Ø§Ù‚Ø©ØŸ', text: 'Ù„Ø§ ÙŠÙˆØ¬Ø¯ ÙˆÙ‚Øª Ù…Ø­Ø¯Ø¯. ÙŠØ¹ØªÙ…Ø¯ Ø¹Ù„Ù‰ Ø§Ù„ØªØ¹Ø§ÙÙŠ Ø§Ù„Ø¬Ø³Ø¯ÙŠ (ØªÙˆÙ‚Ù Ø§Ù„Ù†Ø²ÙŠÙØŒ Ø§Ù„ØªØ¦Ø§Ù… Ø§Ù„Ø¬Ø±ÙˆØ­) ÙˆØ§Ù„Ø§Ø³ØªØ¹Ø¯Ø§Ø¯ Ø§Ù„Ù†ÙØ³ÙŠ. Ù…Ø¹Ø¸Ù… Ø§Ù„Ø£Ø·Ø¨Ø§Ø¡ ÙŠÙ†ØµØ­ÙˆÙ† Ø¨Ø§Ù„Ø§Ù†ØªØ¸Ø§Ø± 4-6 Ø£Ø³Ø§Ø¨ÙŠØ¹.' },
+      { heading: 'Ø§Ù„ØªØºÙŠØ±Ø§Øª Ø§Ù„Ø·Ø¨ÙŠØ¹ÙŠØ©', text: 'Ø§Ù„Ø¬ÙØ§Ù Ø§Ù„Ù…Ù‡Ø¨Ù„ÙŠ Ø´Ø§Ø¦Ø¹ Ø®Ø§ØµØ© Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ø±Ø¶Ø§Ø¹Ø©. Ø§Ù†Ø®ÙØ§Ø¶ Ø§Ù„Ø±ØºØ¨Ø© Ø·Ø¨ÙŠØ¹ÙŠ Ø¨Ø³Ø¨Ø¨ Ø§Ù„ØªØ¹Ø¨ ÙˆØ§Ù„ØªØºÙŠØ±Ø§Øª Ø§Ù„Ù‡Ø±Ù…ÙˆÙ†ÙŠØ©. ÙƒÙ„Ù‡Ø§ Ø£Ù…ÙˆØ± Ù…Ø¤Ù‚ØªØ©.' },
+      { heading: 'Ø§Ù„ØªÙˆØ§ØµÙ„ Ù…Ø¹ Ø§Ù„Ø´Ø±ÙŠÙƒ', text: 'Ø§Ù„Ø­ÙˆØ§Ø± Ø§Ù„Ù…ÙØªÙˆØ­ Ø¹Ù† Ø§Ù„Ù…Ø®Ø§ÙˆÙ ÙˆØ§Ù„Ø§Ø­ØªÙŠØ§Ø¬Ø§Øª. Ù„Ø§ ØªØªØ±Ø¯Ø¯ÙŠ ÙÙŠ Ø§Ù„ØªØ¹Ø¨ÙŠØ± Ø¹Ù…Ø§ ØªØ´Ø¹Ø±ÙŠÙ† Ø¨Ù‡. Ø§Ù„Ø­Ù…ÙŠÙ…ÙŠØ© Ù„ÙŠØ³Øª ÙÙ‚Ø· Ø¬Ù†Ø³ÙŠØ© Ø¨Ù„ Ø¹Ø§Ø·ÙÙŠØ© Ø£ÙŠØ¶Ø§Ù‹.' },
+      { heading: 'Ù†ØµØ§Ø¦Ø­ Ø¹Ù…Ù„ÙŠØ©', text: 'Ø§Ø³ØªØ®Ø¯Ø§Ù… Ù…Ø²Ù„Ù‚Ø§Øª Ù…Ø§Ø¦ÙŠØ©. Ø§Ø®ØªÙŠØ§Ø± Ø§Ù„ÙˆÙ‚Øª Ø§Ù„Ù…Ù†Ø§Ø³Ø¨. Ø§Ù„Ø¨Ø¯Ø¡ Ø¨Ø¨Ø·Ø¡. Ø¹Ø¯Ù… Ù…Ù‚Ø§Ø±Ù†Ø© Ø§Ù„ÙˆØ¶Ø¹ Ø¨Ù…Ø§ ÙƒØ§Ù† Ù‚Ø¨Ù„ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©.' },
+      { heading: 'Ù…ØªÙ‰ ØªØ³ØªØ´ÙŠØ±ÙŠÙ† Ø§Ù„Ù…Ø®ØªØµØŸ', text: 'Ø¥Ø°Ø§ Ø§Ø³ØªÙ…Ø± Ø§Ù„Ø£Ù„Ù… Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ø¹Ù„Ø§Ù‚Ø©. Ø¥Ø°Ø§ Ù„Ù… ØªØªØ­Ø³Ù† Ø§Ù„Ø±ØºØ¨Ø© Ø¨Ø¹Ø¯ Ø¹Ø¯Ø© Ø£Ø´Ù‡Ø±. Ø¥Ø°Ø§ Ø´Ø¹Ø±ØªÙ Ø¨Ø§Ù„Ù‚Ù„Ù‚ Ø£Ùˆ Ø§Ù„Ø§ÙƒØªØ¦Ø§Ø¨.' }
     ]
   },
   breathing: {
     icon: 'play_circle', color: 'var(--secondary)',
-    title: 'التنفس بعد الولادة',
-    type: 'فيديو • 5 دقائق',
+    title: 'Ø§Ù„ØªÙ†ÙØ³ Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©',
+    type: 'ÙÙŠØ¯ÙŠÙˆ â€¢ 5 Ø¯Ù‚Ø§Ø¦Ù‚',
     sections: [
-      { heading: 'أهمية التنفس', text: 'التنفس العميق يساعد على تقليل التوتر والقلق. يحسن الدورة الدموية ويساعد على تعافي عضلات البطن والحوض.' },
-      { heading: 'تمرين التنفس البطني', text: 'استلقي على ظهرك. ضعي يداً على صدرك وأخرى على بطنك. تنفسي ببطء من الأنف حتى ترتفع يدك على البطن. أخرجي الهواء ببطء من الفم. كرري 10 مرات.' },
-      { heading: 'تمرين 4-7-8', text: 'شهيق لمدة 4 ثوانٍ. احتفاظ بالهواء لمدة 7 ثوانٍ. زفير ببطء لمدة 8 ثوانٍ. يساعد كثيراً على النوم والاسترخاء.' },
-      { heading: 'متى تمارسين؟', text: 'قبل النوم. عند الشعور بالتوتر. أثناء الرضاعة. في أي لحظة هدوء خلال اليوم.' }
+      { heading: 'Ø£Ù‡Ù…ÙŠØ© Ø§Ù„ØªÙ†ÙØ³', text: 'Ø§Ù„ØªÙ†ÙØ³ Ø§Ù„Ø¹Ù…ÙŠÙ‚ ÙŠØ³Ø§Ø¹Ø¯ Ø¹Ù„Ù‰ ØªÙ‚Ù„ÙŠÙ„ Ø§Ù„ØªÙˆØªØ± ÙˆØ§Ù„Ù‚Ù„Ù‚. ÙŠØ­Ø³Ù† Ø§Ù„Ø¯ÙˆØ±Ø© Ø§Ù„Ø¯Ù…ÙˆÙŠØ© ÙˆÙŠØ³Ø§Ø¹Ø¯ Ø¹Ù„Ù‰ ØªØ¹Ø§ÙÙŠ Ø¹Ø¶Ù„Ø§Øª Ø§Ù„Ø¨Ø·Ù† ÙˆØ§Ù„Ø­ÙˆØ¶.' },
+      { heading: 'ØªÙ…Ø±ÙŠÙ† Ø§Ù„ØªÙ†ÙØ³ Ø§Ù„Ø¨Ø·Ù†ÙŠ', text: 'Ø§Ø³ØªÙ„Ù‚ÙŠ Ø¹Ù„Ù‰ Ø¸Ù‡Ø±Ùƒ. Ø¶Ø¹ÙŠ ÙŠØ¯Ø§Ù‹ Ø¹Ù„Ù‰ ØµØ¯Ø±Ùƒ ÙˆØ£Ø®Ø±Ù‰ Ø¹Ù„Ù‰ Ø¨Ø·Ù†Ùƒ. ØªÙ†ÙØ³ÙŠ Ø¨Ø¨Ø·Ø¡ Ù…Ù† Ø§Ù„Ø£Ù†Ù Ø­ØªÙ‰ ØªØ±ØªÙØ¹ ÙŠØ¯Ùƒ Ø¹Ù„Ù‰ Ø§Ù„Ø¨Ø·Ù†. Ø£Ø®Ø±Ø¬ÙŠ Ø§Ù„Ù‡ÙˆØ§Ø¡ Ø¨Ø¨Ø·Ø¡ Ù…Ù† Ø§Ù„ÙÙ…. ÙƒØ±Ø±ÙŠ 10 Ù…Ø±Ø§Øª.' },
+      { heading: 'ØªÙ…Ø±ÙŠÙ† 4-7-8', text: 'Ø´Ù‡ÙŠÙ‚ Ù„Ù…Ø¯Ø© 4 Ø«ÙˆØ§Ù†Ù. Ø§Ø­ØªÙØ§Ø¸ Ø¨Ø§Ù„Ù‡ÙˆØ§Ø¡ Ù„Ù…Ø¯Ø© 7 Ø«ÙˆØ§Ù†Ù. Ø²ÙÙŠØ± Ø¨Ø¨Ø·Ø¡ Ù„Ù…Ø¯Ø© 8 Ø«ÙˆØ§Ù†Ù. ÙŠØ³Ø§Ø¹Ø¯ ÙƒØ«ÙŠØ±Ø§Ù‹ Ø¹Ù„Ù‰ Ø§Ù„Ù†ÙˆÙ… ÙˆØ§Ù„Ø§Ø³ØªØ±Ø®Ø§Ø¡.' },
+      { heading: 'Ù…ØªÙ‰ ØªÙ…Ø§Ø±Ø³ÙŠÙ†ØŸ', text: 'Ù‚Ø¨Ù„ Ø§Ù„Ù†ÙˆÙ…. Ø¹Ù†Ø¯ Ø§Ù„Ø´Ø¹ÙˆØ± Ø¨Ø§Ù„ØªÙˆØªØ±. Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ø±Ø¶Ø§Ø¹Ø©. ÙÙŠ Ø£ÙŠ Ù„Ø­Ø¸Ø© Ù‡Ø¯ÙˆØ¡ Ø®Ù„Ø§Ù„ Ø§Ù„ÙŠÙˆÙ….' }
     ]
   },
   sleep: {
     icon: 'psychology', color: 'var(--tertiary)',
-    title: 'إدارة قلة النوم',
-    type: 'دليل • 12 دقيقة',
+    title: 'Ø¥Ø¯Ø§Ø±Ø© Ù‚Ù„Ø© Ø§Ù„Ù†ÙˆÙ…',
+    type: 'Ø¯Ù„ÙŠÙ„ â€¢ 12 Ø¯Ù‚ÙŠÙ‚Ø©',
     sections: [
-      { heading: 'نامي عندما ينام طفلك', text: 'أهم نصيحة: لا تحاولي إنجاز الأعمال المنزلية أثناء نوم الطفل. الأولوية لراحتك.' },
-      { heading: 'تنظيم النوم', text: 'اجعلي غرفة النوم مظلمة وهادئة. تجنبي الشاشات قبل النوم. حاولي النوم والاستيقاظ في أوقات منتظمة قدر الإمكان.' },
-      { heading: 'تناوب الأدوار ليلاً', text: 'اتفقي مع الشريك على المناوبة. يمكن للشريك إعطاء الحليب المسحوب ليلاً لتستريحي.' },
-      { heading: 'علامات الإرهاق الخطير', text: 'إذا شعرتِ بدوار مستمر أو نسيان شديد أو رغبة في البكاء المستمر، استشيري الطبيب. قلة النوم المزمنة تؤثر على الصحة النفسية.' },
-      { heading: 'طلب المساعدة', text: 'لا عيب في طلب المساعدة من العائلة أو الأصدقاء. استقبال الأم أو الحماة لبضعة أيام قد يكون منقذاً.' }
+      { heading: 'Ù†Ø§Ù…ÙŠ Ø¹Ù†Ø¯Ù…Ø§ ÙŠÙ†Ø§Ù… Ø·ÙÙ„Ùƒ', text: 'Ø£Ù‡Ù… Ù†ØµÙŠØ­Ø©: Ù„Ø§ ØªØ­Ø§ÙˆÙ„ÙŠ Ø¥Ù†Ø¬Ø§Ø² Ø§Ù„Ø£Ø¹Ù…Ø§Ù„ Ø§Ù„Ù…Ù†Ø²Ù„ÙŠØ© Ø£Ø«Ù†Ø§Ø¡ Ù†ÙˆÙ… Ø§Ù„Ø·ÙÙ„. Ø§Ù„Ø£ÙˆÙ„ÙˆÙŠØ© Ù„Ø±Ø§Ø­ØªÙƒ.' },
+      { heading: 'ØªÙ†Ø¸ÙŠÙ… Ø§Ù„Ù†ÙˆÙ…', text: 'Ø§Ø¬Ø¹Ù„ÙŠ ØºØ±ÙØ© Ø§Ù„Ù†ÙˆÙ… Ù…Ø¸Ù„Ù…Ø© ÙˆÙ‡Ø§Ø¯Ø¦Ø©. ØªØ¬Ù†Ø¨ÙŠ Ø§Ù„Ø´Ø§Ø´Ø§Øª Ù‚Ø¨Ù„ Ø§Ù„Ù†ÙˆÙ…. Ø­Ø§ÙˆÙ„ÙŠ Ø§Ù„Ù†ÙˆÙ… ÙˆØ§Ù„Ø§Ø³ØªÙŠÙ‚Ø§Ø¸ ÙÙŠ Ø£ÙˆÙ‚Ø§Øª Ù…Ù†ØªØ¸Ù…Ø© Ù‚Ø¯Ø± Ø§Ù„Ø¥Ù…ÙƒØ§Ù†.' },
+      { heading: 'ØªÙ†Ø§ÙˆØ¨ Ø§Ù„Ø£Ø¯ÙˆØ§Ø± Ù„ÙŠÙ„Ø§Ù‹', text: 'Ø§ØªÙÙ‚ÙŠ Ù…Ø¹ Ø§Ù„Ø´Ø±ÙŠÙƒ Ø¹Ù„Ù‰ Ø§Ù„Ù…Ù†Ø§ÙˆØ¨Ø©. ÙŠÙ…ÙƒÙ† Ù„Ù„Ø´Ø±ÙŠÙƒ Ø¥Ø¹Ø·Ø§Ø¡ Ø§Ù„Ø­Ù„ÙŠØ¨ Ø§Ù„Ù…Ø³Ø­ÙˆØ¨ Ù„ÙŠÙ„Ø§Ù‹ Ù„ØªØ³ØªØ±ÙŠØ­ÙŠ.' },
+      { heading: 'Ø¹Ù„Ø§Ù…Ø§Øª Ø§Ù„Ø¥Ø±Ù‡Ø§Ù‚ Ø§Ù„Ø®Ø·ÙŠØ±', text: 'Ø¥Ø°Ø§ Ø´Ø¹Ø±ØªÙ Ø¨Ø¯ÙˆØ§Ø± Ù…Ø³ØªÙ…Ø± Ø£Ùˆ Ù†Ø³ÙŠØ§Ù† Ø´Ø¯ÙŠØ¯ Ø£Ùˆ Ø±ØºØ¨Ø© ÙÙŠ Ø§Ù„Ø¨ÙƒØ§Ø¡ Ø§Ù„Ù…Ø³ØªÙ…Ø±ØŒ Ø§Ø³ØªØ´ÙŠØ±ÙŠ Ø§Ù„Ø·Ø¨ÙŠØ¨. Ù‚Ù„Ø© Ø§Ù„Ù†ÙˆÙ… Ø§Ù„Ù…Ø²Ù…Ù†Ø© ØªØ¤Ø«Ø± Ø¹Ù„Ù‰ Ø§Ù„ØµØ­Ø© Ø§Ù„Ù†ÙØ³ÙŠØ©.' },
+      { heading: 'Ø·Ù„Ø¨ Ø§Ù„Ù…Ø³Ø§Ø¹Ø¯Ø©', text: 'Ù„Ø§ Ø¹ÙŠØ¨ ÙÙŠ Ø·Ù„Ø¨ Ø§Ù„Ù…Ø³Ø§Ø¹Ø¯Ø© Ù…Ù† Ø§Ù„Ø¹Ø§Ø¦Ù„Ø© Ø£Ùˆ Ø§Ù„Ø£ØµØ¯Ù‚Ø§Ø¡. Ø§Ø³ØªÙ‚Ø¨Ø§Ù„ Ø§Ù„Ø£Ù… Ø£Ùˆ Ø§Ù„Ø­Ù…Ø§Ø© Ù„Ø¨Ø¶Ø¹Ø© Ø£ÙŠØ§Ù… Ù‚Ø¯ ÙŠÙƒÙˆÙ† Ù…Ù†Ù‚Ø°Ø§Ù‹.' }
     ]
   },
   communication: {
     icon: 'forum', color: 'var(--primary)',
-    title: 'التواصل في الزوجين',
-    type: 'مقال • 10 دقائق',
+    title: 'Ø§Ù„ØªÙˆØ§ØµÙ„ ÙÙŠ Ø§Ù„Ø²ÙˆØ¬ÙŠÙ†',
+    type: 'Ù…Ù‚Ø§Ù„ â€¢ 10 Ø¯Ù‚Ø§Ø¦Ù‚',
     sections: [
-      { heading: 'الحفاظ على الرابط', text: 'وصول المولود يغير ديناميكية العلاقة. من الطبيعي أن يتراجع الاهتمام بالشريك مؤقتاً. لكن التواصل المستمر يحمي العلاقة.' },
-      { heading: 'الاستماع الفعال', text: 'خصصوا وقتاً يومياً للحديث بدون تشتيت. اسمعوا بعضكم دون مقاطعة أو حكم. عبّروا عن مشاعركم بصراحة وبلطف.' },
-      { heading: 'تجنب اللوم', text: 'استخدموا \"أنا أشعر...\" بدلاً من \"أنت دائماً...\". اللوم يبني جداراً بينكما. التعبير عن الاحتياجات بوضوح أفضل.' },
-      { heading: 'وقت للزوجين', text: 'حتى 15 دقيقة يومياً معاً تصنع فرقاً. عشاء بسيط، مشي قصير، أو مجرد الجلوس معاً. ليس الكم بل الجودة.' },
-      { heading: 'متى تطلبون مساعدة مختص؟', text: 'إذا تحولت الخلافات إلى صراخ مستمر. إذا شعرتم بالغربة. إذا لم يعد هناك تواصل. الاستشارة الزوجية ليست فشلاً بل شجاعة.' }
+      { heading: 'Ø§Ù„Ø­ÙØ§Ø¸ Ø¹Ù„Ù‰ Ø§Ù„Ø±Ø§Ø¨Ø·', text: 'ÙˆØµÙˆÙ„ Ø§Ù„Ù…ÙˆÙ„ÙˆØ¯ ÙŠØºÙŠØ± Ø¯ÙŠÙ†Ø§Ù…ÙŠÙƒÙŠØ© Ø§Ù„Ø¹Ù„Ø§Ù‚Ø©. Ù…Ù† Ø§Ù„Ø·Ø¨ÙŠØ¹ÙŠ Ø£Ù† ÙŠØªØ±Ø§Ø¬Ø¹ Ø§Ù„Ø§Ù‡ØªÙ…Ø§Ù… Ø¨Ø§Ù„Ø´Ø±ÙŠÙƒ Ù…Ø¤Ù‚ØªØ§Ù‹. Ù„ÙƒÙ† Ø§Ù„ØªÙˆØ§ØµÙ„ Ø§Ù„Ù…Ø³ØªÙ…Ø± ÙŠØ­Ù…ÙŠ Ø§Ù„Ø¹Ù„Ø§Ù‚Ø©.' },
+      { heading: 'Ø§Ù„Ø§Ø³ØªÙ…Ø§Ø¹ Ø§Ù„ÙØ¹Ø§Ù„', text: 'Ø®ØµØµÙˆØ§ ÙˆÙ‚ØªØ§Ù‹ ÙŠÙˆÙ…ÙŠØ§Ù‹ Ù„Ù„Ø­Ø¯ÙŠØ« Ø¨Ø¯ÙˆÙ† ØªØ´ØªÙŠØª. Ø§Ø³Ù…Ø¹ÙˆØ§ Ø¨Ø¹Ø¶ÙƒÙ… Ø¯ÙˆÙ† Ù…Ù‚Ø§Ø·Ø¹Ø© Ø£Ùˆ Ø­ÙƒÙ…. Ø¹Ø¨Ù‘Ø±ÙˆØ§ Ø¹Ù† Ù…Ø´Ø§Ø¹Ø±ÙƒÙ… Ø¨ØµØ±Ø§Ø­Ø© ÙˆØ¨Ù„Ø·Ù.' },
+      { heading: 'ØªØ¬Ù†Ø¨ Ø§Ù„Ù„ÙˆÙ…', text: 'Ø§Ø³ØªØ®Ø¯Ù…ÙˆØ§ \"Ø£Ù†Ø§ Ø£Ø´Ø¹Ø±...\" Ø¨Ø¯Ù„Ø§Ù‹ Ù…Ù† \"Ø£Ù†Øª Ø¯Ø§Ø¦Ù…Ø§Ù‹...\". Ø§Ù„Ù„ÙˆÙ… ÙŠØ¨Ù†ÙŠ Ø¬Ø¯Ø§Ø±Ø§Ù‹ Ø¨ÙŠÙ†ÙƒÙ…Ø§. Ø§Ù„ØªØ¹Ø¨ÙŠØ± Ø¹Ù† Ø§Ù„Ø§Ø­ØªÙŠØ§Ø¬Ø§Øª Ø¨ÙˆØ¶ÙˆØ­ Ø£ÙØ¶Ù„.' },
+      { heading: 'ÙˆÙ‚Øª Ù„Ù„Ø²ÙˆØ¬ÙŠÙ†', text: 'Ø­ØªÙ‰ 15 Ø¯Ù‚ÙŠÙ‚Ø© ÙŠÙˆÙ…ÙŠØ§Ù‹ Ù…Ø¹Ø§Ù‹ ØªØµÙ†Ø¹ ÙØ±Ù‚Ø§Ù‹. Ø¹Ø´Ø§Ø¡ Ø¨Ø³ÙŠØ·ØŒ Ù…Ø´ÙŠ Ù‚ØµÙŠØ±ØŒ Ø£Ùˆ Ù…Ø¬Ø±Ø¯ Ø§Ù„Ø¬Ù„ÙˆØ³ Ù…Ø¹Ø§Ù‹. Ù„ÙŠØ³ Ø§Ù„ÙƒÙ… Ø¨Ù„ Ø§Ù„Ø¬ÙˆØ¯Ø©.' },
+      { heading: 'Ù…ØªÙ‰ ØªØ·Ù„Ø¨ÙˆÙ† Ù…Ø³Ø§Ø¹Ø¯Ø© Ù…Ø®ØªØµØŸ', text: 'Ø¥Ø°Ø§ ØªØ­ÙˆÙ„Øª Ø§Ù„Ø®Ù„Ø§ÙØ§Øª Ø¥Ù„Ù‰ ØµØ±Ø§Ø® Ù…Ø³ØªÙ…Ø±. Ø¥Ø°Ø§ Ø´Ø¹Ø±ØªÙ… Ø¨Ø§Ù„ØºØ±Ø¨Ø©. Ø¥Ø°Ø§ Ù„Ù… ÙŠØ¹Ø¯ Ù‡Ù†Ø§Ùƒ ØªÙˆØ§ØµÙ„. Ø§Ù„Ø§Ø³ØªØ´Ø§Ø±Ø© Ø§Ù„Ø²ÙˆØ¬ÙŠØ© Ù„ÙŠØ³Øª ÙØ´Ù„Ø§Ù‹ Ø¨Ù„ Ø´Ø¬Ø§Ø¹Ø©.' }
     ]
   }
 };
@@ -1493,7 +1493,7 @@ function openStaticArticle(id) {
 
       <div style="text-align:center;margin-top:var(--space-2xl);padding:var(--space-xl);">
         <button onclick="document.getElementById('static-article-overlay').remove();" class="btn btn--primary btn--full">
-          <span class="material-symbols-outlined" style="font-size:18px;">arrow_back</span> ${t('lib_back_to_library') || 'العودة إلى المكتبة'}
+          <span class="material-symbols-outlined" style="font-size:18px;">arrow_back</span> ${t('lib_back_to_library') || 'Ø§Ù„Ø¹ÙˆØ¯Ø© Ø¥Ù„Ù‰ Ø§Ù„Ù…ÙƒØªØ¨Ø©'}
         </button>
       </div>
     </div>
@@ -1501,9 +1501,9 @@ function openStaticArticle(id) {
   document.body.appendChild(overlay);
 }
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  PROFILE
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 async function renderProfile() {
   if (!state.couple) return;
   try {
@@ -1524,9 +1524,9 @@ async function renderProfile() {
   } catch (e) { console.error('Profile error:', e); }
 }
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  SAGE-FEMME
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function renderSageFemme() {
   const container = document.getElementById('sage-femme-content');
   if (!container) return;
@@ -1545,7 +1545,7 @@ function renderSageFemme() {
       </div>
     </div>
 
-    <!-- Module Sexualité Banner -->
+    <!-- Module SexualitÃ© Banner -->
     <div class="card mb-xl reveal" style="background:linear-gradient(135deg,rgba(142,108,136,0.08),rgba(212,107,80,0.10));border:1px solid rgba(142,108,136,0.15);cursor:pointer;animation-delay:0.1s;" onclick="navigateTo('sexuality')">
       <div class="card__body flex items-center gap-lg">
         <div style="width:64px;height:64px;border-radius:var(--radius-full);background:var(--secondary-container);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
@@ -1559,7 +1559,7 @@ function renderSageFemme() {
       </div>
     </div>
 
-    <!-- Module Nouveau-né Banner -->
+    <!-- Module Nouveau-nÃ© Banner -->
     <div class="card mb-xl reveal" style="background:linear-gradient(135deg,rgba(67,97,127,0.08),rgba(163,217,200,0.10));border:1px solid rgba(67,97,127,0.15);cursor:pointer;animation-delay:0.15s;" onclick="navigateTo('newborn')">
       <div class="card__body flex items-center gap-lg">
         <div style="width:64px;height:64px;border-radius:var(--radius-full);background:var(--tertiary-fixed);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
@@ -1573,7 +1573,7 @@ function renderSageFemme() {
       </div>
     </div>
 
-    <!-- Module Mythes et Réalités Banner -->
+    <!-- Module Mythes et RÃ©alitÃ©s Banner -->
     <div class="card mb-xl reveal" style="background:linear-gradient(135deg,rgba(40,167,69,0.06),rgba(220,53,69,0.06));border:1px solid rgba(40,167,69,0.15);cursor:pointer;animation-delay:0.2s;" onclick="navigateTo('myths')">
       <div class="card__body flex items-center gap-lg">
         <div style="width:64px;height:64px;border-radius:var(--radius-full);background:linear-gradient(135deg,rgba(220,53,69,0.12),rgba(40,167,69,0.12));display:flex;align-items:center;justify-content:center;flex-shrink:0;">
@@ -1612,157 +1612,157 @@ function filterSF(cat, btn) {
   });
 }
 
-// ══════════════════════════════════════════════════════════════
-//  MODULE: ALLAITEMENT COMPLET (الرضاعة الطبيعية)
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  MODULE: ALLAITEMENT COMPLET (Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ø·Ø¨ÙŠØ¹ÙŠØ©)
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 const bfChapters = [
   {
-    icon: 'schedule', title: 'الرضاعة في الساعة الأولى',
+    icon: 'schedule', title: 'Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© ÙÙŠ Ø§Ù„Ø³Ø§Ø¹Ø© Ø§Ù„Ø£ÙˆÙ„Ù‰',
     content: `<div class="space-y-md" style="line-height:1.8;">
-      <p>يُنصح بوضع الطفل على صدر الأم مباشرة بعد الولادة.</p>
-      <p>بدء الرضاعة خلال الساعة الأولى يساعد على تحفيز إفراز الحليب.</p>
-      <p>يعزز الرابط العاطفي بين الأم ورضيعها.</p>
-      <p>يساهم اللبأ <strong>(Colostrum)</strong> في تقوية مناعة المولود.</p>
+      <p>ÙŠÙÙ†ØµØ­ Ø¨ÙˆØ¶Ø¹ Ø§Ù„Ø·ÙÙ„ Ø¹Ù„Ù‰ ØµØ¯Ø± Ø§Ù„Ø£Ù… Ù…Ø¨Ø§Ø´Ø±Ø© Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©.</p>
+      <p>Ø¨Ø¯Ø¡ Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø®Ù„Ø§Ù„ Ø§Ù„Ø³Ø§Ø¹Ø© Ø§Ù„Ø£ÙˆÙ„Ù‰ ÙŠØ³Ø§Ø¹Ø¯ Ø¹Ù„Ù‰ ØªØ­ÙÙŠØ² Ø¥ÙØ±Ø§Ø² Ø§Ù„Ø­Ù„ÙŠØ¨.</p>
+      <p>ÙŠØ¹Ø²Ø² Ø§Ù„Ø±Ø§Ø¨Ø· Ø§Ù„Ø¹Ø§Ø·ÙÙŠ Ø¨ÙŠÙ† Ø§Ù„Ø£Ù… ÙˆØ±Ø¶ÙŠØ¹Ù‡Ø§.</p>
+      <p>ÙŠØ³Ø§Ù‡Ù… Ø§Ù„Ù„Ø¨Ø£ <strong>(Colostrum)</strong> ÙÙŠ ØªÙ‚ÙˆÙŠØ© Ù…Ù†Ø§Ø¹Ø© Ø§Ù„Ù…ÙˆÙ„ÙˆØ¯.</p>
       <div style="background:var(--primary-container);padding:var(--space-lg);border-radius:var(--radius-xl);margin-top:var(--space-md);">
-        <p style="font-weight:600;color:var(--on-primary-container);"><span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;">info</span> الرضاعة تكون حسب طلب الطفل وليس وفق ساعات محددة، لكن معدل الرضاعة يجب أن يكون كل ساعتين وعليك إيقاظ الطفل إذا كان نائماً خاصة في الأسبوع الأول ليرضع 15 دقيقة من كل ثدي.</p>
+        <p style="font-weight:600;color:var(--on-primary-container);"><span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;">info</span> Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© ØªÙƒÙˆÙ† Ø­Ø³Ø¨ Ø·Ù„Ø¨ Ø§Ù„Ø·ÙÙ„ ÙˆÙ„ÙŠØ³ ÙˆÙÙ‚ Ø³Ø§Ø¹Ø§Øª Ù…Ø­Ø¯Ø¯Ø©ØŒ Ù„ÙƒÙ† Ù…Ø¹Ø¯Ù„ Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© ÙŠØ¬Ø¨ Ø£Ù† ÙŠÙƒÙˆÙ† ÙƒÙ„ Ø³Ø§Ø¹ØªÙŠÙ† ÙˆØ¹Ù„ÙŠÙƒ Ø¥ÙŠÙ‚Ø§Ø¸ Ø§Ù„Ø·ÙÙ„ Ø¥Ø°Ø§ ÙƒØ§Ù† Ù†Ø§Ø¦Ù…Ø§Ù‹ Ø®Ø§ØµØ© ÙÙŠ Ø§Ù„Ø£Ø³Ø¨ÙˆØ¹ Ø§Ù„Ø£ÙˆÙ„ Ù„ÙŠØ±Ø¶Ø¹ 15 Ø¯Ù‚ÙŠÙ‚Ø© Ù…Ù† ÙƒÙ„ Ø«Ø¯ÙŠ.</p>
       </div>
     </div>`
   },
   {
-    icon: 'self_improvement', title: 'وضعيات الرضاعة',
+    icon: 'self_improvement', title: 'ÙˆØ¶Ø¹ÙŠØ§Øª Ø§Ù„Ø±Ø¶Ø§Ø¹Ø©',
     content: `<div class="space-y-lg" style="line-height:1.8;">
       <div style="padding:var(--space-lg);background:rgba(196,69,105,0.06);border-radius:var(--radius-xl);border-right:4px solid var(--primary);">
-        <h4 style="font-weight:700;margin-bottom:8px;">🤱 وضعية المهد</h4><p>وهي الأكثر شيوعاً</p>
+        <h4 style="font-weight:700;margin-bottom:8px;">ðŸ¤± ÙˆØ¶Ø¹ÙŠØ© Ø§Ù„Ù…Ù‡Ø¯</h4><p>ÙˆÙ‡ÙŠ Ø§Ù„Ø£ÙƒØ«Ø± Ø´ÙŠÙˆØ¹Ø§Ù‹</p>
       </div>
       <div style="padding:var(--space-lg);background:rgba(142,108,136,0.08);border-radius:var(--radius-xl);border-right:4px solid var(--secondary);">
-        <h4 style="font-weight:700;margin-bottom:8px;">🏈 وضعية كرة القدم</h4><p>مناسبة بعد الولادة القيصرية وللأمهات اللواتي لديهن توأم</p>
+        <h4 style="font-weight:700;margin-bottom:8px;">ðŸˆ ÙˆØ¶Ø¹ÙŠØ© ÙƒØ±Ø© Ø§Ù„Ù‚Ø¯Ù…</h4><p>Ù…Ù†Ø§Ø³Ø¨Ø© Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø© Ø§Ù„Ù‚ÙŠØµØ±ÙŠØ© ÙˆÙ„Ù„Ø£Ù…Ù‡Ø§Øª Ø§Ù„Ù„ÙˆØ§ØªÙŠ Ù„Ø¯ÙŠÙ‡Ù† ØªÙˆØ£Ù…</p>
       </div>
       <div style="padding:var(--space-lg);background:rgba(212,107,80,0.08);border-radius:var(--radius-xl);border-right:4px solid var(--tertiary);">
-        <h4 style="font-weight:700;margin-bottom:8px;">😴 وضعية الاستلقاء</h4><p>مريحة أثناء الليل وفترات الراحة</p>
+        <h4 style="font-weight:700;margin-bottom:8px;">ðŸ˜´ ÙˆØ¶Ø¹ÙŠØ© Ø§Ù„Ø§Ø³ØªÙ„Ù‚Ø§Ø¡</h4><p>Ù…Ø±ÙŠØ­Ø© Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ù„ÙŠÙ„ ÙˆÙØªØ±Ø§Øª Ø§Ù„Ø±Ø§Ø­Ø©</p>
       </div>
       <div style="padding:var(--space-lg);background:rgba(163,217,200,0.15);border-radius:var(--radius-xl);border-right:4px solid #A3D9C8;">
-        <h4 style="font-weight:700;margin-bottom:8px;">🌿 الوضعية البيولوجية</h4><p>استلقاء الأم مع وضع الطفل على صدرها بشكل طبيعي</p>
+        <h4 style="font-weight:700;margin-bottom:8px;">ðŸŒ¿ Ø§Ù„ÙˆØ¶Ø¹ÙŠØ© Ø§Ù„Ø¨ÙŠÙˆÙ„ÙˆØ¬ÙŠØ©</h4><p>Ø§Ø³ØªÙ„Ù‚Ø§Ø¡ Ø§Ù„Ø£Ù… Ù…Ø¹ ÙˆØ¶Ø¹ Ø§Ù„Ø·ÙÙ„ Ø¹Ù„Ù‰ ØµØ¯Ø±Ù‡Ø§ Ø¨Ø´ÙƒÙ„ Ø·Ø¨ÙŠØ¹ÙŠ</p>
       </div>
     </div>`
   },
   {
-    icon: 'checklist', title: 'علامات الرضاعة الفعالة',
+    icon: 'checklist', title: 'Ø¹Ù„Ø§Ù…Ø§Øª Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„ÙØ¹Ø§Ù„Ø©',
     content: `<div style="line-height:1.8;">
-      <p style="font-weight:600;margin-bottom:12px;">كيف أعرف أن طفلي يرضع جيداً؟</p>
-      ${['فتح الفم بشكل واسع','دخول جزء كبير من الهالة في فم الطفل','سماع صوت البلع','ارتخاء الطفل بعد الرضاعة','زيادة الوزن تدريجياً','تبليل 6 حفاضات أو أكثر يومياً بعد اليوم الخامس'].map(s => `<div class="flex items-center gap-md mb-md"><span class="material-symbols-outlined text-primary" style="font-size:18px;">check_circle</span><span>${s}</span></div>`).join('')}
+      <p style="font-weight:600;margin-bottom:12px;">ÙƒÙŠÙ Ø£Ø¹Ø±Ù Ø£Ù† Ø·ÙÙ„ÙŠ ÙŠØ±Ø¶Ø¹ Ø¬ÙŠØ¯Ø§Ù‹ØŸ</p>
+      ${['ÙØªØ­ Ø§Ù„ÙÙ… Ø¨Ø´ÙƒÙ„ ÙˆØ§Ø³Ø¹','Ø¯Ø®ÙˆÙ„ Ø¬Ø²Ø¡ ÙƒØ¨ÙŠØ± Ù…Ù† Ø§Ù„Ù‡Ø§Ù„Ø© ÙÙŠ ÙÙ… Ø§Ù„Ø·ÙÙ„','Ø³Ù…Ø§Ø¹ ØµÙˆØª Ø§Ù„Ø¨Ù„Ø¹','Ø§Ø±ØªØ®Ø§Ø¡ Ø§Ù„Ø·ÙÙ„ Ø¨Ø¹Ø¯ Ø§Ù„Ø±Ø¶Ø§Ø¹Ø©','Ø²ÙŠØ§Ø¯Ø© Ø§Ù„ÙˆØ²Ù† ØªØ¯Ø±ÙŠØ¬ÙŠØ§Ù‹','ØªØ¨Ù„ÙŠÙ„ 6 Ø­ÙØ§Ø¶Ø§Øª Ø£Ùˆ Ø£ÙƒØ«Ø± ÙŠÙˆÙ…ÙŠØ§Ù‹ Ø¨Ø¹Ø¯ Ø§Ù„ÙŠÙˆÙ… Ø§Ù„Ø®Ø§Ù…Ø³'].map(s => `<div class="flex items-center gap-md mb-md"><span class="material-symbols-outlined text-primary" style="font-size:18px;">check_circle</span><span>${s}</span></div>`).join('')}
     </div>`
   },
   {
-    icon: 'local_hospital', title: 'احتقان الثدي',
+    icon: 'local_hospital', title: 'Ø§Ø­ØªÙ‚Ø§Ù† Ø§Ù„Ø«Ø¯ÙŠ',
     content: `<div style="line-height:1.8;">
-      <p>يحدث غالباً بين اليوم الثالث والخامس بعد الولادة.</p>
-      <h4 style="font-weight:700;margin:16px 0 8px;">النصائح:</h4>
-      ${['الرضاعة المتكررة','كمادات دافئة قبل الرضاعة','كمادات باردة بعدها','تدليك لطيف للثدي','شفط كمية بسيطة من الحليب إذا كان الثدي ممتلئاً جداً'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="color:#d4a574;font-size:18px;">lightbulb</span><span>${s}</span></div>`).join('')}
-      <div class="alert-banner alert-banner--warning mt-lg"><span class="material-symbols-outlined">warning</span><span>إذا ترافق الاحتقان مع حرارة أو احمرار شديد يجب استشارة مختص.</span></div>
+      <p>ÙŠØ­Ø¯Ø« ØºØ§Ù„Ø¨Ø§Ù‹ Ø¨ÙŠÙ† Ø§Ù„ÙŠÙˆÙ… Ø§Ù„Ø«Ø§Ù„Ø« ÙˆØ§Ù„Ø®Ø§Ù…Ø³ Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©.</p>
+      <h4 style="font-weight:700;margin:16px 0 8px;">Ø§Ù„Ù†ØµØ§Ø¦Ø­:</h4>
+      ${['Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ù…ØªÙƒØ±Ø±Ø©','ÙƒÙ…Ø§Ø¯Ø§Øª Ø¯Ø§ÙØ¦Ø© Ù‚Ø¨Ù„ Ø§Ù„Ø±Ø¶Ø§Ø¹Ø©','ÙƒÙ…Ø§Ø¯Ø§Øª Ø¨Ø§Ø±Ø¯Ø© Ø¨Ø¹Ø¯Ù‡Ø§','ØªØ¯Ù„ÙŠÙƒ Ù„Ø·ÙŠÙ Ù„Ù„Ø«Ø¯ÙŠ','Ø´ÙØ· ÙƒÙ…ÙŠØ© Ø¨Ø³ÙŠØ·Ø© Ù…Ù† Ø§Ù„Ø­Ù„ÙŠØ¨ Ø¥Ø°Ø§ ÙƒØ§Ù† Ø§Ù„Ø«Ø¯ÙŠ Ù…Ù…ØªÙ„Ø¦Ø§Ù‹ Ø¬Ø¯Ø§Ù‹'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="color:#d4a574;font-size:18px;">lightbulb</span><span>${s}</span></div>`).join('')}
+      <div class="alert-banner alert-banner--warning mt-lg"><span class="material-symbols-outlined">warning</span><span>Ø¥Ø°Ø§ ØªØ±Ø§ÙÙ‚ Ø§Ù„Ø§Ø­ØªÙ‚Ø§Ù† Ù…Ø¹ Ø­Ø±Ø§Ø±Ø© Ø£Ùˆ Ø§Ø­Ù…Ø±Ø§Ø± Ø´Ø¯ÙŠØ¯ ÙŠØ¬Ø¨ Ø§Ø³ØªØ´Ø§Ø±Ø© Ù…Ø®ØªØµ.</span></div>
     </div>`
   },
   {
-    icon: 'healing', title: 'تشققات الحلمة',
+    icon: 'healing', title: 'ØªØ´Ù‚Ù‚Ø§Øª Ø§Ù„Ø­Ù„Ù…Ø©',
     content: `<div style="line-height:1.8;">
-      ${['التأكد من التعلق الصحيح للطفل','وضع قطرات من حليب الأم على الحلمة','ترك الحلمة تجف في الهواء','تجنب الصابون والمواد المهيجة'].map(s => `<div class="flex items-center gap-md mb-md"><span class="material-symbols-outlined text-secondary" style="font-size:18px;">check_circle</span><span>${s}</span></div>`).join('')}
+      ${['Ø§Ù„ØªØ£ÙƒØ¯ Ù…Ù† Ø§Ù„ØªØ¹Ù„Ù‚ Ø§Ù„ØµØ­ÙŠØ­ Ù„Ù„Ø·ÙÙ„','ÙˆØ¶Ø¹ Ù‚Ø·Ø±Ø§Øª Ù…Ù† Ø­Ù„ÙŠØ¨ Ø§Ù„Ø£Ù… Ø¹Ù„Ù‰ Ø§Ù„Ø­Ù„Ù…Ø©','ØªØ±Ùƒ Ø§Ù„Ø­Ù„Ù…Ø© ØªØ¬Ù ÙÙŠ Ø§Ù„Ù‡ÙˆØ§Ø¡','ØªØ¬Ù†Ø¨ Ø§Ù„ØµØ§Ø¨ÙˆÙ† ÙˆØ§Ù„Ù…ÙˆØ§Ø¯ Ø§Ù„Ù…Ù‡ÙŠØ¬Ø©'].map(s => `<div class="flex items-center gap-md mb-md"><span class="material-symbols-outlined text-secondary" style="font-size:18px;">check_circle</span><span>${s}</span></div>`).join('')}
     </div>`
   },
   {
-    icon: 'water_drop', title: 'كيف أحافظ على إنتاج الحليب؟',
+    icon: 'water_drop', title: 'ÙƒÙŠÙ Ø£Ø­Ø§ÙØ¸ Ø¹Ù„Ù‰ Ø¥Ù†ØªØ§Ø¬ Ø§Ù„Ø­Ù„ÙŠØ¨ØŸ',
     content: `<div style="line-height:1.8;">
-      ${['الرضاعة المتكررة','الرضاعة الليلية','تفريغ الثدي بانتظام','الراحة والنوم قدر الإمكان','شرب الماء بانتظام','التغذية المتوازنة'].map(s => `<div class="flex items-center gap-md mb-md"><span class="material-symbols-outlined text-primary" style="font-size:18px;">check_circle</span><span>${s}</span></div>`).join('')}
+      ${['Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ù…ØªÙƒØ±Ø±Ø©','Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ù„ÙŠÙ„ÙŠØ©','ØªÙØ±ÙŠØº Ø§Ù„Ø«Ø¯ÙŠ Ø¨Ø§Ù†ØªØ¸Ø§Ù…','Ø§Ù„Ø±Ø§Ø­Ø© ÙˆØ§Ù„Ù†ÙˆÙ… Ù‚Ø¯Ø± Ø§Ù„Ø¥Ù…ÙƒØ§Ù†','Ø´Ø±Ø¨ Ø§Ù„Ù…Ø§Ø¡ Ø¨Ø§Ù†ØªØ¸Ø§Ù…','Ø§Ù„ØªØºØ°ÙŠØ© Ø§Ù„Ù…ØªÙˆØ§Ø²Ù†Ø©'].map(s => `<div class="flex items-center gap-md mb-md"><span class="material-symbols-outlined text-primary" style="font-size:18px;">check_circle</span><span>${s}</span></div>`).join('')}
       <div style="background:var(--primary-container);padding:var(--space-lg);border-radius:var(--radius-xl);margin-top:var(--space-lg);">
-        <p style="font-weight:600;color:var(--on-primary-container);"><span style="font-size:18px;">💡</span> إنتاج الحليب يعتمد على مبدأ العرض والطلب. كلما زادت الرضاعة أو شفط الحليب، زاد إنتاج الحليب.</p>
+        <p style="font-weight:600;color:var(--on-primary-container);"><span style="font-size:18px;">ðŸ’¡</span> Ø¥Ù†ØªØ§Ø¬ Ø§Ù„Ø­Ù„ÙŠØ¨ ÙŠØ¹ØªÙ…Ø¯ Ø¹Ù„Ù‰ Ù…Ø¨Ø¯Ø£ Ø§Ù„Ø¹Ø±Ø¶ ÙˆØ§Ù„Ø·Ù„Ø¨. ÙƒÙ„Ù…Ø§ Ø²Ø§Ø¯Øª Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø£Ùˆ Ø´ÙØ· Ø§Ù„Ø­Ù„ÙŠØ¨ØŒ Ø²Ø§Ø¯ Ø¥Ù†ØªØ§Ø¬ Ø§Ù„Ø­Ù„ÙŠØ¨.</p>
       </div>
     </div>`
   },
   {
-    icon: 'restaurant', title: 'تغذية الأم المرضعة',
+    icon: 'restaurant', title: 'ØªØºØ°ÙŠØ© Ø§Ù„Ø£Ù… Ø§Ù„Ù…Ø±Ø¶Ø¹Ø©',
     content: `<div style="line-height:1.8;">
-      <div class="alert-banner mb-lg" style="background:var(--primary-container);border:1px solid var(--primary);"><span class="material-symbols-outlined text-primary">info</span><span style="color:var(--on-primary-container);">لا توجد أطعمة سحرية تزيد الحليب بشكل مباشر، لكن التغذية المتوازنة والترطيب الجيد يدعمان الرضاعة الطبيعية (توصيات منظمة الصحة العالمية).</span></div>
+      <div class="alert-banner mb-lg" style="background:var(--primary-container);border:1px solid var(--primary);"><span class="material-symbols-outlined text-primary">info</span><span style="color:var(--on-primary-container);">Ù„Ø§ ØªÙˆØ¬Ø¯ Ø£Ø·Ø¹Ù…Ø© Ø³Ø­Ø±ÙŠØ© ØªØ²ÙŠØ¯ Ø§Ù„Ø­Ù„ÙŠØ¨ Ø¨Ø´ÙƒÙ„ Ù…Ø¨Ø§Ø´Ø±ØŒ Ù„ÙƒÙ† Ø§Ù„ØªØºØ°ÙŠØ© Ø§Ù„Ù…ØªÙˆØ§Ø²Ù†Ø© ÙˆØ§Ù„ØªØ±Ø·ÙŠØ¨ Ø§Ù„Ø¬ÙŠØ¯ ÙŠØ¯Ø¹Ù…Ø§Ù† Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ø·Ø¨ÙŠØ¹ÙŠØ© (ØªÙˆØµÙŠØ§Øª Ù…Ù†Ø¸Ù…Ø© Ø§Ù„ØµØ­Ø© Ø§Ù„Ø¹Ø§Ù„Ù…ÙŠØ©).</span></div>
       ${[
-        { cat: '🥩 البروتينات', items: 'البيض، الدجاج، السمك، اللحم، العدس، الحمص، الفول' },
-        { cat: '🥛 مشتقات الحليب', items: 'الحليب، الياغورت، الجبن' },
-        { cat: '🥗 الخضر والفواكه', items: 'التفاح، البرتقال، الموز، الجزر، السبانخ، البروكلي، الطماطم' },
-        { cat: '🌾 الحبوب الكاملة', items: 'الشوفان، الأرز الكامل، الخبز الكامل' },
-        { cat: '🫒 الدهون الجيدة', items: 'زيت الزيتون، اللوز، الجوز، الأفوكادو' },
-        { cat: '💧 الترطيب', items: 'شرب الماء حسب الشعور بالعطش، الاحتفاظ بقارورة ماء أثناء الرضاعة' }
+        { cat: 'ðŸ¥© Ø§Ù„Ø¨Ø±ÙˆØªÙŠÙ†Ø§Øª', items: 'Ø§Ù„Ø¨ÙŠØ¶ØŒ Ø§Ù„Ø¯Ø¬Ø§Ø¬ØŒ Ø§Ù„Ø³Ù…ÙƒØŒ Ø§Ù„Ù„Ø­Ù…ØŒ Ø§Ù„Ø¹Ø¯Ø³ØŒ Ø§Ù„Ø­Ù…ØµØŒ Ø§Ù„ÙÙˆÙ„' },
+        { cat: 'ðŸ¥› Ù…Ø´ØªÙ‚Ø§Øª Ø§Ù„Ø­Ù„ÙŠØ¨', items: 'Ø§Ù„Ø­Ù„ÙŠØ¨ØŒ Ø§Ù„ÙŠØ§ØºÙˆØ±ØªØŒ Ø§Ù„Ø¬Ø¨Ù†' },
+        { cat: 'ðŸ¥— Ø§Ù„Ø®Ø¶Ø± ÙˆØ§Ù„ÙÙˆØ§ÙƒÙ‡', items: 'Ø§Ù„ØªÙØ§Ø­ØŒ Ø§Ù„Ø¨Ø±ØªÙ‚Ø§Ù„ØŒ Ø§Ù„Ù…ÙˆØ²ØŒ Ø§Ù„Ø¬Ø²Ø±ØŒ Ø§Ù„Ø³Ø¨Ø§Ù†Ø®ØŒ Ø§Ù„Ø¨Ø±ÙˆÙƒÙ„ÙŠØŒ Ø§Ù„Ø·Ù…Ø§Ø·Ù…' },
+        { cat: 'ðŸŒ¾ Ø§Ù„Ø­Ø¨ÙˆØ¨ Ø§Ù„ÙƒØ§Ù…Ù„Ø©', items: 'Ø§Ù„Ø´ÙˆÙØ§Ù†ØŒ Ø§Ù„Ø£Ø±Ø² Ø§Ù„ÙƒØ§Ù…Ù„ØŒ Ø§Ù„Ø®Ø¨Ø² Ø§Ù„ÙƒØ§Ù…Ù„' },
+        { cat: 'ðŸ«’ Ø§Ù„Ø¯Ù‡ÙˆÙ† Ø§Ù„Ø¬ÙŠØ¯Ø©', items: 'Ø²ÙŠØª Ø§Ù„Ø²ÙŠØªÙˆÙ†ØŒ Ø§Ù„Ù„ÙˆØ²ØŒ Ø§Ù„Ø¬ÙˆØ²ØŒ Ø§Ù„Ø£ÙÙˆÙƒØ§Ø¯Ùˆ' },
+        { cat: 'ðŸ’§ Ø§Ù„ØªØ±Ø·ÙŠØ¨', items: 'Ø´Ø±Ø¨ Ø§Ù„Ù…Ø§Ø¡ Ø­Ø³Ø¨ Ø§Ù„Ø´Ø¹ÙˆØ± Ø¨Ø§Ù„Ø¹Ø·Ø´ØŒ Ø§Ù„Ø§Ø­ØªÙØ§Ø¸ Ø¨Ù‚Ø§Ø±ÙˆØ±Ø© Ù…Ø§Ø¡ Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ø±Ø¶Ø§Ø¹Ø©' }
       ].map(g => `<div style="padding:var(--space-md) var(--space-lg);background:var(--surface-container-low);border-radius:var(--radius-xl);margin-bottom:var(--space-md);">
         <strong>${g.cat}</strong><br><span class="text-variant">${g.items}</span>
       </div>`).join('')}
-      <h4 style="font-weight:700;margin:16px 0 8px;">العناصر الغذائية المهمة:</h4>
+      <h4 style="font-weight:700;margin:16px 0 8px;">Ø§Ù„Ø¹Ù†Ø§ØµØ± Ø§Ù„ØºØ°Ø§Ø¦ÙŠØ© Ø§Ù„Ù…Ù‡Ù…Ø©:</h4>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-md);">
-        <div style="padding:var(--space-md);background:rgba(196,69,105,0.06);border-radius:var(--radius-lg);text-align:center;"><strong>🩸 الحديد</strong><br><small>اللحوم الحمراء، العدس، السبانخ</small></div>
-        <div style="padding:var(--space-md);background:rgba(142,108,136,0.08);border-radius:var(--radius-lg);text-align:center;"><strong>🦴 الكالسيوم</strong><br><small>الحليب ومشتقاته، السردين</small></div>
-        <div style="padding:var(--space-md);background:rgba(163,217,200,0.12);border-radius:var(--radius-lg);text-align:center;"><strong>🐟 أوميغا 3</strong><br><small>السردين، التونة، السلمون</small></div>
-        <div style="padding:var(--space-md);background:rgba(212,165,116,0.12);border-radius:var(--radius-lg);text-align:center;"><strong>☀️ فيتامين D</strong><br><small>التعرض للشمس، المكملات</small></div>
+        <div style="padding:var(--space-md);background:rgba(196,69,105,0.06);border-radius:var(--radius-lg);text-align:center;"><strong>ðŸ©¸ Ø§Ù„Ø­Ø¯ÙŠØ¯</strong><br><small>Ø§Ù„Ù„Ø­ÙˆÙ… Ø§Ù„Ø­Ù…Ø±Ø§Ø¡ØŒ Ø§Ù„Ø¹Ø¯Ø³ØŒ Ø§Ù„Ø³Ø¨Ø§Ù†Ø®</small></div>
+        <div style="padding:var(--space-md);background:rgba(142,108,136,0.08);border-radius:var(--radius-lg);text-align:center;"><strong>ðŸ¦´ Ø§Ù„ÙƒØ§Ù„Ø³ÙŠÙˆÙ…</strong><br><small>Ø§Ù„Ø­Ù„ÙŠØ¨ ÙˆÙ…Ø´ØªÙ‚Ø§ØªÙ‡ØŒ Ø§Ù„Ø³Ø±Ø¯ÙŠÙ†</small></div>
+        <div style="padding:var(--space-md);background:rgba(163,217,200,0.12);border-radius:var(--radius-lg);text-align:center;"><strong>ðŸŸ Ø£ÙˆÙ…ÙŠØºØ§ 3</strong><br><small>Ø§Ù„Ø³Ø±Ø¯ÙŠÙ†ØŒ Ø§Ù„ØªÙˆÙ†Ø©ØŒ Ø§Ù„Ø³Ù„Ù…ÙˆÙ†</small></div>
+        <div style="padding:var(--space-md);background:rgba(212,165,116,0.12);border-radius:var(--radius-lg);text-align:center;"><strong>â˜€ï¸ ÙÙŠØªØ§Ù…ÙŠÙ† D</strong><br><small>Ø§Ù„ØªØ¹Ø±Ø¶ Ù„Ù„Ø´Ù…Ø³ØŒ Ø§Ù„Ù…ÙƒÙ…Ù„Ø§Øª</small></div>
       </div>
     </div>`
   },
   {
-    icon: 'eco', title: 'أطعمة يُعتقد أنها تساعد على الإرضاع',
+    icon: 'eco', title: 'Ø£Ø·Ø¹Ù…Ø© ÙŠÙØ¹ØªÙ‚Ø¯ Ø£Ù†Ù‡Ø§ ØªØ³Ø§Ø¹Ø¯ Ø¹Ù„Ù‰ Ø§Ù„Ø¥Ø±Ø¶Ø§Ø¹',
     content: `<div style="line-height:1.8;">
       <div class="flex" style="flex-wrap:wrap;gap:var(--space-md);margin-bottom:var(--space-xl);">
-        ${['الشوفان','الحلبة','الشمر','اللوز','السمسم'].map(f => `<span style="padding:8px 18px;background:rgba(212,165,116,0.15);border-radius:var(--radius-full);font-weight:600;font-size:14px;">${f}</span>`).join('')}
+        ${['Ø§Ù„Ø´ÙˆÙØ§Ù†','Ø§Ù„Ø­Ù„Ø¨Ø©','Ø§Ù„Ø´Ù…Ø±','Ø§Ù„Ù„ÙˆØ²','Ø§Ù„Ø³Ù…Ø³Ù…'].map(f => `<span style="padding:8px 18px;background:rgba(212,165,116,0.15);border-radius:var(--radius-full);font-weight:600;font-size:14px;">${f}</span>`).join('')}
       </div>
       <div style="padding:var(--space-lg);background:rgba(142,108,136,0.08);border-radius:var(--radius-xl);border-right:4px solid var(--secondary);">
-        <p><strong>🔬 ملاحظة علمية:</strong> لا توجد أدلة علمية قوية تثبت أن غذاءً معيناً يزيد إنتاج الحليب بشكل كبير، بينما تعتبر الرضاعة المتكررة العامل الأكثر فعالية.</p>
+        <p><strong>ðŸ”¬ Ù…Ù„Ø§Ø­Ø¸Ø© Ø¹Ù„Ù…ÙŠØ©:</strong> Ù„Ø§ ØªÙˆØ¬Ø¯ Ø£Ø¯Ù„Ø© Ø¹Ù„Ù…ÙŠØ© Ù‚ÙˆÙŠØ© ØªØ«Ø¨Øª Ø£Ù† ØºØ°Ø§Ø¡Ù‹ Ù…Ø¹ÙŠÙ†Ø§Ù‹ ÙŠØ²ÙŠØ¯ Ø¥Ù†ØªØ§Ø¬ Ø§Ù„Ø­Ù„ÙŠØ¨ Ø¨Ø´ÙƒÙ„ ÙƒØ¨ÙŠØ±ØŒ Ø¨ÙŠÙ†Ù…Ø§ ØªØ¹ØªØ¨Ø± Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ù…ØªÙƒØ±Ø±Ø© Ø§Ù„Ø¹Ø§Ù…Ù„ Ø§Ù„Ø£ÙƒØ«Ø± ÙØ¹Ø§Ù„ÙŠØ©.</p>
       </div>
     </div>`
   },
   {
-    icon: 'kitchen', title: 'حفظ حليب الأم',
+    icon: 'kitchen', title: 'Ø­ÙØ¸ Ø­Ù„ÙŠØ¨ Ø§Ù„Ø£Ù…',
     content: `<div style="line-height:1.8;">
       <table style="width:100%;border-collapse:collapse;margin-bottom:var(--space-xl);">
-        <tr style="background:var(--primary);color:white;"><th style="padding:12px;text-align:right;border-radius:var(--radius-lg) var(--radius-lg) 0 0;">المكان</th><th style="padding:12px;text-align:center;">المدة</th></tr>
-        <tr style="background:var(--surface-container-low);"><td style="padding:12px;font-weight:600;">🌡️ درجة حرارة الغرفة</td><td style="padding:12px;text-align:center;">4 ساعات</td></tr>
-        <tr><td style="padding:12px;font-weight:600;">❄️ الثلاجة</td><td style="padding:12px;text-align:center;">4 أيام</td></tr>
-        <tr style="background:var(--surface-container-low);"><td style="padding:12px;font-weight:600;">🧊 المجمد</td><td style="padding:12px;text-align:center;">6 أشهر</td></tr>
+        <tr style="background:var(--primary);color:white;"><th style="padding:12px;text-align:right;border-radius:var(--radius-lg) var(--radius-lg) 0 0;">Ø§Ù„Ù…ÙƒØ§Ù†</th><th style="padding:12px;text-align:center;">Ø§Ù„Ù…Ø¯Ø©</th></tr>
+        <tr style="background:var(--surface-container-low);"><td style="padding:12px;font-weight:600;">ðŸŒ¡ï¸ Ø¯Ø±Ø¬Ø© Ø­Ø±Ø§Ø±Ø© Ø§Ù„ØºØ±ÙØ©</td><td style="padding:12px;text-align:center;">4 Ø³Ø§Ø¹Ø§Øª</td></tr>
+        <tr><td style="padding:12px;font-weight:600;">â„ï¸ Ø§Ù„Ø«Ù„Ø§Ø¬Ø©</td><td style="padding:12px;text-align:center;">4 Ø£ÙŠØ§Ù…</td></tr>
+        <tr style="background:var(--surface-container-low);"><td style="padding:12px;font-weight:600;">ðŸ§Š Ø§Ù„Ù…Ø¬Ù…Ø¯</td><td style="padding:12px;text-align:center;">6 Ø£Ø´Ù‡Ø±</td></tr>
       </table>
-      ${['كتابة تاريخ الشفط','عدم إعادة تجميد الحليب المذاب'].map(s => `<div class="flex items-center gap-md mb-md"><span class="material-symbols-outlined text-primary" style="font-size:18px;">check_circle</span><span>${s}</span></div>`).join('')}
+      ${['ÙƒØªØ§Ø¨Ø© ØªØ§Ø±ÙŠØ® Ø§Ù„Ø´ÙØ·','Ø¹Ø¯Ù… Ø¥Ø¹Ø§Ø¯Ø© ØªØ¬Ù…ÙŠØ¯ Ø§Ù„Ø­Ù„ÙŠØ¨ Ø§Ù„Ù…Ø°Ø§Ø¨'].map(s => `<div class="flex items-center gap-md mb-md"><span class="material-symbols-outlined text-primary" style="font-size:18px;">check_circle</span><span>${s}</span></div>`).join('')}
     </div>`
   },
   {
-    icon: 'work', title: 'الرضاعة والعودة للعمل',
+    icon: 'work', title: 'Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© ÙˆØ§Ù„Ø¹ÙˆØ¯Ø© Ù„Ù„Ø¹Ù…Ù„',
     content: `<div style="line-height:1.8;">
-      ${['تعلم شفط الحليب قبل العودة للعمل','إنشاء مخزون من الحليب','احترام شروط التخزين','تنظيم أوقات الشفط والرضاعة'].map(s => `<div class="flex items-center gap-md mb-md"><span class="material-symbols-outlined text-primary" style="font-size:18px;">check_circle</span><span>${s}</span></div>`).join('')}
+      ${['ØªØ¹Ù„Ù… Ø´ÙØ· Ø§Ù„Ø­Ù„ÙŠØ¨ Ù‚Ø¨Ù„ Ø§Ù„Ø¹ÙˆØ¯Ø© Ù„Ù„Ø¹Ù…Ù„','Ø¥Ù†Ø´Ø§Ø¡ Ù…Ø®Ø²ÙˆÙ† Ù…Ù† Ø§Ù„Ø­Ù„ÙŠØ¨','Ø§Ø­ØªØ±Ø§Ù… Ø´Ø±ÙˆØ· Ø§Ù„ØªØ®Ø²ÙŠÙ†','ØªÙ†Ø¸ÙŠÙ… Ø£ÙˆÙ‚Ø§Øª Ø§Ù„Ø´ÙØ· ÙˆØ§Ù„Ø±Ø¶Ø§Ø¹Ø©'].map(s => `<div class="flex items-center gap-md mb-md"><span class="material-symbols-outlined text-primary" style="font-size:18px;">check_circle</span><span>${s}</span></div>`).join('')}
     </div>`
   }
 ];
 
 const bfMyths = [
-  { myth: 'يجب إعطاء الماء للرضيع قبل 6 أشهر', reality: 'حليب الأم وحده يكفي خلال الأشهر الستة الأولى' },
-  { myth: 'صغر حجم الثدي يعني قلة الحليب', reality: 'حجم الثدي لا يحدد كمية الحليب المنتجة' },
-  { myth: 'كل بكاء يعني أن الطفل جائع', reality: 'قد يكون البكاء بسبب التعب أو المغص أو الحاجة للاحتضان' },
-  { myth: 'يجب إرضاع الطفل كل 3 ساعات فقط', reality: 'الرضاعة تكون حسب طلب الطفل' },
-  { myth: 'مرض الأم يعني التوقف عن الرضاعة', reality: 'غالباً يمكن الاستمرار بالرضاعة بعد استشارة المختص' },
-  { myth: 'الحليب الصناعي أفضل من حليب الأم', reality: 'حليب الأم هو الغذاء الأمثل للرضيع' },
-  { myth: 'التوتر يفسد الحليب', reality: 'التوتر قد يؤثر مؤقتاً على تدفق الحليب لكنه لا يفسده' },
-  { myth: 'الأم المرضعة يجب أن تأكل لشخصين', reality: 'الجودة الغذائية أهم من الكمية' },
-  { myth: 'الرضاعة المتكررة تعني أن الحليب غير كافٍ', reality: 'الرضاعة المتكررة طبيعية خاصة خلال فترات النمو السريع' },
-  { myth: 'يجب إيقاف الرضاعة عند ظهور الأسنان', reality: 'يمكن مواصلة الرضاعة حتى عمر سنتين أو أكثر' }
+  { myth: 'ÙŠØ¬Ø¨ Ø¥Ø¹Ø·Ø§Ø¡ Ø§Ù„Ù…Ø§Ø¡ Ù„Ù„Ø±Ø¶ÙŠØ¹ Ù‚Ø¨Ù„ 6 Ø£Ø´Ù‡Ø±', reality: 'Ø­Ù„ÙŠØ¨ Ø§Ù„Ø£Ù… ÙˆØ­Ø¯Ù‡ ÙŠÙƒÙÙŠ Ø®Ù„Ø§Ù„ Ø§Ù„Ø£Ø´Ù‡Ø± Ø§Ù„Ø³ØªØ© Ø§Ù„Ø£ÙˆÙ„Ù‰' },
+  { myth: 'ØµØºØ± Ø­Ø¬Ù… Ø§Ù„Ø«Ø¯ÙŠ ÙŠØ¹Ù†ÙŠ Ù‚Ù„Ø© Ø§Ù„Ø­Ù„ÙŠØ¨', reality: 'Ø­Ø¬Ù… Ø§Ù„Ø«Ø¯ÙŠ Ù„Ø§ ÙŠØ­Ø¯Ø¯ ÙƒÙ…ÙŠØ© Ø§Ù„Ø­Ù„ÙŠØ¨ Ø§Ù„Ù…Ù†ØªØ¬Ø©' },
+  { myth: 'ÙƒÙ„ Ø¨ÙƒØ§Ø¡ ÙŠØ¹Ù†ÙŠ Ø£Ù† Ø§Ù„Ø·ÙÙ„ Ø¬Ø§Ø¦Ø¹', reality: 'Ù‚Ø¯ ÙŠÙƒÙˆÙ† Ø§Ù„Ø¨ÙƒØ§Ø¡ Ø¨Ø³Ø¨Ø¨ Ø§Ù„ØªØ¹Ø¨ Ø£Ùˆ Ø§Ù„Ù…ØºØµ Ø£Ùˆ Ø§Ù„Ø­Ø§Ø¬Ø© Ù„Ù„Ø§Ø­ØªØ¶Ø§Ù†' },
+  { myth: 'ÙŠØ¬Ø¨ Ø¥Ø±Ø¶Ø§Ø¹ Ø§Ù„Ø·ÙÙ„ ÙƒÙ„ 3 Ø³Ø§Ø¹Ø§Øª ÙÙ‚Ø·', reality: 'Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© ØªÙƒÙˆÙ† Ø­Ø³Ø¨ Ø·Ù„Ø¨ Ø§Ù„Ø·ÙÙ„' },
+  { myth: 'Ù…Ø±Ø¶ Ø§Ù„Ø£Ù… ÙŠØ¹Ù†ÙŠ Ø§Ù„ØªÙˆÙ‚Ù Ø¹Ù† Ø§Ù„Ø±Ø¶Ø§Ø¹Ø©', reality: 'ØºØ§Ù„Ø¨Ø§Ù‹ ÙŠÙ…ÙƒÙ† Ø§Ù„Ø§Ø³ØªÙ…Ø±Ø§Ø± Ø¨Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø¨Ø¹Ø¯ Ø§Ø³ØªØ´Ø§Ø±Ø© Ø§Ù„Ù…Ø®ØªØµ' },
+  { myth: 'Ø§Ù„Ø­Ù„ÙŠØ¨ Ø§Ù„ØµÙ†Ø§Ø¹ÙŠ Ø£ÙØ¶Ù„ Ù…Ù† Ø­Ù„ÙŠØ¨ Ø§Ù„Ø£Ù…', reality: 'Ø­Ù„ÙŠØ¨ Ø§Ù„Ø£Ù… Ù‡Ùˆ Ø§Ù„ØºØ°Ø§Ø¡ Ø§Ù„Ø£Ù…Ø«Ù„ Ù„Ù„Ø±Ø¶ÙŠØ¹' },
+  { myth: 'Ø§Ù„ØªÙˆØªØ± ÙŠÙØ³Ø¯ Ø§Ù„Ø­Ù„ÙŠØ¨', reality: 'Ø§Ù„ØªÙˆØªØ± Ù‚Ø¯ ÙŠØ¤Ø«Ø± Ù…Ø¤Ù‚ØªØ§Ù‹ Ø¹Ù„Ù‰ ØªØ¯ÙÙ‚ Ø§Ù„Ø­Ù„ÙŠØ¨ Ù„ÙƒÙ†Ù‡ Ù„Ø§ ÙŠÙØ³Ø¯Ù‡' },
+  { myth: 'Ø§Ù„Ø£Ù… Ø§Ù„Ù…Ø±Ø¶Ø¹Ø© ÙŠØ¬Ø¨ Ø£Ù† ØªØ£ÙƒÙ„ Ù„Ø´Ø®ØµÙŠÙ†', reality: 'Ø§Ù„Ø¬ÙˆØ¯Ø© Ø§Ù„ØºØ°Ø§Ø¦ÙŠØ© Ø£Ù‡Ù… Ù…Ù† Ø§Ù„ÙƒÙ…ÙŠØ©' },
+  { myth: 'Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ù…ØªÙƒØ±Ø±Ø© ØªØ¹Ù†ÙŠ Ø£Ù† Ø§Ù„Ø­Ù„ÙŠØ¨ ØºÙŠØ± ÙƒØ§ÙÙ', reality: 'Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ù…ØªÙƒØ±Ø±Ø© Ø·Ø¨ÙŠØ¹ÙŠØ© Ø®Ø§ØµØ© Ø®Ù„Ø§Ù„ ÙØªØ±Ø§Øª Ø§Ù„Ù†Ù…Ùˆ Ø§Ù„Ø³Ø±ÙŠØ¹' },
+  { myth: 'ÙŠØ¬Ø¨ Ø¥ÙŠÙ‚Ø§Ù Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø¹Ù†Ø¯ Ø¸Ù‡ÙˆØ± Ø§Ù„Ø£Ø³Ù†Ø§Ù†', reality: 'ÙŠÙ…ÙƒÙ† Ù…ÙˆØ§ØµÙ„Ø© Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø­ØªÙ‰ Ø¹Ù…Ø± Ø³Ù†ØªÙŠÙ† Ø£Ùˆ Ø£ÙƒØ«Ø±' }
 ];
 
 const bfQuizQuestions = [
-  'هل يفتح طفلك فمه بشكل واسع قبل الإمساك بالثدي؟',
-  'هل يدخل جزء كبير من الهالة في فم الطفل؟',
-  'هل تشعرين بألم أثناء الرضاعة؟',
-  'هل تسمعين صوت البلع؟',
-  'هل يرضع طفلك من 8 إلى 12 مرة يومياً؟',
-  'هل يهدأ بعد الرضاعة؟',
-  'هل يبلل أكثر من 6 حفاضات يومياً؟',
-  'هل يتبرز بشكل طبيعي؟',
-  'هل يزداد وزنه بشكل طبيعي؟',
-  'هل يصبح الثدي أخف بعد الرضاعة؟',
-  'هل تعانين من تشققات بالحلمة؟',
-  'هل يوجد احمرار أو تورم بالثدي؟',
-  'هل تشعرين بالثقة أثناء الرضاعة؟',
-  'هل ينام الطفل بسرعة قبل إنهاء الرضعة؟',
-  'هل يبكي باستمرار بعد الرضاعة؟',
-  'هل تلجئين للحليب الصناعي بسبب الشك في كمية الحليب؟',
-  'هل أُعطي الطفل ماء أو أعشاب قبل 6 أشهر؟',
-  'هل تتلقين دعماً من الزوج أو العائلة؟'
+  'Ù‡Ù„ ÙŠÙØªØ­ Ø·ÙÙ„Ùƒ ÙÙ…Ù‡ Ø¨Ø´ÙƒÙ„ ÙˆØ§Ø³Ø¹ Ù‚Ø¨Ù„ Ø§Ù„Ø¥Ù…Ø³Ø§Ùƒ Ø¨Ø§Ù„Ø«Ø¯ÙŠØŸ',
+  'Ù‡Ù„ ÙŠØ¯Ø®Ù„ Ø¬Ø²Ø¡ ÙƒØ¨ÙŠØ± Ù…Ù† Ø§Ù„Ù‡Ø§Ù„Ø© ÙÙŠ ÙÙ… Ø§Ù„Ø·ÙÙ„ØŸ',
+  'Ù‡Ù„ ØªØ´Ø¹Ø±ÙŠÙ† Ø¨Ø£Ù„Ù… Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ø±Ø¶Ø§Ø¹Ø©ØŸ',
+  'Ù‡Ù„ ØªØ³Ù…Ø¹ÙŠÙ† ØµÙˆØª Ø§Ù„Ø¨Ù„Ø¹ØŸ',
+  'Ù‡Ù„ ÙŠØ±Ø¶Ø¹ Ø·ÙÙ„Ùƒ Ù…Ù† 8 Ø¥Ù„Ù‰ 12 Ù…Ø±Ø© ÙŠÙˆÙ…ÙŠØ§Ù‹ØŸ',
+  'Ù‡Ù„ ÙŠÙ‡Ø¯Ø£ Ø¨Ø¹Ø¯ Ø§Ù„Ø±Ø¶Ø§Ø¹Ø©ØŸ',
+  'Ù‡Ù„ ÙŠØ¨Ù„Ù„ Ø£ÙƒØ«Ø± Ù…Ù† 6 Ø­ÙØ§Ø¶Ø§Øª ÙŠÙˆÙ…ÙŠØ§Ù‹ØŸ',
+  'Ù‡Ù„ ÙŠØªØ¨Ø±Ø² Ø¨Ø´ÙƒÙ„ Ø·Ø¨ÙŠØ¹ÙŠØŸ',
+  'Ù‡Ù„ ÙŠØ²Ø¯Ø§Ø¯ ÙˆØ²Ù†Ù‡ Ø¨Ø´ÙƒÙ„ Ø·Ø¨ÙŠØ¹ÙŠØŸ',
+  'Ù‡Ù„ ÙŠØµØ¨Ø­ Ø§Ù„Ø«Ø¯ÙŠ Ø£Ø®Ù Ø¨Ø¹Ø¯ Ø§Ù„Ø±Ø¶Ø§Ø¹Ø©ØŸ',
+  'Ù‡Ù„ ØªØ¹Ø§Ù†ÙŠÙ† Ù…Ù† ØªØ´Ù‚Ù‚Ø§Øª Ø¨Ø§Ù„Ø­Ù„Ù…Ø©ØŸ',
+  'Ù‡Ù„ ÙŠÙˆØ¬Ø¯ Ø§Ø­Ù…Ø±Ø§Ø± Ø£Ùˆ ØªÙˆØ±Ù… Ø¨Ø§Ù„Ø«Ø¯ÙŠØŸ',
+  'Ù‡Ù„ ØªØ´Ø¹Ø±ÙŠÙ† Ø¨Ø§Ù„Ø«Ù‚Ø© Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ø±Ø¶Ø§Ø¹Ø©ØŸ',
+  'Ù‡Ù„ ÙŠÙ†Ø§Ù… Ø§Ù„Ø·ÙÙ„ Ø¨Ø³Ø±Ø¹Ø© Ù‚Ø¨Ù„ Ø¥Ù†Ù‡Ø§Ø¡ Ø§Ù„Ø±Ø¶Ø¹Ø©ØŸ',
+  'Ù‡Ù„ ÙŠØ¨ÙƒÙŠ Ø¨Ø§Ø³ØªÙ…Ø±Ø§Ø± Ø¨Ø¹Ø¯ Ø§Ù„Ø±Ø¶Ø§Ø¹Ø©ØŸ',
+  'Ù‡Ù„ ØªÙ„Ø¬Ø¦ÙŠÙ† Ù„Ù„Ø­Ù„ÙŠØ¨ Ø§Ù„ØµÙ†Ø§Ø¹ÙŠ Ø¨Ø³Ø¨Ø¨ Ø§Ù„Ø´Ùƒ ÙÙŠ ÙƒÙ…ÙŠØ© Ø§Ù„Ø­Ù„ÙŠØ¨ØŸ',
+  'Ù‡Ù„ Ø£ÙØ¹Ø·ÙŠ Ø§Ù„Ø·ÙÙ„ Ù…Ø§Ø¡ Ø£Ùˆ Ø£Ø¹Ø´Ø§Ø¨ Ù‚Ø¨Ù„ 6 Ø£Ø´Ù‡Ø±ØŸ',
+  'Ù‡Ù„ ØªØªÙ„Ù‚ÙŠÙ† Ø¯Ø¹Ù…Ø§Ù‹ Ù…Ù† Ø§Ù„Ø²ÙˆØ¬ Ø£Ùˆ Ø§Ù„Ø¹Ø§Ø¦Ù„Ø©ØŸ'
 ];
 // Questions where "No" = good (reverse scored): pain, cracked nipples, redness, sleeps before finishing, cries after, formula, water before 6m
 const bfReverseScored = [2, 10, 11, 13, 14, 15, 16];
@@ -1783,7 +1783,7 @@ function renderBreastfeeding() {
         <h2 class="text-headline-sm">${t('bf_title')}</h2>
         <p class="text-body-md text-variant">${t('bf_subtitle')}</p>
       </div>
-      <span style="font-size:36px;">🤱</span>
+      <span style="font-size:36px;">ðŸ¤±</span>
     </div>
 
     <!-- Tabs -->
@@ -1848,7 +1848,7 @@ function renderBFMyths(container) {
             <!-- Front: Myth -->
             <div style="position:${flipped?'absolute':'relative'};inset:0;backface-visibility:hidden;padding:var(--space-xl);border-radius:var(--radius-xl);background:linear-gradient(135deg,rgba(220,53,69,0.08),rgba(220,53,69,0.03));border:2px solid rgba(220,53,69,0.2);">
               <div class="flex items-center gap-sm mb-md">
-                <span style="font-size:20px;">❌</span>
+                <span style="font-size:20px;">âŒ</span>
                 <span class="text-label-lg" style="color:var(--error);text-transform:uppercase;">${t('bf_myth')}</span>
                 <span class="material-symbols-outlined text-variant" style="margin-inline-start:auto;font-size:18px;">touch_app</span>
               </div>
@@ -1857,7 +1857,7 @@ function renderBFMyths(container) {
             <!-- Back: Reality -->
             <div style="position:absolute;inset:0;backface-visibility:hidden;transform:rotateY(180deg);padding:var(--space-xl);border-radius:var(--radius-xl);background:linear-gradient(135deg,rgba(40,167,69,0.08),rgba(40,167,69,0.03));border:2px solid rgba(40,167,69,0.2);">
               <div class="flex items-center gap-sm mb-md">
-                <span style="font-size:20px;">✅</span>
+                <span style="font-size:20px;">âœ…</span>
                 <span class="text-label-lg" style="color:#28a745;text-transform:uppercase;">${t('bf_reality')}</span>
               </div>
               <p class="text-body-lg text-semibold" style="line-height:1.6;">${m.reality}</p>
@@ -1885,16 +1885,16 @@ function renderBFQuiz(container) {
   let resultHTML = '';
   if (allAnswered) {
     let color, emoji, label, advice;
-    if (totalScore >= 30) { color = '#28a745'; emoji = '🟢'; label = t('bf_quiz_excellent'); advice = 'الرضاعة تسير بشكل جيد.'; }
-    else if (totalScore >= 22) { color = '#ffc107'; emoji = '🟡'; label = t('bf_quiz_good'); advice = 'توجد بعض الصعوبات البسيطة.'; }
-    else if (totalScore >= 15) { color = '#fd7e14'; emoji = '🟠'; label = t('bf_quiz_attention'); advice = 'يوصى باستشارة أخصائية توليد أو رضاعة.'; }
-    else { color = '#dc3545'; emoji = '🔴'; label = t('bf_quiz_urgent'); advice = 'يُنصح بطلب تقييم مهني في أقرب وقت.'; }
+    if (totalScore >= 30) { color = '#28a745'; emoji = 'ðŸŸ¢'; label = t('bf_quiz_excellent'); advice = 'Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© ØªØ³ÙŠØ± Ø¨Ø´ÙƒÙ„ Ø¬ÙŠØ¯.'; }
+    else if (totalScore >= 22) { color = '#ffc107'; emoji = 'ðŸŸ¡'; label = t('bf_quiz_good'); advice = 'ØªÙˆØ¬Ø¯ Ø¨Ø¹Ø¶ Ø§Ù„ØµØ¹ÙˆØ¨Ø§Øª Ø§Ù„Ø¨Ø³ÙŠØ·Ø©.'; }
+    else if (totalScore >= 15) { color = '#fd7e14'; emoji = 'ðŸŸ '; label = t('bf_quiz_attention'); advice = 'ÙŠÙˆØµÙ‰ Ø¨Ø§Ø³ØªØ´Ø§Ø±Ø© Ø£Ø®ØµØ§Ø¦ÙŠØ© ØªÙˆÙ„ÙŠØ¯ Ø£Ùˆ Ø±Ø¶Ø§Ø¹Ø©.'; }
+    else { color = '#dc3545'; emoji = 'ðŸ”´'; label = t('bf_quiz_urgent'); advice = 'ÙŠÙÙ†ØµØ­ Ø¨Ø·Ù„Ø¨ ØªÙ‚ÙŠÙŠÙ… Ù…Ù‡Ù†ÙŠ ÙÙŠ Ø£Ù‚Ø±Ø¨ ÙˆÙ‚Øª.'; }
 
     // Check for medical alerts
     const medicalAlerts = [];
-    if (bfQuizAnswers[11] === 'yes') medicalAlerts.push('احمرار أو تورم بالثدي');
-    if (bfQuizAnswers[14] === 'yes') medicalAlerts.push('بكاء مستمر بعد الرضاعة');
-    if (bfQuizAnswers[16] === 'yes') medicalAlerts.push('إعطاء الماء أو الأعشاب قبل 6 أشهر');
+    if (bfQuizAnswers[11] === 'yes') medicalAlerts.push('Ø§Ø­Ù…Ø±Ø§Ø± Ø£Ùˆ ØªÙˆØ±Ù… Ø¨Ø§Ù„Ø«Ø¯ÙŠ');
+    if (bfQuizAnswers[14] === 'yes') medicalAlerts.push('Ø¨ÙƒØ§Ø¡ Ù…Ø³ØªÙ…Ø± Ø¨Ø¹Ø¯ Ø§Ù„Ø±Ø¶Ø§Ø¹Ø©');
+    if (bfQuizAnswers[16] === 'yes') medicalAlerts.push('Ø¥Ø¹Ø·Ø§Ø¡ Ø§Ù„Ù…Ø§Ø¡ Ø£Ùˆ Ø§Ù„Ø£Ø¹Ø´Ø§Ø¨ Ù‚Ø¨Ù„ 6 Ø£Ø´Ù‡Ø±');
 
     resultHTML = `
       <div class="card mb-xl reveal" style="overflow:hidden;">
@@ -1911,9 +1911,9 @@ function renderBFQuiz(container) {
         <div class="alert-banner alert-banner--danger mb-xl reveal">
           <span class="material-symbols-outlined">emergency</span>
           <div>
-            <strong>🚨 ${t('bf_quiz_medical_alert')}</strong>
-            <p class="text-body-md mt-sm">${medicalAlerts.join(' — ')}</p>
-            <p class="text-body-md mt-sm" style="font-weight:600;">يُنصح بالتواصل مع أخصائية توليد أو طبيب أطفال في أقرب وقت.</p>
+            <strong>ðŸš¨ ${t('bf_quiz_medical_alert')}</strong>
+            <p class="text-body-md mt-sm">${medicalAlerts.join(' â€” ')}</p>
+            <p class="text-body-md mt-sm" style="font-weight:600;">ÙŠÙÙ†ØµØ­ Ø¨Ø§Ù„ØªÙˆØ§ØµÙ„ Ù…Ø¹ Ø£Ø®ØµØ§Ø¦ÙŠØ© ØªÙˆÙ„ÙŠØ¯ Ø£Ùˆ Ø·Ø¨ÙŠØ¨ Ø£Ø·ÙØ§Ù„ ÙÙŠ Ø£Ù‚Ø±Ø¨ ÙˆÙ‚Øª.</p>
           </div>
         </div>
       ` : ''}
@@ -1994,7 +1994,7 @@ function renderBFLog(container) {
           </div>
           <p class="text-label-lg mb-sm">${t('bf_log_mood')}</p>
           <div class="mood-grid" id="bf-mood-grid">
-            ${['😫','😔','😐','😊','😄'].map(m => `<button class="mood-option ${todayEntries[0]?.mood===m?'selected':''}" onclick="document.querySelectorAll('#bf-mood-grid .mood-option').forEach(b=>b.classList.remove('selected'));this.classList.add('selected');this.dataset.val='${m}';" data-val="${m}"><span class="mood-option__emoji">${m}</span></button>`).join('')}
+            ${['ðŸ˜«','ðŸ˜”','ðŸ˜','ðŸ˜Š','ðŸ˜„'].map(m => `<button class="mood-option ${todayEntries[0]?.mood===m?'selected':''}" onclick="document.querySelectorAll('#bf-mood-grid .mood-option').forEach(b=>b.classList.remove('selected'));this.classList.add('selected');this.dataset.val='${m}';" data-val="${m}"><span class="mood-option__emoji">${m}</span></button>`).join('')}
           </div>
           <textarea id="bf-notes" class="form-input" rows="2" placeholder="${t('bf_log_notes_placeholder')}" style="resize:none;">${todayEntries[0]?.notes||''}</textarea>
           <button class="btn btn--primary btn--full" onclick="saveBFLog()">
@@ -2031,7 +2031,7 @@ function renderBFLog(container) {
       <div class="space-y-md">
         ${entries.slice(0, 7).map(e => `
           <div class="daily-entry reveal">
-            <span style="font-size:24px;">${e.mood || '😊'}</span>
+            <span style="font-size:24px;">${e.mood || 'ðŸ˜Š'}</span>
             <div style="flex:1;">
               <div class="flex justify-between text-label-md">
                 <span class="text-primary">${e.feeds || 0} ${t('bf_log_feeds_short')}</span>
@@ -2053,7 +2053,7 @@ function saveBFLog() {
   const duration = parseInt(document.getElementById('bf-duration')?.value || 15);
   const pumped = parseInt(document.getElementById('bf-pumped')?.value || 0);
   const moodBtn = document.querySelector('#bf-mood-grid .mood-option.selected');
-  const mood = moodBtn?.dataset?.val || '😊';
+  const mood = moodBtn?.dataset?.val || 'ðŸ˜Š';
   const notes = document.getElementById('bf-notes')?.value?.trim() || '';
   const today = new Date().toISOString().split('T')[0];
 
@@ -2074,74 +2074,74 @@ function saveBFLog() {
   }
 }
 
-// ══════════════════════════════════════════════════════════════
-//  MODULE: SEXUALITÉ POST-PARTUM (الحياة الجنسية بعد الولادة)
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  MODULE: SEXUALITÃ‰ POST-PARTUM (Ø§Ù„Ø­ÙŠØ§Ø© Ø§Ù„Ø¬Ù†Ø³ÙŠØ© Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©)
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 const sxChapters = [
   {
-    icon: 'schedule', title: 'استئناف العلاقة الجنسية', color: 'var(--primary)',
+    icon: 'schedule', title: 'Ø§Ø³ØªØ¦Ù†Ø§Ù Ø§Ù„Ø¹Ù„Ø§Ù‚Ø© Ø§Ù„Ø¬Ù†Ø³ÙŠØ©', color: 'var(--primary)',
     content: `<div class="space-y-md" style="line-height:1.8;">
-      <p>لا يوجد موعد موحّد لاستئناف العلاقة الجنسية بعد الولادة.</p>
-      <p>يعتمد ذلك على التعافي الجسدي والنفسي للأم.</p>
-      ${['يُنصح بالانتظار حتى توقف نزيف النفاس','التئام الجروح في حال وجود تمزق أو Épisiotomie','احترام راحة الأم الجسدية والنفسية','التواصل مع الشريك ضروري خلال هذه المرحلة'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined text-primary" style="font-size:18px;">check_circle</span><span>${s}</span></div>`).join('')}
+      <p>Ù„Ø§ ÙŠÙˆØ¬Ø¯ Ù…ÙˆØ¹Ø¯ Ù…ÙˆØ­Ù‘Ø¯ Ù„Ø§Ø³ØªØ¦Ù†Ø§Ù Ø§Ù„Ø¹Ù„Ø§Ù‚Ø© Ø§Ù„Ø¬Ù†Ø³ÙŠØ© Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©.</p>
+      <p>ÙŠØ¹ØªÙ…Ø¯ Ø°Ù„Ùƒ Ø¹Ù„Ù‰ Ø§Ù„ØªØ¹Ø§ÙÙŠ Ø§Ù„Ø¬Ø³Ø¯ÙŠ ÙˆØ§Ù„Ù†ÙØ³ÙŠ Ù„Ù„Ø£Ù….</p>
+      ${['ÙŠÙÙ†ØµØ­ Ø¨Ø§Ù„Ø§Ù†ØªØ¸Ø§Ø± Ø­ØªÙ‰ ØªÙˆÙ‚Ù Ù†Ø²ÙŠÙ Ø§Ù„Ù†ÙØ§Ø³','Ø§Ù„ØªØ¦Ø§Ù… Ø§Ù„Ø¬Ø±ÙˆØ­ ÙÙŠ Ø­Ø§Ù„ ÙˆØ¬ÙˆØ¯ ØªÙ…Ø²Ù‚ Ø£Ùˆ Ã‰pisiotomie','Ø§Ø­ØªØ±Ø§Ù… Ø±Ø§Ø­Ø© Ø§Ù„Ø£Ù… Ø§Ù„Ø¬Ø³Ø¯ÙŠØ© ÙˆØ§Ù„Ù†ÙØ³ÙŠØ©','Ø§Ù„ØªÙˆØ§ØµÙ„ Ù…Ø¹ Ø§Ù„Ø´Ø±ÙŠÙƒ Ø¶Ø±ÙˆØ±ÙŠ Ø®Ù„Ø§Ù„ Ù‡Ø°Ù‡ Ø§Ù„Ù…Ø±Ø­Ù„Ø©'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined text-primary" style="font-size:18px;">check_circle</span><span>${s}</span></div>`).join('')}
     </div>`
   },
   {
-    icon: 'water_drop', title: 'الجفاف المهبلي', color: 'var(--secondary)',
+    icon: 'water_drop', title: 'Ø§Ù„Ø¬ÙØ§Ù Ø§Ù„Ù…Ù‡Ø¨Ù„ÙŠ', color: 'var(--secondary)',
     content: `<div class="space-y-md" style="line-height:1.8;">
-      <p>شائع خاصة أثناء الرضاعة الطبيعية بسبب انخفاض هرمون الإستروجين.</p>
-      <p>يمكن استعمال مزلقات مائية <strong>(Lubrifiants à base d'eau)</strong>.</p>
-      <p>غالباً ما يتحسن تدريجياً مع الوقت.</p>
+      <p>Ø´Ø§Ø¦Ø¹ Ø®Ø§ØµØ© Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ø·Ø¨ÙŠØ¹ÙŠØ© Ø¨Ø³Ø¨Ø¨ Ø§Ù†Ø®ÙØ§Ø¶ Ù‡Ø±Ù…ÙˆÙ† Ø§Ù„Ø¥Ø³ØªØ±ÙˆØ¬ÙŠÙ†.</p>
+      <p>ÙŠÙ…ÙƒÙ† Ø§Ø³ØªØ¹Ù…Ø§Ù„ Ù…Ø²Ù„Ù‚Ø§Øª Ù…Ø§Ø¦ÙŠØ© <strong>(Lubrifiants Ã  base d'eau)</strong>.</p>
+      <p>ØºØ§Ù„Ø¨Ø§Ù‹ Ù…Ø§ ÙŠØªØ­Ø³Ù† ØªØ¯Ø±ÙŠØ¬ÙŠØ§Ù‹ Ù…Ø¹ Ø§Ù„ÙˆÙ‚Øª.</p>
     </div>`
   },
   {
-    icon: 'healing', title: 'الألم أثناء العلاقة', color: 'var(--error)',
+    icon: 'healing', title: 'Ø§Ù„Ø£Ù„Ù… Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ø¹Ù„Ø§Ù‚Ø©', color: 'var(--error)',
     content: `<div class="space-y-md" style="line-height:1.8;">
-      <p>قد يظهر خلال الأسابيع أو الأشهر الأولى بعد الولادة.</p>
-      <p style="font-weight:600;color:var(--error);">يجب التوقف إذا كان الألم شديداً.</p>
-      <p>يُنصح باستشارة مختص إذا استمر الألم أو ازداد.</p>
+      <p>Ù‚Ø¯ ÙŠØ¸Ù‡Ø± Ø®Ù„Ø§Ù„ Ø§Ù„Ø£Ø³Ø§Ø¨ÙŠØ¹ Ø£Ùˆ Ø§Ù„Ø£Ø´Ù‡Ø± Ø§Ù„Ø£ÙˆÙ„Ù‰ Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©.</p>
+      <p style="font-weight:600;color:var(--error);">ÙŠØ¬Ø¨ Ø§Ù„ØªÙˆÙ‚Ù Ø¥Ø°Ø§ ÙƒØ§Ù† Ø§Ù„Ø£Ù„Ù… Ø´Ø¯ÙŠØ¯Ø§Ù‹.</p>
+      <p>ÙŠÙÙ†ØµØ­ Ø¨Ø§Ø³ØªØ´Ø§Ø±Ø© Ù…Ø®ØªØµ Ø¥Ø°Ø§ Ø§Ø³ØªÙ…Ø± Ø§Ù„Ø£Ù„Ù… Ø£Ùˆ Ø§Ø²Ø¯Ø§Ø¯.</p>
     </div>`
   },
   {
-    icon: 'bedtime', title: 'التعب والرغبة الجنسية', color: 'var(--tertiary)',
+    icon: 'bedtime', title: 'Ø§Ù„ØªØ¹Ø¨ ÙˆØ§Ù„Ø±ØºØ¨Ø© Ø§Ù„Ø¬Ù†Ø³ÙŠØ©', color: 'var(--tertiary)',
     content: `<div class="space-y-md" style="line-height:1.8;">
-      <p>انخفاض الرغبة الجنسية أمر شائع بعد الولادة.</p>
-      ${['الإرهاق وقلة النوم','التغيرات الهرمونية','التكيف مع دور الأمومة'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="font-size:16px;color:var(--tertiary);">arrow_right</span><span>${s}</span></div>`).join('')}
+      <p>Ø§Ù†Ø®ÙØ§Ø¶ Ø§Ù„Ø±ØºØ¨Ø© Ø§Ù„Ø¬Ù†Ø³ÙŠØ© Ø£Ù…Ø± Ø´Ø§Ø¦Ø¹ Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©.</p>
+      ${['Ø§Ù„Ø¥Ø±Ù‡Ø§Ù‚ ÙˆÙ‚Ù„Ø© Ø§Ù„Ù†ÙˆÙ…','Ø§Ù„ØªØºÙŠØ±Ø§Øª Ø§Ù„Ù‡Ø±Ù…ÙˆÙ†ÙŠØ©','Ø§Ù„ØªÙƒÙŠÙ Ù…Ø¹ Ø¯ÙˆØ± Ø§Ù„Ø£Ù…ÙˆÙ…Ø©'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="font-size:16px;color:var(--tertiary);">arrow_right</span><span>${s}</span></div>`).join('')}
       <div style="background:var(--primary-container);padding:var(--space-lg);border-radius:var(--radius-xl);margin-top:var(--space-md);">
-        <p style="font-weight:600;color:var(--on-primary-container);"><span style="font-size:18px;">💡</span> تعود الرغبة تدريجياً لدى أغلب النساء.</p>
+        <p style="font-weight:600;color:var(--on-primary-container);"><span style="font-size:18px;">ðŸ’¡</span> ØªØ¹ÙˆØ¯ Ø§Ù„Ø±ØºØ¨Ø© ØªØ¯Ø±ÙŠØ¬ÙŠØ§Ù‹ Ù„Ø¯Ù‰ Ø£ØºÙ„Ø¨ Ø§Ù„Ù†Ø³Ø§Ø¡.</p>
       </div>
     </div>`
   },
   {
-    icon: 'forum', title: 'التواصل بين الزوجين', color: '#A3D9C8',
+    icon: 'forum', title: 'Ø§Ù„ØªÙˆØ§ØµÙ„ Ø¨ÙŠÙ† Ø§Ù„Ø²ÙˆØ¬ÙŠÙ†', color: '#A3D9C8',
     content: `<div class="space-y-md" style="line-height:1.8;">
-      <p>الحوار الصريح حول المشاعر والاحتياجات يساعد على التكيف مع المرحلة الجديدة.</p>
+      <p>Ø§Ù„Ø­ÙˆØ§Ø± Ø§Ù„ØµØ±ÙŠØ­ Ø­ÙˆÙ„ Ø§Ù„Ù…Ø´Ø§Ø¹Ø± ÙˆØ§Ù„Ø§Ø­ØªÙŠØ§Ø¬Ø§Øª ÙŠØ³Ø§Ø¹Ø¯ Ø¹Ù„Ù‰ Ø§Ù„ØªÙƒÙŠÙ Ù…Ø¹ Ø§Ù„Ù…Ø±Ø­Ù„Ø© Ø§Ù„Ø¬Ø¯ÙŠØ¯Ø©.</p>
       <div style="padding:var(--space-lg);background:rgba(163,217,200,0.15);border-radius:var(--radius-xl);border-right:4px solid #A3D9C8;">
-        <p style="font-weight:600;">💕 الحميمية لا تقتصر فقط على العلاقة الجنسية، بل تشمل الدعم العاطفي أيضاً.</p>
+        <p style="font-weight:600;">ðŸ’• Ø§Ù„Ø­Ù…ÙŠÙ…ÙŠØ© Ù„Ø§ ØªÙ‚ØªØµØ± ÙÙ‚Ø· Ø¹Ù„Ù‰ Ø§Ù„Ø¹Ù„Ø§Ù‚Ø© Ø§Ù„Ø¬Ù†Ø³ÙŠØ©ØŒ Ø¨Ù„ ØªØ´Ù…Ù„ Ø§Ù„Ø¯Ø¹Ù… Ø§Ù„Ø¹Ø§Ø·ÙÙŠ Ø£ÙŠØ¶Ø§Ù‹.</p>
       </div>
     </div>`
   },
   {
-    icon: 'medical_services', title: 'العناية بشق العجان', color: 'var(--primary)',
+    icon: 'medical_services', title: 'Ø§Ù„Ø¹Ù†Ø§ÙŠØ© Ø¨Ø´Ù‚ Ø§Ù„Ø¹Ø¬Ø§Ù†', color: 'var(--primary)',
     content: `<div class="space-y-lg" style="line-height:1.8;">
       <div>
-        <h4 style="font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;"><span style="font-size:18px;">🧼</span> كيف يتم تنظيف الجرح؟</h4>
-        ${['غسل اليدين قبل وبعد العناية','تنظيف المنطقة يومياً بالماء الفاتر وصابون لطيف غير معطر','الشطف جيداً ثم التجفيف بلطف دون فرك','يُفضل التجفيف بالتربيت أو ترك المنطقة تجف في الهواء','تغيير الفوط الصحية بانتظام','ارتداء ملابس داخلية قطنية ومريحة','شرب الماء وتناول ألياف لتجنب الإمساك'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined text-primary" style="font-size:16px;">check_circle</span><span>${s}</span></div>`).join('')}
+        <h4 style="font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;"><span style="font-size:18px;">ðŸ§¼</span> ÙƒÙŠÙ ÙŠØªÙ… ØªÙ†Ø¸ÙŠÙ Ø§Ù„Ø¬Ø±Ø­ØŸ</h4>
+        ${['ØºØ³Ù„ Ø§Ù„ÙŠØ¯ÙŠÙ† Ù‚Ø¨Ù„ ÙˆØ¨Ø¹Ø¯ Ø§Ù„Ø¹Ù†Ø§ÙŠØ©','ØªÙ†Ø¸ÙŠÙ Ø§Ù„Ù…Ù†Ø·Ù‚Ø© ÙŠÙˆÙ…ÙŠØ§Ù‹ Ø¨Ø§Ù„Ù…Ø§Ø¡ Ø§Ù„ÙØ§ØªØ± ÙˆØµØ§Ø¨ÙˆÙ† Ù„Ø·ÙŠÙ ØºÙŠØ± Ù…Ø¹Ø·Ø±','Ø§Ù„Ø´Ø·Ù Ø¬ÙŠØ¯Ø§Ù‹ Ø«Ù… Ø§Ù„ØªØ¬ÙÙŠÙ Ø¨Ù„Ø·Ù Ø¯ÙˆÙ† ÙØ±Ùƒ','ÙŠÙÙØ¶Ù„ Ø§Ù„ØªØ¬ÙÙŠÙ Ø¨Ø§Ù„ØªØ±Ø¨ÙŠØª Ø£Ùˆ ØªØ±Ùƒ Ø§Ù„Ù…Ù†Ø·Ù‚Ø© ØªØ¬Ù ÙÙŠ Ø§Ù„Ù‡ÙˆØ§Ø¡','ØªØºÙŠÙŠØ± Ø§Ù„ÙÙˆØ· Ø§Ù„ØµØ­ÙŠØ© Ø¨Ø§Ù†ØªØ¸Ø§Ù…','Ø§Ø±ØªØ¯Ø§Ø¡ Ù…Ù„Ø§Ø¨Ø³ Ø¯Ø§Ø®Ù„ÙŠØ© Ù‚Ø·Ù†ÙŠØ© ÙˆÙ…Ø±ÙŠØ­Ø©','Ø´Ø±Ø¨ Ø§Ù„Ù…Ø§Ø¡ ÙˆØªÙ†Ø§ÙˆÙ„ Ø£Ù„ÙŠØ§Ù Ù„ØªØ¬Ù†Ø¨ Ø§Ù„Ø¥Ù…Ø³Ø§Ùƒ'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined text-primary" style="font-size:16px;">check_circle</span><span>${s}</span></div>`).join('')}
       </div>
       <div>
-        <h4 style="font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;"><span style="font-size:18px;">💊</span> لتخفيف الألم</h4>
-        ${['كمادات باردة خلال أول 24 ساعة إذا أوصى المختص','الجلوس على وسادة مريحة','مسكنات موصوفة طبياً'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="font-size:16px;color:#d4a574;">lightbulb</span><span>${s}</span></div>`).join('')}
+        <h4 style="font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;"><span style="font-size:18px;">ðŸ’Š</span> Ù„ØªØ®ÙÙŠÙ Ø§Ù„Ø£Ù„Ù…</h4>
+        ${['ÙƒÙ…Ø§Ø¯Ø§Øª Ø¨Ø§Ø±Ø¯Ø© Ø®Ù„Ø§Ù„ Ø£ÙˆÙ„ 24 Ø³Ø§Ø¹Ø© Ø¥Ø°Ø§ Ø£ÙˆØµÙ‰ Ø§Ù„Ù…Ø®ØªØµ','Ø§Ù„Ø¬Ù„ÙˆØ³ Ø¹Ù„Ù‰ ÙˆØ³Ø§Ø¯Ø© Ù…Ø±ÙŠØ­Ø©','Ù…Ø³ÙƒÙ†Ø§Øª Ù…ÙˆØµÙˆÙØ© Ø·Ø¨ÙŠØ§Ù‹'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="font-size:16px;color:#d4a574;">lightbulb</span><span>${s}</span></div>`).join('')}
       </div>
       <div>
-        <h4 style="font-weight:700;margin-bottom:12px;color:var(--error);display:flex;align-items:center;gap:8px;"><span style="font-size:18px;">❌</span> ما يجب تجنبه</h4>
-        ${['المطهرات أو الكريمات بدون وصفة طبية','فرك الجرح','الملابس الضيقة'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="font-size:16px;color:var(--error);">block</span><span>${s}</span></div>`).join('')}
+        <h4 style="font-weight:700;margin-bottom:12px;color:var(--error);display:flex;align-items:center;gap:8px;"><span style="font-size:18px;">âŒ</span> Ù…Ø§ ÙŠØ¬Ø¨ ØªØ¬Ù†Ø¨Ù‡</h4>
+        ${['Ø§Ù„Ù…Ø·Ù‡Ø±Ø§Øª Ø£Ùˆ Ø§Ù„ÙƒØ±ÙŠÙ…Ø§Øª Ø¨Ø¯ÙˆÙ† ÙˆØµÙØ© Ø·Ø¨ÙŠØ©','ÙØ±Ùƒ Ø§Ù„Ø¬Ø±Ø­','Ø§Ù„Ù…Ù„Ø§Ø¨Ø³ Ø§Ù„Ø¶ÙŠÙ‚Ø©'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="font-size:16px;color:var(--error);">block</span><span>${s}</span></div>`).join('')}
       </div>
       <div class="alert-banner alert-banner--danger">
         <span class="material-symbols-outlined">emergency</span>
         <div>
-          <strong>🚨 علامات الخطر — استشيري الطبيب إذا ظهر:</strong>
-          ${['احمرار متزايد أو تورم شديد','ألم يزداد مع الوقت','إفرازات ذات رائحة كريهة أو قيح','حرارة أكثر من 38 °C','انفتاح الجرح أو نزيف غير طبيعي'].map(s => `<div class="flex items-center gap-sm mt-sm"><span style="color:var(--error);font-size:14px;">⚠️</span><span>${s}</span></div>`).join('')}
+          <strong>ðŸš¨ Ø¹Ù„Ø§Ù…Ø§Øª Ø§Ù„Ø®Ø·Ø± â€” Ø§Ø³ØªØ´ÙŠØ±ÙŠ Ø§Ù„Ø·Ø¨ÙŠØ¨ Ø¥Ø°Ø§ Ø¸Ù‡Ø±:</strong>
+          ${['Ø§Ø­Ù…Ø±Ø§Ø± Ù…ØªØ²Ø§ÙŠØ¯ Ø£Ùˆ ØªÙˆØ±Ù… Ø´Ø¯ÙŠØ¯','Ø£Ù„Ù… ÙŠØ²Ø¯Ø§Ø¯ Ù…Ø¹ Ø§Ù„ÙˆÙ‚Øª','Ø¥ÙØ±Ø§Ø²Ø§Øª Ø°Ø§Øª Ø±Ø§Ø¦Ø­Ø© ÙƒØ±ÙŠÙ‡Ø© Ø£Ùˆ Ù‚ÙŠØ­','Ø­Ø±Ø§Ø±Ø© Ø£ÙƒØ«Ø± Ù…Ù† 38 Â°C','Ø§Ù†ÙØªØ§Ø­ Ø§Ù„Ø¬Ø±Ø­ Ø£Ùˆ Ù†Ø²ÙŠÙ ØºÙŠØ± Ø·Ø¨ÙŠØ¹ÙŠ'].map(s => `<div class="flex items-center gap-sm mt-sm"><span style="color:var(--error);font-size:14px;">âš ï¸</span><span>${s}</span></div>`).join('')}
         </div>
       </div>
     </div>`
@@ -2149,11 +2149,11 @@ const sxChapters = [
 ];
 
 const sxMyths = [
-  { myth: 'يجب استئناف العلاقة بعد 40 يوماً بالضبط', reality: 'لا يوجد وقت إلزامي ويختلف حسب كل امرأة' },
-  { myth: 'الرضاعة الطبيعية تمنع الحمل %100', reality: 'تقلل الحمل لكنها ليست وسيلة مضمونة' },
-  { myth: 'انخفاض الرغبة الجنسية مشكلة دائمة', reality: 'طبيعي ومؤقت بعد الولادة' },
-  { myth: 'الألم أثناء العلاقة يجب تحمله', reality: 'الألم المستمر يحتاج استشارة' },
-  { myth: 'الجفاف المهبلي مرض', reality: 'غالباً نتيجة تغيرات هرمونية بعد الولادة' }
+  { myth: 'ÙŠØ¬Ø¨ Ø§Ø³ØªØ¦Ù†Ø§Ù Ø§Ù„Ø¹Ù„Ø§Ù‚Ø© Ø¨Ø¹Ø¯ 40 ÙŠÙˆÙ…Ø§Ù‹ Ø¨Ø§Ù„Ø¶Ø¨Ø·', reality: 'Ù„Ø§ ÙŠÙˆØ¬Ø¯ ÙˆÙ‚Øª Ø¥Ù„Ø²Ø§Ù…ÙŠ ÙˆÙŠØ®ØªÙ„Ù Ø­Ø³Ø¨ ÙƒÙ„ Ø§Ù…Ø±Ø£Ø©' },
+  { myth: 'Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ø·Ø¨ÙŠØ¹ÙŠØ© ØªÙ…Ù†Ø¹ Ø§Ù„Ø­Ù…Ù„ %100', reality: 'ØªÙ‚Ù„Ù„ Ø§Ù„Ø­Ù…Ù„ Ù„ÙƒÙ†Ù‡Ø§ Ù„ÙŠØ³Øª ÙˆØ³ÙŠÙ„Ø© Ù…Ø¶Ù…ÙˆÙ†Ø©' },
+  { myth: 'Ø§Ù†Ø®ÙØ§Ø¶ Ø§Ù„Ø±ØºØ¨Ø© Ø§Ù„Ø¬Ù†Ø³ÙŠØ© Ù…Ø´ÙƒÙ„Ø© Ø¯Ø§Ø¦Ù…Ø©', reality: 'Ø·Ø¨ÙŠØ¹ÙŠ ÙˆÙ…Ø¤Ù‚Øª Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©' },
+  { myth: 'Ø§Ù„Ø£Ù„Ù… Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ø¹Ù„Ø§Ù‚Ø© ÙŠØ¬Ø¨ ØªØ­Ù…Ù„Ù‡', reality: 'Ø§Ù„Ø£Ù„Ù… Ø§Ù„Ù…Ø³ØªÙ…Ø± ÙŠØ­ØªØ§Ø¬ Ø§Ø³ØªØ´Ø§Ø±Ø©' },
+  { myth: 'Ø§Ù„Ø¬ÙØ§Ù Ø§Ù„Ù…Ù‡Ø¨Ù„ÙŠ Ù…Ø±Ø¶', reality: 'ØºØ§Ù„Ø¨Ø§Ù‹ Ù†ØªÙŠØ¬Ø© ØªØºÙŠØ±Ø§Øª Ù‡Ø±Ù…ÙˆÙ†ÙŠØ© Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©' }
 ];
 
 let sxCurrentTab = 'guide';
@@ -2171,7 +2171,7 @@ function renderSexuality() {
         <h2 class="text-headline-sm">${t('sx_title')}</h2>
         <p class="text-body-md text-variant">${t('sx_subtitle')}</p>
       </div>
-      <span style="font-size:36px;">❤️</span>
+      <span style="font-size:36px;">â¤ï¸</span>
     </div>
 
     <!-- Tabs -->
@@ -2230,7 +2230,7 @@ function renderSXMyths(container) {
           <div onclick="sxFlippedCards[${i}]=!sxFlippedCards[${i}];renderSexuality();" style="cursor:pointer;position:relative;min-height:120px;transition:transform 0.6s;transform-style:preserve-3d;${flipped?'transform:rotateY(180deg)':''}">
             <div style="position:${flipped?'absolute':'relative'};inset:0;backface-visibility:hidden;padding:var(--space-xl);border-radius:var(--radius-xl);background:linear-gradient(135deg,rgba(220,53,69,0.08),rgba(220,53,69,0.03));border:2px solid rgba(220,53,69,0.2);">
               <div class="flex items-center gap-sm mb-md">
-                <span style="font-size:20px;">❌</span>
+                <span style="font-size:20px;">âŒ</span>
                 <span class="text-label-lg" style="color:var(--error);text-transform:uppercase;">${t('bf_myth')}</span>
                 <span class="material-symbols-outlined text-variant" style="margin-inline-start:auto;font-size:18px;">touch_app</span>
               </div>
@@ -2238,7 +2238,7 @@ function renderSXMyths(container) {
             </div>
             <div style="position:absolute;inset:0;backface-visibility:hidden;transform:rotateY(180deg);padding:var(--space-xl);border-radius:var(--radius-xl);background:linear-gradient(135deg,rgba(40,167,69,0.08),rgba(40,167,69,0.03));border:2px solid rgba(40,167,69,0.2);">
               <div class="flex items-center gap-sm mb-md">
-                <span style="font-size:20px;">✅</span>
+                <span style="font-size:20px;">âœ…</span>
                 <span class="text-label-lg" style="color:#28a745;text-transform:uppercase;">${t('bf_reality')}</span>
               </div>
               <p class="text-body-lg text-semibold" style="line-height:1.6;">${m.reality}</p>
@@ -2259,7 +2259,7 @@ function renderSXConsult(container) {
       </div>
       <div class="card__body">
         <p class="text-body-md text-variant mb-lg">${t('sx_consult_intro')}</p>
-        ${['ألم شديد أو مستمر أثناء العلاقة','نزيف غير طبيعي بعد العلاقة','جفاف شديد لا يتحسن','فقدان مستمر للرغبة مع تأثير نفسي واضح','أعراض اكتئاب ما بعد الولادة'].map(s => `
+        ${['Ø£Ù„Ù… Ø´Ø¯ÙŠØ¯ Ø£Ùˆ Ù…Ø³ØªÙ…Ø± Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ø¹Ù„Ø§Ù‚Ø©','Ù†Ø²ÙŠÙ ØºÙŠØ± Ø·Ø¨ÙŠØ¹ÙŠ Ø¨Ø¹Ø¯ Ø§Ù„Ø¹Ù„Ø§Ù‚Ø©','Ø¬ÙØ§Ù Ø´Ø¯ÙŠØ¯ Ù„Ø§ ÙŠØªØ­Ø³Ù†','ÙÙ‚Ø¯Ø§Ù† Ù…Ø³ØªÙ…Ø± Ù„Ù„Ø±ØºØ¨Ø© Ù…Ø¹ ØªØ£Ø«ÙŠØ± Ù†ÙØ³ÙŠ ÙˆØ§Ø¶Ø­','Ø£Ø¹Ø±Ø§Ø¶ Ø§ÙƒØªØ¦Ø§Ø¨ Ù…Ø§ Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©'].map(s => `
           <div class="flex items-center gap-md mb-lg" style="padding:var(--space-md) var(--space-lg);background:rgba(186,26,26,0.04);border-radius:var(--radius-xl);border-right:3px solid var(--error);">
             <span class="material-symbols-outlined" style="color:var(--error);font-size:20px;">warning</span>
             <span class="text-body-md text-semibold">${s}</span>
@@ -2274,87 +2274,87 @@ function renderSXConsult(container) {
   `;
 }
 
-// ══════════════════════════════════════════════════════════════
-//  MODULE: NOUVEAU-NÉ (المولود الجديد)
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  MODULE: NOUVEAU-NÃ‰ (Ø§Ù„Ù…ÙˆÙ„ÙˆØ¯ Ø§Ù„Ø¬Ø¯ÙŠØ¯)
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 const nbChapters = [
   {
-    icon: 'vaccines', title: 'العناية بالحبل السري', color: 'var(--primary)',
+    icon: 'vaccines', title: 'Ø§Ù„Ø¹Ù†Ø§ÙŠØ© Ø¨Ø§Ù„Ø­Ø¨Ù„ Ø§Ù„Ø³Ø±ÙŠ', color: 'var(--primary)',
     content: `<div class="space-y-md" style="line-height:1.8;">
-      ${['الحفاظ على نظافة الحبل السري وجفافه','تنظيفه بالكحول الطبي أو الماء حسب توصية المختص','طي الحفاض أسفل الحبل السري','عدم شد الحبل أو محاولة إزالته','يسقط عادة خلال 7 إلى 21 يوماً'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined text-primary" style="font-size:16px;">check_circle</span><span>${s}</span></div>`).join('')}
+      ${['Ø§Ù„Ø­ÙØ§Ø¸ Ø¹Ù„Ù‰ Ù†Ø¸Ø§ÙØ© Ø§Ù„Ø­Ø¨Ù„ Ø§Ù„Ø³Ø±ÙŠ ÙˆØ¬ÙØ§ÙÙ‡','ØªÙ†Ø¸ÙŠÙÙ‡ Ø¨Ø§Ù„ÙƒØ­ÙˆÙ„ Ø§Ù„Ø·Ø¨ÙŠ Ø£Ùˆ Ø§Ù„Ù…Ø§Ø¡ Ø­Ø³Ø¨ ØªÙˆØµÙŠØ© Ø§Ù„Ù…Ø®ØªØµ','Ø·ÙŠ Ø§Ù„Ø­ÙØ§Ø¶ Ø£Ø³ÙÙ„ Ø§Ù„Ø­Ø¨Ù„ Ø§Ù„Ø³Ø±ÙŠ','Ø¹Ø¯Ù… Ø´Ø¯ Ø§Ù„Ø­Ø¨Ù„ Ø£Ùˆ Ù…Ø­Ø§ÙˆÙ„Ø© Ø¥Ø²Ø§Ù„ØªÙ‡','ÙŠØ³Ù‚Ø· Ø¹Ø§Ø¯Ø© Ø®Ù„Ø§Ù„ 7 Ø¥Ù„Ù‰ 21 ÙŠÙˆÙ…Ø§Ù‹'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined text-primary" style="font-size:16px;">check_circle</span><span>${s}</span></div>`).join('')}
       <div class="alert-banner alert-banner--warning mt-lg">
         <span class="material-symbols-outlined">warning</span>
-        <div><strong>استشيري الطبيب إذا ظهر:</strong> احمرار حول السرة، إفرازات ذات رائحة كريهة، نزيف، أو تأخر السقوط أكثر من 3 أسابيع.</div>
+        <div><strong>Ø§Ø³ØªØ´ÙŠØ±ÙŠ Ø§Ù„Ø·Ø¨ÙŠØ¨ Ø¥Ø°Ø§ Ø¸Ù‡Ø±:</strong> Ø§Ø­Ù…Ø±Ø§Ø± Ø­ÙˆÙ„ Ø§Ù„Ø³Ø±Ø©ØŒ Ø¥ÙØ±Ø§Ø²Ø§Øª Ø°Ø§Øª Ø±Ø§Ø¦Ø­Ø© ÙƒØ±ÙŠÙ‡Ø©ØŒ Ù†Ø²ÙŠÙØŒ Ø£Ùˆ ØªØ£Ø®Ø± Ø§Ù„Ø³Ù‚ÙˆØ· Ø£ÙƒØ«Ø± Ù…Ù† 3 Ø£Ø³Ø§Ø¨ÙŠØ¹.</div>
       </div>
     </div>`
   },
   {
-    icon: 'bathtub', title: 'حمام المولود', color: 'var(--secondary)',
+    icon: 'bathtub', title: 'Ø­Ù…Ø§Ù… Ø§Ù„Ù…ÙˆÙ„ÙˆØ¯', color: 'var(--secondary)',
     content: `<div class="space-y-md" style="line-height:1.8;">
-      <p style="font-weight:600;">🛁 متى وكيف؟</p>
-      ${['أول حمام بعد سقوط الحبل السري (أو حسب توصية المختص)','استخدام ماء دافئ (37°C تقريباً)','صابون لطيف مخصص للأطفال','مدة الحمام 5 إلى 10 دقائق','تجفيف الطفل فوراً بعد الحمام','الحمام 2-3 مرات أسبوعياً كافٍ'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="font-size:16px;color:var(--secondary);">check_circle</span><span>${s}</span></div>`).join('')}
+      <p style="font-weight:600;">ðŸ› Ù…ØªÙ‰ ÙˆÙƒÙŠÙØŸ</p>
+      ${['Ø£ÙˆÙ„ Ø­Ù…Ø§Ù… Ø¨Ø¹Ø¯ Ø³Ù‚ÙˆØ· Ø§Ù„Ø­Ø¨Ù„ Ø§Ù„Ø³Ø±ÙŠ (Ø£Ùˆ Ø­Ø³Ø¨ ØªÙˆØµÙŠØ© Ø§Ù„Ù…Ø®ØªØµ)','Ø§Ø³ØªØ®Ø¯Ø§Ù… Ù…Ø§Ø¡ Ø¯Ø§ÙØ¦ (37Â°C ØªÙ‚Ø±ÙŠØ¨Ø§Ù‹)','ØµØ§Ø¨ÙˆÙ† Ù„Ø·ÙŠÙ Ù…Ø®ØµØµ Ù„Ù„Ø£Ø·ÙØ§Ù„','Ù…Ø¯Ø© Ø§Ù„Ø­Ù…Ø§Ù… 5 Ø¥Ù„Ù‰ 10 Ø¯Ù‚Ø§Ø¦Ù‚','ØªØ¬ÙÙŠÙ Ø§Ù„Ø·ÙÙ„ ÙÙˆØ±Ø§Ù‹ Ø¨Ø¹Ø¯ Ø§Ù„Ø­Ù…Ø§Ù…','Ø§Ù„Ø­Ù…Ø§Ù… 2-3 Ù…Ø±Ø§Øª Ø£Ø³Ø¨ÙˆØ¹ÙŠØ§Ù‹ ÙƒØ§ÙÙ'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="font-size:16px;color:var(--secondary);">check_circle</span><span>${s}</span></div>`).join('')}
     </div>`
   },
   {
-    icon: 'wb_sunny', title: 'اليرقان (الصفراء)', color: '#daa520',
+    icon: 'wb_sunny', title: 'Ø§Ù„ÙŠØ±Ù‚Ø§Ù† (Ø§Ù„ØµÙØ±Ø§Ø¡)', color: '#daa520',
     content: `<div class="space-y-md" style="line-height:1.8;">
-      <p>اصفرار الجلد والعينين شائع في الأيام الأولى.</p>
-      <p style="font-weight:600;">الأنواع:</p>
+      <p>Ø§ØµÙØ±Ø§Ø± Ø§Ù„Ø¬Ù„Ø¯ ÙˆØ§Ù„Ø¹ÙŠÙ†ÙŠÙ† Ø´Ø§Ø¦Ø¹ ÙÙŠ Ø§Ù„Ø£ÙŠØ§Ù… Ø§Ù„Ø£ÙˆÙ„Ù‰.</p>
+      <p style="font-weight:600;">Ø§Ù„Ø£Ù†ÙˆØ§Ø¹:</p>
       <div style="padding:var(--space-md);background:rgba(218,165,32,0.08);border-radius:var(--radius-lg);border-right:3px solid #daa520;margin-bottom:8px;">
-        <strong>يرقان فسيولوجي:</strong> يظهر بعد 48 ساعة، طبيعي ويختفي خلال أسبوعين.
+        <strong>ÙŠØ±Ù‚Ø§Ù† ÙØ³ÙŠÙˆÙ„ÙˆØ¬ÙŠ:</strong> ÙŠØ¸Ù‡Ø± Ø¨Ø¹Ø¯ 48 Ø³Ø§Ø¹Ø©ØŒ Ø·Ø¨ÙŠØ¹ÙŠ ÙˆÙŠØ®ØªÙÙŠ Ø®Ù„Ø§Ù„ Ø£Ø³Ø¨ÙˆØ¹ÙŠÙ†.
       </div>
       <div style="padding:var(--space-md);background:rgba(186,26,26,0.05);border-radius:var(--radius-lg);border-right:3px solid var(--error);margin-bottom:8px;">
-        <strong>يرقان مرضي:</strong> يظهر خلال أول 24 ساعة أو يستمر أكثر من 14 يوماً — يتطلب متابعة طبية.
+        <strong>ÙŠØ±Ù‚Ø§Ù† Ù…Ø±Ø¶ÙŠ:</strong> ÙŠØ¸Ù‡Ø± Ø®Ù„Ø§Ù„ Ø£ÙˆÙ„ 24 Ø³Ø§Ø¹Ø© Ø£Ùˆ ÙŠØ³ØªÙ…Ø± Ø£ÙƒØ«Ø± Ù…Ù† 14 ÙŠÙˆÙ…Ø§Ù‹ â€” ÙŠØªØ·Ù„Ø¨ Ù…ØªØ§Ø¨Ø¹Ø© Ø·Ø¨ÙŠØ©.
       </div>
-      <p><strong>💡</strong> الرضاعة المتكررة تساعد على تقليل اليرقان.</p>
+      <p><strong>ðŸ’¡</strong> Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ù…ØªÙƒØ±Ø±Ø© ØªØ³Ø§Ø¹Ø¯ Ø¹Ù„Ù‰ ØªÙ‚Ù„ÙŠÙ„ Ø§Ù„ÙŠØ±Ù‚Ø§Ù†.</p>
     </div>`
   },
   {
-    icon: 'bedtime', title: 'نوم المولود', color: 'var(--tertiary)',
+    icon: 'bedtime', title: 'Ù†ÙˆÙ… Ø§Ù„Ù…ÙˆÙ„ÙˆØ¯', color: 'var(--tertiary)',
     content: `<div class="space-y-md" style="line-height:1.8;">
-      <p>ينام المولود 16 إلى 18 ساعة يومياً في فترات متقطعة.</p>
-      <p style="font-weight:600;">قواعد النوم الآمن:</p>
-      ${['وضع الطفل على ظهره دائماً','استخدام سطح نوم صلب ومسطح','عدم وضع وسائد أو ألعاب في السرير','الحفاظ على درجة حرارة الغرفة مناسبة (18-20°C)','عدم تغطية رأس الطفل أثناء النوم','إبقاء سرير الطفل في غرفة الوالدين خلال الأشهر الأولى'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="font-size:16px;color:var(--tertiary);">check_circle</span><span>${s}</span></div>`).join('')}
+      <p>ÙŠÙ†Ø§Ù… Ø§Ù„Ù…ÙˆÙ„ÙˆØ¯ 16 Ø¥Ù„Ù‰ 18 Ø³Ø§Ø¹Ø© ÙŠÙˆÙ…ÙŠØ§Ù‹ ÙÙŠ ÙØªØ±Ø§Øª Ù…ØªÙ‚Ø·Ø¹Ø©.</p>
+      <p style="font-weight:600;">Ù‚ÙˆØ§Ø¹Ø¯ Ø§Ù„Ù†ÙˆÙ… Ø§Ù„Ø¢Ù…Ù†:</p>
+      ${['ÙˆØ¶Ø¹ Ø§Ù„Ø·ÙÙ„ Ø¹Ù„Ù‰ Ø¸Ù‡Ø±Ù‡ Ø¯Ø§Ø¦Ù…Ø§Ù‹','Ø§Ø³ØªØ®Ø¯Ø§Ù… Ø³Ø·Ø­ Ù†ÙˆÙ… ØµÙ„Ø¨ ÙˆÙ…Ø³Ø·Ø­','Ø¹Ø¯Ù… ÙˆØ¶Ø¹ ÙˆØ³Ø§Ø¦Ø¯ Ø£Ùˆ Ø£Ù„Ø¹Ø§Ø¨ ÙÙŠ Ø§Ù„Ø³Ø±ÙŠØ±','Ø§Ù„Ø­ÙØ§Ø¸ Ø¹Ù„Ù‰ Ø¯Ø±Ø¬Ø© Ø­Ø±Ø§Ø±Ø© Ø§Ù„ØºØ±ÙØ© Ù…Ù†Ø§Ø³Ø¨Ø© (18-20Â°C)','Ø¹Ø¯Ù… ØªØºØ·ÙŠØ© Ø±Ø£Ø³ Ø§Ù„Ø·ÙÙ„ Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ù†ÙˆÙ…','Ø¥Ø¨Ù‚Ø§Ø¡ Ø³Ø±ÙŠØ± Ø§Ù„Ø·ÙÙ„ ÙÙŠ ØºØ±ÙØ© Ø§Ù„ÙˆØ§Ù„Ø¯ÙŠÙ† Ø®Ù„Ø§Ù„ Ø§Ù„Ø£Ø´Ù‡Ø± Ø§Ù„Ø£ÙˆÙ„Ù‰'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="font-size:16px;color:var(--tertiary);">check_circle</span><span>${s}</span></div>`).join('')}
     </div>`
   },
   {
-    icon: 'thermostat', title: 'درجة حرارة المولود', color: 'var(--primary)',
+    icon: 'thermostat', title: 'Ø¯Ø±Ø¬Ø© Ø­Ø±Ø§Ø±Ø© Ø§Ù„Ù…ÙˆÙ„ÙˆØ¯', color: 'var(--primary)',
     content: `<div class="space-y-md" style="line-height:1.8;">
-      <p>درجة الحرارة الطبيعية: <strong>36.5°C - 37.5°C</strong></p>
-      ${['قياس الحرارة من المستقيم أدق عند الرضع','ارتداء طبقة واحدة أكثر مما يرتديه البالغ','تجنب التعرض المباشر للشمس أو التيارات الهوائية'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined text-primary" style="font-size:16px;">check_circle</span><span>${s}</span></div>`).join('')}
+      <p>Ø¯Ø±Ø¬Ø© Ø§Ù„Ø­Ø±Ø§Ø±Ø© Ø§Ù„Ø·Ø¨ÙŠØ¹ÙŠØ©: <strong>36.5Â°C - 37.5Â°C</strong></p>
+      ${['Ù‚ÙŠØ§Ø³ Ø§Ù„Ø­Ø±Ø§Ø±Ø© Ù…Ù† Ø§Ù„Ù…Ø³ØªÙ‚ÙŠÙ… Ø£Ø¯Ù‚ Ø¹Ù†Ø¯ Ø§Ù„Ø±Ø¶Ø¹','Ø§Ø±ØªØ¯Ø§Ø¡ Ø·Ø¨Ù‚Ø© ÙˆØ§Ø­Ø¯Ø© Ø£ÙƒØ«Ø± Ù…Ù…Ø§ ÙŠØ±ØªØ¯ÙŠÙ‡ Ø§Ù„Ø¨Ø§Ù„Øº','ØªØ¬Ù†Ø¨ Ø§Ù„ØªØ¹Ø±Ø¶ Ø§Ù„Ù…Ø¨Ø§Ø´Ø± Ù„Ù„Ø´Ù…Ø³ Ø£Ùˆ Ø§Ù„ØªÙŠØ§Ø±Ø§Øª Ø§Ù„Ù‡ÙˆØ§Ø¦ÙŠØ©'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined text-primary" style="font-size:16px;">check_circle</span><span>${s}</span></div>`).join('')}
       <div class="alert-banner alert-banner--danger mt-md">
         <span class="material-symbols-outlined">emergency</span>
-        <div><strong>استشيري الطبيب فوراً إذا:</strong> حرارة > 38°C أو < 36°C.</div>
+        <div><strong>Ø§Ø³ØªØ´ÙŠØ±ÙŠ Ø§Ù„Ø·Ø¨ÙŠØ¨ ÙÙˆØ±Ø§Ù‹ Ø¥Ø°Ø§:</strong> Ø­Ø±Ø§Ø±Ø© > 38Â°C Ø£Ùˆ < 36Â°C.</div>
       </div>
     </div>`
   },
   {
-    icon: 'baby_changing_station', title: 'تغيير الحفاض والعناية بالبشرة', color: '#A3D9C8',
+    icon: 'baby_changing_station', title: 'ØªØºÙŠÙŠØ± Ø§Ù„Ø­ÙØ§Ø¶ ÙˆØ§Ù„Ø¹Ù†Ø§ÙŠØ© Ø¨Ø§Ù„Ø¨Ø´Ø±Ø©', color: '#A3D9C8',
     content: `<div class="space-y-md" style="line-height:1.8;">
-      ${['تغيير الحفاض فور اتساخه','تنظيف المنطقة بالماء الدافئ وقطن ناعم','التجفيف جيداً قبل وضع حفاض جديد','استخدام كريم واقي عند الحاجة','المسح من الأمام إلى الخلف (خاصة للبنات)','تجنب المناديل المعطرة'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="font-size:16px;color:#A3D9C8;">check_circle</span><span>${s}</span></div>`).join('')}
+      ${['ØªØºÙŠÙŠØ± Ø§Ù„Ø­ÙØ§Ø¶ ÙÙˆØ± Ø§ØªØ³Ø§Ø®Ù‡','ØªÙ†Ø¸ÙŠÙ Ø§Ù„Ù…Ù†Ø·Ù‚Ø© Ø¨Ø§Ù„Ù…Ø§Ø¡ Ø§Ù„Ø¯Ø§ÙØ¦ ÙˆÙ‚Ø·Ù† Ù†Ø§Ø¹Ù…','Ø§Ù„ØªØ¬ÙÙŠÙ Ø¬ÙŠØ¯Ø§Ù‹ Ù‚Ø¨Ù„ ÙˆØ¶Ø¹ Ø­ÙØ§Ø¶ Ø¬Ø¯ÙŠØ¯','Ø§Ø³ØªØ®Ø¯Ø§Ù… ÙƒØ±ÙŠÙ… ÙˆØ§Ù‚ÙŠ Ø¹Ù†Ø¯ Ø§Ù„Ø­Ø§Ø¬Ø©','Ø§Ù„Ù…Ø³Ø­ Ù…Ù† Ø§Ù„Ø£Ù…Ø§Ù… Ø¥Ù„Ù‰ Ø§Ù„Ø®Ù„Ù (Ø®Ø§ØµØ© Ù„Ù„Ø¨Ù†Ø§Øª)','ØªØ¬Ù†Ø¨ Ø§Ù„Ù…Ù†Ø§Ø¯ÙŠÙ„ Ø§Ù„Ù…Ø¹Ø·Ø±Ø©'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="font-size:16px;color:#A3D9C8;">check_circle</span><span>${s}</span></div>`).join('')}
     </div>`
   },
   {
-    icon: 'vaccines', title: 'التطعيمات', color: 'var(--primary)',
+    icon: 'vaccines', title: 'Ø§Ù„ØªØ·Ø¹ÙŠÙ…Ø§Øª', color: 'var(--primary)',
     content: `<div class="space-y-md" style="line-height:1.8;">
-      <p style="font-weight:600;">التطعيمات الأساسية في تونس:</p>
+      <p style="font-weight:600;">Ø§Ù„ØªØ·Ø¹ÙŠÙ…Ø§Øª Ø§Ù„Ø£Ø³Ø§Ø³ÙŠØ© ÙÙŠ ØªÙˆÙ†Ø³:</p>
       <table style="width:100%;border-collapse:collapse;font-size:13px;margin:12px 0;">
-        <tr style="background:var(--primary-container);"><th style="padding:10px;text-align:right;border-radius:8px 0 0 0;">العمر</th><th style="padding:10px;text-align:right;border-radius:0 8px 0 0;">التطعيم</th></tr>
-        <tr style="background:var(--surface-container-low);"><td style="padding:10px;">عند الولادة</td><td style="padding:10px;">BCG + التهاب الكبد B</td></tr>
-        <tr><td style="padding:10px;">شهران</td><td style="padding:10px;">DTC + شلل الأطفال + التهاب الكبد B</td></tr>
-        <tr style="background:var(--surface-container-low);"><td style="padding:10px;">3 أشهر</td><td style="padding:10px;">DTC + شلل الأطفال</td></tr>
-        <tr><td style="padding:10px;">6 أشهر</td><td style="padding:10px;">DTC + شلل الأطفال + التهاب الكبد B</td></tr>
-        <tr style="background:var(--surface-container-low);"><td style="padding:10px;">9 أشهر</td><td style="padding:10px;">الحصبة</td></tr>
+        <tr style="background:var(--primary-container);"><th style="padding:10px;text-align:right;border-radius:8px 0 0 0;">Ø§Ù„Ø¹Ù…Ø±</th><th style="padding:10px;text-align:right;border-radius:0 8px 0 0;">Ø§Ù„ØªØ·Ø¹ÙŠÙ…</th></tr>
+        <tr style="background:var(--surface-container-low);"><td style="padding:10px;">Ø¹Ù†Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©</td><td style="padding:10px;">BCG + Ø§Ù„ØªÙ‡Ø§Ø¨ Ø§Ù„ÙƒØ¨Ø¯ B</td></tr>
+        <tr><td style="padding:10px;">Ø´Ù‡Ø±Ø§Ù†</td><td style="padding:10px;">DTC + Ø´Ù„Ù„ Ø§Ù„Ø£Ø·ÙØ§Ù„ + Ø§Ù„ØªÙ‡Ø§Ø¨ Ø§Ù„ÙƒØ¨Ø¯ B</td></tr>
+        <tr style="background:var(--surface-container-low);"><td style="padding:10px;">3 Ø£Ø´Ù‡Ø±</td><td style="padding:10px;">DTC + Ø´Ù„Ù„ Ø§Ù„Ø£Ø·ÙØ§Ù„</td></tr>
+        <tr><td style="padding:10px;">6 Ø£Ø´Ù‡Ø±</td><td style="padding:10px;">DTC + Ø´Ù„Ù„ Ø§Ù„Ø£Ø·ÙØ§Ù„ + Ø§Ù„ØªÙ‡Ø§Ø¨ Ø§Ù„ÙƒØ¨Ø¯ B</td></tr>
+        <tr style="background:var(--surface-container-low);"><td style="padding:10px;">9 Ø£Ø´Ù‡Ø±</td><td style="padding:10px;">Ø§Ù„Ø­ØµØ¨Ø©</td></tr>
       </table>
-      <p><strong>💡</strong> احتفظي بدفتر التطعيمات وراجعي المواعيد مع الطبيب.</p>
+      <p><strong>ðŸ’¡</strong> Ø§Ø­ØªÙØ¸ÙŠ Ø¨Ø¯ÙØªØ± Ø§Ù„ØªØ·Ø¹ÙŠÙ…Ø§Øª ÙˆØ±Ø§Ø¬Ø¹ÙŠ Ø§Ù„Ù…ÙˆØ§Ø¹ÙŠØ¯ Ù…Ø¹ Ø§Ù„Ø·Ø¨ÙŠØ¨.</p>
     </div>`
   },
   {
-    icon: 'emergency', title: 'علامات الخطر عند المولود', color: 'var(--error)',
+    icon: 'emergency', title: 'Ø¹Ù„Ø§Ù…Ø§Øª Ø§Ù„Ø®Ø·Ø± Ø¹Ù†Ø¯ Ø§Ù„Ù…ÙˆÙ„ÙˆØ¯', color: 'var(--error)',
     content: `<div class="space-y-md" style="line-height:1.8;">
-      <p style="font-weight:600;color:var(--error);">🚨 اذهبي فوراً إلى الطبيب إذا ظهر أي مما يلي:</p>
-      ${['حرارة أكثر من 38°C أو أقل من 36°C','رفض الرضاعة لأكثر من رضعتين متتاليتين','صعوبة في التنفس أو تنفس سريع','ازرقاق الشفاه أو الأطراف','خمول شديد أو عدم الاستيقاظ','تشنجات','بكاء مستمر لا يتوقف','إسهال شديد أو قيء متكرر','انتفاخ البطن','إفرازات أو نزيف من السرة'].map(s => `<div class="flex items-center gap-md mb-md" style="padding:8px 12px;background:rgba(186,26,26,0.04);border-radius:var(--radius-lg);border-right:3px solid var(--error);">
+      <p style="font-weight:600;color:var(--error);">ðŸš¨ Ø§Ø°Ù‡Ø¨ÙŠ ÙÙˆØ±Ø§Ù‹ Ø¥Ù„Ù‰ Ø§Ù„Ø·Ø¨ÙŠØ¨ Ø¥Ø°Ø§ Ø¸Ù‡Ø± Ø£ÙŠ Ù…Ù…Ø§ ÙŠÙ„ÙŠ:</p>
+      ${['Ø­Ø±Ø§Ø±Ø© Ø£ÙƒØ«Ø± Ù…Ù† 38Â°C Ø£Ùˆ Ø£Ù‚Ù„ Ù…Ù† 36Â°C','Ø±ÙØ¶ Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ù„Ø£ÙƒØ«Ø± Ù…Ù† Ø±Ø¶Ø¹ØªÙŠÙ† Ù…ØªØªØ§Ù„ÙŠØªÙŠÙ†','ØµØ¹ÙˆØ¨Ø© ÙÙŠ Ø§Ù„ØªÙ†ÙØ³ Ø£Ùˆ ØªÙ†ÙØ³ Ø³Ø±ÙŠØ¹','Ø§Ø²Ø±Ù‚Ø§Ù‚ Ø§Ù„Ø´ÙØ§Ù‡ Ø£Ùˆ Ø§Ù„Ø£Ø·Ø±Ø§Ù','Ø®Ù…ÙˆÙ„ Ø´Ø¯ÙŠØ¯ Ø£Ùˆ Ø¹Ø¯Ù… Ø§Ù„Ø§Ø³ØªÙŠÙ‚Ø§Ø¸','ØªØ´Ù†Ø¬Ø§Øª','Ø¨ÙƒØ§Ø¡ Ù…Ø³ØªÙ…Ø± Ù„Ø§ ÙŠØªÙˆÙ‚Ù','Ø¥Ø³Ù‡Ø§Ù„ Ø´Ø¯ÙŠØ¯ Ø£Ùˆ Ù‚ÙŠØ¡ Ù…ØªÙƒØ±Ø±','Ø§Ù†ØªÙØ§Ø® Ø§Ù„Ø¨Ø·Ù†','Ø¥ÙØ±Ø§Ø²Ø§Øª Ø£Ùˆ Ù†Ø²ÙŠÙ Ù…Ù† Ø§Ù„Ø³Ø±Ø©'].map(s => `<div class="flex items-center gap-md mb-md" style="padding:8px 12px;background:rgba(186,26,26,0.04);border-radius:var(--radius-lg);border-right:3px solid var(--error);">
           <span class="material-symbols-outlined" style="color:var(--error);font-size:18px;">warning</span><span class="text-semibold">${s}</span></div>`).join('')}
     </div>`
   }
@@ -2365,16 +2365,16 @@ let nbCurrentTab = 'guide';
 let nbFlippedCards = {};
 
 const nbMyths = [
-  { myth: 'يجب إعطاء الماء للرضيع قبل 6 أشهر', reality: 'حليب الأم وحده يكفي خلال الأشهر الستة الأولى' },
-  { myth: 'صغر حجم الثدي يعني قلة الحليب', reality: 'حجم الثدي لا يحدد كمية الحليب المنتجة' },
-  { myth: 'كل بكاء يعني أن الطفل جائع', reality: 'قد يكون البكاء بسبب التعب أو المغص أو الحاجة للاحتضان' },
-  { myth: 'يجب إرضاع الطفل كل 3 ساعات فقط', reality: 'الرضاعة تكون حسب طلب الطفل' },
-  { myth: 'مرض الأم يعني التوقف عن الرضاعة', reality: 'غالباً يمكن الاستمرار بالرضاعة بعد استشارة المختص' },
-  { myth: 'الحليب الصناعي أفضل من حليب الأم', reality: 'حليب الأم هو الغذاء الأمثل للرضيع' },
-  { myth: 'التوتر يفسد الحليب', reality: 'التوتر قد يؤثر مؤقتاً على تدفق الحليب لكنه لا يفسده' },
-  { myth: 'الأم المرضعة يجب أن تأكل لشخصين', reality: 'الجودة الغذائية أهم من الكمية' },
-  { myth: 'الرضاعة المتكررة تعني أن الحليب غير كافٍ', reality: 'الرضاعة المتكررة طبيعية خاصة خلال فترات النمو السريع' },
-  { myth: 'يجب إيقاف الرضاعة عند ظهور الأسنان', reality: 'يمكن مواصلة الرضاعة حتى عمر سنتين أو أكثر' }
+  { myth: 'ÙŠØ¬Ø¨ Ø¥Ø¹Ø·Ø§Ø¡ Ø§Ù„Ù…Ø§Ø¡ Ù„Ù„Ø±Ø¶ÙŠØ¹ Ù‚Ø¨Ù„ 6 Ø£Ø´Ù‡Ø±', reality: 'Ø­Ù„ÙŠØ¨ Ø§Ù„Ø£Ù… ÙˆØ­Ø¯Ù‡ ÙŠÙƒÙÙŠ Ø®Ù„Ø§Ù„ Ø§Ù„Ø£Ø´Ù‡Ø± Ø§Ù„Ø³ØªØ© Ø§Ù„Ø£ÙˆÙ„Ù‰' },
+  { myth: 'ØµØºØ± Ø­Ø¬Ù… Ø§Ù„Ø«Ø¯ÙŠ ÙŠØ¹Ù†ÙŠ Ù‚Ù„Ø© Ø§Ù„Ø­Ù„ÙŠØ¨', reality: 'Ø­Ø¬Ù… Ø§Ù„Ø«Ø¯ÙŠ Ù„Ø§ ÙŠØ­Ø¯Ø¯ ÙƒÙ…ÙŠØ© Ø§Ù„Ø­Ù„ÙŠØ¨ Ø§Ù„Ù…Ù†ØªØ¬Ø©' },
+  { myth: 'ÙƒÙ„ Ø¨ÙƒØ§Ø¡ ÙŠØ¹Ù†ÙŠ Ø£Ù† Ø§Ù„Ø·ÙÙ„ Ø¬Ø§Ø¦Ø¹', reality: 'Ù‚Ø¯ ÙŠÙƒÙˆÙ† Ø§Ù„Ø¨ÙƒØ§Ø¡ Ø¨Ø³Ø¨Ø¨ Ø§Ù„ØªØ¹Ø¨ Ø£Ùˆ Ø§Ù„Ù…ØºØµ Ø£Ùˆ Ø§Ù„Ø­Ø§Ø¬Ø© Ù„Ù„Ø§Ø­ØªØ¶Ø§Ù†' },
+  { myth: 'ÙŠØ¬Ø¨ Ø¥Ø±Ø¶Ø§Ø¹ Ø§Ù„Ø·ÙÙ„ ÙƒÙ„ 3 Ø³Ø§Ø¹Ø§Øª ÙÙ‚Ø·', reality: 'Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© ØªÙƒÙˆÙ† Ø­Ø³Ø¨ Ø·Ù„Ø¨ Ø§Ù„Ø·ÙÙ„' },
+  { myth: 'Ù…Ø±Ø¶ Ø§Ù„Ø£Ù… ÙŠØ¹Ù†ÙŠ Ø§Ù„ØªÙˆÙ‚Ù Ø¹Ù† Ø§Ù„Ø±Ø¶Ø§Ø¹Ø©', reality: 'ØºØ§Ù„Ø¨Ø§Ù‹ ÙŠÙ…ÙƒÙ† Ø§Ù„Ø§Ø³ØªÙ…Ø±Ø§Ø± Ø¨Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø¨Ø¹Ø¯ Ø§Ø³ØªØ´Ø§Ø±Ø© Ø§Ù„Ù…Ø®ØªØµ' },
+  { myth: 'Ø§Ù„Ø­Ù„ÙŠØ¨ Ø§Ù„ØµÙ†Ø§Ø¹ÙŠ Ø£ÙØ¶Ù„ Ù…Ù† Ø­Ù„ÙŠØ¨ Ø§Ù„Ø£Ù…', reality: 'Ø­Ù„ÙŠØ¨ Ø§Ù„Ø£Ù… Ù‡Ùˆ Ø§Ù„ØºØ°Ø§Ø¡ Ø§Ù„Ø£Ù…Ø«Ù„ Ù„Ù„Ø±Ø¶ÙŠØ¹' },
+  { myth: 'Ø§Ù„ØªÙˆØªØ± ÙŠÙØ³Ø¯ Ø§Ù„Ø­Ù„ÙŠØ¨', reality: 'Ø§Ù„ØªÙˆØªØ± Ù‚Ø¯ ÙŠØ¤Ø«Ø± Ù…Ø¤Ù‚ØªØ§Ù‹ Ø¹Ù„Ù‰ ØªØ¯ÙÙ‚ Ø§Ù„Ø­Ù„ÙŠØ¨ Ù„ÙƒÙ†Ù‡ Ù„Ø§ ÙŠÙØ³Ø¯Ù‡' },
+  { myth: 'Ø§Ù„Ø£Ù… Ø§Ù„Ù…Ø±Ø¶Ø¹Ø© ÙŠØ¬Ø¨ Ø£Ù† ØªØ£ÙƒÙ„ Ù„Ø´Ø®ØµÙŠÙ†', reality: 'Ø§Ù„Ø¬ÙˆØ¯Ø© Ø§Ù„ØºØ°Ø§Ø¦ÙŠØ© Ø£Ù‡Ù… Ù…Ù† Ø§Ù„ÙƒÙ…ÙŠØ©' },
+  { myth: 'Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ù…ØªÙƒØ±Ø±Ø© ØªØ¹Ù†ÙŠ Ø£Ù† Ø§Ù„Ø­Ù„ÙŠØ¨ ØºÙŠØ± ÙƒØ§ÙÙ', reality: 'Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ù…ØªÙƒØ±Ø±Ø© Ø·Ø¨ÙŠØ¹ÙŠØ© Ø®Ø§ØµØ© Ø®Ù„Ø§Ù„ ÙØªØ±Ø§Øª Ø§Ù„Ù†Ù…Ùˆ Ø§Ù„Ø³Ø±ÙŠØ¹' },
+  { myth: 'ÙŠØ¬Ø¨ Ø¥ÙŠÙ‚Ø§Ù Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø¹Ù†Ø¯ Ø¸Ù‡ÙˆØ± Ø§Ù„Ø£Ø³Ù†Ø§Ù†', reality: 'ÙŠÙ…ÙƒÙ† Ù…ÙˆØ§ØµÙ„Ø© Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø­ØªÙ‰ Ø¹Ù…Ø± Ø³Ù†ØªÙŠÙ† Ø£Ùˆ Ø£ÙƒØ«Ø±' }
 ];
 
 function renderNewborn() {
@@ -2387,7 +2387,7 @@ function renderNewborn() {
         <h2 class="text-headline-sm">${t('nb_title')}</h2>
         <p class="text-body-md text-variant">${t('nb_subtitle')}</p>
       </div>
-      <span style="font-size:36px;">👶</span>
+      <span style="font-size:36px;">ðŸ‘¶</span>
     </div>
     <div style="display:flex;gap:6px;margin-bottom:var(--space-xl);background:var(--surface-container-low);border-radius:var(--radius-xl);padding:4px;">
       <button onclick="nbCurrentTab='guide';renderNewborn();" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 8px;border:none;border-radius:var(--radius-lg);cursor:pointer;font-family:inherit;font-size:12px;font-weight:600;transition:all 0.2s;${nbCurrentTab==='guide'?'background:var(--tertiary);color:white;box-shadow:0 2px 8px rgba(67,97,127,0.3);':'background:transparent;color:var(--on-surface-variant);'}">
@@ -2417,11 +2417,11 @@ function renderNewborn() {
       return `<div class="reveal" style="animation-delay:${i*0.04}s;perspective:600px;">
         <div onclick="nbFlippedCards[${i}]=!nbFlippedCards[${i}];renderNewborn();" style="cursor:pointer;position:relative;min-height:120px;transition:transform 0.6s;transform-style:preserve-3d;${fl?'transform:rotateY(180deg)':''}">
           <div style="position:${fl?'absolute':'relative'};inset:0;backface-visibility:hidden;padding:var(--space-xl);border-radius:var(--radius-xl);background:linear-gradient(135deg,rgba(220,53,69,0.08),rgba(220,53,69,0.03));border:2px solid rgba(220,53,69,0.2);">
-            <div class="flex items-center gap-sm mb-md"><span style="font-size:20px;">❌</span><span class="text-label-lg" style="color:var(--error);">${t('bf_myth')}</span><span class="material-symbols-outlined text-variant" style="margin-inline-start:auto;font-size:18px;">touch_app</span></div>
+            <div class="flex items-center gap-sm mb-md"><span style="font-size:20px;">âŒ</span><span class="text-label-lg" style="color:var(--error);">${t('bf_myth')}</span><span class="material-symbols-outlined text-variant" style="margin-inline-start:auto;font-size:18px;">touch_app</span></div>
             <p class="text-body-lg text-semibold" style="line-height:1.6;">${m.myth}</p>
           </div>
           <div style="position:absolute;inset:0;backface-visibility:hidden;transform:rotateY(180deg);padding:var(--space-xl);border-radius:var(--radius-xl);background:linear-gradient(135deg,rgba(40,167,69,0.08),rgba(40,167,69,0.03));border:2px solid rgba(40,167,69,0.2);">
-            <div class="flex items-center gap-sm mb-md"><span style="font-size:20px;">✅</span><span class="text-label-lg" style="color:#28a745;">${t('bf_reality')}</span></div>
+            <div class="flex items-center gap-sm mb-md"><span style="font-size:20px;">âœ…</span><span class="text-label-lg" style="color:#28a745;">${t('bf_reality')}</span></div>
             <p class="text-body-lg text-semibold" style="line-height:1.6;">${m.reality}</p>
           </div>
         </div>
@@ -2431,34 +2431,34 @@ function renderNewborn() {
   setTimeout(() => initReveal(), 50);
 }
 
-// ══════════════════════════════════════════════════════════════
-//  MODULE: MYTHES ET RÉALITÉS (خرافات وحقائق)
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  MODULE: MYTHES ET RÃ‰ALITÃ‰S (Ø®Ø±Ø§ÙØ§Øª ÙˆØ­Ù‚Ø§Ø¦Ù‚)
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 const allMyths = [
   // Allaitement
-  { cat: 'breastfeeding', myth: 'يجب إعطاء الماء للرضيع قبل 6 أشهر', reality: 'حليب الأم وحده يكفي خلال الأشهر الستة الأولى' },
-  { cat: 'breastfeeding', myth: 'صغر حجم الثدي يعني قلة الحليب', reality: 'حجم الثدي لا يحدد كمية الحليب المنتجة' },
-  { cat: 'breastfeeding', myth: 'كل بكاء يعني أن الطفل جائع', reality: 'قد يكون البكاء بسبب التعب أو المغص أو الحاجة للاحتضان' },
-  { cat: 'breastfeeding', myth: 'يجب إرضاع الطفل كل 3 ساعات فقط', reality: 'الرضاعة تكون حسب طلب الطفل' },
-  { cat: 'breastfeeding', myth: 'مرض الأم يعني التوقف عن الرضاعة', reality: 'غالباً يمكن الاستمرار بالرضاعة بعد استشارة المختص' },
-  { cat: 'breastfeeding', myth: 'الحليب الصناعي أفضل من حليب الأم', reality: 'حليب الأم هو الغذاء الأمثل للرضيع' },
-  { cat: 'breastfeeding', myth: 'التوتر يفسد الحليب', reality: 'التوتر قد يؤثر مؤقتاً على تدفق الحليب لكنه لا يفسده' },
-  { cat: 'breastfeeding', myth: 'الأم المرضعة يجب أن تأكل لشخصين', reality: 'الجودة الغذائية أهم من الكمية' },
-  { cat: 'breastfeeding', myth: 'الرضاعة المتكررة تعني أن الحليب غير كافٍ', reality: 'الرضاعة المتكررة طبيعية خاصة خلال فترات النمو السريع' },
-  { cat: 'breastfeeding', myth: 'يجب إيقاف الرضاعة عند ظهور الأسنان', reality: 'يمكن مواصلة الرضاعة حتى عمر سنتين أو أكثر' },
-  // Sexualité
-  { cat: 'sexuality', myth: 'يجب استئناف العلاقة بعد 40 يوماً بالضبط', reality: 'لا يوجد وقت إلزامي ويختلف حسب كل امرأة' },
-  { cat: 'sexuality', myth: 'الرضاعة الطبيعية تمنع الحمل %100', reality: 'تقلل الحمل لكنها ليست وسيلة مضمونة' },
-  { cat: 'sexuality', myth: 'انخفاض الرغبة الجنسية مشكلة دائمة', reality: 'طبيعي ومؤقت بعد الولادة' },
-  { cat: 'sexuality', myth: 'الألم أثناء العلاقة يجب تحمله', reality: 'الألم المستمر يحتاج استشارة' },
-  { cat: 'sexuality', myth: 'الجفاف المهبلي مرض', reality: 'غالباً نتيجة تغيرات هرمونية بعد الولادة' },
-  // Nouveau-né
-  { cat: 'newborn', myth: 'يجب لف المولود بإحكام شديد (القماط)', reality: 'اللف اللطيف مفيد لكن الشد المفرط يضر بالمفاصل' },
-  { cat: 'newborn', myth: 'المولود لا يسمع ولا يرى', reality: 'يسمع الأصوات ويرى على مسافة 20-30 سم' },
-  { cat: 'newborn', myth: 'البكاء الكثير يدل على مشكلة صحية دائماً', reality: 'البكاء هو وسيلة التواصل الوحيدة للمولود وغالباً طبيعي' },
-  { cat: 'newborn', myth: 'يجب وضع كحل في عيني المولود', reality: 'الكحل قد يحتوي على مواد سامة ولا ينصح به طبياً' },
-  { cat: 'newborn', myth: 'المولود يحتاج ماء إضافي في الصيف', reality: 'حليب الأم يكفي حتى في الحر خلال الأشهر الستة الأولى' }
+  { cat: 'breastfeeding', myth: 'ÙŠØ¬Ø¨ Ø¥Ø¹Ø·Ø§Ø¡ Ø§Ù„Ù…Ø§Ø¡ Ù„Ù„Ø±Ø¶ÙŠØ¹ Ù‚Ø¨Ù„ 6 Ø£Ø´Ù‡Ø±', reality: 'Ø­Ù„ÙŠØ¨ Ø§Ù„Ø£Ù… ÙˆØ­Ø¯Ù‡ ÙŠÙƒÙÙŠ Ø®Ù„Ø§Ù„ Ø§Ù„Ø£Ø´Ù‡Ø± Ø§Ù„Ø³ØªØ© Ø§Ù„Ø£ÙˆÙ„Ù‰' },
+  { cat: 'breastfeeding', myth: 'ØµØºØ± Ø­Ø¬Ù… Ø§Ù„Ø«Ø¯ÙŠ ÙŠØ¹Ù†ÙŠ Ù‚Ù„Ø© Ø§Ù„Ø­Ù„ÙŠØ¨', reality: 'Ø­Ø¬Ù… Ø§Ù„Ø«Ø¯ÙŠ Ù„Ø§ ÙŠØ­Ø¯Ø¯ ÙƒÙ…ÙŠØ© Ø§Ù„Ø­Ù„ÙŠØ¨ Ø§Ù„Ù…Ù†ØªØ¬Ø©' },
+  { cat: 'breastfeeding', myth: 'ÙƒÙ„ Ø¨ÙƒØ§Ø¡ ÙŠØ¹Ù†ÙŠ Ø£Ù† Ø§Ù„Ø·ÙÙ„ Ø¬Ø§Ø¦Ø¹', reality: 'Ù‚Ø¯ ÙŠÙƒÙˆÙ† Ø§Ù„Ø¨ÙƒØ§Ø¡ Ø¨Ø³Ø¨Ø¨ Ø§Ù„ØªØ¹Ø¨ Ø£Ùˆ Ø§Ù„Ù…ØºØµ Ø£Ùˆ Ø§Ù„Ø­Ø§Ø¬Ø© Ù„Ù„Ø§Ø­ØªØ¶Ø§Ù†' },
+  { cat: 'breastfeeding', myth: 'ÙŠØ¬Ø¨ Ø¥Ø±Ø¶Ø§Ø¹ Ø§Ù„Ø·ÙÙ„ ÙƒÙ„ 3 Ø³Ø§Ø¹Ø§Øª ÙÙ‚Ø·', reality: 'Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© ØªÙƒÙˆÙ† Ø­Ø³Ø¨ Ø·Ù„Ø¨ Ø§Ù„Ø·ÙÙ„' },
+  { cat: 'breastfeeding', myth: 'Ù…Ø±Ø¶ Ø§Ù„Ø£Ù… ÙŠØ¹Ù†ÙŠ Ø§Ù„ØªÙˆÙ‚Ù Ø¹Ù† Ø§Ù„Ø±Ø¶Ø§Ø¹Ø©', reality: 'ØºØ§Ù„Ø¨Ø§Ù‹ ÙŠÙ…ÙƒÙ† Ø§Ù„Ø§Ø³ØªÙ…Ø±Ø§Ø± Ø¨Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø¨Ø¹Ø¯ Ø§Ø³ØªØ´Ø§Ø±Ø© Ø§Ù„Ù…Ø®ØªØµ' },
+  { cat: 'breastfeeding', myth: 'Ø§Ù„Ø­Ù„ÙŠØ¨ Ø§Ù„ØµÙ†Ø§Ø¹ÙŠ Ø£ÙØ¶Ù„ Ù…Ù† Ø­Ù„ÙŠØ¨ Ø§Ù„Ø£Ù…', reality: 'Ø­Ù„ÙŠØ¨ Ø§Ù„Ø£Ù… Ù‡Ùˆ Ø§Ù„ØºØ°Ø§Ø¡ Ø§Ù„Ø£Ù…Ø«Ù„ Ù„Ù„Ø±Ø¶ÙŠØ¹' },
+  { cat: 'breastfeeding', myth: 'Ø§Ù„ØªÙˆØªØ± ÙŠÙØ³Ø¯ Ø§Ù„Ø­Ù„ÙŠØ¨', reality: 'Ø§Ù„ØªÙˆØªØ± Ù‚Ø¯ ÙŠØ¤Ø«Ø± Ù…Ø¤Ù‚ØªØ§Ù‹ Ø¹Ù„Ù‰ ØªØ¯ÙÙ‚ Ø§Ù„Ø­Ù„ÙŠØ¨ Ù„ÙƒÙ†Ù‡ Ù„Ø§ ÙŠÙØ³Ø¯Ù‡' },
+  { cat: 'breastfeeding', myth: 'Ø§Ù„Ø£Ù… Ø§Ù„Ù…Ø±Ø¶Ø¹Ø© ÙŠØ¬Ø¨ Ø£Ù† ØªØ£ÙƒÙ„ Ù„Ø´Ø®ØµÙŠÙ†', reality: 'Ø§Ù„Ø¬ÙˆØ¯Ø© Ø§Ù„ØºØ°Ø§Ø¦ÙŠØ© Ø£Ù‡Ù… Ù…Ù† Ø§Ù„ÙƒÙ…ÙŠØ©' },
+  { cat: 'breastfeeding', myth: 'Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ù…ØªÙƒØ±Ø±Ø© ØªØ¹Ù†ÙŠ Ø£Ù† Ø§Ù„Ø­Ù„ÙŠØ¨ ØºÙŠØ± ÙƒØ§ÙÙ', reality: 'Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ù…ØªÙƒØ±Ø±Ø© Ø·Ø¨ÙŠØ¹ÙŠØ© Ø®Ø§ØµØ© Ø®Ù„Ø§Ù„ ÙØªØ±Ø§Øª Ø§Ù„Ù†Ù…Ùˆ Ø§Ù„Ø³Ø±ÙŠØ¹' },
+  { cat: 'breastfeeding', myth: 'ÙŠØ¬Ø¨ Ø¥ÙŠÙ‚Ø§Ù Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø¹Ù†Ø¯ Ø¸Ù‡ÙˆØ± Ø§Ù„Ø£Ø³Ù†Ø§Ù†', reality: 'ÙŠÙ…ÙƒÙ† Ù…ÙˆØ§ØµÙ„Ø© Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø­ØªÙ‰ Ø¹Ù…Ø± Ø³Ù†ØªÙŠÙ† Ø£Ùˆ Ø£ÙƒØ«Ø±' },
+  // SexualitÃ©
+  { cat: 'sexuality', myth: 'ÙŠØ¬Ø¨ Ø§Ø³ØªØ¦Ù†Ø§Ù Ø§Ù„Ø¹Ù„Ø§Ù‚Ø© Ø¨Ø¹Ø¯ 40 ÙŠÙˆÙ…Ø§Ù‹ Ø¨Ø§Ù„Ø¶Ø¨Ø·', reality: 'Ù„Ø§ ÙŠÙˆØ¬Ø¯ ÙˆÙ‚Øª Ø¥Ù„Ø²Ø§Ù…ÙŠ ÙˆÙŠØ®ØªÙ„Ù Ø­Ø³Ø¨ ÙƒÙ„ Ø§Ù…Ø±Ø£Ø©' },
+  { cat: 'sexuality', myth: 'Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ø·Ø¨ÙŠØ¹ÙŠØ© ØªÙ…Ù†Ø¹ Ø§Ù„Ø­Ù…Ù„ %100', reality: 'ØªÙ‚Ù„Ù„ Ø§Ù„Ø­Ù…Ù„ Ù„ÙƒÙ†Ù‡Ø§ Ù„ÙŠØ³Øª ÙˆØ³ÙŠÙ„Ø© Ù…Ø¶Ù…ÙˆÙ†Ø©' },
+  { cat: 'sexuality', myth: 'Ø§Ù†Ø®ÙØ§Ø¶ Ø§Ù„Ø±ØºØ¨Ø© Ø§Ù„Ø¬Ù†Ø³ÙŠØ© Ù…Ø´ÙƒÙ„Ø© Ø¯Ø§Ø¦Ù…Ø©', reality: 'Ø·Ø¨ÙŠØ¹ÙŠ ÙˆÙ…Ø¤Ù‚Øª Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©' },
+  { cat: 'sexuality', myth: 'Ø§Ù„Ø£Ù„Ù… Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ø¹Ù„Ø§Ù‚Ø© ÙŠØ¬Ø¨ ØªØ­Ù…Ù„Ù‡', reality: 'Ø§Ù„Ø£Ù„Ù… Ø§Ù„Ù…Ø³ØªÙ…Ø± ÙŠØ­ØªØ§Ø¬ Ø§Ø³ØªØ´Ø§Ø±Ø©' },
+  { cat: 'sexuality', myth: 'Ø§Ù„Ø¬ÙØ§Ù Ø§Ù„Ù…Ù‡Ø¨Ù„ÙŠ Ù…Ø±Ø¶', reality: 'ØºØ§Ù„Ø¨Ø§Ù‹ Ù†ØªÙŠØ¬Ø© ØªØºÙŠØ±Ø§Øª Ù‡Ø±Ù…ÙˆÙ†ÙŠØ© Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©' },
+  // Nouveau-nÃ©
+  { cat: 'newborn', myth: 'ÙŠØ¬Ø¨ Ù„Ù Ø§Ù„Ù…ÙˆÙ„ÙˆØ¯ Ø¨Ø¥Ø­ÙƒØ§Ù… Ø´Ø¯ÙŠØ¯ (Ø§Ù„Ù‚Ù…Ø§Ø·)', reality: 'Ø§Ù„Ù„Ù Ø§Ù„Ù„Ø·ÙŠÙ Ù…ÙÙŠØ¯ Ù„ÙƒÙ† Ø§Ù„Ø´Ø¯ Ø§Ù„Ù…ÙØ±Ø· ÙŠØ¶Ø± Ø¨Ø§Ù„Ù…ÙØ§ØµÙ„' },
+  { cat: 'newborn', myth: 'Ø§Ù„Ù…ÙˆÙ„ÙˆØ¯ Ù„Ø§ ÙŠØ³Ù…Ø¹ ÙˆÙ„Ø§ ÙŠØ±Ù‰', reality: 'ÙŠØ³Ù…Ø¹ Ø§Ù„Ø£ØµÙˆØ§Øª ÙˆÙŠØ±Ù‰ Ø¹Ù„Ù‰ Ù…Ø³Ø§ÙØ© 20-30 Ø³Ù…' },
+  { cat: 'newborn', myth: 'Ø§Ù„Ø¨ÙƒØ§Ø¡ Ø§Ù„ÙƒØ«ÙŠØ± ÙŠØ¯Ù„ Ø¹Ù„Ù‰ Ù…Ø´ÙƒÙ„Ø© ØµØ­ÙŠØ© Ø¯Ø§Ø¦Ù…Ø§Ù‹', reality: 'Ø§Ù„Ø¨ÙƒØ§Ø¡ Ù‡Ùˆ ÙˆØ³ÙŠÙ„Ø© Ø§Ù„ØªÙˆØ§ØµÙ„ Ø§Ù„ÙˆØ­ÙŠØ¯Ø© Ù„Ù„Ù…ÙˆÙ„ÙˆØ¯ ÙˆØºØ§Ù„Ø¨Ø§Ù‹ Ø·Ø¨ÙŠØ¹ÙŠ' },
+  { cat: 'newborn', myth: 'ÙŠØ¬Ø¨ ÙˆØ¶Ø¹ ÙƒØ­Ù„ ÙÙŠ Ø¹ÙŠÙ†ÙŠ Ø§Ù„Ù…ÙˆÙ„ÙˆØ¯', reality: 'Ø§Ù„ÙƒØ­Ù„ Ù‚Ø¯ ÙŠØ­ØªÙˆÙŠ Ø¹Ù„Ù‰ Ù…ÙˆØ§Ø¯ Ø³Ø§Ù…Ø© ÙˆÙ„Ø§ ÙŠÙ†ØµØ­ Ø¨Ù‡ Ø·Ø¨ÙŠØ§Ù‹' },
+  { cat: 'newborn', myth: 'Ø§Ù„Ù…ÙˆÙ„ÙˆØ¯ ÙŠØ­ØªØ§Ø¬ Ù…Ø§Ø¡ Ø¥Ø¶Ø§ÙÙŠ ÙÙŠ Ø§Ù„ØµÙŠÙ', reality: 'Ø­Ù„ÙŠØ¨ Ø§Ù„Ø£Ù… ÙŠÙƒÙÙŠ Ø­ØªÙ‰ ÙÙŠ Ø§Ù„Ø­Ø± Ø®Ù„Ø§Ù„ Ø§Ù„Ø£Ø´Ù‡Ø± Ø§Ù„Ø³ØªØ© Ø§Ù„Ø£ÙˆÙ„Ù‰' }
 ];
 
 let myFlippedCards = {};
@@ -2477,16 +2477,16 @@ function renderMyths() {
         <h2 class="text-headline-sm">${t('my_title')}</h2>
         <p class="text-body-md text-variant">${t('my_subtitle')}</p>
       </div>
-      <span style="font-size:36px;">🧠</span>
+      <span style="font-size:36px;">ðŸ§ </span>
     </div>
 
     <!-- Filters -->
     <div class="chips-scroll mb-xl">
       ${[
         { id: 'all', label: t('sf_all'), count: allMyths.length },
-        { id: 'breastfeeding', label: '🤱 ${t("bf_title")}', count: allMyths.filter(m=>m.cat==='breastfeeding').length },
-        { id: 'sexuality', label: '❤️ ${t("sx_title")}', count: allMyths.filter(m=>m.cat==='sexuality').length },
-        { id: 'newborn', label: '👶 ${t("nb_title")}', count: allMyths.filter(m=>m.cat==='newborn').length }
+        { id: 'breastfeeding', label: 'ðŸ¤± ${t("bf_title")}', count: allMyths.filter(m=>m.cat==='breastfeeding').length },
+        { id: 'sexuality', label: 'â¤ï¸ ${t("sx_title")}', count: allMyths.filter(m=>m.cat==='sexuality').length },
+        { id: 'newborn', label: 'ðŸ‘¶ ${t("nb_title")}', count: allMyths.filter(m=>m.cat==='newborn').length }
       ].map(f => `
         <button class="chip chip--tonal ${myFilterCat===f.id?'active':''}" onclick="myFilterCat='${f.id}';myFlippedCards={};renderMyths();">
           ${f.label} <span style="opacity:0.7;font-size:11px;">(${f.count})</span>
@@ -2494,18 +2494,18 @@ function renderMyths() {
       `).join('')}
     </div>
 
-    <p class="text-body-md text-variant mb-xl reveal"><span style="font-size:16px;">👆</span> ${t('my_tap_hint')}</p>
+    <p class="text-body-md text-variant mb-xl reveal"><span style="font-size:16px;">ðŸ‘†</span> ${t('my_tap_hint')}</p>
 
     <div class="space-y-lg">
       ${filtered.map((m, i) => {
         const flipped = myFlippedCards[i];
-        const catIcon = m.cat === 'breastfeeding' ? '🤱' : m.cat === 'sexuality' ? '❤️' : '👶';
+        const catIcon = m.cat === 'breastfeeding' ? 'ðŸ¤±' : m.cat === 'sexuality' ? 'â¤ï¸' : 'ðŸ‘¶';
         return `
         <div class="reveal" style="animation-delay:${i*0.04}s;perspective:600px;">
           <div onclick="myFlippedCards[${i}]=!myFlippedCards[${i}];renderMyths();" style="cursor:pointer;position:relative;min-height:120px;transition:transform 0.6s;transform-style:preserve-3d;${flipped?'transform:rotateY(180deg)':''}">
             <div style="position:${flipped?'absolute':'relative'};inset:0;backface-visibility:hidden;padding:var(--space-xl);border-radius:var(--radius-xl);background:linear-gradient(135deg,rgba(220,53,69,0.08),rgba(220,53,69,0.03));border:2px solid rgba(220,53,69,0.2);">
               <div class="flex items-center gap-sm mb-md">
-                <span style="font-size:20px;">❌</span>
+                <span style="font-size:20px;">âŒ</span>
                 <span class="text-label-lg" style="color:var(--error);text-transform:uppercase;">${t('bf_myth')}</span>
                 <span style="font-size:14px;margin-inline-start:4px;">${catIcon}</span>
                 <span class="material-symbols-outlined text-variant" style="margin-inline-start:auto;font-size:18px;">touch_app</span>
@@ -2514,7 +2514,7 @@ function renderMyths() {
             </div>
             <div style="position:absolute;inset:0;backface-visibility:hidden;transform:rotateY(180deg);padding:var(--space-xl);border-radius:var(--radius-xl);background:linear-gradient(135deg,rgba(40,167,69,0.08),rgba(40,167,69,0.03));border:2px solid rgba(40,167,69,0.2);">
               <div class="flex items-center gap-sm mb-md">
-                <span style="font-size:20px;">✅</span>
+                <span style="font-size:20px;">âœ…</span>
                 <span class="text-label-lg" style="color:#28a745;text-transform:uppercase;">${t('bf_reality')}</span>
                 <span style="font-size:14px;margin-inline-start:4px;">${catIcon}</span>
               </div>
@@ -2533,9 +2533,9 @@ function renderMyths() {
   setTimeout(() => initReveal(), 50);
 }
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  SUIVI QUOTIDIEN
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 async function renderSuivi() {
   const container = document.getElementById('suivi-content');
   if (!container) return;
@@ -2556,7 +2556,7 @@ async function renderSuivi() {
     <div class="card card--flat mb-xl"><div class="card__body">
       <p class="text-label-lg text-variant mb-lg" style="text-transform:uppercase;letter-spacing:0.08em;">${t('daily_mood')}</p>
       <div class="mood-grid">
-        ${[`😫|${t('daily_exhausted')}`, `😔|${t('daily_sad')}`, `😐|${t('daily_neutral')}`, `😊|${t('daily_good')}`, `😄|${t('daily_great')}`].map(m => {
+        ${[`ðŸ˜«|${t('daily_exhausted')}`, `ðŸ˜”|${t('daily_sad')}`, `ðŸ˜|${t('daily_neutral')}`, `ðŸ˜Š|${t('daily_good')}`, `ðŸ˜„|${t('daily_great')}`].map(m => {
           const [emoji, label] = m.split('|');
           return `<button class="mood-option" onclick="selectMood('${emoji}',this)"><span class="mood-option__emoji">${emoji}</span><span class="mood-option__label">${label}</span></button>`;
         }).join('')}
@@ -2617,7 +2617,7 @@ function selectMood(emoji, el) {
 
 async function saveDailyEntry() {
   const body = {
-    mood: state.currentMood || '😊',
+    mood: state.currentMood || 'ðŸ˜Š',
     stress: parseInt(document.getElementById('slider-stress')?.value || 5),
     satisfaction_conjugale: parseInt(document.getElementById('slider-conj')?.value || 5),
     satisfaction_intime: parseInt(document.getElementById('slider-intime')?.value || 5)
@@ -2633,15 +2633,15 @@ async function saveDailyEntry() {
       setTimeout(() => renderSuivi(), 1500);
     }
     const now = new Date().toISOString().split('T')[0];
-    pushNotification('mood_' + now, body.mood, t('notif_mood_saved') || 'تم تسجيل مزاجك اليوم!', 'tip');
+    pushNotification('mood_' + now, body.mood, t('notif_mood_saved') || 'ØªÙ… ØªØ³Ø¬ÙŠÙ„ Ù…Ø²Ø§Ø¬Ùƒ Ø§Ù„ÙŠÙˆÙ…!', 'tip');
   } catch (e) {
     if (btn) btn.innerHTML = `<span class="material-symbols-outlined">error</span> ${t('misc_error')}`;
   }
 }
 
-// ══════════════════════════════════════════════════════════════
-//  PLAN PERSONNALISÉ
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  PLAN PERSONNALISÃ‰
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 let currentPlanDuration = 14;
 
 async function renderPlan() {
@@ -2763,9 +2763,9 @@ async function completePlanActivity(duration, day, btn) {
   } catch (e) { console.error(e); }
 }
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  COUPLE CHECK-UP
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 async function renderCheckup() {
   const container = document.getElementById('checkup-content');
   if (!container) return;
@@ -2874,9 +2874,9 @@ async function renderCheckup() {
   }
 }
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  TIMELINE ARTICLE VIEWER
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 let timelineArticleData = null;
 
 function openTimelineArticle(articleId, period) {
@@ -2887,17 +2887,13 @@ function openTimelineArticle(articleId, period) {
 async function renderTimelineArticle() {
   const container = document.getElementById('timeline-article-content');
   if (!container || !timelineArticleData) return;
-
   try {
     const data = await api(`/timeline/${timelineArticleData.period}`);
     const article = data.articles.find(a => a.id === timelineArticleData.articleId);
     if (!article) throw new Error('Article non trouvé');
-
     container.innerHTML = `
       <div class="timeline-article-viewer__header reveal">
-        <button class="top-bar__btn" style="color:white;margin-bottom:var(--space-lg);" onclick="navigateTo('library')">
-          <span class="material-symbols-outlined">arrow_back</span>
-        </button>
+        <button class="top-bar__btn" style="color:white;margin-bottom:var(--space-lg);" onclick="navigateTo('library')"><span class="material-symbols-outlined">arrow_back</span></button>
         <div class="flex items-center gap-sm mb-md">
           <span class="material-symbols-outlined icon-filled" style="font-size:28px;">${article.icon}</span>
           <span style="background:rgba(255,255,255,0.2);padding:4px 12px;border-radius:var(--radius-full);font-size:11px;font-weight:600;">${article.category}</span>
@@ -2928,8 +2924,6 @@ async function renderTimelineArticle() {
 async function renderAlerts() {
   const container = document.getElementById('alerts-content');
   if (!container) return;
-
-  // Local medical alerts (always available)
   const localAlerts = [
     { type: 'critical', icon: 'breastfeeding', title: t('alert_bf_fever_title'), message: t('alert_bf_fever_msg'), action: t('alert_action_bf'), nav: 'breastfeeding' },
     { type: 'critical', icon: 'local_hospital', title: t('alert_bf_redness_title'), message: t('alert_bf_redness_msg'), action: t('alert_action_bf'), nav: 'breastfeeding' },
@@ -2940,18 +2934,11 @@ async function renderAlerts() {
     { type: 'warning', icon: 'favorite', title: t('alert_sx_pain_title'), message: t('alert_sx_pain_msg'), action: t('alert_action_sx'), nav: 'sexuality' },
     { type: 'info', icon: 'psychology', title: t('alert_ppd_title'), message: t('alert_ppd_msg'), action: t('alert_action_eval'), nav: 'home' }
   ];
-
-  // Try to get server alerts too
   let serverAlerts = [];
-  try {
-    const data = await api('/alerts');
-    serverAlerts = data.alerts || [];
-  } catch (e) { /* use local alerts only */ }
-
+  try { const data = await api('/alerts'); serverAlerts = data.alerts || []; } catch(e){}
   const allAlerts = [...localAlerts, ...serverAlerts];
   const criticalCount = allAlerts.filter(a => a.type === 'critical').length;
   const warningCount = allAlerts.filter(a => a.type === 'warning').length;
-
   container.innerHTML = `
     <div class="flex items-center gap-md mb-xl">
       <div style="width:48px;height:48px;border-radius:var(--radius-full);background:${criticalCount>0?'var(--error-container)':'#fff3cd'};display:flex;align-items:center;justify-content:center;">
@@ -2962,19 +2949,13 @@ async function renderAlerts() {
         <p class="text-body-md text-variant">${allAlerts.length} ${t('alerts_alert')} • ${criticalCount} ${t('alerts_critical')} • ${warningCount} ${t('alerts_warning')}</p>
       </div>
     </div>
-
     <p class="text-body-md text-variant mb-xl reveal">${t('alerts_medical_intro')}</p>
-
     <div id="alerts-list">
       ${allAlerts.map((alert, i) => `
         <div class="alert-card alert-card--${alert.type} reveal" style="animation-delay:${i*0.08}s;">
           <div class="alert-card__header">
-            <div class="alert-card__icon">
-              <span class="material-symbols-outlined">${alert.icon}</span>
-            </div>
-            <div>
-              <h4 class="text-body-lg text-semibold">${alert.title}</h4>
-            </div>
+            <div class="alert-card__icon"><span class="material-symbols-outlined">${alert.icon}</span></div>
+            <div><h4 class="text-body-lg text-semibold">${alert.title}</h4></div>
           </div>
           <p class="text-body-md" style="line-height:1.6;">${alert.message}</p>
           <button class="alert-card__action" onclick="navigateTo('${alert.nav || 'sage-femme'}')">
@@ -2984,14 +2965,9 @@ async function renderAlerts() {
         </div>
       `).join('')}
     </div>
-
     <div class="glass-card reveal mt-xl" style="padding:var(--space-xl);border:1px solid rgba(214,194,200,0.3);">
-      <h3 class="text-headline-sm text-primary mb-md flex items-center gap-sm">
-        <span class="material-symbols-outlined">info</span> ${t('alerts_important')}
-      </h3>
-      <p class="text-body-md text-variant" style="line-height:1.7;">
-        ${t('alerts_disclaimer')}
-      </p>
+      <h3 class="text-headline-sm text-primary mb-md flex items-center gap-sm"><span class="material-symbols-outlined">info</span> ${t('alerts_important')}</h3>
+      <p class="text-body-md text-variant" style="line-height:1.7;">${t('alerts_disclaimer')}</p>
     </div>
   `;
   setTimeout(() => initReveal(), 50);
@@ -3003,170 +2979,54 @@ async function renderAlerts() {
 async function renderAdmin() {
   const container = document.getElementById('admin-content');
   if (!container) return;
-
   container.innerHTML = '<div class="text-center" style="padding:var(--space-4xl);"><span class="material-symbols-outlined" style="font-size:32px;color:var(--outline);animation:spin 1s linear infinite;">hourglass_top</span></div>';
-
   try {
     const data = await api('/admin/stats');
-
     const scoreLabels = { excellent: t('res_excellent'), bon: t('res_bon'), moyen: t('res_moyen'), faible: t('res_faible') };
     const scoreColors = { excellent: 'var(--primary)', bon: '#4caf50', moyen: '#ff9800', faible: 'var(--error)' };
     const totalScores = data.scoreDistrib.reduce((s, d) => s + d.count, 0) || 1;
-
     container.innerHTML = `
       <div class="admin-header reveal">
         <span class="text-label-lg" style="opacity:0.8;">${t('admin_dashboard')}</span>
         <h2 class="text-headline-md mt-sm" style="color:white;">${t('admin_title')}</h2>
         <p class="text-body-md mt-sm" style="opacity:0.8;">${t('admin_subtitle')}</p>
       </div>
-
       <div class="admin-stat-grid reveal">
-        <div class="admin-stat-card">
-          <span class="admin-stat-card__value">${data.totalCouples}</span>
-          <span class="admin-stat-card__label">${t('admin_couples')}</span>
-        </div>
-        <div class="admin-stat-card">
-          <span class="admin-stat-card__value">${data.activeCouples}</span>
-          <span class="admin-stat-card__label">${t('admin_active')}</span>
-        </div>
-        <div class="admin-stat-card">
-          <span class="admin-stat-card__value">${data.totalEvals}</span>
-          <span class="admin-stat-card__label">${t('admin_evals')}</span>
-        </div>
-        <div class="admin-stat-card">
-          <span class="admin-stat-card__value">${data.totalDaily}</span>
-          <span class="admin-stat-card__label">${t('admin_daily')}</span>
-        </div>
+        <div class="admin-stat-card"><span class="admin-stat-card__value">${data.totalCouples}</span><span class="admin-stat-card__label">${t('admin_couples')}</span></div>
+        <div class="admin-stat-card"><span class="admin-stat-card__value">${data.activeCouples}</span><span class="admin-stat-card__label">${t('admin_active')}</span></div>
+        <div class="admin-stat-card"><span class="admin-stat-card__value">${data.totalEvals}</span><span class="admin-stat-card__label">${t('admin_evals')}</span></div>
+        <div class="admin-stat-card"><span class="admin-stat-card__value">${data.totalDaily}</span><span class="admin-stat-card__label">${t('admin_daily')}</span></div>
       </div>
-
       <div class="card card--flat mb-xl reveal"><div class="card__body">
-        <h3 class="text-headline-sm mb-lg flex items-center gap-sm">
-          <span class="material-symbols-outlined text-primary">analytics</span> ${t('admin_avg_scores')}
-        </h3>
-        ${['psychologique', 'conjugal', 'sexuel'].map(t => `
-          <div class="flex items-center justify-between mb-md">
-            <span class="text-body-lg">${capitalize(t)}</span>
-            <span class="text-headline-sm text-primary">${data.avgScores[t]}%</span>
-          </div>
-          <div class="score-bar mb-lg"><div class="score-bar__fill" style="background:var(--primary);width:${data.avgScores[t]}%"></div></div>
+        <h3 class="text-headline-sm mb-lg flex items-center gap-sm"><span class="material-symbols-outlined text-primary">analytics</span> ${t('admin_avg_scores')}</h3>
+        ${['psychologique', 'conjugal', 'sexuel'].map(tp => `
+          <div class="flex items-center justify-between mb-md"><span class="text-body-lg">${capitalize(tp)}</span><span class="text-headline-sm text-primary">${data.avgScores[tp]}%</span></div>
+          <div class="score-bar mb-lg"><div class="score-bar__fill" style="background:var(--primary);width:${data.avgScores[tp]}%"></div></div>
         `).join('')}
       </div></div>
-
       ${data.scoreDistrib.length > 0 ? `
       <div class="card card--flat mb-xl reveal"><div class="card__body">
-        <h3 class="text-headline-sm mb-lg flex items-center gap-sm">
-          <span class="material-symbols-outlined text-primary">pie_chart</span> ${t('admin_score_distrib')}
-        </h3>
+        <h3 class="text-headline-sm mb-lg flex items-center gap-sm"><span class="material-symbols-outlined text-primary">pie_chart</span> ${t('admin_score_distrib')}</h3>
         <div class="admin-distrib-bar">
           ${data.scoreDistrib.map(d => `<div class="admin-distrib-bar__segment" style="width:${(d.count/totalScores*100)}%;background:${scoreColors[d.level]||'var(--outline)'}"></div>`).join('')}
         </div>
         <div class="flex gap-lg" style="flex-wrap:wrap;">
           ${data.scoreDistrib.map(d => `<div class="flex items-center gap-sm"><span style="width:10px;height:10px;border-radius:50%;background:${scoreColors[d.level]||'var(--outline)'};display:block;"></span><span class="text-label-md text-variant">${scoreLabels[d.level]||d.level}: ${d.count}</span></div>`).join('')}
         </div>
-      </div></div>
-      ` : ''}
-
+      </div></div>` : ''}
       <div class="card card--flat mb-xl reveal"><div class="card__body">
-        <h3 class="text-headline-sm mb-lg flex items-center gap-sm">
-          <span class="material-symbols-outlined text-primary">assessment</span> ${t('admin_evals_by_type')}
-        </h3>
-        <div class="grid-3">
-          <div class="text-center">
-            <span class="text-headline-md text-secondary">${data.evalsByType.psychologique || 0}</span>
-            <p class="text-label-md text-variant">Psycho</p>
-          </div>
-          <div class="text-center">
-            <span class="text-headline-md text-primary">${data.evalsByType.conjugal || 0}</span>
-            <p class="text-label-md text-variant">Conjugal</p>
-          </div>
-          <div class="text-center">
-            <span class="text-headline-md" style="color:var(--tertiary);">${data.evalsByType.sexuel || 0}</span>
-            <p class="text-label-md text-variant">Sexuel</p>
-          </div>
-        </div>
-      </div></div>
-
-      <h3 class="text-label-lg text-primary mb-lg reveal" style="text-transform:uppercase;letter-spacing:0.08em;">
-        <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;">group</span> ${t('admin_recent_couples')}
-      </h3>
-      <div class="mb-xl reveal">
-        ${data.recentCouples.map(c => `
-          <div class="admin-couple-row" onclick="viewAdminCouple(${c.id})">
-            <div class="admin-couple-row__avatar">
-              <span class="material-symbols-outlined text-primary" style="font-size:20px;">group</span>
-            </div>
-            <div style="flex:1;">
-              <p class="text-body-lg text-semibold">${c.partner1_name}${c.partner2_name ? ' & ' + c.partner2_name : ''}</p>
-              <p class="text-label-md text-variant">${c.partner1_email}</p>
-            </div>
-            <span class="material-symbols-outlined text-outline">chevron_right</span>
+        <h3 class="text-headline-sm mb-lg flex items-center gap-sm"><span class="material-symbols-outlined text-primary">group</span> ${t('admin_couples_list')}</h3>
+        ${data.couples.map(c => `
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-lg);background:var(--surface-container-low);border-radius:var(--radius-xl);margin-bottom:var(--space-md);">
+            <div><span class="text-body-lg text-semibold">${c.partner1_name} & ${c.partner2_name || '—'}</span><br><span class="text-label-md text-variant">${c.email}</span></div>
+            <span class="text-label-md text-variant">${c.eval_count} ${t('admin_evals_short')}</span>
           </div>
         `).join('')}
-      </div>
-    `;
-    setTimeout(() => initReveal(), 50);
-  } catch (e) {
-    container.innerHTML = `
-      <div class="text-center" style="padding:var(--space-4xl);">
-        <span class="material-symbols-outlined" style="font-size:48px;color:var(--error);">lock</span>
-        <h3 class="text-headline-sm mt-lg">${t('admin_restricted')}</h3>
-        <p class="text-body-md text-variant mt-md">${t('admin_restricted_msg')}</p>
-        <button class="btn btn--primary mt-xl" onclick="navigateTo('home')">
-          <span class="material-symbols-outlined">home</span> ${t('admin_return')}
-        </button>
-      </div>
-    `;
-  }
-}
-
-async function viewAdminCouple(id) {
-  const container = document.getElementById('admin-content');
-  if (!container) return;
-
-  container.innerHTML = '<div class="text-center" style="padding:var(--space-4xl);"><span class="material-symbols-outlined" style="font-size:32px;color:var(--outline);animation:spin 1s linear infinite;">hourglass_top</span></div>';
-
-  try {
-    const data = await api(`/admin/couple/${id}`);
-    const c = data.couple;
-
-    container.innerHTML = `
-      <div class="flex items-center gap-md mb-xl">
-        <button class="top-bar__btn" onclick="renderAdmin()"><span class="material-symbols-outlined">arrow_back</span></button>
-        <div>
-          <h2 class="text-headline-sm">${c.partner1_name}${c.partner2_name ? ' & ' + c.partner2_name : ''}</h2>
-          <p class="text-body-md text-variant">${c.partner1_email}</p>
-        </div>
-      </div>
-
-      <div class="card card--flat mb-xl reveal"><div class="card__body">
-        <h3 class="text-label-lg text-primary mb-md" style="text-transform:uppercase;">${t('admin_info')}</h3>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-md);">
-          <div><p class="text-label-md text-variant">${t('admin_age_p1')}</p><p class="text-body-lg text-semibold">${c.partner1_age || '-'} ${t('prof_ans')}</p></div>
-          <div><p class="text-label-md text-variant">${t('admin_sex_p1')}</p><p class="text-body-lg text-semibold">${c.partner1_sex || '-'}</p></div>
-          <div><p class="text-label-md text-variant">${t('admin_age_p2')}</p><p class="text-body-lg text-semibold">${c.partner2_age || '-'} ${t('prof_ans')}</p></div>
-          <div><p class="text-label-md text-variant">${t('admin_sex_p2')}</p><p class="text-body-lg text-semibold">${c.partner2_sex || '-'}</p></div>
-          <div><p class="text-label-md text-variant">${t('admin_marriage')}</p><p class="text-body-lg text-semibold">${c.marriage_duration || '-'}</p></div>
-          <div><p class="text-label-md text-variant">${t('admin_baby_age')}</p><p class="text-body-lg text-semibold">${c.baby_age || '-'}</p></div>
-        </div>
       </div></div>
-
       <div class="card card--flat mb-xl reveal"><div class="card__body">
-        <h3 class="text-label-lg text-primary mb-md" style="text-transform:uppercase;">${t('admin_evals_count', { n: data.evaluations.length })}</h3>
-        ${data.evaluations.length > 0 ? data.evaluations.map(e => `
-          <div class="flex justify-between items-center mb-md" style="padding:var(--space-md);background:var(--surface);border-radius:var(--radius-lg);">
-            <div>
-              <span class="text-body-lg text-semibold">${capitalize(e.type)}</span>
-              <span class="text-label-md text-variant ml-md">${new Date(e.created_at).toLocaleDateString('fr-FR')}</span>
-            </div>
-            <span class="text-headline-sm text-primary">${e.score}%</span>
-          </div>
-        `).join('') : `<p class="text-body-md text-variant">${t('admin_no_eval')}</p>`}
-      </div></div>
-
-      <div class="card card--flat mb-xl reveal"><div class="card__body">
-        <h3 class="text-label-lg text-primary mb-md" style="text-transform:uppercase;">${t('admin_daily_count', { n: data.dailyEntries.length })}</h3>
+        <h3 class="text-headline-sm mb-lg flex items-center gap-sm"><span class="material-symbols-outlined text-primary">monitoring</span> ${t('admin_daily_entries')}</h3>
         ${data.dailyEntries.length > 0 ? data.dailyEntries.map(d => `
-          <div class="flex items-center gap-md mb-sm" style="padding:var(--space-sm) var(--space-md);background:var(--surface);border-radius:var(--radius-lg);">
+          <div style="display:flex;align-items:center;gap:var(--space-md);padding:var(--space-md);background:var(--surface-container-low);border-radius:var(--radius-xl);margin-bottom:var(--space-sm);">
             <span style="font-size:20px;">${d.mood}</span>
             <span class="text-label-md text-variant">${new Date(d.created_at).toLocaleDateString('fr-FR')}</span>
             <span class="text-label-md" style="margin-left:auto;">${t('daily_stress_label')}: ${d.stress}/10</span>
@@ -3181,109 +3041,138 @@ async function viewAdminCouple(id) {
 }
 
 // ══════════════════════════════════════════════════════════════
-//  MODULE: SEMAINES S1 → S12
+//  BILINGUAL WEEKS DATA
 // ══════════════════════════════════════════════════════════════
-const weeksData = [
-  {
-    num: 1, title: 'Le choc de la naissance',
-    medical: 'Consultation J8 : Contrôle sage-femme de la cicatrisation, saignements, lactation, et évaluation du moral.',
-    maman: ['Fatigue extrême après l\'effort physique intense','Douleurs physiques (tranchées utérines, cicatrices)','Hypersensibilité émotionnelle (chute hormonale)','Possible baby blues (pleurs sans raison)'],
-    couple: ['Redistribution brutale des rôles','Nuits fragmentées qui épuisent les deux','Sentiment d\'exclusion possible du partenaire','Communication réduite à l\'essentiel'],
-    bebe: 'Pratiquez le peau à peau. Cela réconforte instantanément le bébé en lui rappelant l\'utérus, et aide les parents à réduire leur stress en stimulant l\'ocytocine.',
-    solutions: ['Partager équitablement les tâches domestiques.','Créer des relais programmés pour que chacun dorme 3h de suite.','Discuter de l\'organisation sans faire de reproches directs.','Garder des gestes simples de tendresse sans attente sexuelle.']
-  },
-  {
-    num: 2, title: 'Apprendre à devenir parents',
-    medical: 'Vigilance psychologique : Consulter si la maman présente une tristesse intense, des pleurs fréquents ou une angoisse qui l\'empêche de dormir.',
-    maman: ['Besoin impérieux de repos et de récupération','Émotions changeantes d\'une heure à l\'autre','Difficulté à organiser les tâches durant la journée','Besoin immense d\'être rassurée sur ses capacités'],
-    couple: ['Irritabilité accrue due au manque chronique de sommeil','Tensions naissantes pour de minuscules détails du quotidien','Charge mentale de l\'organisation de la maison','Prise de décision parfois difficile sur les soins du bébé'],
-    bebe: 'Votre bébé ressent vos émotions. Parlez-lui doucement, il reconnaît votre voix depuis la grossesse et cela l\'apaise instantanément.',
-    solutions: ['Établir un tableau de répartition des tâches.','Prendre 10 minutes par jour pour parler de vos ressentis.','Accepter l\'aide extérieure sans culpabilité.','Pratiquer la respiration à deux avant le coucher.']
-  },
-  {
-    num: 3, title: 'Le retour à la réalité',
-    medical: 'Visite post-natale : Bilan complet maman (cicatrisation, périnée, allaitement). Évaluation du risque de dépression post-partum.',
-    maman: ['La fatigue devient chronique','Possible sentiment de solitude si l\'entourage se raréfie','Questionnements sur l\'image corporelle','Début de la rééducation périnéale possible'],
-    couple: ['Les conflits se cristallisent autour du sommeil','La vie sociale du couple est en pause','Le partenaire peut se sentir impuissant','Besoin de retrouver des moments à deux'],
-    bebe: 'Je commence à sourire ! Chaque sourire est un cadeau qui vous rappelle pourquoi vous avez fait ce magnifique choix.',
-    solutions: ['Planifier une sortie courte à deux.','Commencer un journal de gratitude en couple.','Inviter un proche pour garder bébé une heure.','Se féliciter mutuellement de ce que vous traversez.']
-  },
-  {
-    num: 4, title: 'Trouver son rythme',
-    medical: 'Suivi allaitement si nécessaire. Consultation sage-femme pour la rééducation périnéale.',
-    maman: ['Le corps commence à récupérer lentement','L\'allaitement se stabilise ou pose encore des questions','Le sommeil reste fragmenté mais plus prévisible','Envie de reprendre certaines activités'],
-    couple: ['Les routines se mettent en place','Moins de conflits liés à l\'urgence des premiers jours','Besoin de recréer une complicité','Les discussions sur la contraception commencent'],
-    bebe: 'Je reconnais vos visages maintenant ! Vos câlins et vos jeux de regard nourrissent mon développement cérébral.',
-    solutions: ['Créer un rituel de couple quotidien (thé du soir, promenade...).','Discuter de la contraception post-partum ensemble.','Reprendre une activité douce (marche, yoga...).','Remercier votre partenaire une fois par jour.']
-  },
-  {
-    num: 5, title: 'La question de l\'intimité',
-    medical: 'Consultation si douleurs persistantes. Évaluation de la reprise des rapports intimes.',
-    maman: ['Le désir sexuel peut être encore absent','Le corps est en transformation (poids, vergétures)','La libido est influencée par la fatigue et les hormones','Possible appréhension de la reprise des rapports'],
-    couple: ['Le sujet de la sexualité peut créer des tensions','Décalage de désir entre les partenaires','Besoin de communication ouverte sur l\'intimité','Peur de blesser l\'autre en parlant de ses envies'],
-    bebe: 'Votre complicité de couple me rassure. Quand vous riez ensemble, je me sens en sécurité.',
-    solutions: ['Parler ouvertement de vos envies et appréhensions.','Reprendre le contact physique progressivement (massages...).','Ne pas fixer de "deadline" pour la reprise des rapports.','Consulter une sage-femme si des douleurs persistent.']
-  },
-  {
-    num: 6, title: 'Le cap du 2ème mois',
-    medical: 'Consultation pédiatrique. Vaccination de bébé. Suivi périnéal.',
-    maman: ['L\'énergie revient progressivement','L\'identité maternelle se construit','Possible anxiété liée à la reprise du travail','Le sommeil s\'améliore doucement'],
-    couple: ['La vie de couple reprend doucement','Les sorties en famille sont plus faciles','Le partenaire trouve sa place de parent','Les grands-parents peuvent être source de tensions'],
-    bebe: 'Je fais mes premières vocalises ! Parlez-moi, chantez-moi des berceuses, c\'est ma façon d\'apprendre.',
-    solutions: ['Planifier la reprise du travail ensemble.','Organiser un rendez-vous en couple par semaine.','Discuter de l\'éducation de l\'enfant de façon préventive.','Gérer les intrusions de l\'entourage avec diplomatie.']
-  },
-  {
-    num: 7, title: 'La reprise ou le choix de rester',
-    medical: 'Visite de reprise si retour au travail. Gestion du sevrage ou maintien de l\'allaitement.',
-    maman: ['Culpabilité possible de laisser bébé','Difficulté à concilier vie pro et maternité','Fatigue amplifiée par le double rôle','Besoin de reconnaissance dans son effort'],
-    couple: ['Nouvelle organisation logistique complexe','Tension possible sur le partage des charges','Le couple doit fonctionner comme une équipe soudée','La fatigue peut réduire la patience mutuelle'],
-    bebe: 'Même si vous partez travailler, je sais que vous reviendrez. La séparation renforce notre lien.',
-    solutions: ['Préparer un planning familial détaillé.','Exprimer ses besoins sans accuser l\'autre.','Accepter que tout ne sera pas parfait.','Prévoir un temps de décompression après le travail.']
-  },
-  {
-    num: 8, title: 'Retrouver l\'équilibre',
-    medical: 'Consultation si fatigue persistante. Bilan thyroïdien si nécessaire.',
-    maman: ['Le corps retrouve progressivement sa forme','La confiance en soi comme mère grandit','Le sommeil nocturne s\'améliore significativement','L\'envie de prendre soin de soi revient'],
-    couple: ['Le couple retrouve un rythme de croisière','La complicité revient avec les rituels installés','La sexualité peut repartir doucement','Les projets à deux refont surface'],
-    bebe: 'Je commence à jouer seul quelques minutes. Vous pouvez prendre ce temps pour vous, sans culpabilité !',
-    solutions: ['Prévoir une activité sportive ou bien-être personnelle.','Reprendre les projets de couple mis en pause.','Évaluer ensemble votre satisfaction conjugale.','Fêter les petites victoires du quotidien.']
-  },
-  {
-    num: 9, title: 'La diversification et les défis',
-    medical: 'Début de la diversification alimentaire de bébé. Consultation pédiatrique.',
-    maman: ['La routine est bien installée','Le corps a beaucoup récupéré','La vie sociale reprend normalement','Possible désir d\'un deuxième enfant ou pas du tout'],
-    couple: ['Les discussions de fond reprennent (finances, logement)','Le couple est plus solide qu\'au début','La parentalité devient plus naturelle','La communication est plus fluide'],
-    bebe: 'Mes premières purées ! Chaque goût est une découverte. Partagez ce moment en famille, c\'est précieux.',
-    solutions: ['Faire un bilan de couple à mi-parcours.','Exprimer sa gratitude envers le partenaire.','Planifier un week-end en famille.','Discuter des objectifs communs pour l\'année.']
-  },
-  {
-    num: 10, title: 'La complicité retrouvée',
-    medical: 'Suivi de développement bébé. Évaluation globale maman.',
-    maman: ['Se sent compétente dans son rôle de mère','La fatigue est gérable avec les bonnes habitudes','L\'image corporelle est mieux acceptée','La vie professionnelle et personnelle sont en harmonie'],
-    couple: ['Le couple fonctionne comme une équipe','L\'intimité est rétablie ou en bonne voie','Les moments de qualité à deux sont réguliers','La communication est devenue une habitude'],
-    bebe: 'Je bouge partout ! Votre maison est mon terrain de jeu. Jouez avec moi, c\'est le meilleur moment de ma journée.',
-    solutions: ['Continuer les rituels de couple.','Prévoir un dîner romantique par mois.','Écrire une lettre d\'amour à son partenaire.','Rire ensemble au moins une fois par jour.']
-  },
-  {
-    num: 11, title: 'Se projeter ensemble',
-    medical: 'Bilan annuel bébé approche. Suivi gynécologique maman.',
-    maman: ['Se sent épanouie dans sa nouvelle vie','Accepte les transformations de son corps','A développé une résilience impressionnante','Prête à relever de nouveaux défis'],
-    couple: ['Les projets de couple sont clairs','La parentalité est une source de fierté commune','Le désir de renforcer le lien est mutuel','Les erreurs passées sont pardonnées'],
-    bebe: 'Mes premiers pas approchent ! Votre encouragement est ma plus grande motivation.',
-    solutions: ['Définir des objectifs de couple pour l\'année.','Planifier un voyage en famille.','Cultiver la reconnaissance quotidienne.','Rêver ensemble de l\'avenir.']
-  },
-  {
-    num: 12, title: 'Un an déjà — Bilan et célébration',
-    medical: 'Bilan pédiatrique annuel. Consultation gynécologique complète. Évaluation globale du couple.',
-    maman: ['Fière du chemin parcouru','Le corps a trouvé un nouvel équilibre','L\'identité de femme-mère est construite','Prête pour la suite de l\'aventure'],
-    couple: ['Le couple a traversé une tempête et en sort grandi','L\'amour a évolué et mûri','La parentalité est une force pour le couple','Les fondations sont solides pour l\'avenir'],
-    bebe: 'Joyeux anniversaire ! Merci d\'avoir été les meilleurs parents du monde. Chaque jour avec vous est un cadeau.',
-    solutions: ['Célébrer cette première année ensemble.','Écrire un bilan de gratitude à deux.','Se remémorer les moments clés de cette année.','S\'engager à continuer de communiquer et de s\'aimer.']
-  }
-];
+function getWeeksData() {
+  if (currentLang === 'ar') return [
+    { num:1, title:'\u0635\u062f\u0645\u0629 \u0627\u0644\u0648\u0644\u0627\u062f\u0629', medical:'\u0627\u0633\u062a\u0634\u0627\u0631\u0629 \u0627\u0644\u064a\u0648\u0645 8: \u0645\u0631\u0627\u0642\u0628\u0629 \u0627\u0644\u0642\u0627\u0628\u0644\u0629 \u0644\u0644\u062a\u0639\u0627\u0641\u064a\u060c \u0627\u0644\u0646\u0632\u064a\u0641\u060c \u0627\u0644\u0631\u0636\u0627\u0639\u0629\u060c \u0648\u062a\u0642\u064a\u064a\u0645 \u0627\u0644\u0645\u0639\u0646\u0648\u064a\u0627\u062a.',
+      maman:['\u0625\u0631\u0647\u0627\u0642 \u0634\u062f\u064a\u062f \u0628\u0639\u062f \u0627\u0644\u0645\u062c\u0647\u0648\u062f \u0627\u0644\u062c\u0633\u062f\u064a','\u0622\u0644\u0627\u0645 \u062c\u0633\u062f\u064a\u0629 (\u062a\u0642\u0644\u0635\u0627\u062a \u0627\u0644\u0631\u062d\u0645\u060c \u0627\u0644\u0646\u062f\u0628\u0627\u062a)','\u062d\u0633\u0627\u0633\u064a\u0629 \u0639\u0627\u0637\u0641\u064a\u0629 \u0645\u0641\u0631\u0637\u0629','\u0627\u0643\u062a\u0626\u0627\u0628 \u0645\u0627 \u0628\u0639\u062f \u0627\u0644\u0648\u0644\u0627\u062f\u0629 \u0627\u0644\u0645\u062d\u062a\u0645\u0644'],
+      couple:['\u0625\u0639\u0627\u062f\u0629 \u062a\u0648\u0632\u064a\u0639 \u0627\u0644\u0623\u062f\u0648\u0627\u0631 \u0628\u0634\u0643\u0644 \u0645\u0641\u0627\u062c\u0626','\u0644\u064a\u0627\u0644\u064a \u0645\u062a\u0642\u0637\u0639\u0629 \u062a\u0631\u0647\u0642 \u0627\u0644\u0627\u062b\u0646\u064a\u0646','\u0634\u0639\u0648\u0631 \u0627\u0644\u0634\u0631\u064a\u0643 \u0628\u0627\u0644\u0625\u0642\u0635\u0627\u0621 \u0627\u0644\u0645\u062d\u062a\u0645\u0644','\u0627\u0644\u062a\u0648\u0627\u0635\u0644 \u064a\u0642\u062a\u0635\u0631 \u0639\u0644\u0649 \u0627\u0644\u0636\u0631\u0648\u0631\u064a'],
+      bebe:'\u0645\u0627\u0631\u0633\u0627 \u0627\u0644\u062a\u0644\u0627\u0645\u0633 \u0627\u0644\u062c\u0644\u062f\u064a. \u064a\u0637\u0645\u0626\u0646 \u0627\u0644\u0637\u0641\u0644 \u0648\u064a\u062d\u0641\u0632 \u0627\u0644\u0623\u0648\u0643\u0633\u064a\u062a\u0648\u0633\u064a\u0646.',
+      solutions:['\u062a\u0642\u0627\u0633\u0645 \u0627\u0644\u0645\u0647\u0627\u0645 \u0627\u0644\u0645\u0646\u0632\u0644\u064a\u0629 \u0628\u0627\u0644\u062a\u0633\u0627\u0648\u064a.','\u062a\u0646\u0627\u0648\u0628 \u0645\u0628\u0631\u0645\u062c \u0644\u064a\u0646\u0627\u0645 \u0643\u0644 \u0648\u0627\u062d\u062f 3 \u0633\u0627\u0639\u0627\u062a \u0645\u062a\u0648\u0627\u0635\u0644\u0629.','\u0646\u0627\u0642\u0634\u0627 \u0627\u0644\u062a\u0646\u0638\u064a\u0645 \u062f\u0648\u0646 \u0644\u0648\u0645.','\u062d\u0627\u0641\u0638\u0627 \u0639\u0644\u0649 \u0644\u0645\u0633\u0627\u062a \u062d\u0646\u0627\u0646 \u0628\u0633\u064a\u0637\u0629.'] },
+    { num:2, title:'\u062a\u0639\u0644\u0645 \u0627\u0644\u0623\u0628\u0648\u0629', medical:'\u0645\u0631\u0627\u0642\u0628\u0629 \u0646\u0641\u0633\u064a\u0629: \u0627\u0633\u062a\u0634\u064a\u0631\u064a \u0625\u0630\u0627 \u0643\u0627\u0646 \u0647\u0646\u0627\u0643 \u062d\u0632\u0646 \u0634\u062f\u064a\u062f \u0623\u0648 \u0642\u0644\u0642 \u064a\u0645\u0646\u0639 \u0627\u0644\u0646\u0648\u0645.',
+      maman:['\u062d\u0627\u062c\u0629 \u0645\u0627\u0633\u0629 \u0644\u0644\u0631\u0627\u062d\u0629','\u0645\u0634\u0627\u0639\u0631 \u0645\u062a\u0642\u0644\u0628\u0629 \u0645\u0646 \u0633\u0627\u0639\u0629 \u0644\u0623\u062e\u0631\u0649','\u0635\u0639\u0648\u0628\u0629 \u062a\u0646\u0638\u064a\u0645 \u0627\u0644\u0645\u0647\u0627\u0645 \u0627\u0644\u064a\u0648\u0645\u064a\u0629','\u062d\u0627\u062c\u0629 \u0643\u0628\u064a\u0631\u0629 \u0644\u0644\u0637\u0645\u0623\u0646\u064a\u0646\u0629'],
+      couple:['\u0639\u0635\u0628\u064a\u0629 \u0645\u062a\u0632\u0627\u064a\u062f\u0629 \u0628\u0633\u0628\u0628 \u0642\u0644\u0629 \u0627\u0644\u0646\u0648\u0645','\u062a\u0648\u062a\u0631\u0627\u062a \u062d\u0648\u0644 \u062a\u0641\u0627\u0635\u064a\u0644 \u0635\u063a\u064a\u0631\u0629','\u0627\u0644\u0639\u0628\u0621 \u0627\u0644\u0630\u0647\u0646\u064a \u0644\u062a\u0646\u0638\u064a\u0645 \u0627\u0644\u0645\u0646\u0632\u0644','\u0635\u0639\u0648\u0628\u0629 \u0627\u062a\u062e\u0627\u0630 \u0627\u0644\u0642\u0631\u0627\u0631\u0627\u062a \u062d\u0648\u0644 \u0631\u0639\u0627\u064a\u0629 \u0627\u0644\u0637\u0641\u0644'],
+      bebe:'\u0637\u0641\u0644\u0643\u0645\u0627 \u064a\u0634\u0639\u0631 \u0628\u0645\u0634\u0627\u0639\u0631\u0643\u0645\u0627. \u062a\u062d\u062f\u062b\u0627 \u0645\u0639\u0647 \u0628\u0644\u0637\u0641\u060c \u064a\u0639\u0631\u0641 \u0635\u0648\u062a\u0643\u0645\u0627 \u0645\u0646\u0630 \u0627\u0644\u062d\u0645\u0644.',
+      solutions:['\u0648\u0636\u0639 \u062c\u062f\u0648\u0644 \u0644\u062a\u0648\u0632\u064a\u0639 \u0627\u0644\u0645\u0647\u0627\u0645.','\u062e\u0635\u0635\u0627 10 \u062f\u0642\u0627\u0626\u0642 \u064a\u0648\u0645\u064a\u0627\u064b \u0644\u0644\u062a\u062d\u062f\u062b \u0639\u0646 \u0645\u0634\u0627\u0639\u0631\u0643\u0645\u0627.','\u0627\u0642\u0628\u0644\u0627 \u0627\u0644\u0645\u0633\u0627\u0639\u062f\u0629 \u0627\u0644\u062e\u0627\u0631\u062c\u064a\u0629 \u062f\u0648\u0646 \u0634\u0639\u0648\u0631 \u0628\u0627\u0644\u0630\u0646\u0628.','\u0645\u0627\u0631\u0633\u0627 \u0627\u0644\u062a\u0646\u0641\u0633 \u0645\u0639\u0627\u064b \u0642\u0628\u0644 \u0627\u0644\u0646\u0648\u0645.'] },
+    { num:3, title:'\u0627\u0644\u0639\u0648\u062f\u0629 \u0625\u0644\u0649 \u0627\u0644\u0648\u0627\u0642\u0639', medical:'\u0632\u064a\u0627\u0631\u0629 \u0645\u0627 \u0628\u0639\u062f \u0627\u0644\u0648\u0644\u0627\u062f\u0629: \u0641\u062d\u0635 \u0634\u0627\u0645\u0644 (\u0627\u0644\u062a\u0639\u0627\u0641\u064a\u060c \u0627\u0644\u0639\u062c\u0627\u0646\u060c \u0627\u0644\u0631\u0636\u0627\u0639\u0629). \u062a\u0642\u064a\u064a\u0645 \u062e\u0637\u0631 \u0627\u0643\u062a\u0626\u0627\u0628 \u0645\u0627 \u0628\u0639\u062f \u0627\u0644\u0648\u0644\u0627\u062f\u0629.',
+      maman:['\u0627\u0644\u062a\u0639\u0628 \u064a\u0635\u0628\u062d \u0645\u0632\u0645\u0646\u0627\u064b','\u0634\u0639\u0648\u0631 \u0628\u0627\u0644\u0648\u062d\u062f\u0629 \u0625\u0630\u0627 \u0642\u0644 \u0627\u0644\u062f\u0639\u0645','\u062a\u0633\u0627\u0624\u0644\u0627\u062a \u062d\u0648\u0644 \u0635\u0648\u0631\u0629 \u0627\u0644\u062c\u0633\u0645','\u0628\u062f\u0627\u064a\u0629 \u0625\u0639\u0627\u062f\u0629 \u062a\u0623\u0647\u064a\u0644 \u0627\u0644\u0639\u062c\u0627\u0646'],
+      couple:['\u0627\u0644\u062e\u0644\u0627\u0641\u0627\u062a \u062a\u062a\u0645\u062d\u0648\u0631 \u062d\u0648\u0644 \u0627\u0644\u0646\u0648\u0645','\u0627\u0644\u062d\u064a\u0627\u0629 \u0627\u0644\u0627\u062c\u062a\u0645\u0627\u0639\u064a\u0629 \u0645\u062a\u0648\u0642\u0641\u0629','\u0627\u0644\u0634\u0631\u064a\u0643 \u0642\u062f \u064a\u0634\u0639\u0631 \u0628\u0627\u0644\u0639\u062c\u0632','\u062d\u0627\u062c\u0629 \u0644\u0644\u062d\u0638\u0627\u062a \u0627\u0644\u062e\u0627\u0635\u0629 \u0645\u0639\u0627\u064b'],
+      bebe:'\u0628\u062f\u0623\u062a \u0623\u0628\u062a\u0633\u0645! \u0643\u0644 \u0627\u0628\u062a\u0633\u0627\u0645\u0629 \u062a\u0630\u0643\u0631\u0643\u0645\u0627 \u0644\u0645\u0627\u0630\u0627 \u0627\u062e\u062a\u0631\u062a\u0645\u0627 \u0647\u0630\u0627 \u0627\u0644\u0637\u0631\u064a\u0642.',
+      solutions:['\u062e\u0637\u0637\u0627 \u0644\u062e\u0631\u062c\u0629 \u0642\u0635\u064a\u0631\u0629 \u0645\u0639\u0627\u064b.','\u0627\u0628\u062f\u0626\u0627 \u062f\u0641\u062a\u0631 \u0627\u0645\u062a\u0646\u0627\u0646 \u0645\u0634\u062a\u0631\u0643.','\u0627\u0637\u0644\u0628\u0627 \u0645\u0646 \u0642\u0631\u064a\u0628 \u0631\u0639\u0627\u064a\u0629 \u0627\u0644\u0637\u0641\u0644 \u0633\u0627\u0639\u0629.','\u0647\u0646\u0626\u0627 \u0628\u0639\u0636\u0643\u0645\u0627 \u0639\u0644\u0649 \u0645\u0627 \u062a\u062c\u062a\u0627\u0632\u0627\u0646\u0647.'] },
+    { num:4, title:'\u0625\u064a\u062c\u0627\u062f \u0627\u0644\u0625\u064a\u0642\u0627\u0639', medical:'\u0645\u062a\u0627\u0628\u0639\u0629 \u0627\u0644\u0631\u0636\u0627\u0639\u0629. \u0627\u0633\u062a\u0634\u0627\u0631\u0629 \u0644\u0625\u0639\u0627\u062f\u0629 \u062a\u0623\u0647\u064a\u0644 \u0627\u0644\u0639\u062c\u0627\u0646.',
+      maman:['\u0627\u0644\u062c\u0633\u0645 \u064a\u0628\u062f\u0623 \u0628\u0627\u0644\u062a\u0639\u0627\u0641\u064a \u0628\u0628\u0637\u0621','\u0627\u0644\u0631\u0636\u0627\u0639\u0629 \u062a\u0633\u062a\u0642\u0631 \u0623\u0648 \u0644\u0627 \u062a\u0633\u0627\u0624\u0644\u0627\u062a','\u0627\u0644\u0646\u0648\u0645 \u0644\u0627 \u064a\u0632\u0627\u0644 \u0645\u062a\u0642\u0637\u0637\u0627\u064b \u0644\u0643\u0646 \u0623\u0643\u062b\u0631 \u0627\u0646\u062a\u0638\u0627\u0645\u0627\u064b','\u0631\u063a\u0628\u0629 \u0641\u064a \u0627\u0633\u062a\u0626\u0646\u0627\u0641 \u0628\u0639\u0636 \u0627\u0644\u0623\u0646\u0634\u0637\u0629'],
+      couple:['\u0627\u0644\u0631\u0648\u062a\u064a\u0646 \u064a\u0628\u062f\u0623 \u0628\u0627\u0644\u062a\u0634\u0643\u0644','\u062e\u0644\u0627\u0641\u0627\u062a \u0623\u0642\u0644','\u062d\u0627\u062c\u0629 \u0644\u0625\u0639\u0627\u062f\u0629 \u0627\u0644\u062a\u0642\u0627\u0631\u0628','\u0628\u062f\u0621 \u0627\u0644\u0646\u0642\u0627\u0634 \u062d\u0648\u0644 \u0645\u0646\u0639 \u0627\u0644\u062d\u0645\u0644'],
+      bebe:'\u0623\u062a\u0639\u0631\u0641 \u0639\u0644\u0649 \u0648\u062c\u0648\u0647\u0643\u0645\u0627 \u0627\u0644\u0622\u0646! \u0623\u062d\u0636\u0627\u0646\u0643\u0645\u0627 \u062a\u063a\u0630\u064a \u0646\u0645\u0648\u064a \u0627\u0644\u0639\u0642\u0644\u064a.',
+      solutions:['\u0623\u0646\u0634\u0626\u0627 \u0637\u0642\u0633\u0627\u064b \u064a\u0648\u0645\u064a\u0627\u064b \u0644\u0644\u0632\u0648\u062c\u064a\u0646 (\u0634\u0627\u064a \u0627\u0644\u0645\u0633\u0627\u0621\u060c \u0646\u0632\u0647\u0629...).','\u0646\u0627\u0642\u0634\u0627 \u0645\u0646\u0639 \u0627\u0644\u062d\u0645\u0644 \u0645\u0639\u0627\u064b.','\u0627\u0633\u062a\u0623\u0646\u0641\u0627 \u0646\u0634\u0627\u0637\u0627\u064b \u0644\u0637\u064a\u0641\u0627\u064b (\u0645\u0634\u064a\u060c \u064a\u0648\u063a\u0627...).','\u0627\u0634\u0643\u0631\u0627 \u0628\u0639\u0636\u0643\u0645\u0627 \u0645\u0631\u0629 \u064a\u0648\u0645\u064a\u0627\u064b.'] },
+    { num:5, title:'\u0645\u0633\u0623\u0644\u0629 \u0627\u0644\u0639\u0644\u0627\u0642\u0629 \u0627\u0644\u062d\u0645\u064a\u0645\u0629', medical:'\u0627\u0633\u062a\u0634\u0627\u0631\u0629 \u0625\u0630\u0627 \u0627\u0633\u062a\u0645\u0631\u062a \u0627\u0644\u0622\u0644\u0627\u0645. \u062a\u0642\u064a\u064a\u0645 \u0627\u0633\u062a\u0626\u0646\u0627\u0641 \u0627\u0644\u0639\u0644\u0627\u0642\u0629 \u0627\u0644\u062d\u0645\u064a\u0645\u0629.',
+      maman:['\u0627\u0644\u0631\u063a\u0628\u0629 \u0627\u0644\u062c\u0646\u0633\u064a\u0629 \u0642\u062f \u062a\u0643\u0648\u0646 \u063a\u0627\u0626\u0628\u0629','\u0627\u0644\u062c\u0633\u0645 \u064a\u062a\u063a\u064a\u0631 (\u0627\u0644\u0648\u0632\u0646\u060c \u0639\u0644\u0627\u0645\u0627\u062a \u0627\u0644\u062a\u0645\u062f\u062f)','\u0627\u0644\u0647\u0631\u0645\u0648\u0646\u0627\u062a \u062a\u0624\u062b\u0631 \u0639\u0644\u0649 \u0627\u0644\u0631\u063a\u0628\u0629','\u062a\u062e\u0648\u0641 \u0645\u0646 \u0627\u0633\u062a\u0626\u0646\u0627\u0641 \u0627\u0644\u0639\u0644\u0627\u0642\u0629'],
+      couple:['\u0645\u0648\u0636\u0648\u0639 \u0627\u0644\u062c\u0646\u0633 \u0642\u062f \u064a\u062e\u0644\u0642 \u062a\u0648\u062a\u0631\u0627\u062a','\u0627\u062e\u062a\u0644\u0627\u0641 \u0641\u064a \u0627\u0644\u0631\u063a\u0628\u0629 \u0628\u064a\u0646 \u0627\u0644\u0634\u0631\u064a\u0643\u064a\u0646','\u062d\u0627\u062c\u0629 \u0644\u0644\u062a\u0648\u0627\u0635\u0644 \u0627\u0644\u0645\u0641\u062a\u0648\u062d','\u062e\u0648\u0641 \u0645\u0646 \u062c\u0631\u062d \u0645\u0634\u0627\u0639\u0631 \u0627\u0644\u0622\u062e\u0631'],
+      bebe:'\u062a\u0641\u0627\u0647\u0645\u0643\u0645\u0627 \u064a\u0637\u0645\u0626\u0646\u0646\u064a. \u0639\u0646\u062f\u0645\u0627 \u062a\u0636\u062d\u0643\u0627\u0646 \u0645\u0639\u0627\u064b\u060c \u0623\u0634\u0639\u0631 \u0628\u0627\u0644\u0623\u0645\u0627\u0646.',
+      solutions:['\u062a\u062d\u062f\u062b\u0627 \u0628\u0635\u0631\u0627\u062d\u0629 \u0639\u0646 \u0631\u063a\u0628\u0627\u062a\u0643\u0645\u0627 \u0648\u0645\u062e\u0627\u0648\u0641\u0643\u0645\u0627.','\u0627\u0633\u062a\u0623\u0646\u0641\u0627 \u0627\u0644\u062a\u0644\u0627\u0645\u0633 \u062a\u062f\u0631\u064a\u062c\u064a\u0627\u064b (\u062a\u062f\u0644\u064a\u0643...).','\u0644\u0627 \u062a\u062d\u062f\u062f\u0627 \u0645\u0648\u0639\u062f\u0627\u064b \u0646\u0647\u0627\u0626\u064a\u0627\u064b \u0644\u0644\u0627\u0633\u062a\u0626\u0646\u0627\u0641.','\u0627\u0633\u062a\u0634\u064a\u0631\u0627 \u0642\u0627\u0628\u0644\u0629 \u0625\u0630\u0627 \u0627\u0633\u062a\u0645\u0631\u062a \u0627\u0644\u0622\u0644\u0627\u0645.'] },
+    { num:6, title:'\u0645\u0631\u0648\u0631 \u0627\u0644\u0634\u0647\u0631\u064a\u0646', medical:'\u0627\u0633\u062a\u0634\u0627\u0631\u0629 \u0637\u0628 \u0627\u0644\u0623\u0637\u0641\u0627\u0644. \u062a\u0637\u0639\u064a\u0645 \u0627\u0644\u0637\u0641\u0644. \u0645\u062a\u0627\u0628\u0639\u0629 \u0627\u0644\u0639\u062c\u0627\u0646.',
+      maman:['\u0627\u0644\u0637\u0627\u0642\u0629 \u062a\u0639\u0648\u062f \u062a\u062f\u0631\u064a\u062c\u064a\u0627\u064b','\u0627\u0644\u0647\u0648\u064a\u0629 \u0627\u0644\u0623\u0645\u0648\u0645\u064a\u0629 \u062a\u062a\u0634\u0643\u0644','\u0642\u0644\u0642 \u0645\u062d\u062a\u0645\u0644 \u0645\u0646 \u0627\u0644\u0639\u0648\u062f\u0629 \u0644\u0644\u0639\u0645\u0644','\u0627\u0644\u0646\u0648\u0645 \u064a\u062a\u062d\u0633\u0646 \u0628\u0628\u0637\u0621'],
+      couple:['\u0627\u0644\u062d\u064a\u0627\u0629 \u0627\u0644\u0632\u0648\u062c\u064a\u0629 \u062a\u0633\u062a\u0623\u0646\u0641 \u0628\u0628\u0637\u0621','\u0627\u0644\u062e\u0631\u062c\u0627\u062a \u0627\u0644\u0639\u0627\u0626\u0644\u064a\u0629 \u0623\u0633\u0647\u0644','\u0627\u0644\u0634\u0631\u064a\u0643 \u064a\u062c\u062f \u0645\u0643\u0627\u0646\u0647 \u0643\u0623\u0628','\u0627\u0644\u0623\u062c\u062f\u0627\u062f \u0642\u062f \u064a\u0643\u0648\u0646\u0648\u0646 \u0645\u0635\u062f\u0631 \u062a\u0648\u062a\u0631'],
+      bebe:'\u0623\u0635\u062f\u0631 \u0623\u0648\u0644 \u0623\u0635\u0648\u0627\u062a\u064a! \u062a\u062d\u062f\u062b\u0627 \u0645\u0639\u064a\u060c \u063a\u0646\u064a\u0627 \u0644\u064a\u060c \u0647\u0643\u0630\u0627 \u0623\u062a\u0639\u0644\u0645.',
+      solutions:['\u062e\u0637\u0637\u0627 \u0644\u0644\u0639\u0648\u062f\u0629 \u0644\u0644\u0639\u0645\u0644 \u0645\u0639\u0627\u064b.','\u0646\u0638\u0645\u0627 \u0645\u0648\u0639\u062f\u0627\u064b \u0644\u0644\u0632\u0648\u062c\u064a\u0646 \u0623\u0633\u0628\u0648\u0639\u064a\u0627\u064b.','\u0646\u0627\u0642\u0634\u0627 \u0627\u0644\u062a\u0631\u0628\u064a\u0629 \u0628\u0634\u0643\u0644 \u0648\u0642\u0627\u0626\u064a.','\u062a\u0639\u0627\u0645\u0644\u0627 \u0645\u0639 \u062a\u062f\u062e\u0644\u0627\u062a \u0627\u0644\u0645\u062d\u064a\u0637 \u0628\u062f\u0628\u0644\u0648\u0645\u0627\u0633\u064a\u0629.'] },
+    { num:7, title:'\u0627\u0644\u0639\u0648\u062f\u0629 \u0644\u0644\u0639\u0645\u0644 \u0623\u0648 \u0627\u0644\u0628\u0642\u0627\u0621', medical:'\u0632\u064a\u0627\u0631\u0629 \u0627\u0644\u0639\u0648\u062f\u0629 \u0644\u0644\u0639\u0645\u0644. \u0625\u062f\u0627\u0631\u0629 \u0627\u0644\u0641\u0637\u0627\u0645 \u0623\u0648 \u0645\u0648\u0627\u0635\u0644\u0629 \u0627\u0644\u0631\u0636\u0627\u0639\u0629.',
+      maman:['\u0634\u0639\u0648\u0631 \u0628\u0627\u0644\u0630\u0646\u0628 \u0644\u062a\u0631\u0643 \u0627\u0644\u0637\u0641\u0644','\u0635\u0639\u0648\u0628\u0629 \u0627\u0644\u062a\u0648\u0641\u064a\u0642 \u0628\u064a\u0646 \u0627\u0644\u0639\u0645\u0644 \u0648\u0627\u0644\u0623\u0645\u0648\u0645\u0629','\u062a\u0639\u0628 \u0645\u0636\u0627\u0639\u0641 \u0628\u0627\u0644\u062f\u0648\u0631 \u0627\u0644\u0645\u0632\u062f\u0648\u062c','\u062d\u0627\u062c\u0629 \u0644\u0644\u062a\u0642\u062f\u064a\u0631 \u0641\u064a \u0645\u062c\u0647\u0648\u062f\u0647\u0627'],
+      couple:['\u062a\u0646\u0638\u064a\u0645 \u0644\u0648\u062c\u0633\u062a\u064a \u062c\u062f\u064a\u062f \u0645\u0639\u0642\u062f','\u062a\u0648\u062a\u0631 \u062d\u0648\u0644 \u062a\u0642\u0627\u0633\u0645 \u0627\u0644\u0623\u0639\u0628\u0627\u0621','\u0627\u0644\u0632\u0648\u062c\u0627\u0646 \u064a\u062c\u0628 \u0623\u0646 \u064a\u0639\u0645\u0644\u0627 \u0643\u0641\u0631\u064a\u0642','\u0627\u0644\u062a\u0639\u0628 \u064a\u0642\u0644\u0644 \u0627\u0644\u0635\u0628\u0631'],
+      bebe:'\u062d\u062a\u0649 \u0644\u0648 \u0630\u0647\u0628\u062a\u0645\u0627 \u0644\u0644\u0639\u0645\u0644\u060c \u0623\u0639\u0631\u0641 \u0623\u0646\u0643\u0645\u0627 \u0633\u062a\u0639\u0648\u062f\u0627\u0646. \u0627\u0644\u0641\u0631\u0627\u0642 \u064a\u0642\u0648\u064a \u0631\u0627\u0628\u0637\u0646\u0627.',
+      solutions:['\u0623\u0639\u062f\u0627 \u062c\u062f\u0648\u0644\u0627\u064b \u0639\u0627\u0626\u0644\u064a\u0627\u064b \u0645\u0641\u0635\u0644\u0627\u064b.','\u0639\u0628\u0631\u0627 \u0639\u0646 \u0627\u062d\u062a\u064a\u0627\u062c\u0627\u062a\u0643\u0645\u0627 \u062f\u0648\u0646 \u0627\u062a\u0647\u0627\u0645.','\u0627\u0642\u0628\u0644\u0627 \u0623\u0646 \u0644\u064a\u0633 \u0643\u0644 \u0634\u064a\u0621 \u0633\u064a\u0643\u0648\u0646 \u0645\u062b\u0627\u0644\u064a\u0627\u064b.','\u062e\u0635\u0635\u0627 \u0648\u0642\u062a\u0627\u064b \u0644\u0644\u0627\u0633\u062a\u0631\u062e\u0627\u0621 \u0628\u0639\u062f \u0627\u0644\u0639\u0645\u0644.'] },
+    { num:8, title:'\u0627\u0633\u062a\u0639\u0627\u062f\u0629 \u0627\u0644\u062a\u0648\u0627\u0632\u0646', medical:'\u0627\u0633\u062a\u0634\u0627\u0631\u0629 \u0625\u0630\u0627 \u0627\u0633\u062a\u0645\u0631 \u0627\u0644\u062a\u0639\u0628. \u0641\u062d\u0635 \u063a\u062f\u0629 \u062f\u0631\u0642\u064a\u0629 \u0625\u0630\u0627 \u0644\u0632\u0645.',
+      maman:['\u0627\u0644\u062c\u0633\u0645 \u064a\u0633\u062a\u0639\u064a\u062f \u0634\u0643\u0644\u0647 \u062a\u062f\u0631\u064a\u062c\u064a\u0627\u064b','\u0627\u0644\u062b\u0642\u0629 \u0643\u0623\u0645 \u062a\u0643\u0628\u0631','\u0627\u0644\u0646\u0648\u0645 \u064a\u062a\u062d\u0633\u0646 \u0628\u0634\u0643\u0644 \u0645\u0644\u062d\u0648\u0638','\u0631\u063a\u0628\u0629 \u0641\u064a \u0627\u0644\u0639\u0646\u0627\u064a\u0629 \u0628\u0627\u0644\u0646\u0641\u0633'],
+      couple:['\u0627\u0644\u0632\u0648\u062c\u0627\u0646 \u064a\u062c\u062f\u0627\u0646 \u0625\u064a\u0642\u0627\u0639\u0647\u0645\u0627','\u0627\u0644\u062a\u0648\u0627\u0637\u0624 \u064a\u0639\u0648\u062f \u0645\u0639 \u0627\u0644\u0631\u0648\u062a\u064a\u0646','\u0627\u0644\u0639\u0644\u0627\u0642\u0629 \u0627\u0644\u062d\u0645\u064a\u0645\u0629 \u062a\u0633\u062a\u0623\u0646\u0641 \u0628\u0628\u0637\u0621','\u0627\u0644\u0645\u0634\u0627\u0631\u064a\u0639 \u0627\u0644\u0645\u0634\u062a\u0631\u0643\u0629 \u062a\u0639\u0648\u062f'],
+      bebe:'\u0628\u062f\u0623\u062a \u0623\u0644\u0639\u0628 \u0648\u062d\u062f\u064a \u0628\u0639\u0636 \u0627\u0644\u062f\u0642\u0627\u0626\u0642. \u064a\u0645\u0643\u0646\u0643\u0645\u0627 \u0623\u062e\u0630 \u0647\u0630\u0627 \u0627\u0644\u0648\u0642\u062a \u0644\u0623\u0646\u0641\u0633\u0643\u0645\u0627!',
+      solutions:['\u062e\u0635\u0635\u0627 \u0646\u0634\u0627\u0637\u0627\u064b \u0631\u064a\u0627\u0636\u064a\u0627\u064b \u0623\u0648 \u0644\u0644\u0631\u0641\u0627\u0647\u064a\u0629.','\u0627\u0633\u062a\u0623\u0646\u0641\u0627 \u0627\u0644\u0645\u0634\u0627\u0631\u064a\u0639 \u0627\u0644\u0645\u062a\u0648\u0642\u0641\u0629.','\u0642\u064a\u0645\u0627 \u0631\u0636\u0627\u0643\u0645\u0627 \u0627\u0644\u0632\u0648\u062c\u064a.','\u0627\u062d\u062a\u0641\u0644\u0627 \u0628\u0627\u0644\u0627\u0646\u062a\u0635\u0627\u0631\u0627\u062a \u0627\u0644\u0635\u063a\u064a\u0631\u0629.'] },
+    { num:9, title:'\u0627\u0644\u062a\u0646\u0648\u064a\u0639 \u0648\u0627\u0644\u062a\u062d\u062f\u064a\u0627\u062a', medical:'\u0628\u062f\u0621 \u0627\u0644\u062a\u0646\u0648\u064a\u0639 \u0627\u0644\u063a\u0630\u0627\u0626\u064a \u0644\u0644\u0637\u0641\u0644. \u0627\u0633\u062a\u0634\u0627\u0631\u0629 \u0637\u0628 \u0627\u0644\u0623\u0637\u0641\u0627\u0644.',
+      maman:['\u0627\u0644\u0631\u0648\u062a\u064a\u0646 \u0645\u0633\u062a\u0642\u0631','\u0627\u0644\u062c\u0633\u0645 \u062a\u0639\u0627\u0641\u0649 \u0643\u062b\u064a\u0631\u0627\u064b','\u0627\u0644\u062d\u064a\u0627\u0629 \u0627\u0644\u0627\u062c\u062a\u0645\u0627\u0639\u064a\u0629 \u0637\u0628\u064a\u0639\u064a\u0629','\u0631\u063a\u0628\u0629 \u0641\u064a \u0637\u0641\u0644 \u062b\u0627\u0646\u064d \u0623\u0648 \u0644\u0627'],
+      couple:['\u0627\u0644\u0646\u0642\u0627\u0634\u0627\u062a \u0627\u0644\u0639\u0645\u064a\u0642\u0629 \u062a\u0639\u0648\u062f (\u0645\u0627\u0644\u064a\u0627\u062a\u060c \u0633\u0643\u0646)','\u0627\u0644\u0632\u0648\u062c\u0627\u0646 \u0623\u0642\u0648\u0649','\u0627\u0644\u0623\u0628\u0648\u0629 \u0623\u0635\u0628\u062d\u062a \u0637\u0628\u064a\u0639\u064a\u0629','\u0627\u0644\u062a\u0648\u0627\u0635\u0644 \u0623\u0633\u0644\u0633'],
+      bebe:'\u0623\u0648\u0644 \u0648\u062c\u0628\u0627\u062a\u064a! \u0643\u0644 \u0637\u0639\u0645 \u0627\u0643\u062a\u0634\u0627\u0641. \u0634\u0627\u0631\u0643\u0627\u0646\u064a \u0647\u0630\u0647 \u0627\u0644\u0644\u062d\u0638\u0629.',
+      solutions:['\u0627\u0639\u0645\u0644\u0627 \u062a\u0642\u064a\u064a\u0645\u0627\u064b \u0644\u0645\u0633\u0627\u0631\u0643\u0645\u0627.','\u0639\u0628\u0631\u0627 \u0639\u0646 \u0627\u0644\u0627\u0645\u062a\u0646\u0627\u0646 \u0644\u0644\u0634\u0631\u064a\u0643.','\u062e\u0637\u0637\u0627 \u0644\u0639\u0637\u0644\u0629 \u0639\u0627\u0626\u0644\u064a\u0629.','\u0646\u0627\u0642\u0634\u0627 \u0623\u0647\u062f\u0627\u0641\u0643\u0645\u0627 \u0627\u0644\u0645\u0634\u062a\u0631\u0643\u0629.'] },
+    { num:10, title:'\u0627\u0644\u062a\u0648\u0627\u0637\u0624 \u0627\u0644\u0645\u0633\u062a\u0639\u0627\u062f', medical:'\u0645\u062a\u0627\u0628\u0639\u0629 \u0646\u0645\u0648 \u0627\u0644\u0637\u0641\u0644. \u062a\u0642\u064a\u064a\u0645 \u0634\u0627\u0645\u0644 \u0644\u0644\u0623\u0645.',
+      maman:['\u062a\u0634\u0639\u0631 \u0628\u0627\u0644\u0643\u0641\u0627\u0621\u0629 \u0643\u0623\u0645','\u0627\u0644\u062a\u0639\u0628 \u064a\u0645\u0643\u0646 \u0625\u062f\u0627\u0631\u062a\u0647','\u0635\u0648\u0631\u0629 \u0627\u0644\u062c\u0633\u0645 \u0645\u0642\u0628\u0648\u0644\u0629','\u0627\u0644\u062d\u064a\u0627\u0629 \u0627\u0644\u0645\u0647\u0646\u064a\u0629 \u0648\u0627\u0644\u0634\u062e\u0635\u064a\u0629 \u0645\u062a\u0646\u0627\u063a\u0645\u0629'],
+      couple:['\u0627\u0644\u0632\u0648\u062c\u0627\u0646 \u064a\u0639\u0645\u0644\u0627\u0646 \u0643\u0641\u0631\u064a\u0642','\u0627\u0644\u0639\u0644\u0627\u0642\u0629 \u0627\u0644\u062d\u0645\u064a\u0645\u0629 \u0639\u0627\u062f\u062a','\u0644\u062d\u0638\u0627\u062a \u0627\u0644\u062c\u0648\u062f\u0629 \u0645\u0646\u062a\u0638\u0645\u0629','\u0627\u0644\u062a\u0648\u0627\u0635\u0644 \u0623\u0635\u0628\u062d \u0639\u0627\u062f\u0629'],
+      bebe:'\u0623\u062a\u062d\u0631\u0643 \u0641\u064a \u0643\u0644 \u0645\u0643\u0627\u0646! \u0627\u0644\u0639\u0628\u0627 \u0645\u0639\u064a\u060c \u0647\u0630\u0627 \u0623\u0641\u0636\u0644 \u0648\u0642\u062a \u0641\u064a \u064a\u0648\u0645\u064a.',
+      solutions:['\u0648\u0627\u0635\u0644\u0627 \u0637\u0642\u0648\u0633 \u0627\u0644\u0632\u0648\u062c\u064a\u0646.','\u062e\u0637\u0637\u0627 \u0644\u0639\u0634\u0627\u0621 \u0631\u0648\u0645\u0627\u0646\u0633\u064a \u0634\u0647\u0631\u064a.','\u0627\u0643\u062a\u0628\u0627 \u0631\u0633\u0627\u0644\u0629 \u062d\u0628 \u0644\u0644\u0634\u0631\u064a\u0643.','\u0627\u0636\u062d\u0643\u0627 \u0645\u0639\u0627\u064b \u0645\u0631\u0629 \u064a\u0648\u0645\u064a\u0627\u064b.'] },
+    { num:11, title:'\u0627\u0644\u062a\u0637\u0644\u0639 \u0644\u0644\u0645\u0633\u062a\u0642\u0628\u0644', medical:'\u0627\u0642\u062a\u0631\u0627\u0628 \u0627\u0644\u0641\u062d\u0635 \u0627\u0644\u0633\u0646\u0648\u064a \u0644\u0644\u0637\u0641\u0644. \u0645\u062a\u0627\u0628\u0639\u0629 \u0646\u0633\u0627\u0626\u064a\u0629 \u0644\u0644\u0623\u0645.',
+      maman:['\u062a\u0634\u0639\u0631 \u0628\u0627\u0644\u0627\u0632\u062f\u0647\u0627\u0631 \u0641\u064a \u062d\u064a\u0627\u062a\u0647\u0627 \u0627\u0644\u062c\u062f\u064a\u062f\u0629','\u062a\u0642\u0628\u0644\u062a \u062a\u063a\u064a\u0631\u0627\u062a \u062c\u0633\u0645\u0647\u0627','\u0637\u0648\u0631\u062a \u0645\u0631\u0648\u0646\u0629 \u0645\u0630\u0647\u0644\u0629','\u0645\u0633\u062a\u0639\u062f\u0629 \u0644\u062a\u062d\u062f\u064a\u0627\u062a \u062c\u062f\u064a\u062f\u0629'],
+      couple:['\u0645\u0634\u0627\u0631\u064a\u0639 \u0627\u0644\u0632\u0648\u062c\u064a\u0646 \u0648\u0627\u0636\u062d\u0629','\u0627\u0644\u0623\u0628\u0648\u0629 \u0645\u0635\u062f\u0631 \u0641\u062e\u0631 \u0645\u0634\u062a\u0631\u0643','\u0631\u063a\u0628\u0629 \u0645\u062a\u0628\u0627\u062f\u0644\u0629 \u0641\u064a \u062a\u0642\u0648\u064a\u0629 \u0627\u0644\u0631\u0627\u0628\u0637','\u0627\u0644\u0623\u062e\u0637\u0627\u0621 \u0627\u0644\u0633\u0627\u0628\u0642\u0629 \u0645\u063a\u0641\u0648\u0631\u0629'],
+      bebe:'\u062e\u0637\u0648\u0627\u062a\u064a \u0627\u0644\u0623\u0648\u0644\u0649 \u0642\u0631\u064a\u0628\u0629! \u062a\u0634\u062c\u064a\u0639\u0643\u0645\u0627 \u0647\u0648 \u0623\u0643\u0628\u0631 \u062d\u0627\u0641\u0632 \u0644\u064a.',
+      solutions:['\u062d\u062f\u062f\u0627 \u0623\u0647\u062f\u0627\u0641\u0627\u064b \u0644\u0644\u0632\u0648\u062c\u064a\u0646 \u0644\u0644\u0633\u0646\u0629.','\u062e\u0637\u0637\u0627 \u0644\u0633\u0641\u0631 \u0639\u0627\u0626\u0644\u064a.','\u0627\u0632\u0631\u0639\u0627 \u0627\u0644\u0627\u0645\u062a\u0646\u0627\u0646 \u0627\u0644\u064a\u0648\u0645\u064a.','\u0627\u062d\u0644\u0645\u0627 \u0645\u0639\u0627\u064b \u0628\u0627\u0644\u0645\u0633\u062a\u0642\u0628\u0644.'] },
+    { num:12, title:'\u0633\u0646\u0629 \u0628\u0627\u0644\u0641\u0639\u0644 \u2014 \u062d\u0635\u064a\u0644\u0629 \u0648\u0627\u062d\u062a\u0641\u0627\u0644', medical:'\u0641\u062d\u0635 \u0633\u0646\u0648\u064a \u0644\u0644\u0637\u0641\u0644. \u0627\u0633\u062a\u0634\u0627\u0631\u0629 \u0646\u0633\u0627\u0626\u064a\u0629 \u0634\u0627\u0645\u0644\u0629. \u062a\u0642\u064a\u064a\u0645 \u0627\u0644\u0632\u0648\u062c\u064a\u0646.',
+      maman:['\u0641\u062e\u0648\u0631\u0629 \u0628\u0627\u0644\u0645\u0633\u0627\u0631','\u0627\u0644\u062c\u0633\u0645 \u0648\u062c\u062f \u062a\u0648\u0627\u0632\u0646\u0627\u064b \u062c\u062f\u064a\u062f\u0627\u064b','\u0647\u0648\u064a\u0629 \u0627\u0644\u0645\u0631\u0623\u0629-\u0627\u0644\u0623\u0645 \u062a\u0634\u0643\u0644\u062a','\u0645\u0633\u062a\u0639\u062f\u0629 \u0644\u0645\u0627 \u0647\u0648 \u0642\u0627\u062f\u0645'],
+      couple:['\u0627\u0644\u0632\u0648\u062c\u0627\u0646 \u062a\u062c\u0627\u0648\u0632\u0627 \u0627\u0644\u0639\u0627\u0635\u0641\u0629 \u0648\u062e\u0631\u062c\u0627 \u0623\u0642\u0648\u0649','\u0627\u0644\u062d\u0628 \u062a\u0637\u0648\u0631 \u0648\u0646\u0636\u062c','\u0627\u0644\u0623\u0628\u0648\u0629 \u0642\u0648\u0629 \u0644\u0644\u0632\u0648\u062c\u064a\u0646','\u0627\u0644\u0623\u0633\u0633 \u0645\u062a\u064a\u0646\u0629 \u0644\u0644\u0645\u0633\u062a\u0642\u0628\u0644'],
+      bebe:'\u0639\u064a\u062f \u0645\u064a\u0644\u0627\u062f\u064a! \u0634\u0643\u0631\u0627\u064b \u0644\u0623\u0646\u0643\u0645\u0627 \u0623\u0641\u0636\u0644 \u0648\u0627\u0644\u062f\u064a\u0646. \u0643\u0644 \u064a\u0648\u0645 \u0645\u0639\u0643\u0645\u0627 \u0647\u062f\u064a\u0629.',
+      solutions:['\u0627\u062d\u062a\u0641\u0644\u0627 \u0628\u0647\u0630\u0647 \u0627\u0644\u0633\u0646\u0629 \u0645\u0639\u0627\u064b.','\u0627\u0643\u062a\u0628\u0627 \u062d\u0635\u064a\u0644\u0629 \u0627\u0645\u062a\u0646\u0627\u0646.','\u062a\u0630\u0643\u0631\u0627 \u0627\u0644\u0644\u062d\u0638\u0627\u062a \u0627\u0644\u0645\u0647\u0645\u0629.','\u0627\u0644\u062a\u0632\u0645\u0627 \u0628\u0645\u0648\u0627\u0635\u0644\u0629 \u0627\u0644\u062a\u0648\u0627\u0635\u0644 \u0648\u0627\u0644\u062d\u0628.'] }
+  ];
+  return [
+    { num:1, title:'Le choc de la naissance', medical:'Consultation J8 : Contr\u00f4le sage-femme de la cicatrisation, saignements, lactation, et \u00e9valuation du moral.',
+      maman:['Fatigue extr\u00eame apr\u00e8s l\'effort physique intense','Douleurs physiques (tranch\u00e9es ut\u00e9rines, cicatrices)','Hypersensibilit\u00e9 \u00e9motionnelle (chute hormonale)','Possible baby blues (pleurs sans raison)'],
+      couple:['Redistribution brutale des r\u00f4les','Nuits fragment\u00e9es qui \u00e9puisent les deux','Sentiment d\'exclusion possible du partenaire','Communication r\u00e9duite \u00e0 l\'essentiel'],
+      bebe:'Pratiquez le peau \u00e0 peau. Cela r\u00e9conforte instantan\u00e9ment le b\u00e9b\u00e9 et stimule l\'ocytocine.',
+      solutions:['Partager \u00e9quitablement les t\u00e2ches domestiques.','Cr\u00e9er des relais programm\u00e9s pour que chacun dorme 3h de suite.','Discuter de l\'organisation sans faire de reproches directs.','Garder des gestes simples de tendresse sans attente sexuelle.'] },
+    { num:2, title:'Apprendre \u00e0 devenir parents', medical:'Vigilance psychologique : Consulter si la maman pr\u00e9sente une tristesse intense ou une angoisse emp\u00eachant le sommeil.',
+      maman:['Besoin imp\u00e9rieux de repos et de r\u00e9cup\u00e9ration','\u00c9motions changeantes d\'une heure \u00e0 l\'autre','Difficult\u00e9 \u00e0 organiser les t\u00e2ches','Besoin immense d\'\u00eatre rassur\u00e9e'],
+      couple:['Irritabilit\u00e9 accrue due au manque de sommeil','Tensions pour de minuscules d\u00e9tails','Charge mentale de l\'organisation','Prise de d\u00e9cision difficile sur les soins'],
+      bebe:'Votre b\u00e9b\u00e9 ressent vos \u00e9motions. Parlez-lui doucement, il reconna\u00eet votre voix.',
+      solutions:['\u00c9tablir un tableau de r\u00e9partition des t\u00e2ches.','Prendre 10 minutes par jour pour parler de vos ressentis.','Accepter l\'aide ext\u00e9rieure sans culpabilit\u00e9.','Pratiquer la respiration \u00e0 deux avant le coucher.'] },
+    { num:3, title:'Le retour \u00e0 la r\u00e9alit\u00e9', medical:'Visite post-natale : Bilan complet maman. \u00c9valuation du risque de d\u00e9pression post-partum.',
+      maman:['La fatigue devient chronique','Possible sentiment de solitude','Questionnements sur l\'image corporelle','D\u00e9but de la r\u00e9\u00e9ducation p\u00e9rin\u00e9ale'],
+      couple:['Les conflits se cristallisent autour du sommeil','La vie sociale est en pause','Le partenaire peut se sentir impuissant','Besoin de retrouver des moments \u00e0 deux'],
+      bebe:'Je commence \u00e0 sourire ! Chaque sourire est un cadeau.',
+      solutions:['Planifier une sortie courte \u00e0 deux.','Commencer un journal de gratitude en couple.','Inviter un proche pour garder b\u00e9b\u00e9 une heure.','Se f\u00e9liciter mutuellement.'] },
+    { num:4, title:'Trouver son rythme', medical:'Suivi allaitement. Consultation sage-femme pour la r\u00e9\u00e9ducation p\u00e9rin\u00e9ale.',
+      maman:['Le corps commence \u00e0 r\u00e9cup\u00e9rer','L\'allaitement se stabilise','Le sommeil plus pr\u00e9visible','Envie de reprendre des activit\u00e9s'],
+      couple:['Les routines se mettent en place','Moins de conflits','Besoin de recr\u00e9er une complicit\u00e9','Les discussions sur la contraception commencent'],
+      bebe:'Je reconnais vos visages maintenant ! Vos c\u00e2lins nourrissent mon d\u00e9veloppement.',
+      solutions:['Cr\u00e9er un rituel de couple quotidien.','Discuter de la contraception post-partum.','Reprendre une activit\u00e9 douce.','Remercier votre partenaire une fois par jour.'] },
+    { num:5, title:'La question de l\'intimit\u00e9', medical:'Consultation si douleurs persistantes. \u00c9valuation de la reprise des rapports.',
+      maman:['Le d\u00e9sir sexuel peut \u00eatre absent','Le corps est en transformation','La libido influenc\u00e9e par la fatigue','Appr\u00e9hension de la reprise des rapports'],
+      couple:['Le sujet de la sexualit\u00e9 peut cr\u00e9er des tensions','D\u00e9calage de d\u00e9sir entre partenaires','Besoin de communication ouverte','Peur de blesser l\'autre'],
+      bebe:'Votre complicit\u00e9 me rassure. Quand vous riez ensemble, je me sens en s\u00e9curit\u00e9.',
+      solutions:['Parler ouvertement de vos envies.','Reprendre le contact physique progressivement.','Ne pas fixer de deadline.','Consulter une sage-femme si n\u00e9cessaire.'] },
+    { num:6, title:'Le cap du 2\u00e8me mois', medical:'Consultation p\u00e9diatrique. Vaccination de b\u00e9b\u00e9. Suivi p\u00e9rin\u00e9al.',
+      maman:['L\'\u00e9nergie revient','L\'identit\u00e9 maternelle se construit','Possible anxi\u00e9t\u00e9 li\u00e9e au travail','Le sommeil s\'am\u00e9liore'],
+      couple:['La vie de couple reprend','Les sorties en famille plus faciles','Le partenaire trouve sa place','Les grands-parents source de tensions'],
+      bebe:'Je fais mes premi\u00e8res vocalises ! Parlez-moi, chantez-moi.',
+      solutions:['Planifier la reprise du travail ensemble.','Organiser un rendez-vous en couple.','Discuter de l\'\u00e9ducation.','G\u00e9rer les intrusions de l\'entourage.'] },
+    { num:7, title:'La reprise ou le choix de rester', medical:'Visite de reprise. Gestion du sevrage ou maintien de l\'allaitement.',
+      maman:['Culpabilit\u00e9 de laisser b\u00e9b\u00e9','Difficult\u00e9 \u00e0 concilier travail et maternit\u00e9','Fatigue amplifi\u00e9e','Besoin de reconnaissance'],
+      couple:['Organisation logistique complexe','Tension sur le partage des charges','Le couple doit fonctionner en \u00e9quipe','La fatigue r\u00e9duit la patience'],
+      bebe:'M\u00eame si vous partez, je sais que vous reviendrez. La s\u00e9paration renforce notre lien.',
+      solutions:['Pr\u00e9parer un planning familial.','Exprimer ses besoins sans accuser.','Accepter l\'imperfection.','Temps de d\u00e9compression apr\u00e8s le travail.'] },
+    { num:8, title:'Retrouver l\'\u00e9quilibre', medical:'Consultation si fatigue persistante. Bilan thyro\u00efdien si n\u00e9cessaire.',
+      maman:['Le corps retrouve sa forme','La confiance en soi grandit','Le sommeil s\'am\u00e9liore significativement','Envie de prendre soin de soi'],
+      couple:['Rythme de croisi\u00e8re','La complicit\u00e9 revient','La sexualit\u00e9 repart doucement','Les projets \u00e0 deux refont surface'],
+      bebe:'Je commence \u00e0 jouer seul. Prenez ce temps pour vous !',
+      solutions:['Activit\u00e9 sportive ou bien-\u00eatre.','Reprendre les projets en pause.','\u00c9valuer votre satisfaction conjugale.','F\u00eater les petites victoires.'] },
+    { num:9, title:'La diversification et les d\u00e9fis', medical:'D\u00e9but diversification alimentaire. Consultation p\u00e9diatrique.',
+      maman:['La routine est install\u00e9e','Le corps a r\u00e9cup\u00e9r\u00e9','La vie sociale reprend','Possible d\u00e9sir d\'un 2e enfant'],
+      couple:['Les discussions de fond reprennent','Le couple est plus solide','La parentalit\u00e9 plus naturelle','La communication plus fluide'],
+      bebe:'Mes premi\u00e8res pur\u00e9es ! Chaque go\u00fbt est une d\u00e9couverte.',
+      solutions:['Faire un bilan de couple.','Exprimer sa gratitude.','Planifier un week-end en famille.','Discuter des objectifs communs.'] },
+    { num:10, title:'La complicit\u00e9 retrouv\u00e9e', medical:'Suivi de d\u00e9veloppement b\u00e9b\u00e9. \u00c9valuation globale maman.',
+      maman:['Se sent comp\u00e9tente','La fatigue est g\u00e9rable','L\'image corporelle accept\u00e9e','Vie pro et perso en harmonie'],
+      couple:['Le couple fonctionne en \u00e9quipe','L\'intimit\u00e9 est r\u00e9tablie','Moments de qualit\u00e9 r\u00e9guliers','La communication est une habitude'],
+      bebe:'Je bouge partout ! Jouez avec moi, c\'est le meilleur moment de ma journ\u00e9e.',
+      solutions:['Continuer les rituels.','D\u00eener romantique mensuel.','\u00c9crire une lettre d\'amour.','Rire ensemble chaque jour.'] },
+    { num:11, title:'Se projeter ensemble', medical:'Bilan annuel b\u00e9b\u00e9 approche. Suivi gyn\u00e9cologique maman.',
+      maman:['Se sent \u00e9panouie','Accept\u00e9 les transformations','R\u00e9silience d\u00e9velopp\u00e9e','Pr\u00eate pour de nouveaux d\u00e9fis'],
+      couple:['Les projets sont clairs','La parentalit\u00e9 source de fiert\u00e9','D\u00e9sir mutuel de renforcer le lien','Les erreurs sont pardonn\u00e9es'],
+      bebe:'Mes premiers pas approchent ! Votre encouragement est ma plus grande motivation.',
+      solutions:['D\u00e9finir des objectifs de couple.','Planifier un voyage en famille.','Cultiver la reconnaissance.','R\u00eaver ensemble de l\'avenir.'] },
+    { num:12, title:'Un an d\u00e9j\u00e0 \u2014 Bilan et c\u00e9l\u00e9bration', medical:'Bilan p\u00e9diatrique annuel. Consultation gyn\u00e9cologique compl\u00e8te.',
+      maman:['Fi\u00e8re du chemin parcouru','Le corps a trouv\u00e9 un \u00e9quilibre','L\'identit\u00e9 femme-m\u00e8re est construite','Pr\u00eate pour la suite'],
+      couple:['Le couple a travers\u00e9 la temp\u00eate et en sort grandi','L\'amour a \u00e9volu\u00e9 et m\u00fbri','La parentalit\u00e9 est une force','Les fondations sont solides'],
+      bebe:'Joyeux anniversaire ! Merci d\'\u00eatre les meilleurs parents. Chaque jour avec vous est un cadeau.',
+      solutions:['C\u00e9l\u00e9brer cette premi\u00e8re ann\u00e9e.','\u00c9crire un bilan de gratitude.','Se rem\u00e9morer les moments cl\u00e9s.','S\'engager \u00e0 continuer de communiquer et s\'aimer.'] }
+  ];
+}
 
 let currentWeek = 0;
 function renderSemaines() {
+  const weeksData = getWeeksData();
   const w = weeksData[currentWeek];
   const container = document.getElementById('semaines-content');
   container.innerHTML = `
@@ -3295,7 +3184,7 @@ function renderSemaines() {
     <!-- Week selector -->
     <div class="chips-scroll mb-xl" style="padding-bottom:4px;">
       ${weeksData.map((wk, i) => `
-        <button class="chip ${i === currentWeek ? 'chip--filled' : 'chip--tonal'}" onclick="currentWeek=${i};renderSemaines();" style="min-width:48px;">S${wk.num}</button>
+        <button class="chip ${i === currentWeek ? 'chip--filled' : 'chip--tonal'}" onclick="currentWeek=${i};renderSemaines();" style="min-width:48px;">${currentLang==='ar'?'\u0623':'S'}${wk.num}</button>
       `).join('')}
     </div>
 
@@ -3304,7 +3193,7 @@ function renderSemaines() {
         <span style="display:inline-block;background:var(--primary-container);color:var(--on-primary-container);padding:4px 14px;border-radius:var(--radius-full);font-size:12px;font-weight:700;letter-spacing:0.05em;margin-bottom:12px;">${t('sem_week')} ${w.num}</span>
         <h2 class="text-display-lg-mobile" style="margin-bottom:var(--space-xl);">${w.title}</h2>
 
-        <!-- Suivi Médical -->
+        <!-- Suivi MÃ©dical -->
         <div style="background:var(--surface-container-low);border-radius:var(--radius-xl);padding:var(--space-xl);margin-bottom:var(--space-xl);border-left:4px solid var(--primary);">
           <h3 class="text-label-lg text-primary mb-md flex items-center gap-sm"><span class="material-symbols-outlined" style="font-size:18px;">medical_services</span> ${t('sem_medical')}</h3>
           <p class="text-body-md" style="line-height:1.7;">${w.medical}</p>
@@ -3312,25 +3201,25 @@ function renderSemaines() {
 
         <!-- Pour la Maman -->
         <div style="background:rgba(196,69,105,0.06);border-radius:var(--radius-xl);padding:var(--space-xl);margin-bottom:var(--space-xl);border-left:4px solid var(--primary);">
-          <h3 class="flex items-center gap-sm mb-lg" style="color:var(--primary);font-size:18px;font-weight:600;"><span>♀</span> ${t('sem_maman')}</h3>
+          <h3 class="flex items-center gap-sm mb-lg" style="color:var(--primary);font-size:18px;font-weight:600;"><span>â™€</span> ${t('sem_maman')}</h3>
           ${w.maman.map(m => `<div class="flex items-center gap-md mb-md"><span class="material-symbols-outlined" style="color:var(--primary);font-size:18px;">check_circle</span><span class="text-body-md">${m}</span></div>`).join('')}
         </div>
 
         <!-- Pour le Couple -->
         <div style="background:rgba(142,108,136,0.08);border-radius:var(--radius-xl);padding:var(--space-xl);margin-bottom:var(--space-xl);border-left:4px solid var(--secondary);">
-          <h3 class="flex items-center gap-sm mb-lg" style="color:var(--secondary);font-size:18px;font-weight:600;"><span>♂♀</span> ${t('sem_couple')}</h3>
+          <h3 class="flex items-center gap-sm mb-lg" style="color:var(--secondary);font-size:18px;font-weight:600;"><span>â™‚â™€</span> ${t('sem_couple')}</h3>
           ${w.couple.map(c => `<div class="flex items-center gap-md mb-md"><span class="material-symbols-outlined" style="color:var(--secondary);font-size:18px;">favorite</span><span class="text-body-md">${c}</span></div>`).join('')}
         </div>
 
-        <!-- Message du Bébé -->
+        <!-- Message du BÃ©bÃ© -->
         <div style="background:rgba(212,107,80,0.08);border-radius:var(--radius-xl);padding:var(--space-xl);margin-bottom:var(--space-xl);border-left:4px solid var(--tertiary);">
-          <h3 class="flex items-center gap-sm mb-md" style="color:var(--tertiary);font-size:18px;font-weight:600;"><span>👶</span> ${t('sem_bebe')}</h3>
+          <h3 class="flex items-center gap-sm mb-md" style="color:var(--tertiary);font-size:18px;font-weight:600;"><span>ðŸ‘¶</span> ${t('sem_bebe')}</h3>
           <p class="text-body-md" style="line-height:1.7;font-style:italic;">${w.bebe}</p>
         </div>
 
         <!-- Solutions Pratiques -->
         <div style="background:rgba(212,165,116,0.1);border-radius:var(--radius-xl);padding:var(--space-xl);border-left:4px solid #d4a574;">
-          <h3 class="flex items-center gap-sm mb-lg" style="color:#d4a574;font-size:18px;font-weight:600;"><span>💡</span> ${t('sem_solutions')}</h3>
+          <h3 class="flex items-center gap-sm mb-lg" style="color:#d4a574;font-size:18px;font-weight:600;"><span>ðŸ’¡</span> ${t('sem_solutions')}</h3>
           ${w.solutions.map(s => `<div class="flex items-center gap-md mb-md"><span class="material-symbols-outlined" style="color:#d4a574;font-size:18px;">lightbulb</span><span class="text-body-md">${s}</span></div>`).join('')}
         </div>
       </div>
@@ -3346,9 +3235,9 @@ function renderSemaines() {
   setTimeout(() => initReveal(), 50);
 }
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  MODULE: JOURNAL DE BORD DU COUPLE
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 let journalRole = 'maman';
 let journalMood = null;
 function getJournalEntries() {
@@ -3369,7 +3258,7 @@ function saveJournalEntry() {
   localStorage.setItem('nf_journal', JSON.stringify(entries));
   journalMood = null;
   const now = new Date().toISOString().split('T')[0];
-  pushNotification('journal_' + now, '📝', t('notif_journal_saved') || 'تم حفظ يومياتك!', 'tip');
+  pushNotification('journal_' + now, 'ðŸ“', t('notif_journal_saved') || 'ØªÙ… Ø­ÙØ¸ ÙŠÙˆÙ…ÙŠØ§ØªÙƒ!', 'tip');
   renderJournal();
 }
 function renderJournal() {
@@ -3380,7 +3269,7 @@ function renderJournal() {
     const now = new Date();
     return (now - d) < 7 * 24 * 60 * 60 * 1000;
   });
-  const moods = ['❤️','🤩','😰','☀️','🤝'];
+  const moods = ['â¤ï¸','ðŸ¤©','ðŸ˜°','â˜€ï¸','ðŸ¤'];
   container.innerHTML = `
     <div class="flex items-center gap-md mb-xl">
       <button class="top-bar__btn" onclick="navigateTo('home')"><span class="material-symbols-outlined">arrow_back</span></button>
@@ -3440,7 +3329,7 @@ function renderJournal() {
               <span class="text-label-md text-variant">${new Date(e.date).toLocaleDateString('fr-FR')}</span>
             </div>
             ${e.need ? `<p class="text-body-md mb-sm"><strong>${t('journal_need_label')} :</strong> ${e.need}</p>` : ''}
-            ${e.sweet ? `<p class="text-body-md" style="color:var(--primary);font-style:italic;">💕 ${e.sweet}</p>` : ''}
+            ${e.sweet ? `<p class="text-body-md" style="color:var(--primary);font-style:italic;">ðŸ’• ${e.sweet}</p>` : ''}
           </div>
         `).join('') : `<p class="text-body-md text-variant text-center" style="font-style:italic;">${t('journal_no_notes')}</p>`}
       </div>
@@ -3449,32 +3338,59 @@ function renderJournal() {
   setTimeout(() => initReveal(), 50);
 }
 
-// ══════════════════════════════════════════════════════════════
-//  MODULE: ÉCHELLES CLINIQUES PISQ-12 & RAS
-// ══════════════════════════════════════════════════════════════
-const pisq12Questions = [
-  'Ressentez-vous du désir sexuel (envie d\'avoir des rapports ou des moments intimes) ?',
-  'Atteignez-vous l\'orgasme lors des rapports ou activités intimes ?',
-  'Ressentez-vous de la satisfaction physique après vos rapports ?',
-  'Êtes-vous satisfaite de la variété de votre activité sexuelle ?',
-  'Ressentez-vous de la douleur pendant les rapports sexuels ?',
-  'Souffrez-vous d\'incontinence urinaire pendant les rapports ?',
-  'Évitez-vous les rapports sexuels par peur de la douleur ?',
-  'Ressentez-vous de la gêne ou de la honte concernant votre corps ?',
-  'Avez-vous des émotions négatives pendant les rapports (culpabilité, tristesse) ?',
-  'Votre partenaire est-il compréhensif et patient concernant votre sexualité ?',
-  'Êtes-vous satisfaite de la fréquence de vos rapports sexuels ?',
-  'Considérez-vous que votre vie sexuelle est globalement satisfaisante ?'
-];
-const rasQuestions = [
-  'Mon/Ma partenaire répond à mes besoins affectifs.',
-  'Je suis satisfait(e) de notre relation.',
-  'Notre relation est aussi bonne que les autres.',
-  'Je souhaite souvent ne pas m\'être engagé(e) dans cette relation.',
-  'Notre relation répond à mes attentes initiales.',
-  'Je suis amoureux(se) de mon/ma partenaire.',
-  'Il y a peu de problèmes dans notre relation.'
-];
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  MODULE: Ã‰CHELLES CLINIQUES PISQ-12 & RAS
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function getPisq12Questions() {
+  if (currentLang === 'ar') return [
+    '\u0647\u0644 \u062a\u0634\u0639\u0631\u064a\u0646 \u0628\u0631\u063a\u0628\u0629 \u062c\u0646\u0633\u064a\u0629 (\u0631\u063a\u0628\u0629 \u0641\u064a \u0639\u0644\u0627\u0642\u0629 \u062d\u0645\u064a\u0645\u0629)\u061f',
+    '\u0647\u0644 \u062a\u0635\u0644\u064a\u0646 \u0625\u0644\u0649 \u0627\u0644\u0646\u0634\u0648\u0629 \u0623\u062b\u0646\u0627\u0621 \u0627\u0644\u0639\u0644\u0627\u0642\u0629 \u0627\u0644\u062d\u0645\u064a\u0645\u0629\u061f',
+    '\u0647\u0644 \u062a\u0634\u0639\u0631\u064a\u0646 \u0628\u0631\u0636\u0627 \u062c\u0633\u062f\u064a \u0628\u0639\u062f \u0627\u0644\u0639\u0644\u0627\u0642\u0629\u061f',
+    '\u0647\u0644 \u0623\u0646\u062a \u0631\u0627\u0636\u064a\u0629 \u0639\u0646 \u062a\u0646\u0648\u0639 \u0646\u0634\u0627\u0637\u0643 \u0627\u0644\u062c\u0646\u0633\u064a\u061f',
+    '\u0647\u0644 \u062a\u0634\u0639\u0631\u064a\u0646 \u0628\u0623\u0644\u0645 \u0623\u062b\u0646\u0627\u0621 \u0627\u0644\u0639\u0644\u0627\u0642\u0629 \u0627\u0644\u062c\u0646\u0633\u064a\u0629\u061f',
+    '\u0647\u0644 \u062a\u0639\u0627\u0646\u064a\u0646 \u0645\u0646 \u0633\u0644\u0633 \u0628\u0648\u0644\u064a \u0623\u062b\u0646\u0627\u0621 \u0627\u0644\u0639\u0644\u0627\u0642\u0629\u061f',
+    '\u0647\u0644 \u062a\u062a\u062c\u0646\u0628\u064a\u0646 \u0627\u0644\u0639\u0644\u0627\u0642\u0629 \u0627\u0644\u062c\u0646\u0633\u064a\u0629 \u062e\u0648\u0641\u0627\u064b \u0645\u0646 \u0627\u0644\u0623\u0644\u0645\u061f',
+    '\u0647\u0644 \u062a\u0634\u0639\u0631\u064a\u0646 \u0628\u0627\u0644\u062d\u0631\u062c \u0623\u0648 \u0627\u0644\u062e\u062c\u0644 \u0645\u0646 \u062c\u0633\u0645\u0643\u061f',
+    '\u0647\u0644 \u062a\u0631\u0627\u0648\u062f\u0643 \u0645\u0634\u0627\u0639\u0631 \u0633\u0644\u0628\u064a\u0629 \u0623\u062b\u0646\u0627\u0621 \u0627\u0644\u0639\u0644\u0627\u0642\u0629 (\u0630\u0646\u0628\u060c \u062d\u0632\u0646)\u061f',
+    '\u0647\u0644 \u0634\u0631\u064a\u0643\u0643 \u0645\u062a\u0641\u0647\u0645 \u0648\u0635\u0628\u0648\u0631 \u0641\u064a\u0645\u0627 \u064a\u062e\u0635 \u062d\u064a\u0627\u062a\u0643\u0645\u0627 \u0627\u0644\u062c\u0646\u0633\u064a\u0629\u061f',
+    '\u0647\u0644 \u0623\u0646\u062a \u0631\u0627\u0636\u064a\u0629 \u0639\u0646 \u0648\u062a\u064a\u0631\u0629 \u0639\u0644\u0627\u0642\u0627\u062a\u0643\u0645\u0627 \u0627\u0644\u062c\u0646\u0633\u064a\u0629\u061f',
+    '\u0647\u0644 \u062a\u0639\u062a\u0628\u0631\u064a\u0646 \u062d\u064a\u0627\u062a\u0643 \u0627\u0644\u062c\u0646\u0633\u064a\u0629 \u0645\u0631\u0636\u064a\u0629 \u0628\u0634\u0643\u0644 \u0639\u0627\u0645\u061f'
+  ];
+  return [
+    'Ressentez-vous du d\u00e9sir sexuel ?',
+    'Atteignez-vous l\'orgasme lors des rapports ?',
+    'Ressentez-vous de la satisfaction physique apr\u00e8s vos rapports ?',
+    '\u00cates-vous satisfaite de la vari\u00e9t\u00e9 de votre activit\u00e9 sexuelle ?',
+    'Ressentez-vous de la douleur pendant les rapports ?',
+    'Souffrez-vous d\'incontinence urinaire pendant les rapports ?',
+    '\u00c9vitez-vous les rapports par peur de la douleur ?',
+    'Ressentez-vous de la g\u00eane concernant votre corps ?',
+    'Avez-vous des \u00e9motions n\u00e9gatives pendant les rapports ?',
+    'Votre partenaire est-il compr\u00e9hensif et patient ?',
+    '\u00cates-vous satisfaite de la fr\u00e9quence de vos rapports ?',
+    'Consid\u00e9rez-vous que votre vie sexuelle est satisfaisante ?'
+  ];
+}
+function getRasQuestions() {
+  if (currentLang === 'ar') return [
+    '\u0634\u0631\u064a\u0643\u064a \u064a\u0644\u0628\u064a \u0627\u062d\u062a\u064a\u0627\u062c\u0627\u062a\u064a \u0627\u0644\u0639\u0627\u0637\u0641\u064a\u0629.',
+    '\u0623\u0646\u0627 \u0631\u0627\u0636\u064a(\u0629) \u0639\u0646 \u0639\u0644\u0627\u0642\u062a\u0646\u0627.',
+    '\u0639\u0644\u0627\u0642\u062a\u0646\u0627 \u062c\u064a\u062f\u0629 \u0645\u062b\u0644 \u0639\u0644\u0627\u0642\u0627\u062a \u0627\u0644\u0622\u062e\u0631\u064a\u0646.',
+    '\u0623\u062a\u0645\u0646\u0649 \u0623\u062d\u064a\u0627\u0646\u0627\u064b \u0644\u0648 \u0644\u0645 \u0623\u0631\u062a\u0628\u0637 \u0628\u0647\u0630\u0647 \u0627\u0644\u0639\u0644\u0627\u0642\u0629.',
+    '\u0639\u0644\u0627\u0642\u062a\u0646\u0627 \u062a\u0644\u0628\u064a \u062a\u0648\u0642\u0639\u0627\u062a\u064a \u0627\u0644\u0623\u0648\u0644\u0649.',
+    '\u0623\u0646\u0627 \u0623\u062d\u0628 \u0634\u0631\u064a\u0643\u064a.',
+    '\u0647\u0646\u0627\u0643 \u0645\u0634\u0627\u0643\u0644 \u0642\u0644\u064a\u0644\u0629 \u0641\u064a \u0639\u0644\u0627\u0642\u062a\u0646\u0627.'
+  ];
+  return [
+    'Mon/Ma partenaire r\u00e9pond \u00e0 mes besoins affectifs.',
+    'Je suis satisfait(e) de notre relation.',
+    'Notre relation est aussi bonne que les autres.',
+    'Je souhaite souvent ne pas m\'Ãªtre engag\u00e9(e) dans cette relation.',
+    'Notre relation r\u00e9pond \u00e0 mes attentes initiales.',
+    'Je suis amoureux(se) de mon/ma partenaire.',
+    'Il y a peu de probl\u00e8mes dans notre relation.'
+  ];
+}
 const freqLabels = () => [t('scales_never'), t('scales_rarely'), t('scales_sometimes'), t('scales_frequently'), t('scales_always')];
 
 let currentScale = 'pisq12';
@@ -3482,7 +3398,7 @@ let scaleAnswers = {};
 
 function renderEchelles() {
   const container = document.getElementById('echelles-content');
-  const questions = currentScale === 'pisq12' ? pisq12Questions : rasQuestions;
+  const questions = currentScale === 'pisq12' ? getPisq12Questions() : getRasQuestions();
   const maxScore = currentScale === 'pisq12' ? 48 : 28;
   const answeredCount = Object.keys(scaleAnswers).filter(k => k.startsWith(currentScale)).length;
   const totalScore = Object.keys(scaleAnswers).filter(k => k.startsWith(currentScale)).reduce((sum, k) => sum + scaleAnswers[k], 0);
@@ -3494,16 +3410,16 @@ function renderEchelles() {
 
   const diagTexts = {
     pisq12: {
-      low: 'حياتك الجنسية الحالية مصدر معاناة أو قلق. لا تبقي صامتة. توجد حلول بسيطة (إعادة تأهيل العجان، علاج الجفاف). نشجعك على التحدث مع القابلة أو المختص.',
-      mod: 'حياتك الجنسية تتعافى تدريجياً. بعض الجوانب لا تزال صعبة لكنك على الطريق الصحيح. الصبر والتواصل مع الشريك ضروريان.',
-      good: 'حياتك الجنسية بعد الولادة جيدة! واصلي التواصل مع شريكك والعناية بنفسك.',
-      excellent: 'تهانينا! حياتك الجنسية مزدهرة. واصلي تعزيز هذا التناغم مع شريكك.'
+      low: 'Ø­ÙŠØ§ØªÙƒ Ø§Ù„Ø¬Ù†Ø³ÙŠØ© Ø§Ù„Ø­Ø§Ù„ÙŠØ© Ù…ØµØ¯Ø± Ù…Ø¹Ø§Ù†Ø§Ø© Ø£Ùˆ Ù‚Ù„Ù‚. Ù„Ø§ ØªØ¨Ù‚ÙŠ ØµØ§Ù…ØªØ©. ØªÙˆØ¬Ø¯ Ø­Ù„ÙˆÙ„ Ø¨Ø³ÙŠØ·Ø© (Ø¥Ø¹Ø§Ø¯Ø© ØªØ£Ù‡ÙŠÙ„ Ø§Ù„Ø¹Ø¬Ø§Ù†ØŒ Ø¹Ù„Ø§Ø¬ Ø§Ù„Ø¬ÙØ§Ù). Ù†Ø´Ø¬Ø¹Ùƒ Ø¹Ù„Ù‰ Ø§Ù„ØªØ­Ø¯Ø« Ù…Ø¹ Ø§Ù„Ù‚Ø§Ø¨Ù„Ø© Ø£Ùˆ Ø§Ù„Ù…Ø®ØªØµ.',
+      mod: 'Ø­ÙŠØ§ØªÙƒ Ø§Ù„Ø¬Ù†Ø³ÙŠØ© ØªØªØ¹Ø§ÙÙ‰ ØªØ¯Ø±ÙŠØ¬ÙŠØ§Ù‹. Ø¨Ø¹Ø¶ Ø§Ù„Ø¬ÙˆØ§Ù†Ø¨ Ù„Ø§ ØªØ²Ø§Ù„ ØµØ¹Ø¨Ø© Ù„ÙƒÙ†Ùƒ Ø¹Ù„Ù‰ Ø§Ù„Ø·Ø±ÙŠÙ‚ Ø§Ù„ØµØ­ÙŠØ­. Ø§Ù„ØµØ¨Ø± ÙˆØ§Ù„ØªÙˆØ§ØµÙ„ Ù…Ø¹ Ø§Ù„Ø´Ø±ÙŠÙƒ Ø¶Ø±ÙˆØ±ÙŠØ§Ù†.',
+      good: 'Ø­ÙŠØ§ØªÙƒ Ø§Ù„Ø¬Ù†Ø³ÙŠØ© Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø© Ø¬ÙŠØ¯Ø©! ÙˆØ§ØµÙ„ÙŠ Ø§Ù„ØªÙˆØ§ØµÙ„ Ù…Ø¹ Ø´Ø±ÙŠÙƒÙƒ ÙˆØ§Ù„Ø¹Ù†Ø§ÙŠØ© Ø¨Ù†ÙØ³Ùƒ.',
+      excellent: 'ØªÙ‡Ø§Ù†ÙŠÙ†Ø§! Ø­ÙŠØ§ØªÙƒ Ø§Ù„Ø¬Ù†Ø³ÙŠØ© Ù…Ø²Ø¯Ù‡Ø±Ø©. ÙˆØ§ØµÙ„ÙŠ ØªØ¹Ø²ÙŠØ² Ù‡Ø°Ø§ Ø§Ù„ØªÙ†Ø§ØºÙ… Ù…Ø¹ Ø´Ø±ÙŠÙƒÙƒ.'
     },
     ras: {
-      low: 'رضاك الزوجي يبدو هشاً. سيكون مفيداً مناقشة الأمر مع الشريك أو مختص لاستعادة التوازن.',
-      mod: 'علاقتك تمر بتعديلات طبيعية. التواصل الطيب هو المفتاح لتقوية الرابط بينكما.',
-      good: 'علاقتكما تبدو متينة! واصلا تخصيص وقت لكما.',
-      excellent: 'علاقتكما مزدهرة جداً! وجدتما توازناً جميلاً.'
+      low: 'Ø±Ø¶Ø§Ùƒ Ø§Ù„Ø²ÙˆØ¬ÙŠ ÙŠØ¨Ø¯Ùˆ Ù‡Ø´Ø§Ù‹. Ø³ÙŠÙƒÙˆÙ† Ù…ÙÙŠØ¯Ø§Ù‹ Ù…Ù†Ø§Ù‚Ø´Ø© Ø§Ù„Ø£Ù…Ø± Ù…Ø¹ Ø§Ù„Ø´Ø±ÙŠÙƒ Ø£Ùˆ Ù…Ø®ØªØµ Ù„Ø§Ø³ØªØ¹Ø§Ø¯Ø© Ø§Ù„ØªÙˆØ§Ø²Ù†.',
+      mod: 'Ø¹Ù„Ø§Ù‚ØªÙƒ ØªÙ…Ø± Ø¨ØªØ¹Ø¯ÙŠÙ„Ø§Øª Ø·Ø¨ÙŠØ¹ÙŠØ©. Ø§Ù„ØªÙˆØ§ØµÙ„ Ø§Ù„Ø·ÙŠØ¨ Ù‡Ùˆ Ø§Ù„Ù…ÙØªØ§Ø­ Ù„ØªÙ‚ÙˆÙŠØ© Ø§Ù„Ø±Ø§Ø¨Ø· Ø¨ÙŠÙ†ÙƒÙ…Ø§.',
+      good: 'Ø¹Ù„Ø§Ù‚ØªÙƒÙ…Ø§ ØªØ¨Ø¯Ùˆ Ù…ØªÙŠÙ†Ø©! ÙˆØ§ØµÙ„Ø§ ØªØ®ØµÙŠØµ ÙˆÙ‚Øª Ù„ÙƒÙ…Ø§.',
+      excellent: 'Ø¹Ù„Ø§Ù‚ØªÙƒÙ…Ø§ Ù…Ø²Ø¯Ù‡Ø±Ø© Ø¬Ø¯Ø§Ù‹! ÙˆØ¬Ø¯ØªÙ…Ø§ ØªÙˆØ§Ø²Ù†Ø§Ù‹ Ø¬Ù…ÙŠÙ„Ø§Ù‹.'
     }
   };
 
@@ -3543,7 +3459,7 @@ function renderEchelles() {
         <div style="margin-top:12px;height:8px;background:var(--surface-container-high);border-radius:4px;overflow:hidden;">
           <div style="width:${(answeredCount/questions.length)*100}%;height:100%;background:${allAnswered?'var(--primary)':'var(--secondary)'};border-radius:4px;transition:width 0.3s;"></div>
         </div>
-        <p class="text-label-md mt-sm" style="${allAnswered?'color:var(--primary);':'color:var(--on-surface-variant);'}">${allAnswered ? '✅ ' + t('scales_all_answered') : '⏳ ' + t('scales_remaining', { n: questions.length - answeredCount })}</p>
+        <p class="text-label-md mt-sm" style="${allAnswered?'color:var(--primary);':'color:var(--on-surface-variant);'}">${allAnswered ? 'âœ… ' + t('scales_all_answered') : 'â³ ' + t('scales_remaining', { n: questions.length - answeredCount })}</p>
       </div>
     </div>
 
@@ -3551,7 +3467,7 @@ function renderEchelles() {
     <div class="card card--flat mb-xl reveal" id="scale-result">
       <div class="card__body">
         <h4 class="text-label-lg text-variant mb-md" style="text-transform:uppercase;">${t('scales_diag')}</h4>
-        ${!allAnswered ? '<p class="text-body-sm text-variant mb-md" style="font-style:italic;">⚠️ ' + t('scales_partial_warning') + '</p>' : ''}
+        ${!allAnswered ? '<p class="text-body-sm text-variant mb-md" style="font-style:italic;">âš ï¸ ' + t('scales_partial_warning') + '</p>' : ''}
         <div style="padding:var(--space-xl);background:var(--surface-container-low);border-radius:var(--radius-xl);border-left:4px solid var(--primary);">
           <h4 style="font-weight:700;${diagClass}margin-bottom:8px;">${diagnosis}</h4>
           <p class="text-body-md" style="line-height:1.7;">${diagDetail}</p>
@@ -3568,7 +3484,7 @@ function renderEchelles() {
           const answered = scaleAnswers[currentScale+'_'+i] !== undefined;
           return `
           <div style="padding:var(--space-xl);background:${answered ? 'rgba(163,217,200,0.08)' : 'var(--surface-container-low)'};border-radius:var(--radius-xl);margin-bottom:var(--space-lg);border:2px solid ${answered ? 'rgba(163,217,200,0.3)' : 'transparent'};transition:all 0.2s;">
-            <p class="text-body-lg text-semibold mb-lg">${i+1}. ${q} ${answered ? '<span style="color:var(--secondary);">✓</span>' : ''}</p>
+            <p class="text-body-lg text-semibold mb-lg">${i+1}. ${q} ${answered ? '<span style="color:var(--secondary);">âœ“</span>' : ''}</p>
             <div style="display:flex;flex-wrap:wrap;gap:var(--space-sm);">
               ${freqLabels().map((label, val) => `
                 <button style="padding:8px 16px;border-radius:var(--radius-full);font-size:13px;font-weight:500;cursor:pointer;transition:all 0.2s;border:2px solid ${scaleAnswers[currentScale+'_'+i]===val?'var(--primary)':'var(--outline-variant)'};${scaleAnswers[currentScale+'_'+i]===val?'background:var(--primary);color:white;':'background:transparent;color:var(--on-surface);'}"
@@ -3588,19 +3504,19 @@ function renderEchelles() {
 
     <!-- Privacy note -->
     <div class="reveal" style="background:rgba(196,69,105,0.05);border-radius:var(--radius-xl);padding:var(--space-xl);">
-      <p class="text-body-md"><span style="font-size:16px;">🔒</span> <strong>${t('scales_privacy')}</strong> ${t('scales_privacy_text')}</p>
+      <p class="text-body-md"><span style="font-size:16px;">ðŸ”’</span> <strong>${t('scales_privacy')}</strong> ${t('scales_privacy_text')}</p>
     </div>
   `;
   setTimeout(() => initReveal(), 50);
 }
 
 function calculateScale() {
-  const questions = currentScale === 'pisq12' ? pisq12Questions : rasQuestions;
+  const questions = currentScale === 'pisq12' ? getPisq12Questions() : getRasQuestions();
   const answeredCount = Object.keys(scaleAnswers).filter(k => k.startsWith(currentScale)).length;
   if (answeredCount === 0) return;
   const scaleName = currentScale === 'pisq12' ? 'PISQ-12' : 'RAS';
   const now = new Date().toISOString().split('T')[0];
-  pushNotification('scale_' + currentScale + '_' + now, '📊', (t('notif_scale_done') || 'تم حساب مقياس') + ' ' + scaleName, 'reminder');
+  pushNotification('scale_' + currentScale + '_' + now, 'ðŸ“Š', (t('notif_scale_done') || 'ØªÙ… Ø­Ø³Ø§Ø¨ Ù…Ù‚ÙŠØ§Ø³') + ' ' + scaleName, 'reminder');
   renderEchelles();
   setTimeout(() => {
     const result = document.getElementById('scale-result');
@@ -3608,35 +3524,52 @@ function calculateScale() {
   }, 100);
 }
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  MODULE: COIN TUNISIEN ("BIL TOUNSI")
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 const tounsiParoles = [
-  { ar: 'يا عيني عليك، كي تعبت وما قلتلي', fr: 'Mon cœur, tu étais fatigué(e) et tu ne m\'as rien dit.' },
-  { ar: 'ربي يخليلي إياك، أنت عمود الدار', fr: 'Que Dieu me te garde, tu es le pilier de notre foyer.' },
-  { ar: 'ما تحملش الهمّ وحدك، أنا معاك', fr: 'Ne porte pas le fardeau seul(e), je suis avec toi.' },
-  { ar: 'كل ما نشوفك مع صغيرنا، قلبي يطير', fr: 'Chaque fois que je te vois avec notre petit, mon cœur s\'envole.' },
-  { ar: 'أنا فخور(ة) بيك، تعرف(ي) هاذا ولا لا ؟', fr: 'Je suis fier/fière de toi, tu le sais ça ?' },
-  { ar: 'شكرًا على صبرك معايا، ربي يعطيك الصحة', fr: 'Merci pour ta patience avec moi, que Dieu te donne la santé.' },
-  { ar: 'حتى كان الليل طويل، مع بعضنا نقدرو', fr: 'Même si la nuit est longue, ensemble on peut tout.' },
-  { ar: 'إنت أحسن هدية جابهالي ربي', fr: 'Tu es le plus beau cadeau que Dieu m\'a donné.' },
-  { ar: 'نحبك كيما نحب الحياة', fr: 'Je t\'aime comme j\'aime la vie.' },
-  { ar: 'ما تنساش روحك، أنا هنا باش نعاونك', fr: 'N\'oublie pas de prendre soin de toi, je suis là pour t\'aider.' }
+  { ar: '\u064a\u0627 \u0639\u064a\u0646\u064a \u0639\u0644\u064a\u0643\u060c \u0643\u064a \u062a\u0639\u0628\u062a \u0648\u0645\u0627 \u0642\u0644\u062a\u0644\u064a', fr: 'Mon c\u0153ur, tu \u00e9tais fatigu\u00e9(e) et tu ne m\'as rien dit.' },
+  { ar: '\u0631\u0628\u064a \u064a\u062e\u0644\u064a\u0644\u064a \u0625\u064a\u0627\u0643\u060c \u0623\u0646\u062a \u0639\u0645\u0648\u062f \u0627\u0644\u062f\u0627\u0631', fr: 'Que Dieu me te garde, tu es le pilier de notre foyer.' },
+  { ar: '\u0645\u0627 \u062a\u062d\u0645\u0644\u0634 \u0627\u0644\u0647\u0645\u0651 \u0648\u062d\u062f\u0643\u060c \u0623\u0646\u0627 \u0645\u0639\u0627\u0643', fr: 'Ne porte pas le fardeau seul(e), je suis avec toi.' },
+  { ar: '\u0643\u0644 \u0645\u0627 \u0646\u0634\u0648\u0641\u0643 \u0645\u0639 \u0635\u063a\u064a\u0631\u0646\u0627\u060c \u0642\u0644\u0628\u064a \u064a\u0637\u064a\u0631', fr: 'Chaque fois que je te vois avec notre petit, mon c\u0153ur s\'envole.' },
+  { ar: '\u0623\u0646\u0627 \u0641\u062e\u0648\u0631(\u0629) \u0628\u064a\u0643\u060c \u062a\u0639\u0631\u0641(\u064a) \u0647\u0627\u0630\u0627 \u0648\u0644\u0627 \u0644\u0627 \u061f', fr: 'Je suis fier/fi\u00e8re de toi, tu le sais \u00e7a ?' },
+  { ar: '\u0634\u0643\u0631\u064b\u0627 \u0639\u0644\u0649 \u0635\u0628\u0631\u0643 \u0645\u0639\u0627\u064a\u0627\u060c \u0631\u0628\u064a \u064a\u0639\u0637\u064a\u0643 \u0627\u0644\u0635\u062d\u0629', fr: 'Merci pour ta patience avec moi, que Dieu te donne la sant\u00e9.' },
+  { ar: '\u062d\u062a\u0649 \u0643\u0627\u0646 \u0627\u0644\u0644\u064a\u0644 \u0637\u0648\u064a\u0644\u060c \u0645\u0639 \u0628\u0639\u0636\u0646\u0627 \u0646\u0642\u062f\u0631\u0648', fr: 'M\u00eame si la nuit est longue, ensemble on peut tout.' },
+  { ar: '\u0625\u0646\u062a \u0623\u062d\u0633\u0646 \u0647\u062f\u064a\u0629 \u062c\u0627\u0628\u0647\u0627\u0644\u064a \u0631\u0628\u064a', fr: 'Tu es le plus beau cadeau que Dieu m\'a donn\u00e9.' },
+  { ar: '\u0646\u062d\u0628\u0643 \u0643\u064a\u0645\u0627 \u0646\u062d\u0628 \u0627\u0644\u062d\u064a\u0627\u0629', fr: 'Je t\'aime comme j\'aime la vie.' },
+  { ar: '\u0645\u0627 \u062a\u0646\u0633\u0627\u0634 \u0631\u0648\u062d\u0643\u060c \u0623\u0646\u0627 \u0647\u0646\u0627 \u0628\u0627\u0634 \u0646\u0639\u0627\u0648\u0646\u0643', fr: 'N\'oublie pas de prendre soin de toi, je suis l\u00e0 pour t\'aider.' }
 ];
 
-const nefssaRecipes = [
-  { name: 'La Bsissa Tunisienne (البسيسة)', desc: 'Une mine d\'or nutritionnelle faite de blé moulu, d\'orge, de pois chiche et d\'épices (marjolaine, coriandre). Elle donne de l\'énergie rapide à la maman fatiguée et favorise une bonne lactation.', icon: '🌾' },
-  { name: 'La Chamia (Halva de sésame)', desc: 'Riche en calcium et en bons lipides de sésame, la chamia est traditionnellement offerte à la maman pour l\'aider à récupérer et stimuler la production de lait.', icon: '🍯' },
-  { name: 'Le Droo (الدرع)', desc: 'Bouillie de sorgho enrichie de miel et de beurre, le droo est un incontournable post-partum en Tunisie. Il réchauffe le corps et apporte des glucides complexes.', icon: '🥣' },
-  { name: 'Les Dattes et le Lait (تمر و حليب)', desc: 'Combinaison ancestrale riche en fer, potassium et protéines. Les dattes combattent l\'anémie fréquente après l\'accouchement.', icon: '🥛' },
-  { name: 'La Chorba Frik (شربة فريك)', desc: 'Soupe de blé vert concassé, riche en fibres et vitamines. Elle aide à la récupération digestive et à l\'hydratation de la maman.', icon: '🍲' }
-];
 
-const tounsiArticles = [
-  { badge: 'RÔLE ESSENTIEL', title: 'Le Suivi de la Sage-femme', content: 'En Tunisie, votre sage-femme est votre plus proche alliée. Elle ne s\'occupe pas uniquement des pansements ou du bébé : elle est formée pour écouter vos baisses de moral (baby blues), détecter la dépression post-partum et guider la reprise en douceur de votre intimité conjugale.' },
-  { badge: 'ACCEPTATION', title: 'Image du Corps après Bébé', content: 'Le corps a mis 9 mois à fabriquer la vie, il lui faudra au moins autant de temps pour s\'en remettre. Évitez les comparaisons avec les images de perfection sur les réseaux sociaux. Discutez de vos gênes ou douleurs physiques avec votre sage-femme.' },
-  { badge: 'SOIN PHYSIQUE', title: 'Incontinence & Périnée', content: 'Les petites fuites urinaires après un accouchement ne sont pas une honte. C\'est le signe d\'un périnée fatigué. La rééducation périnéale, entamée après la consultation du J40, est cruciale pour restaurer le confort physique et redonner confiance lors des rapports intimes.' }
-];
+function getNefssaRecipes() {
+  if (currentLang === 'ar') return [
+    { name: '\u0627\u0644\u0628\u0633\u064a\u0633\u0629 \u0627\u0644\u062a\u0648\u0646\u0633\u064a\u0629', desc: '\u0643\u0646\u0632 \u063a\u0630\u0627\u0626\u064a \u0645\u0646 \u0627\u0644\u0642\u0645\u062d \u0627\u0644\u0645\u0637\u062d\u0648\u0646 \u0648\u0627\u0644\u0634\u0639\u064a\u0631 \u0648\u0627\u0644\u062d\u0645\u0635 \u0648\u0627\u0644\u062a\u0648\u0627\u0628\u0644. \u062a\u0645\u0646\u062d \u0627\u0644\u0623\u0645 \u0627\u0644\u0645\u062a\u0639\u0628\u0629 \u0637\u0627\u0642\u0629 \u0633\u0631\u064a\u0639\u0629 \u0648\u062a\u0639\u0632\u0632 \u0627\u0644\u0631\u0636\u0627\u0639\u0629.', icon: '\ud83c\udf3e' },
+    { name: '\u0627\u0644\u0634\u0627\u0645\u064a\u0629 (\u062d\u0644\u0627\u0648\u0629 \u0627\u0644\u0633\u0645\u0633\u0645)', desc: '\u063a\u0646\u064a\u0629 \u0628\u0627\u0644\u0643\u0627\u0644\u0633\u064a\u0648\u0645 \u0648\u0627\u0644\u062f\u0647\u0648\u0646 \u0627\u0644\u062c\u064a\u062f\u0629. \u062a\u0642\u0644\u064a\u062f\u064a\u0627\u064b \u062a\u064f\u0642\u062f\u0645 \u0644\u0644\u0623\u0645 \u0644\u0644\u062a\u0639\u0627\u0641\u064a \u0648\u062a\u062d\u0641\u064a\u0632 \u0625\u0646\u062a\u0627\u062c \u0627\u0644\u062d\u0644\u064a\u0628.', icon: '\ud83c\udf6f' },
+    { name: '\u0627\u0644\u062f\u0631\u0639', desc: '\u0639\u0635\u064a\u062f\u0629 \u0627\u0644\u0630\u0631\u0629 \u0628\u0627\u0644\u0639\u0633\u0644 \u0648\u0627\u0644\u0632\u0628\u062f\u0629\u060c \u0623\u0633\u0627\u0633\u064a\u0629 \u0641\u064a \u0641\u062a\u0631\u0629 \u0645\u0627 \u0628\u0639\u062f \u0627\u0644\u0648\u0644\u0627\u062f\u0629 \u0641\u064a \u062a\u0648\u0646\u0633. \u062a\u062f\u0641\u0626 \u0627\u0644\u062c\u0633\u0645 \u0648\u062a\u0645\u0646\u062d \u0637\u0627\u0642\u0629 \u0645\u0633\u062a\u062f\u0627\u0645\u0629.', icon: '\ud83e\udd63' },
+    { name: '\u0627\u0644\u062a\u0645\u0631 \u0648\u0627\u0644\u062d\u0644\u064a\u0628', desc: '\u062e\u0644\u0637\u0629 \u0639\u0631\u064a\u0642\u0629 \u063a\u0646\u064a\u0629 \u0628\u0627\u0644\u062d\u062f\u064a\u062f \u0648\u0627\u0644\u0628\u0648\u062a\u0627\u0633\u064a\u0648\u0645 \u0648\u0627\u0644\u0628\u0631\u0648\u062a\u064a\u0646\u0627\u062a. \u0627\u0644\u062a\u0645\u0631 \u064a\u062d\u0627\u0631\u0628 \u0641\u0642\u0631 \u0627\u0644\u062f\u0645 \u0627\u0644\u0634\u0627\u0626\u0639 \u0628\u0639\u062f \u0627\u0644\u0648\u0644\u0627\u062f\u0629.', icon: '\ud83e\udd5b' },
+    { name: '\u0634\u0631\u0628\u0629 \u0641\u0631\u064a\u0643', desc: '\u062d\u0633\u0627\u0621 \u0627\u0644\u0642\u0645\u062d \u0627\u0644\u0623\u062e\u0636\u0631 \u0627\u0644\u0645\u062c\u0631\u0648\u0634\u060c \u063a\u0646\u064a \u0628\u0627\u0644\u0623\u0644\u064a\u0627\u0641 \u0648\u0627\u0644\u0641\u064a\u062a\u0627\u0645\u064a\u0646\u0627\u062a. \u064a\u0633\u0627\u0639\u062f \u0639\u0644\u0649 \u0627\u0644\u062a\u0639\u0627\u0641\u064a \u0627\u0644\u0647\u0636\u0645\u064a \u0648\u062a\u0631\u0637\u064a\u0628 \u0627\u0644\u0623\u0645.', icon: '\ud83c\udf72' }
+  ];
+  return [
+    { name: 'La Bsissa Tunisienne (\u0627\u0644\u0628\u0633\u064a\u0633\u0629)', desc: 'Une mine d\'or nutritionnelle faite de bl\u00e9 moulu, d\'orge, de pois chiche et d\'\u00e9pices. Elle donne de l\'\u00e9nergie rapide \u00e0 la maman et favorise une bonne lactation.', icon: '\ud83c\udf3e' },
+    { name: 'La Chamia (Halva de s\u00e9same)', desc: 'Riche en calcium et en bons lipides de s\u00e9same, la chamia est traditionnellement offerte \u00e0 la maman pour r\u00e9cup\u00e9rer et stimuler la production de lait.', icon: '\ud83c\udf6f' },
+    { name: 'Le Droo (\u0627\u0644\u062f\u0631\u0639)', desc: 'Bouillie de sorgho enrichie de miel et de beurre. Il r\u00e9chauffe le corps et apporte des glucides complexes.', icon: '\ud83e\udd63' },
+    { name: 'Les Dattes et le Lait (\u062a\u0645\u0631 \u0648 \u062d\u0644\u064a\u0628)', desc: 'Combinaison ancestrale riche en fer, potassium et prot\u00e9ines. Les dattes combattent l\'an\u00e9mie fr\u00e9quente apr\u00e8s l\'accouchement.', icon: '\ud83e\udd5b' },
+    { name: 'La Chorba Frik (\u0634\u0631\u0628\u0629 \u0641\u0631\u064a\u0643)', desc: 'Soupe de bl\u00e9 vert concass\u00e9, riche en fibres et vitamines. Elle aide \u00e0 la r\u00e9cup\u00e9ration digestive et \u00e0 l\'hydratation.', icon: '\ud83c\udf72' }
+  ];
+}
+
+function getTounsiArticles() {
+  if (currentLang === 'ar') return [
+    { badge: '\u062f\u0648\u0631 \u0623\u0633\u0627\u0633\u064a', title: '\u0645\u062a\u0627\u0628\u0639\u0629 \u0627\u0644\u0642\u0627\u0628\u0644\u0629', content: '\u0641\u064a \u062a\u0648\u0646\u0633\u060c \u0627\u0644\u0642\u0627\u0628\u0644\u0629 \u0647\u064a \u0623\u0642\u0631\u0628 \u062d\u0644\u064a\u0641\u0629 \u0644\u0643. \u0644\u0627 \u062a\u0647\u062a\u0645 \u0641\u0642\u0637 \u0628\u0627\u0644\u0636\u0645\u0627\u062f\u0627\u062a \u0623\u0648 \u0627\u0644\u0637\u0641\u0644: \u0628\u0644 \u0645\u062f\u0631\u0628\u0629 \u0644\u0644\u0627\u0633\u062a\u0645\u0627\u0639 \u0644\u0627\u0646\u062e\u0641\u0627\u0636 \u0627\u0644\u0645\u0639\u0646\u0648\u064a\u0627\u062a \u0648\u0627\u0643\u062a\u0634\u0627\u0641 \u0627\u0643\u062a\u0626\u0627\u0628 \u0645\u0627 \u0628\u0639\u062f \u0627\u0644\u0648\u0644\u0627\u062f\u0629 \u0648\u062a\u0648\u062c\u064a\u0647 \u0627\u0633\u062a\u0626\u0646\u0627\u0641 \u0627\u0644\u0639\u0644\u0627\u0642\u0629 \u0627\u0644\u0632\u0648\u062c\u064a\u0629.' },
+    { badge: '\u062a\u0642\u0628\u0644', title: '\u0635\u0648\u0631\u0629 \u0627\u0644\u062c\u0633\u0645 \u0628\u0639\u062f \u0627\u0644\u0648\u0644\u0627\u062f\u0629', content: '\u0627\u0644\u062c\u0633\u0645 \u0627\u062d\u062a\u0627\u062c 9 \u0623\u0634\u0647\u0631 \u0644\u0635\u0646\u0639 \u0627\u0644\u062d\u064a\u0627\u0629\u060c \u0648\u064a\u062d\u062a\u0627\u062c \u0648\u0642\u062a\u0627\u064b \u0645\u0645\u0627\u062b\u0644\u0627\u064b \u0644\u0644\u062a\u0639\u0627\u0641\u064a. \u062a\u062c\u0646\u0628\u064a \u0627\u0644\u0645\u0642\u0627\u0631\u0646\u0627\u062a \u0645\u0639 \u0635\u0648\u0631 \u0627\u0644\u0643\u0645\u0627\u0644 \u0639\u0644\u0649 \u0648\u0633\u0627\u0626\u0644 \u0627\u0644\u062a\u0648\u0627\u0635\u0644. \u062a\u062d\u062f\u062b\u064a \u0639\u0646 \u0645\u062e\u0627\u0648\u0641\u0643 \u0623\u0648 \u0622\u0644\u0627\u0645\u0643 \u0645\u0639 \u0627\u0644\u0642\u0627\u0628\u0644\u0629.' },
+    { badge: '\u0639\u0646\u0627\u064a\u0629 \u062c\u0633\u062f\u064a\u0629', title: '\u0633\u0644\u0633 \u0627\u0644\u0628\u0648\u0644 \u0648\u0627\u0644\u0639\u062c\u0627\u0646', content: '\u0627\u0644\u062a\u0633\u0631\u0628\u0627\u062a \u0627\u0644\u0628\u0648\u0644\u064a\u0629 \u0627\u0644\u0635\u063a\u064a\u0631\u0629 \u0628\u0639\u062f \u0627\u0644\u0648\u0644\u0627\u062f\u0629 \u0644\u064a\u0633\u062a \u0639\u064a\u0628\u0627\u064b. \u0625\u0639\u0627\u062f\u0629 \u062a\u0623\u0647\u064a\u0644 \u0627\u0644\u0639\u062c\u0627\u0646\u060c \u0628\u0639\u062f \u0627\u0633\u062a\u0634\u0627\u0631\u0629 \u0627\u0644\u064a\u0648\u0645 40\u060c \u0636\u0631\u0648\u0631\u064a\u0629 \u0644\u0627\u0633\u062a\u0639\u0627\u062f\u0629 \u0627\u0644\u0631\u0627\u062d\u0629 \u0648\u0627\u0644\u062b\u0642\u0629.' }
+  ];
+  return [
+    { badge: 'R\u00d4LE ESSENTIEL', title: 'Le Suivi de la Sage-femme', content: 'En Tunisie, votre sage-femme est votre plus proche alli\u00e9e. Elle est form\u00e9e pour \u00e9couter vos baisses de moral, d\u00e9tecter la d\u00e9pression post-partum et guider la reprise de votre intimit\u00e9 conjugale.' },
+    { badge: 'ACCEPTATION', title: 'Image du Corps apr\u00e8s B\u00e9b\u00e9', content: 'Le corps a mis 9 mois \u00e0 fabriquer la vie, il lui faudra au moins autant pour s\'en remettre. \u00c9vitez les comparaisons avec les r\u00e9seaux sociaux. Discutez de vos g\u00eanes avec votre sage-femme.' },
+    { badge: 'SOIN PHYSIQUE', title: 'Incontinence & P\u00e9rin\u00e9e', content: 'Les petites fuites urinaires ne sont pas une honte. La r\u00e9\u00e9ducation p\u00e9rin\u00e9ale apr\u00e8s la consultation du J40 est cruciale pour restaurer le confort physique et la confiance.' }
+  ];
+}
 
 let currentParole = Math.floor(Math.random() * tounsiParoles.length);
 
@@ -3660,8 +3593,8 @@ function renderTounsi() {
     <div class="card mb-xl reveal">
       <div class="card__body">
         <div class="flex items-center gap-sm mb-lg">
-          <span style="font-size:20px;">✨</span>
-          <h3 style="font-size:16px;font-weight:700;">${t('tounsi_paroles_title')} — <span style="color:var(--primary);">${t('tounsi_paroles_ar')}</span></h3>
+          <span style="font-size:20px;">âœ¨</span>
+          <h3 style="font-size:16px;font-weight:700;">${t('tounsi_paroles_title')} â€” <span style="color:var(--primary);">${t('tounsi_paroles_ar')}</span></h3>
         </div>
         <h3 class="text-headline-sm mb-md">${t('tounsi_generator')}</h3>
         <p class="text-body-md text-variant mb-xl">${t('tounsi_generator_desc')}</p>
@@ -3677,19 +3610,19 @@ function renderTounsi() {
       </div>
     </div>
 
-    <!-- Diététique d'El Nefsa -->
+    <!-- DiÃ©tÃ©tique d'El Nefsa -->
     <div class="card mb-xl reveal">
       <div class="card__body">
         <div class="flex items-center gap-md mb-xl">
-          <div style="width:48px;height:48px;border-radius:var(--radius-full);background:rgba(212,165,116,0.2);display:flex;align-items:center;justify-content:center;"><span style="font-size:24px;">🫖</span></div>
+          <div style="width:48px;height:48px;border-radius:var(--radius-full);background:rgba(212,165,116,0.2);display:flex;align-items:center;justify-content:center;"><span style="font-size:24px;">ðŸ«–</span></div>
           <div>
             <h3 class="text-headline-sm" style="font-size:16px;">${t('tounsi_nefsa_title')}</h3>
             <p class="text-label-lg" style="color:#d4a574;text-transform:uppercase;">${t('tounsi_nefsa_sub')}</p>
           </div>
         </div>
 
-        ${nefssaRecipes.map((r, i) => `
-          <div style="display:flex;gap:var(--space-lg);padding:var(--space-xl);${i < nefssaRecipes.length - 1 ? 'border-bottom:1px solid var(--outline-variant);margin-bottom:var(--space-lg);' : ''}">
+        ${getNefssaRecipes().map((r, i) => `
+          <div style="display:flex;gap:var(--space-lg);padding:var(--space-xl);${i < getNefssaRecipes().length - 1 ? 'border-bottom:1px solid var(--outline-variant);margin-bottom:var(--space-lg);' : ''}">
             <div style="width:40px;height:40px;border-radius:var(--radius-full);background:rgba(212,165,116,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:20px;color:#d4a574;font-weight:800;">${i+1}</div>
             <div>
               <h4 class="text-body-lg text-semibold mb-sm">${r.name}</h4>
@@ -3700,9 +3633,9 @@ function renderTounsi() {
       </div>
     </div>
 
-    <!-- Articles bien-être -->
+    <!-- Articles bien-Ãªtre -->
     <h3 class="text-label-lg text-primary mb-lg reveal" style="text-transform:uppercase;letter-spacing:0.1em;">${t('tounsi_articles')}</h3>
-    ${tounsiArticles.map(a => `
+    ${getTounsiArticles().map(a => `
       <div class="card card--flat mb-lg reveal">
         <div class="card__body">
           <span style="display:inline-block;background:rgba(196,69,105,0.1);color:var(--primary);padding:3px 12px;border-radius:var(--radius-full);font-size:10px;font-weight:700;letter-spacing:0.06em;margin-bottom:12px;">${a.badge}</span>
@@ -3721,9 +3654,9 @@ function renderTounsi() {
   setTimeout(() => initReveal(), 50);
 }
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  HELPERS
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function capitalize(str) { return str.charAt(0).toUpperCase() + str.slice(1); }
 function getTimeAgo(date) {
   const diff = Math.floor((Date.now() - date.getTime()) / 1000);
