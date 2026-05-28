@@ -533,35 +533,45 @@ async function startServer() {
   };
 
   app.get('/api/plan/:duration', requireAuth, (req, res) => {
-    const duration = parseInt(req.params.duration);
-    if (![7, 14, 30].includes(duration)) return res.status(400).json({ error: 'Dur\u00e9e invalide' });
+    try {
+      const duration = parseInt(req.params.duration);
+      if (![7, 14, 30].includes(duration)) return res.status(400).json({ error: 'Dur\u00e9e invalide' });
 
-    const lang = req.query.lang || 'fr';
-    const templates = planTemplates[lang] || planTemplates.fr;
-    const plan = templates[duration];
+      const lang = req.query.lang || 'fr';
+      const templates = planTemplates[lang] || planTemplates.fr;
+      const plan = templates[duration];
 
-    // Get scores to personalize recommendations
-    const types = ['psychologique', 'conjugal', 'sexuel'];
-    const scores = {};
-    types.forEach(t => {
-      const r = queryOne('SELECT score FROM evaluations WHERE couple_id=? AND type=? ORDER BY created_at DESC LIMIT 1', [req.session.coupleId, t]);
-      scores[t] = r ? r.score : 0;
-    });
+      // Get scores to personalize recommendations
+      const types = ['psychologique', 'conjugal', 'sexuel'];
+      const scores = {};
+      types.forEach(t => {
+        try {
+          const r = queryOne('SELECT score FROM evaluations WHERE couple_id=? AND type=? ORDER BY created_at DESC LIMIT 1', [req.session.coupleId, t]);
+          scores[t] = r ? r.score : 0;
+        } catch(e) { scores[t] = 0; }
+      });
 
-    // Determine focus areas
-    const focusAreas = [];
-    if (scores.psychologique > 0 && scores.psychologique < 50) focusAreas.push('psychologique');
-    if (scores.conjugal > 0 && scores.conjugal < 50) focusAreas.push('communication');
-    if (scores.sexuel > 0 && scores.sexuel < 50) focusAreas.push('post-partum');
+      // Determine focus areas
+      const focusAreas = [];
+      if (scores.psychologique > 0 && scores.psychologique < 50) focusAreas.push('psychologique');
+      if (scores.conjugal > 0 && scores.conjugal < 50) focusAreas.push('communication');
+      if (scores.sexuel > 0 && scores.sexuel < 50) focusAreas.push('post-partum');
 
-    // Check completed activities
-    const completed = queryAll(
-      'SELECT activity_day, plan_duration FROM plan_progress WHERE couple_id=? AND plan_duration=?',
-      [req.session.coupleId, duration]
-    );
-    const completedDays = completed.map(c => c.activity_day);
+      // Check completed activities
+      let completedDays = [];
+      try {
+        const completed = queryAll(
+          'SELECT activity_day, plan_duration FROM plan_progress WHERE couple_id=? AND plan_duration=?',
+          [req.session.coupleId, duration]
+        );
+        completedDays = completed.map(c => c.activity_day);
+      } catch(e) { completedDays = []; }
 
-    res.json({ plan, scores, focusAreas, completedDays });
+      res.json({ plan, scores, focusAreas, completedDays });
+    } catch(e) {
+      console.error('Plan error:', e.message);
+      res.status(500).json({ error: 'Erreur serveur' });
+    }
   });
 
   app.post('/api/plan/complete', requireAuth, (req, res) => {
