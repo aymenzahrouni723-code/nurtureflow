@@ -776,12 +776,12 @@ function generateSmartNotifications() {
     const months = Math.floor(days / 30.44);
 
     const milestones = [
-      { day: 1, icon: '&#130928;', id: 'mile_1d', msg: t('notif_baby_born') },
-      { day: 7, icon: '&#130912;', id: 'mile_1w', msg: t('notif_baby_1week') },
-      { day: 14, icon: '&#128184;', id: 'mile_2w', msg: t('notif_baby_2weeks') },
-      { day: 30, icon: '&#130906;', id: 'mile_1m', msg: t('notif_baby_1month') },
-      { day: 60, icon: '&#128184;', id: 'mile_2m', msg: t('notif_baby_2months') },
-      { day: 90, icon: '&#130886;', id: 'mile_3m', msg: t('notif_baby_3months') },
+      { day: 1, icon: '&#127881;', id: 'mile_1d', msg: t('notif_baby_born') },
+      { day: 7, icon: '&#127775;', id: 'mile_1w', msg: t('notif_baby_1week') },
+      { day: 14, icon: '&#128118;', id: 'mile_2w', msg: t('notif_baby_2weeks') },
+      { day: 30, icon: '&#127882;', id: 'mile_1m', msg: t('notif_baby_1month') },
+      { day: 60, icon: '&#128118;', id: 'mile_2m', msg: t('notif_baby_2months') },
+      { day: 90, icon: '&#127880;', id: 'mile_3m', msg: t('notif_baby_3months') },
     ];
 
     for (const m of milestones) {
@@ -947,7 +947,7 @@ function renderBabyAgeWidget() {
     // Show input form
     widget.innerHTML = `
       <div class="flex items-center gap-md mb-lg">
-        <span style="font-size:32px;">&#128566;</span>
+        <span style="font-size:32px;">&#128118;</span>
         <div>
           <h3 class="text-headline-sm" style="font-size:16px;">${t('baby_title')}</h3>
           <p class="text-body-md text-variant">${t('baby_enter_info')}</p>
@@ -956,11 +956,11 @@ function renderBabyAgeWidget() {
       <div style="display:flex;gap:var(--space-md);margin-bottom:var(--space-md);">
         <div style="flex:1;">
           <label class="text-label-md text-variant mb-sm" style="display:block;">${t('baby_date')}</label>
-          <input type="date" id="baby-birth-date" style="width:100%;padding:10px 14px;border:2px solid var(--outline-variant);border-radius:var(--radius-lg);font-family:inherit;font-size:14px;background:var(--surface);color:var(--on-surface);" />
+          <input type="date" id="baby-birth-date" lang="${currentLang}" style="width:100%;padding:10px 14px;border:2px solid var(--outline-variant);border-radius:var(--radius-lg);font-family:inherit;font-size:14px;background:var(--surface);color:var(--on-surface);" />
         </div>
         <div style="flex:0.6;">
           <label class="text-label-md text-variant mb-sm" style="display:block;">${t('baby_time')}</label>
-          <input type="time" id="baby-birth-time" style="width:100%;padding:10px 14px;border:2px solid var(--outline-variant);border-radius:var(--radius-lg);font-family:inherit;font-size:14px;background:var(--surface);color:var(--on-surface);" />
+          <input type="time" id="baby-birth-time" lang="${currentLang}" style="width:100%;padding:10px 14px;border:2px solid var(--outline-variant);border-radius:var(--radius-lg);font-family:inherit;font-size:14px;background:var(--surface);color:var(--on-surface);" />
         </div>
       </div>
       <button class="btn btn--primary btn--full" onclick="saveBabyBirth()">
@@ -1007,10 +1007,10 @@ function updateBabyAge() {
   widget.innerHTML = `
     <div class="flex items-center justify-between mb-lg">
       <div class="flex items-center gap-md">
-        <span style="font-size:32px;">&#128566;</span>
+        <span style="font-size:32px;">&#128118;</span>
         <div>
           <h3 class="text-headline-sm" style="font-size:16px;">${t('baby_age_title')}</h3>
-          <p class="text-body-sm text-variant">&#130906; ${birthStr} &#8226; ${birthTime}</p>
+          <p class="text-body-sm text-variant">&#127882; ${birthStr} &#8226; ${birthTime}</p>
         </div>
       </div>
       <button onclick="localStorage.removeItem('nf_baby_birth');renderBabyAgeWidget();" style="border:none;background:none;cursor:pointer;padding:4px;">
@@ -1032,8 +1032,8 @@ function updateBabyAge() {
       `).join('')}
     </div>
 
-    ${totalDays <= 7 ? `<div style="margin-top:12px;text-align:center;padding:8px;background:rgba(163,217,200,0.12);border-radius:var(--radius-lg);"><span style="font-size:14px;">&#130928;</span> <span class="text-body-sm text-semibold">${t('baby_newborn_msg')}</span></div>` : ''}
-    ${totalDays > 7 && totalWeeks <= 6 ? `<div style="margin-top:12px;text-align:center;padding:8px;background:rgba(180,142,173,0.08);border-radius:var(--radius-lg);"><span class="text-body-sm text-variant">&#128806; ${t('baby_weeks_old', { n: totalWeeks })}</span></div>` : ''}
+    ${totalDays <= 7 ? `<div style="margin-top:12px;text-align:center;padding:8px;background:rgba(163,217,200,0.12);border-radius:var(--radius-lg);"><span style="font-size:14px;">&#127881;</span> <span class="text-body-sm text-semibold">${t('baby_newborn_msg')}</span></div>` : ''}
+    ${totalDays > 7 && totalWeeks <= 6 ? `<div style="margin-top:12px;text-align:center;padding:8px;background:rgba(180,142,173,0.08);border-radius:var(--radius-lg);"><span class="text-body-sm text-variant">&#128214; ${t('baby_weeks_old', { n: totalWeeks })}</span></div>` : ''}
   `;
 
   // Auto refresh every minute
@@ -1639,7 +1639,7 @@ const bfChapters = [
         <h4 style="font-weight:700;margin-bottom:8px;">&#127942; ÙˆØ¶Ø¹ÙŠØ© ÙƒØ±Ø© Ø§Ù„Ù‚Ø¯Ù…</h4><p>Ù…Ù†Ø§Ø³Ø¨Ø© Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø© Ø§Ù„Ù‚ÙŠØµØ±ÙŠØ© ÙˆÙ„Ù„Ø£Ù…Ù‡Ø§Øª Ø§Ù„Ù„ÙˆØ§ØªÙŠ Ù„Ø¯ÙŠÙ‡Ù† ØªÙˆØ£Ù…</p>
       </div>
       <div style="padding:var(--space-lg);background:rgba(212,107,80,0.08);border-radius:var(--radius-xl);border-right:4px solid var(--tertiary);">
-        <h4 style="font-weight:700;margin-bottom:8px;">&#128820; ÙˆØ¶Ø¹ÙŠØ© Ø§Ù„Ø§Ø³ØªÙ„Ù‚Ø§Ø¡</h4><p>Ù…Ø±ÙŠØ­Ø© Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ù„ÙŠÙ„ ÙˆÙØªØ±Ø§Øª Ø§Ù„Ø±Ø§Ø­Ø©</p>
+        <h4 style="font-weight:700;margin-bottom:8px;">&#128564; ÙˆØ¶Ø¹ÙŠØ© Ø§Ù„Ø§Ø³ØªÙ„Ù‚Ø§Ø¡</h4><p>Ù…Ø±ÙŠØ­Ø© Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ù„ÙŠÙ„ ÙˆÙØªØ±Ø§Øª Ø§Ù„Ø±Ø§Ø­Ø©</p>
       </div>
       <div style="padding:var(--space-lg);background:rgba(163,217,200,0.15);border-radius:var(--radius-xl);border-right:4px solid #A3D9C8;">
         <h4 style="font-weight:700;margin-bottom:8px;">&#128191; Ø§Ù„ÙˆØ¶Ø¹ÙŠØ© Ø§Ù„Ø¨ÙŠÙˆÙ„ÙˆØ¬ÙŠØ©</h4><p>Ø§Ø³ØªÙ„Ù‚Ø§Ø¡ Ø§Ù„Ø£Ù… Ù…Ø¹ ÙˆØ¶Ø¹ Ø§Ù„Ø·ÙÙ„ Ø¹Ù„Ù‰ ØµØ¯Ø±Ù‡Ø§ Ø¨Ø´ÙƒÙ„ Ø·Ø¨ÙŠØ¹ÙŠ</p>
@@ -1994,7 +1994,7 @@ function renderBFLog(container) {
           </div>
           <p class="text-label-lg mb-sm">${t('bf_log_mood')}</p>
           <div class="mood-grid" id="bf-mood-grid">
-            ${['&#128811;','&#128797;','&#128784;','&#128800;','&#128798;'].map(m => `<button class="mood-option ${todayEntries[0]?.mood===m?'selected':''}" onclick="document.querySelectorAll('#bf-mood-grid .mood-option').forEach(b=>b.classList.remove('selected'));this.classList.add('selected');this.dataset.val='${m}';" data-val="${m}"><span class="mood-option__emoji">${m}</span></button>`).join('')}
+            ${['&#128557;','&#128522;','&#128528;','&#128522;','&#128542;'].map(m => `<button class="mood-option ${todayEntries[0]?.mood===m?'selected':''}" onclick="document.querySelectorAll('#bf-mood-grid .mood-option').forEach(b=>b.classList.remove('selected'));this.classList.add('selected');this.dataset.val='${m}';" data-val="${m}"><span class="mood-option__emoji">${m}</span></button>`).join('')}
           </div>
           <textarea id="bf-notes" class="form-input" rows="2" placeholder="${t('bf_log_notes_placeholder')}" style="resize:none;">${todayEntries[0]?.notes||''}</textarea>
           <button class="btn btn--primary btn--full" onclick="saveBFLog()">
@@ -2031,7 +2031,7 @@ function renderBFLog(container) {
       <div class="space-y-md">
         ${entries.slice(0, 7).map(e => `
           <div class="daily-entry reveal">
-            <span style="font-size:24px;">${e.mood || '&#128800;'}</span>
+            <span style="font-size:24px;">${e.mood || '&#128522;'}</span>
             <div style="flex:1;">
               <div class="flex justify-between text-label-md">
                 <span class="text-primary">${e.feeds || 0} ${t('bf_log_feeds_short')}</span>
@@ -2053,7 +2053,7 @@ function saveBFLog() {
   const duration = parseInt(document.getElementById('bf-duration')?.value || 15);
   const pumped = parseInt(document.getElementById('bf-pumped')?.value || 0);
   const moodBtn = document.querySelector('#bf-mood-grid .mood-option.selected');
-  const mood = moodBtn?.dataset?.val || '&#128800;';
+  const mood = moodBtn?.dataset?.val || '&#128522;';
   const notes = document.getElementById('bf-notes')?.value?.trim() || '';
   const today = new Date().toISOString().split('T')[0];
 
@@ -2387,7 +2387,7 @@ function renderNewborn() {
         <h2 class="text-headline-sm">${t('nb_title')}</h2>
         <p class="text-body-md text-variant">${t('nb_subtitle')}</p>
       </div>
-      <span style="font-size:36px;">&#128566;</span>
+      <span style="font-size:36px;">&#128118;</span>
     </div>
     <div style="display:flex;gap:6px;margin-bottom:var(--space-xl);background:var(--surface-container-low);border-radius:var(--radius-xl);padding:4px;">
       <button onclick="nbCurrentTab='guide';renderNewborn();" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 8px;border:none;border-radius:var(--radius-lg);cursor:pointer;font-family:inherit;font-size:12px;font-weight:600;transition:all 0.2s;${nbCurrentTab==='guide'?'background:var(--tertiary);color:white;box-shadow:0 2px 8px rgba(67,97,127,0.3);':'background:transparent;color:var(--on-surface-variant);'}">
@@ -2486,7 +2486,7 @@ function renderMyths() {
         { id: 'all', label: t('sf_all'), count: allMyths.length },
         { id: 'breastfeeding', label: '&#129329; ${t("bf_title")}', count: allMyths.filter(m=>m.cat==='breastfeeding').length },
         { id: 'sexuality', label: '&#10084;ï¸ ${t("sx_title")}', count: allMyths.filter(m=>m.cat==='sexuality').length },
-        { id: 'newborn', label: '&#128566; ${t("nb_title")}', count: allMyths.filter(m=>m.cat==='newborn').length }
+        { id: 'newborn', label: '&#128118; ${t("nb_title")}', count: allMyths.filter(m=>m.cat==='newborn').length }
       ].map(f => `
         <button class="chip chip--tonal ${myFilterCat===f.id?'active':''}" onclick="myFilterCat='${f.id}';myFlippedCards={};renderMyths();">
           ${f.label} <span style="opacity:0.7;font-size:11px;">(${f.count})</span>
@@ -2499,7 +2499,7 @@ function renderMyths() {
     <div class="space-y-lg">
       ${filtered.map((m, i) => {
         const flipped = myFlippedCards[i];
-        const catIcon = m.cat === 'breastfeeding' ? '&#129329;' : m.cat === 'sexuality' ? '&#10084;ï¸' : '&#128566;';
+        const catIcon = m.cat === 'breastfeeding' ? '&#129329;' : m.cat === 'sexuality' ? '&#10084;ï¸' : '&#128118;';
         return `
         <div class="reveal" style="animation-delay:${i*0.04}s;perspective:600px;">
           <div onclick="myFlippedCards[${i}]=!myFlippedCards[${i}];renderMyths();" style="cursor:pointer;position:relative;min-height:120px;transition:transform 0.6s;transform-style:preserve-3d;${flipped?'transform:rotateY(180deg)':''}">
@@ -2556,7 +2556,7 @@ async function renderSuivi() {
     <div class="card card--flat mb-xl"><div class="card__body">
       <p class="text-label-lg text-variant mb-lg" style="text-transform:uppercase;letter-spacing:0.08em;">${t('daily_mood')}</p>
       <div class="mood-grid">
-        ${[`&#128811;|${t('daily_exhausted')}`, `&#128797;|${t('daily_sad')}`, `&#128784;|${t('daily_neutral')}`, `&#128800;|${t('daily_good')}`, `&#128798;|${t('daily_great')}`].map(m => {
+        ${[`&#128557;|${t('daily_exhausted')}`, `&#128522;|${t('daily_sad')}`, `&#128528;|${t('daily_neutral')}`, `&#128522;|${t('daily_good')}`, `&#128542;|${t('daily_great')}`].map(m => {
           const [emoji, label] = m.split('|');
           return `<button class="mood-option" onclick="selectMood('${emoji}',this)"><span class="mood-option__emoji">${emoji}</span><span class="mood-option__label">${label}</span></button>`;
         }).join('')}
@@ -2617,7 +2617,7 @@ function selectMood(emoji, el) {
 
 async function saveDailyEntry() {
   const body = {
-    mood: state.currentMood || '&#128800;',
+    mood: state.currentMood || '&#128522;',
     stress: parseInt(document.getElementById('slider-stress')?.value || 5),
     satisfaction_conjugale: parseInt(document.getElementById('slider-conj')?.value || 5),
     satisfaction_intime: parseInt(document.getElementById('slider-intime')?.value || 5)
@@ -3286,7 +3286,7 @@ function saveJournalEntry() {
   localStorage.setItem('nf_journal', JSON.stringify(entries));
   journalMood = null;
   const now = new Date().toISOString().split('T')[0];
-  pushNotification('journal_' + now, '&#128797;', t('notif_journal_saved') || 'ØªÙ… Ø­ÙØ¸ ÙŠÙˆÙ…ÙŠØ§ØªÙƒ!', 'tip');
+  pushNotification('journal_' + now, '&#128522;', t('notif_journal_saved') || 'ØªÙ… Ø­ÙØ¸ ÙŠÙˆÙ…ÙŠØ§ØªÙƒ!', 'tip');
   renderJournal();
 }
 function renderJournal() {
@@ -3544,7 +3544,7 @@ function calculateScale() {
   if (answeredCount === 0) return;
   const scaleName = currentScale === 'pisq12' ? 'PISQ-12' : 'RAS';
   const now = new Date().toISOString().split('T')[0];
-  pushNotification('scale_' + currentScale + '_' + now, '&#128800;', (t('notif_scale_done') || 'ØªÙ… Ø­Ø³Ø§Ø¨ Ù…Ù‚ÙŠØ§Ø³') + ' ' + scaleName, 'reminder');
+  pushNotification('scale_' + currentScale + '_' + now, '&#128522;', (t('notif_scale_done') || 'ØªÙ… Ø­Ø³Ø§Ø¨ Ù…Ù‚ÙŠØ§Ø³') + ' ' + scaleName, 'reminder');
   renderEchelles();
   setTimeout(() => {
     const result = document.getElementById('scale-result');
