@@ -904,12 +904,12 @@ function clearNotifications() {
 function getNotifTimeAgo(date) {
   const now = new Date();
   const diffMin = Math.floor((now - date) / 60000);
-  if (diffMin < 1) return t('notif_just_now') || 'Ø§Ù„Ø¢Ù†';
-  if (diffMin < 60) return `${diffMin} ${t('notif_min_ago') || 'Ø¯'}`;
+  if (diffMin < 1) return t('notif_just_now') || 'الآن';
+  if (diffMin < 60) return `${diffMin} ${t('notif_min_ago') || 'د'}`;
   const diffHrs = Math.floor(diffMin / 60);
-  if (diffHrs < 24) return `${diffHrs} ${t('notif_hrs_ago') || 'Ø³'}`;
+  if (diffHrs < 24) return `${diffHrs} ${t('notif_hrs_ago') || 'س'}`;
   const diffDays = Math.floor(diffHrs / 24);
-  return `${diffDays} ${t('notif_days_ago') || 'ÙŠ'}`;
+  return `${diffDays} ${t('notif_days_ago') || 'ي'}`;
 }
 
 // Push a single notification from any section
@@ -1219,7 +1219,7 @@ async function nextQuestion() {
       await api('/evaluations', { method: 'POST', body: { type, answers, score } });
       const typeLabels = { psychologique: t('notif_eval_psycho'), conjugal: t('notif_eval_conjugal'), sexuel: t('notif_eval_sexual') };
       const now = new Date().toISOString().split('T')[0];
-      pushNotification('eval_done_' + type + '_' + now, '&#9989;', (t('notif_eval_done') || 'Ã‰valuation complétée') + ' &#8212; ' + (typeLabels[type] || type) + ' : ' + score + '/100', 'milestone');
+      pushNotification('eval_done_' + type + '_' + now, '&#9989;', (t('notif_eval_done') || 'Évaluation complétée') + ' &#8212; ' + (typeLabels[type] || type) + ' : ' + score + '/100', 'milestone');
       localStorage.setItem('nf_last_eval_date', now);
     } catch (e) { console.error('Save eval error:', e); }
 
@@ -1397,61 +1397,61 @@ function filterTimelineByCategory(category) {
 const staticArticles = {
   partner: {
     icon: 'group', color: 'var(--primary)',
-    title: 'Ø¯ÙˆØ± Ø§Ù„Ø´Ø±ÙŠÙƒ Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©',
-    type: 'ÙÙŠØ¯ÙŠÙˆ &#8226; 7 Ø¯Ù‚Ø§Ø¦Ù‚',
+    title: 'دور الشريك بعد الولادة',
+    type: 'فيديو &#8226; 7 دقائق',
     sections: [
-      { heading: 'Ø§Ù„Ø¯Ø¹Ù… Ø§Ù„Ø¹Ø§Ø·ÙÙŠ', text: 'ÙŠØ­ØªØ§Ø¬ Ø§Ù„Ø´Ø±ÙŠÙƒ Ø¥Ù„Ù‰ ÙÙ‡Ù… Ø§Ù„ØªØºÙŠØ±Ø§Øª Ø§Ù„Ù†ÙØ³ÙŠØ© ÙˆØ§Ù„Ø¬Ø³Ø¯ÙŠØ© Ø§Ù„ØªÙŠ ØªÙ…Ø± Ø¨Ù‡Ø§ Ø§Ù„Ø£Ù… Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©. Ø§Ù„Ø§Ø³ØªÙ…Ø§Ø¹ Ø¨ØªØ¹Ø§Ø·Ù ÙˆØ§Ù„ØªÙˆØ§Ø¬Ø¯ Ø§Ù„Ø¯Ø§Ø¦Ù… Ù‡Ù…Ø§ Ø£Ù‡Ù… Ø£Ø´ÙƒØ§Ù„ Ø§Ù„Ø¯Ø¹Ù….' },
-      { heading: 'Ø§Ù„Ù…Ø´Ø§Ø±ÙƒØ© ÙÙŠ Ø§Ù„Ø¹Ù†Ø§ÙŠØ© Ø¨Ø§Ù„Ø·ÙÙ„', text: 'ØªØºÙŠÙŠØ± Ø§Ù„Ø­ÙØ§Ø¶Ø§ØªØŒ Ø§Ù„Ø§Ø³ØªØ­Ù…Ø§Ù…ØŒ ØªÙ‡Ø¯Ø¦Ø© Ø§Ù„Ø·ÙÙ„ Ù„ÙŠÙ„Ø§Ù‹... ÙƒÙ„Ù‡Ø§ Ù…Ù‡Ø§Ù… ÙŠÙ…ÙƒÙ† Ù„Ù„Ø´Ø±ÙŠÙƒ Ø§Ù„Ù‚ÙŠØ§Ù… Ø¨Ù‡Ø§ Ù„ØªØ®ÙÙŠÙ Ø§Ù„Ø¹Ø¨Ø¡ Ø¹Ù† Ø§Ù„Ø£Ù….' },
-      { heading: 'Ø§Ù„Ø¹Ù†Ø§ÙŠØ© Ø¨Ø§Ù„Ø¹Ù„Ø§Ù‚Ø©', text: 'ØªØ®ØµÙŠØµ ÙˆÙ‚Øª Ù„Ù„Ø­ÙˆØ§Ø± ÙˆØ§Ù„ØªÙˆØ§ØµÙ„. Ù„ÙŠØ³ Ø¨Ø§Ù„Ø¶Ø±ÙˆØ±Ø© Ø®Ø±ÙˆØ¬Ø§Øª ÙƒØ¨ÙŠØ±Ø©ØŒ Ø¨Ù„ Ù„Ø­Ø¸Ø§Øª ØµØºÙŠØ±Ø©: ÙƒÙˆØ¨ Ø´Ø§ÙŠ Ù…Ø¹Ø§Ù‹ØŒ Ù…Ø´Ø§Ù‡Ø¯Ø© ÙÙŠÙ„Ù…ØŒ Ø£Ùˆ Ù…Ø¬Ø±Ø¯ Ø§Ù„Ø¬Ù„ÙˆØ³ ÙˆØ§Ù„Ø­Ø¯ÙŠØ«.' },
-      { heading: 'ÙÙ‡Ù… Ø§Ù„ØªØºÙŠØ±Ø§Øª Ø§Ù„Ø¬Ù†Ø³ÙŠØ©', text: 'Ø§Ù„ØªØ­Ù„ÙŠ Ø¨Ø§Ù„ØµØ¨Ø± ÙˆØ¹Ø¯Ù… Ø§Ù„Ø¶ØºØ·. Ø§Ù„ØªØ¹Ø§ÙÙŠ Ø§Ù„Ø¬Ø³Ø¯ÙŠ ÙˆØ§Ù„Ù†ÙØ³ÙŠ ÙŠØ£Ø®Ø° ÙˆÙ‚ØªØ§Ù‹. Ø§Ù„ØªÙˆØ§ØµÙ„ Ø§Ù„Ù…ÙØªÙˆØ­ Ø­ÙˆÙ„ Ø§Ù„Ø§Ø­ØªÙŠØ§Ø¬Ø§Øª ÙˆØ§Ù„Ù…Ø®Ø§ÙˆÙ Ø¶Ø±ÙˆØ±ÙŠ.' },
-      { heading: 'Ø§Ù„Ù…Ø³Ø§Ø¹Ø¯Ø© Ø§Ù„Ù…Ù†Ø²Ù„ÙŠØ©', text: 'Ø§Ù„Ø·Ø¨Ø®ØŒ Ø§Ù„ØªÙ†Ø¸ÙŠÙØŒ Ø§Ù„ØªØ³ÙˆÙ‚... Ø§Ù„Ù…Ø´Ø§Ø±ÙƒØ© ÙÙŠ Ø§Ù„Ø£Ø¹Ù…Ø§Ù„ Ø§Ù„Ù…Ù†Ø²Ù„ÙŠØ© Ù„ÙŠØ³Øª \"Ù…Ø³Ø§Ø¹Ø¯Ø©\" Ø¨Ù„ Ù…Ø³Ø¤ÙˆÙ„ÙŠØ© Ù…Ø´ØªØ±ÙƒØ©ØŒ Ø®Ø§ØµØ© ÙÙŠ ÙØªØ±Ø© Ù…Ø§ Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©.' }
+      { heading: 'الدعم العاطفي', text: 'يحتاج الشريك إلى فهم التغيرات النفسية والجسدية التي تمر بها الأم بعد الولادة. الاستماع بتعاطف والتواجد الدائم هما أهم أشكال الدعم.' },
+      { heading: 'المشاركة في العناية بالطفل', text: 'تغيير الحفاضات، الاستحمام، تهدئة الطفل ليلاً... كلها مهام يمكن للشريك القيام بها لتخفيف العبء عن الأم.' },
+      { heading: 'العناية بالعلاقة', text: 'تخصيص وقت للحوار والتواصل. ليس بالضرورة خروجات كبيرة، بل لحظات صغيرة: كوب شاي معاً، مشاهدة فيلم، أو مجرد الجلوس والحديث.' },
+      { heading: 'فهم التغيرات الجنسية', text: 'التحلي بالصبر وعدم الضغط. التعافي الجسدي والنفسي يأخذ وقتاً. التواصل المفتوح حول الاحتياجات والمخاوف ضروري.' },
+      { heading: 'المساعدة المنزلية', text: 'الطبخ، التنظيف، التسوق... المشاركة في الأعمال المنزلية ليست \"مساعدة\" بل مسؤولية مشتركة، خاصة في فترة ما بعد الولادة.' }
     ]
   },
   intimacy: {
     icon: 'favorite', color: 'var(--secondary)',
-    title: 'Ø§Ø³ØªØ¹Ø§Ø¯Ø© Ø§Ù„Ø­Ù…ÙŠÙ…ÙŠØ© Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©',
-    type: 'Ù…Ù‚Ø§Ù„ &#8226; 8 Ø¯Ù‚Ø§Ø¦Ù‚',
+    title: 'استعادة الحميمية بعد الولادة',
+    type: 'مقال &#8226; 8 دقائق',
     sections: [
-      { heading: 'Ù…ØªÙ‰ ÙŠÙ…ÙƒÙ† Ø§Ø³ØªØ¦Ù†Ø§Ù Ø§Ù„Ø¹Ù„Ø§Ù‚Ø©ØŸ', text: 'Ù„Ø§ ÙŠÙˆØ¬Ø¯ ÙˆÙ‚Øª Ù…Ø­Ø¯Ø¯. ÙŠØ¹ØªÙ…Ø¯ Ø¹Ù„Ù‰ Ø§Ù„ØªØ¹Ø§ÙÙŠ Ø§Ù„Ø¬Ø³Ø¯ÙŠ (ØªÙˆÙ‚Ù Ø§Ù„Ù†Ø²ÙŠÙØŒ Ø§Ù„ØªØ¦Ø§Ù… Ø§Ù„Ø¬Ø±ÙˆØ­) ÙˆØ§Ù„Ø§Ø³ØªØ¹Ø¯Ø§Ø¯ Ø§Ù„Ù†ÙØ³ÙŠ. Ù…Ø¹Ø¸Ù… Ø§Ù„Ø£Ø·Ø¨Ø§Ø¡ ÙŠÙ†ØµØ­ÙˆÙ† Ø¨Ø§Ù„Ø§Ù†ØªØ¸Ø§Ø± 4-6 Ø£Ø³Ø§Ø¨ÙŠØ¹.' },
-      { heading: 'Ø§Ù„ØªØºÙŠØ±Ø§Øª Ø§Ù„Ø·Ø¨ÙŠØ¹ÙŠØ©', text: 'Ø§Ù„Ø¬ÙØ§Ù Ø§Ù„Ù…Ù‡Ø¨Ù„ÙŠ Ø´Ø§Ø¦Ø¹ Ø®Ø§ØµØ© Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ø±Ø¶Ø§Ø¹Ø©. Ø§Ù†Ø®ÙØ§Ø¶ Ø§Ù„Ø±ØºØ¨Ø© Ø·Ø¨ÙŠØ¹ÙŠ Ø¨Ø³Ø¨Ø¨ Ø§Ù„ØªØ¹Ø¨ ÙˆØ§Ù„ØªØºÙŠØ±Ø§Øª Ø§Ù„Ù‡Ø±Ù…ÙˆÙ†ÙŠØ©. ÙƒÙ„Ù‡Ø§ Ø£Ù…ÙˆØ± Ù…Ø¤Ù‚ØªØ©.' },
-      { heading: 'Ø§Ù„ØªÙˆØ§ØµÙ„ Ù…Ø¹ Ø§Ù„Ø´Ø±ÙŠÙƒ', text: 'Ø§Ù„Ø­ÙˆØ§Ø± Ø§Ù„Ù…ÙØªÙˆØ­ Ø¹Ù† Ø§Ù„Ù…Ø®Ø§ÙˆÙ ÙˆØ§Ù„Ø§Ø­ØªÙŠØ§Ø¬Ø§Øª. Ù„Ø§ ØªØªØ±Ø¯Ø¯ÙŠ ÙÙŠ Ø§Ù„ØªØ¹Ø¨ÙŠØ± Ø¹Ù…Ø§ ØªØ´Ø¹Ø±ÙŠÙ† Ø¨Ù‡. Ø§Ù„Ø­Ù…ÙŠÙ…ÙŠØ© Ù„ÙŠØ³Øª ÙÙ‚Ø· Ø¬Ù†Ø³ÙŠØ© Ø¨Ù„ Ø¹Ø§Ø·ÙÙŠØ© Ø£ÙŠØ¶Ø§Ù‹.' },
-      { heading: 'Ù†ØµØ§Ø¦Ø­ Ø¹Ù…Ù„ÙŠØ©', text: 'Ø§Ø³ØªØ®Ø¯Ø§Ù… Ù…Ø²Ù„Ù‚Ø§Øª Ù…Ø§Ø¦ÙŠØ©. Ø§Ø®ØªÙŠØ§Ø± Ø§Ù„ÙˆÙ‚Øª Ø§Ù„Ù…Ù†Ø§Ø³Ø¨. Ø§Ù„Ø¨Ø¯Ø¡ Ø¨Ø¨Ø·Ø¡. Ø¹Ø¯Ù… Ù…Ù‚Ø§Ø±Ù†Ø© Ø§Ù„ÙˆØ¶Ø¹ Ø¨Ù…Ø§ ÙƒØ§Ù† Ù‚Ø¨Ù„ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©.' },
-      { heading: 'Ù…ØªÙ‰ ØªØ³ØªØ´ÙŠØ±ÙŠÙ† Ø§Ù„Ù…Ø®ØªØµØŸ', text: 'Ø¥Ø°Ø§ Ø§Ø³ØªÙ…Ø± Ø§Ù„Ø£Ù„Ù… Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ø¹Ù„Ø§Ù‚Ø©. Ø¥Ø°Ø§ Ù„Ù… ØªØªØ­Ø³Ù† Ø§Ù„Ø±ØºØ¨Ø© Ø¨Ø¹Ø¯ Ø¹Ø¯Ø© Ø£Ø´Ù‡Ø±. Ø¥Ø°Ø§ Ø´Ø¹Ø±ØªÙ Ø¨Ø§Ù„Ù‚Ù„Ù‚ Ø£Ùˆ Ø§Ù„Ø§ÙƒØªØ¦Ø§Ø¨.' }
+      { heading: 'متى يمكن استئناف العلاقة؟', text: 'لا يوجد وقت محدد. يعتمد على التعافي الجسدي (توقف النزيف، التئام الجروح) والاستعداد النفسي. معظم الأطباء ينصحون بالانتظار 4-6 أسابيع.' },
+      { heading: 'التغيرات الطبيعية', text: 'الجفاف المهبلي شائع خاصة أثناء الرضاعة. انخفاض الرغبة طبيعي بسبب التعب والتغيرات الهرمونية. كلها أمور مؤقتة.' },
+      { heading: 'التواصل مع الشريك', text: 'الحوار المفتوح عن المخاوف والاحتياجات. لا تترددي في التعبير عما تشعرين به. الحميمية ليست فقط جنسية بل عاطفية أيضاً.' },
+      { heading: 'نصائح عملية', text: 'استخدام مزلقات مائية. اختيار الوقت المناسب. البدء ببطء. عدم مقارنة الوضع بما كان قبل الولادة.' },
+      { heading: 'متى تستشيرين المختص؟', text: 'إذا استمر الألم أثناء العلاقة. إذا لم تتحسن الرغبة بعد عدة أشهر. إذا شعرتِ بالقلق أو الاكتئاب.' }
     ]
   },
   breathing: {
     icon: 'play_circle', color: 'var(--secondary)',
-    title: 'Ø§Ù„ØªÙ†ÙØ³ Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©',
-    type: 'ÙÙŠØ¯ÙŠÙˆ &#8226; 5 Ø¯Ù‚Ø§Ø¦Ù‚',
+    title: 'التنفس بعد الولادة',
+    type: 'فيديو &#8226; 5 دقائق',
     sections: [
-      { heading: 'Ø£Ù‡Ù…ÙŠØ© Ø§Ù„ØªÙ†ÙØ³', text: 'Ø§Ù„ØªÙ†ÙØ³ Ø§Ù„Ø¹Ù…ÙŠÙ‚ ÙŠØ³Ø§Ø¹Ø¯ Ø¹Ù„Ù‰ ØªÙ‚Ù„ÙŠÙ„ Ø§Ù„ØªÙˆØªØ± ÙˆØ§Ù„Ù‚Ù„Ù‚. ÙŠØ­Ø³Ù† Ø§Ù„Ø¯ÙˆØ±Ø© Ø§Ù„Ø¯Ù…ÙˆÙŠØ© ÙˆÙŠØ³Ø§Ø¹Ø¯ Ø¹Ù„Ù‰ ØªØ¹Ø§ÙÙŠ Ø¹Ø¶Ù„Ø§Øª Ø§Ù„Ø¨Ø·Ù† ÙˆØ§Ù„Ø­ÙˆØ¶.' },
-      { heading: 'ØªÙ…Ø±ÙŠÙ† Ø§Ù„ØªÙ†ÙØ³ Ø§Ù„Ø¨Ø·Ù†ÙŠ', text: 'Ø§Ø³ØªÙ„Ù‚ÙŠ Ø¹Ù„Ù‰ Ø¸Ù‡Ø±Ùƒ. Ø¶Ø¹ÙŠ ÙŠØ¯Ø§Ù‹ Ø¹Ù„Ù‰ ØµØ¯Ø±Ùƒ ÙˆØ£Ø®Ø±Ù‰ Ø¹Ù„Ù‰ Ø¨Ø·Ù†Ùƒ. ØªÙ†ÙØ³ÙŠ Ø¨Ø¨Ø·Ø¡ Ù…Ù† Ø§Ù„Ø£Ù†Ù Ø­ØªÙ‰ ØªØ±ØªÙØ¹ ÙŠØ¯Ùƒ Ø¹Ù„Ù‰ Ø§Ù„Ø¨Ø·Ù†. Ø£Ø®Ø±Ø¬ÙŠ Ø§Ù„Ù‡ÙˆØ§Ø¡ Ø¨Ø¨Ø·Ø¡ Ù…Ù† Ø§Ù„ÙÙ…. ÙƒØ±Ø±ÙŠ 10 Ù…Ø±Ø§Øª.' },
-      { heading: 'ØªÙ…Ø±ÙŠÙ† 4-7-8', text: 'Ø´Ù‡ÙŠÙ‚ Ù„Ù…Ø¯Ø© 4 Ø«ÙˆØ§Ù†Ù. Ø§Ø­ØªÙØ§Ø¸ Ø¨Ø§Ù„Ù‡ÙˆØ§Ø¡ Ù„Ù…Ø¯Ø© 7 Ø«ÙˆØ§Ù†Ù. Ø²ÙÙŠØ± Ø¨Ø¨Ø·Ø¡ Ù„Ù…Ø¯Ø© 8 Ø«ÙˆØ§Ù†Ù. ÙŠØ³Ø§Ø¹Ø¯ ÙƒØ«ÙŠØ±Ø§Ù‹ Ø¹Ù„Ù‰ Ø§Ù„Ù†ÙˆÙ… ÙˆØ§Ù„Ø§Ø³ØªØ±Ø®Ø§Ø¡.' },
-      { heading: 'Ù…ØªÙ‰ ØªÙ…Ø§Ø±Ø³ÙŠÙ†ØŸ', text: 'Ù‚Ø¨Ù„ Ø§Ù„Ù†ÙˆÙ…. Ø¹Ù†Ø¯ Ø§Ù„Ø´Ø¹ÙˆØ± Ø¨Ø§Ù„ØªÙˆØªØ±. Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ø±Ø¶Ø§Ø¹Ø©. ÙÙŠ Ø£ÙŠ Ù„Ø­Ø¸Ø© Ù‡Ø¯ÙˆØ¡ Ø®Ù„Ø§Ù„ Ø§Ù„ÙŠÙˆÙ….' }
+      { heading: 'أهمية التنفس', text: 'التنفس العميق يساعد على تقليل التوتر والقلق. يحسن الدورة الدموية ويساعد على تعافي عضلات البطن والحوض.' },
+      { heading: 'تمرين التنفس البطني', text: 'استلقي على ظهرك. ضعي يداً على صدرك وأخرى على بطنك. تنفسي ببطء من الأنف حتى ترتفع يدك على البطن. أخرجي الهواء ببطء من الفم. كرري 10 مرات.' },
+      { heading: 'تمرين 4-7-8', text: 'شهيق لمدة 4 ثوانٍ. احتفاظ بالهواء لمدة 7 ثوانٍ. زفير ببطء لمدة 8 ثوانٍ. يساعد كثيراً على النوم والاسترخاء.' },
+      { heading: 'متى تمارسين؟', text: 'قبل النوم. عند الشعور بالتوتر. أثناء الرضاعة. في أي لحظة هدوء خلال اليوم.' }
     ]
   },
   sleep: {
     icon: 'psychology', color: 'var(--tertiary)',
-    title: 'Ø¥Ø¯Ø§Ø±Ø© Ù‚Ù„Ø© Ø§Ù„Ù†ÙˆÙ…',
-    type: 'Ø¯Ù„ÙŠÙ„ &#8226; 12 Ø¯Ù‚ÙŠÙ‚Ø©',
+    title: 'إدارة قلة النوم',
+    type: 'دليل &#8226; 12 دقيقة',
     sections: [
-      { heading: 'Ù†Ø§Ù…ÙŠ Ø¹Ù†Ø¯Ù…Ø§ ÙŠÙ†Ø§Ù… Ø·ÙÙ„Ùƒ', text: 'Ø£Ù‡Ù… Ù†ØµÙŠØ­Ø©: Ù„Ø§ ØªØ­Ø§ÙˆÙ„ÙŠ Ø¥Ù†Ø¬Ø§Ø² Ø§Ù„Ø£Ø¹Ù…Ø§Ù„ Ø§Ù„Ù…Ù†Ø²Ù„ÙŠØ© Ø£Ø«Ù†Ø§Ø¡ Ù†ÙˆÙ… Ø§Ù„Ø·ÙÙ„. Ø§Ù„Ø£ÙˆÙ„ÙˆÙŠØ© Ù„Ø±Ø§Ø­ØªÙƒ.' },
-      { heading: 'ØªÙ†Ø¸ÙŠÙ… Ø§Ù„Ù†ÙˆÙ…', text: 'Ø§Ø¬Ø¹Ù„ÙŠ ØºØ±ÙØ© Ø§Ù„Ù†ÙˆÙ… Ù…Ø¸Ù„Ù…Ø© ÙˆÙ‡Ø§Ø¯Ø¦Ø©. ØªØ¬Ù†Ø¨ÙŠ Ø§Ù„Ø´Ø§Ø´Ø§Øª Ù‚Ø¨Ù„ Ø§Ù„Ù†ÙˆÙ…. Ø­Ø§ÙˆÙ„ÙŠ Ø§Ù„Ù†ÙˆÙ… ÙˆØ§Ù„Ø§Ø³ØªÙŠÙ‚Ø§Ø¸ ÙÙŠ Ø£ÙˆÙ‚Ø§Øª Ù…Ù†ØªØ¸Ù…Ø© Ù‚Ø¯Ø± Ø§Ù„Ø¥Ù…ÙƒØ§Ù†.' },
-      { heading: 'ØªÙ†Ø§ÙˆØ¨ Ø§Ù„Ø£Ø¯ÙˆØ§Ø± Ù„ÙŠÙ„Ø§Ù‹', text: 'Ø§ØªÙÙ‚ÙŠ Ù…Ø¹ Ø§Ù„Ø´Ø±ÙŠÙƒ Ø¹Ù„Ù‰ Ø§Ù„Ù…Ù†Ø§ÙˆØ¨Ø©. ÙŠÙ…ÙƒÙ† Ù„Ù„Ø´Ø±ÙŠÙƒ Ø¥Ø¹Ø·Ø§Ø¡ Ø§Ù„Ø­Ù„ÙŠØ¨ Ø§Ù„Ù…Ø³Ø­ÙˆØ¨ Ù„ÙŠÙ„Ø§Ù‹ Ù„ØªØ³ØªØ±ÙŠØ­ÙŠ.' },
-      { heading: 'Ø¹Ù„Ø§Ù…Ø§Øª Ø§Ù„Ø¥Ø±Ù‡Ø§Ù‚ Ø§Ù„Ø®Ø·ÙŠØ±', text: 'Ø¥Ø°Ø§ Ø´Ø¹Ø±ØªÙ Ø¨Ø¯ÙˆØ§Ø± Ù…Ø³ØªÙ…Ø± Ø£Ùˆ Ù†Ø³ÙŠØ§Ù† Ø´Ø¯ÙŠØ¯ Ø£Ùˆ Ø±ØºØ¨Ø© ÙÙŠ Ø§Ù„Ø¨ÙƒØ§Ø¡ Ø§Ù„Ù…Ø³ØªÙ…Ø±ØŒ Ø§Ø³ØªØ´ÙŠØ±ÙŠ Ø§Ù„Ø·Ø¨ÙŠØ¨. Ù‚Ù„Ø© Ø§Ù„Ù†ÙˆÙ… Ø§Ù„Ù…Ø²Ù…Ù†Ø© ØªØ¤Ø«Ø± Ø¹Ù„Ù‰ Ø§Ù„ØµØ­Ø© Ø§Ù„Ù†ÙØ³ÙŠØ©.' },
-      { heading: 'Ø·Ù„Ø¨ Ø§Ù„Ù…Ø³Ø§Ø¹Ø¯Ø©', text: 'Ù„Ø§ Ø¹ÙŠØ¨ ÙÙŠ Ø·Ù„Ø¨ Ø§Ù„Ù…Ø³Ø§Ø¹Ø¯Ø© Ù…Ù† Ø§Ù„Ø¹Ø§Ø¦Ù„Ø© Ø£Ùˆ Ø§Ù„Ø£ØµØ¯Ù‚Ø§Ø¡. Ø§Ø³ØªÙ‚Ø¨Ø§Ù„ Ø§Ù„Ø£Ù… Ø£Ùˆ Ø§Ù„Ø­Ù…Ø§Ø© Ù„Ø¨Ø¶Ø¹Ø© Ø£ÙŠØ§Ù… Ù‚Ø¯ ÙŠÙƒÙˆÙ† Ù…Ù†Ù‚Ø°Ø§Ù‹.' }
+      { heading: 'نامي عندما ينام طفلك', text: 'أهم نصيحة: لا تحاولي إنجاز الأعمال المنزلية أثناء نوم الطفل. الأولوية لراحتك.' },
+      { heading: 'تنظيم النوم', text: 'اجعلي غرفة النوم مظلمة وهادئة. تجنبي الشاشات قبل النوم. حاولي النوم والاستيقاظ في أوقات منتظمة قدر الإمكان.' },
+      { heading: 'تناوب الأدوار ليلاً', text: 'اتفقي مع الشريك على المناوبة. يمكن للشريك إعطاء الحليب المسحوب ليلاً لتستريحي.' },
+      { heading: 'علامات الإرهاق الخطير', text: 'إذا شعرتِ بدوار مستمر أو نسيان شديد أو رغبة في البكاء المستمر، استشيري الطبيب. قلة النوم المزمنة تؤثر على الصحة النفسية.' },
+      { heading: 'طلب المساعدة', text: 'لا عيب في طلب المساعدة من العائلة أو الأصدقاء. استقبال الأم أو الحماة لبضعة أيام قد يكون منقذاً.' }
     ]
   },
   communication: {
     icon: 'forum', color: 'var(--primary)',
-    title: 'Ø§Ù„ØªÙˆØ§ØµÙ„ ÙÙŠ Ø§Ù„Ø²ÙˆØ¬ÙŠÙ†',
-    type: 'Ù…Ù‚Ø§Ù„ &#8226; 10 Ø¯Ù‚Ø§Ø¦Ù‚',
+    title: 'التواصل في الزوجين',
+    type: 'مقال &#8226; 10 دقائق',
     sections: [
-      { heading: 'Ø§Ù„Ø­ÙØ§Ø¸ Ø¹Ù„Ù‰ Ø§Ù„Ø±Ø§Ø¨Ø·', text: 'ÙˆØµÙˆÙ„ Ø§Ù„Ù…ÙˆÙ„ÙˆØ¯ ÙŠØºÙŠØ± Ø¯ÙŠÙ†Ø§Ù…ÙŠÙƒÙŠØ© Ø§Ù„Ø¹Ù„Ø§Ù‚Ø©. Ù…Ù† Ø§Ù„Ø·Ø¨ÙŠØ¹ÙŠ Ø£Ù† ÙŠØªØ±Ø§Ø¬Ø¹ Ø§Ù„Ø§Ù‡ØªÙ…Ø§Ù… Ø¨Ø§Ù„Ø´Ø±ÙŠÙƒ Ù…Ø¤Ù‚ØªØ§Ù‹. Ù„ÙƒÙ† Ø§Ù„ØªÙˆØ§ØµÙ„ Ø§Ù„Ù…Ø³ØªÙ…Ø± ÙŠØ­Ù…ÙŠ Ø§Ù„Ø¹Ù„Ø§Ù‚Ø©.' },
-      { heading: 'Ø§Ù„Ø§Ø³ØªÙ…Ø§Ø¹ Ø§Ù„ÙØ¹Ø§Ù„', text: 'Ø®ØµØµÙˆØ§ ÙˆÙ‚ØªØ§Ù‹ ÙŠÙˆÙ…ÙŠØ§Ù‹ Ù„Ù„Ø­Ø¯ÙŠØ« Ø¨Ø¯ÙˆÙ† ØªØ´ØªÙŠØª. Ø§Ø³Ù…Ø¹ÙˆØ§ Ø¨Ø¹Ø¶ÙƒÙ… Ø¯ÙˆÙ† Ù…Ù‚Ø§Ø·Ø¹Ø© Ø£Ùˆ Ø­ÙƒÙ…. Ø¹Ø¨Ù‘Ø±ÙˆØ§ Ø¹Ù† Ù…Ø´Ø§Ø¹Ø±ÙƒÙ… Ø¨ØµØ±Ø§Ø­Ø© ÙˆØ¨Ù„Ø·Ù.' },
-      { heading: 'ØªØ¬Ù†Ø¨ Ø§Ù„Ù„ÙˆÙ…', text: 'Ø§Ø³ØªØ®Ø¯Ù…ÙˆØ§ \"Ø£Ù†Ø§ Ø£Ø´Ø¹Ø±...\" Ø¨Ø¯Ù„Ø§Ù‹ Ù…Ù† \"Ø£Ù†Øª Ø¯Ø§Ø¦Ù…Ø§Ù‹...\". Ø§Ù„Ù„ÙˆÙ… ÙŠØ¨Ù†ÙŠ Ø¬Ø¯Ø§Ø±Ø§Ù‹ Ø¨ÙŠÙ†ÙƒÙ…Ø§. Ø§Ù„ØªØ¹Ø¨ÙŠØ± Ø¹Ù† Ø§Ù„Ø§Ø­ØªÙŠØ§Ø¬Ø§Øª Ø¨ÙˆØ¶ÙˆØ­ Ø£ÙØ¶Ù„.' },
-      { heading: 'ÙˆÙ‚Øª Ù„Ù„Ø²ÙˆØ¬ÙŠÙ†', text: 'Ø­ØªÙ‰ 15 Ø¯Ù‚ÙŠÙ‚Ø© ÙŠÙˆÙ…ÙŠØ§Ù‹ Ù…Ø¹Ø§Ù‹ ØªØµÙ†Ø¹ ÙØ±Ù‚Ø§Ù‹. Ø¹Ø´Ø§Ø¡ Ø¨Ø³ÙŠØ·ØŒ Ù…Ø´ÙŠ Ù‚ØµÙŠØ±ØŒ Ø£Ùˆ Ù…Ø¬Ø±Ø¯ Ø§Ù„Ø¬Ù„ÙˆØ³ Ù…Ø¹Ø§Ù‹. Ù„ÙŠØ³ Ø§Ù„ÙƒÙ… Ø¨Ù„ Ø§Ù„Ø¬ÙˆØ¯Ø©.' },
-      { heading: 'Ù…ØªÙ‰ ØªØ·Ù„Ø¨ÙˆÙ† Ù…Ø³Ø§Ø¹Ø¯Ø© Ù…Ø®ØªØµØŸ', text: 'Ø¥Ø°Ø§ ØªØ­ÙˆÙ„Øª Ø§Ù„Ø®Ù„Ø§ÙØ§Øª Ø¥Ù„Ù‰ ØµØ±Ø§Ø® Ù…Ø³ØªÙ…Ø±. Ø¥Ø°Ø§ Ø´Ø¹Ø±ØªÙ… Ø¨Ø§Ù„ØºØ±Ø¨Ø©. Ø¥Ø°Ø§ Ù„Ù… ÙŠØ¹Ø¯ Ù‡Ù†Ø§Ùƒ ØªÙˆØ§ØµÙ„. Ø§Ù„Ø§Ø³ØªØ´Ø§Ø±Ø© Ø§Ù„Ø²ÙˆØ¬ÙŠØ© Ù„ÙŠØ³Øª ÙØ´Ù„Ø§Ù‹ Ø¨Ù„ Ø´Ø¬Ø§Ø¹Ø©.' }
+      { heading: 'الحفاظ على الرابط', text: 'وصول المولود يغير ديناميكية العلاقة. من الطبيعي أن يتراجع الاهتمام بالشريك مؤقتاً. لكن التواصل المستمر يحمي العلاقة.' },
+      { heading: 'الاستماع الفعال', text: 'خصصوا وقتاً يومياً للحديث بدون تشتيت. اسمعوا بعضكم دون مقاطعة أو حكم. عبÙ‘روا عن مشاعركم بصراحة وبلطف.' },
+      { heading: 'تجنب اللوم', text: 'استخدموا \"أنا أشعر...\" بدلاً من \"أنت دائماً...\". اللوم يبني جداراً بينكما. التعبير عن الاحتياجات بوضوح أفضل.' },
+      { heading: 'وقت للزوجين', text: 'حتى 15 دقيقة يومياً معاً تصنع فرقاً. عشاء بسيط، مشي قصير، أو مجرد الجلوس معاً. ليس الكم بل الجودة.' },
+      { heading: 'متى تطلبون مساعدة مختص؟', text: 'إذا تحولت الخلافات إلى صراخ مستمر. إذا شعرتم بالغربة. إذا لم يعد هناك تواصل. الاستشارة الزوجية ليست فشلاً بل شجاعة.' }
     ]
   }
 };
@@ -1493,7 +1493,7 @@ function openStaticArticle(id) {
 
       <div style="text-align:center;margin-top:var(--space-2xl);padding:var(--space-xl);">
         <button onclick="document.getElementById('static-article-overlay').remove();" class="btn btn--primary btn--full">
-          <span class="material-symbols-outlined" style="font-size:18px;">arrow_back</span> ${t('lib_back_to_library') || 'Ø§Ù„Ø¹ÙˆØ¯Ø© Ø¥Ù„Ù‰ Ø§Ù„Ù…ÙƒØªØ¨Ø©'}
+          <span class="material-symbols-outlined" style="font-size:18px;">arrow_back</span> ${t('lib_back_to_library') || 'العودة إلى المكتبة'}
         </button>
       </div>
     </div>
@@ -1530,239 +1530,239 @@ async function renderProfile() {
 function renderSageFemme() {
   const container = document.getElementById('sage-femme-content');
   if (!container) return;
+
+  const modules = [
+    { id: 'breastfeeding', icon: 'breastfeeding', title: t('bf_module_title'), desc: t('bf_module_desc'), gradient: 'linear-gradient(135deg,rgba(196,69,105,0.12),rgba(163,217,200,0.08))', iconBg: 'var(--primary-container)', iconColor: 'var(--primary)' },
+    { id: 'sexuality', icon: 'favorite', title: t('sx_module_title'), desc: t('sx_module_desc'), gradient: 'linear-gradient(135deg,rgba(142,108,136,0.12),rgba(212,107,80,0.06))', iconBg: 'var(--secondary-container)', iconColor: 'var(--secondary)' },
+    { id: 'newborn', icon: 'child_care', title: t('nb_module_title'), desc: t('nb_module_desc'), gradient: 'linear-gradient(135deg,rgba(67,97,127,0.12),rgba(163,217,200,0.08))', iconBg: 'var(--tertiary-fixed)', iconColor: 'var(--tertiary)' }
+  ];
+
+  const catIcons = {
+    'post-partum': 'medical_services',
+    'contraception': 'medication',
+    'alerte': 'warning',
+    'allaitement': 'breastfeeding',
+    'sexualite': 'favorite'
+  };
+  const catColors = {
+    'post-partum': 'var(--primary)',
+    'contraception': 'var(--secondary)',
+    'alerte': 'var(--error)',
+    'allaitement': '#d4a574',
+    'sexualite': 'var(--tertiary)'
+  };
+
   let html = `
-    <!-- Module Allaitement Banner -->
-    <div class="card mb-xl reveal" style="background:linear-gradient(135deg,rgba(196,69,105,0.08),rgba(163,217,200,0.12));border:1px solid rgba(196,69,105,0.15);cursor:pointer;" onclick="navigateTo('breastfeeding')">
-      <div class="card__body flex items-center gap-lg">
-        <div style="width:64px;height:64px;border-radius:var(--radius-full);background:var(--primary-container);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-          <span class="material-symbols-outlined text-primary" style="font-size:32px;">breastfeeding</span>
-        </div>
-        <div style="flex:1;">
-          <h3 class="text-headline-sm" style="font-size:16px;">${t('bf_module_title')}</h3>
-          <p class="text-body-md text-variant">${t('bf_module_desc')}</p>
-        </div>
-        <span class="material-symbols-outlined text-primary">arrow_forward</span>
-      </div>
+    <!-- ═══ Modules Guides ═══ -->
+    <h3 class="text-label-lg text-primary mb-lg reveal" style="text-transform:uppercase;letter-spacing:0.1em;display:flex;align-items:center;gap:8px;">
+      <span class="material-symbols-outlined" style="font-size:18px;">auto_stories</span> ${t('sf_guides_title') || 'Guides spécialisés'}
+    </h3>
+    <div class="grid-3 mb-xl reveal" style="gap:var(--space-md);">
+      ${modules.map((m, i) => `
+        <button onclick="navigateTo('${m.id}')" style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:var(--space-xl) var(--space-md);background:${m.gradient};border:1px solid rgba(0,0,0,0.06);border-radius:var(--radius-xl);cursor:pointer;font-family:inherit;transition:all 0.25s;animation-delay:${i*0.08}s;" class="reveal">
+          <div style="width:52px;height:52px;border-radius:var(--radius-full);background:${m.iconBg};display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+            <span class="material-symbols-outlined icon-filled" style="font-size:26px;color:${m.iconColor};">${m.icon}</span>
+          </div>
+          <span class="text-body-md text-semibold" style="text-align:center;font-size:13px;line-height:1.3;">${m.title}</span>
+        </button>
+      `).join('')}
     </div>
 
-    <!-- Module Sexualité Banner -->
-    <div class="card mb-xl reveal" style="background:linear-gradient(135deg,rgba(142,108,136,0.08),rgba(212,107,80,0.10));border:1px solid rgba(142,108,136,0.15);cursor:pointer;animation-delay:0.1s;" onclick="navigateTo('sexuality')">
-      <div class="card__body flex items-center gap-lg">
-        <div style="width:64px;height:64px;border-radius:var(--radius-full);background:var(--secondary-container);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-          <span class="material-symbols-outlined text-secondary" style="font-size:32px;">favorite</span>
-        </div>
-        <div style="flex:1;">
-          <h3 class="text-headline-sm" style="font-size:16px;">${t('sx_module_title')}</h3>
-          <p class="text-body-md text-variant">${t('sx_module_desc')}</p>
-        </div>
-        <span class="material-symbols-outlined text-secondary">arrow_forward</span>
-      </div>
-    </div>
+    <!-- ═══ Conseils Professionnels ═══ -->
+    <h3 class="text-label-lg text-primary mb-lg reveal" style="text-transform:uppercase;letter-spacing:0.1em;display:flex;align-items:center;gap:8px;">
+      <span class="material-symbols-outlined" style="font-size:18px;">stethoscope</span> ${t('sf_tips_title') || 'Conseils professionnels'}
+    </h3>
 
-    <!-- Module Nouveau-né Banner -->
-    <div class="card mb-xl reveal" style="background:linear-gradient(135deg,rgba(67,97,127,0.08),rgba(163,217,200,0.10));border:1px solid rgba(67,97,127,0.15);cursor:pointer;animation-delay:0.15s;" onclick="navigateTo('newborn')">
-      <div class="card__body flex items-center gap-lg">
-        <div style="width:64px;height:64px;border-radius:var(--radius-full);background:var(--tertiary-fixed);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-          <span class="material-symbols-outlined" style="font-size:32px;color:var(--tertiary);">child_care</span>
-        </div>
-        <div style="flex:1;">
-          <h3 class="text-headline-sm" style="font-size:16px;">${t('nb_module_title')}</h3>
-          <p class="text-body-md text-variant">${t('nb_module_desc')}</p>
-        </div>
-        <span class="material-symbols-outlined" style="color:var(--tertiary);">arrow_forward</span>
-      </div>
-    </div>
-
-    <!-- Module Mythes et Réalités Banner -->
-    <div class="card mb-xl reveal" style="background:linear-gradient(135deg,rgba(40,167,69,0.06),rgba(220,53,69,0.06));border:1px solid rgba(40,167,69,0.15);cursor:pointer;animation-delay:0.2s;" onclick="navigateTo('myths')">
-      <div class="card__body flex items-center gap-lg">
-        <div style="width:64px;height:64px;border-radius:var(--radius-full);background:linear-gradient(135deg,rgba(220,53,69,0.12),rgba(40,167,69,0.12));display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-          <span class="material-symbols-outlined" style="font-size:32px;color:#28a745;">swap_horiz</span>
-        </div>
-        <div style="flex:1;">
-          <h3 class="text-headline-sm" style="font-size:16px;">${t('my_module_title')}</h3>
-          <p class="text-body-md text-variant">${t('my_module_desc')}</p>
-        </div>
-        <span class="material-symbols-outlined" style="color:#28a745;">arrow_forward</span>
-      </div>
-    </div>
-
-    <div class="chips-scroll mb-xl">
+    <div class="chips-scroll mb-xl reveal">
       <button class="chip chip--tonal active" data-sf-cat="tous" onclick="filterSF('tous',this)">${t('sf_all')}</button>
       <button class="chip chip--tonal" data-sf-cat="post-partum" onclick="filterSF('post-partum',this)">${t('sf_postpartum')}</button>
-      <button class="chip chip--tonal" data-sf-cat="allaitement" onclick="filterSF('allaitement',this)">${t('sf_breastfeeding')}</button>
       <button class="chip chip--tonal" data-sf-cat="contraception" onclick="filterSF('contraception',this)">${t('sf_contraception')}</button>
-      <button class="chip chip--tonal" data-sf-cat="sexualite" onclick="filterSF('sexualite',this)">${t('sf_sexuality')}</button>
       <button class="chip chip--tonal" data-sf-cat="alerte" onclick="filterSF('alerte',this)">${t('sf_alerts')}</button>
     </div>
-    <div class="space-y-lg" id="sf-messages">`;
+
+    <div class="space-y-md" id="sf-messages">`;
+
   getSageFemmeTips().forEach((tip, i) => {
-    html += `<div class="chat-bubble chat-bubble--bot reveal" data-cat="${tip.cat}" style="animation-delay:${i * 0.1}s">
-      <div class="flex items-center gap-md mb-md"><span class="material-symbols-outlined text-primary">${tip.icon}</span><strong class="text-body-lg text-semibold">${tip.title}</strong></div>
-      <p class="text-body-md" style="line-height:1.7">${tip.text}</p></div>`;
+    const color = catColors[tip.cat] || 'var(--primary)';
+    html += `
+      <div class="card card--flat reveal" data-cat="${tip.cat}" style="overflow:hidden;animation-delay:${i * 0.08}s;border-right:3px solid ${color};">
+        <div class="card__body" style="padding:var(--space-lg);">
+          <div class="flex items-center gap-md mb-md">
+            <div style="width:36px;height:36px;border-radius:var(--radius-full);background:${color}15;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <span class="material-symbols-outlined" style="font-size:20px;color:${color};">${tip.icon}</span>
+            </div>
+            <div style="flex:1;">
+              <strong class="text-body-lg text-semibold">${tip.title}</strong>
+              <span class="text-label-md text-variant" style="display:block;text-transform:capitalize;opacity:0.7;">${tip.cat}</span>
+            </div>
+          </div>
+          <p class="text-body-md text-variant" style="line-height:1.8;">${tip.text}</p>
+        </div>
+      </div>`;
   });
+
   container.innerHTML = html + '</div>';
   setTimeout(() => initReveal(), 50);
 }
 function filterSF(cat, btn) {
   document.querySelectorAll('[data-sf-cat]').forEach(c => c.classList.remove('active'));
   btn.classList.add('active');
-  document.querySelectorAll('#sf-messages .chat-bubble').forEach(b => {
+  document.querySelectorAll('#sf-messages > .card').forEach(b => {
     b.style.display = (cat === 'tous' || b.dataset.cat === cat) ? '' : 'none';
   });
 }
 
 // ══════════════════════════════════════════════════════════════
-//  MODULE: ALLAITEMENT COMPLET (Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ø·Ø¨ÙŠØ¹ÙŠØ©)
+//  MODULE: ALLAITEMENT COMPLET (الرضاعة الطبيعية)
 // ══════════════════════════════════════════════════════════════
 
 const bfChapters = [
   {
-    icon: 'schedule', title: 'Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© ÙÙŠ Ø§Ù„Ø³Ø§Ø¹Ø© Ø§Ù„Ø£ÙˆÙ„Ù‰',
+    icon: 'schedule', title: 'الرضاعة في الساعة الأولى',
     content: `<div class="space-y-md" style="line-height:1.8;">
-      <p>ÙŠÙÙ†ØµØ­ Ø¨ÙˆØ¶Ø¹ Ø§Ù„Ø·ÙÙ„ Ø¹Ù„Ù‰ ØµØ¯Ø± Ø§Ù„Ø£Ù… Ù…Ø¨Ø§Ø´Ø±Ø© Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©.</p>
-      <p>Ø¨Ø¯Ø¡ Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø®Ù„Ø§Ù„ Ø§Ù„Ø³Ø§Ø¹Ø© Ø§Ù„Ø£ÙˆÙ„Ù‰ ÙŠØ³Ø§Ø¹Ø¯ Ø¹Ù„Ù‰ ØªØ­ÙÙŠØ² Ø¥ÙØ±Ø§Ø² Ø§Ù„Ø­Ù„ÙŠØ¨.</p>
-      <p>ÙŠØ¹Ø²Ø² Ø§Ù„Ø±Ø§Ø¨Ø· Ø§Ù„Ø¹Ø§Ø·ÙÙŠ Ø¨ÙŠÙ† Ø§Ù„Ø£Ù… ÙˆØ±Ø¶ÙŠØ¹Ù‡Ø§.</p>
-      <p>ÙŠØ³Ø§Ù‡Ù… Ø§Ù„Ù„Ø¨Ø£ <strong>(Colostrum)</strong> ÙÙŠ ØªÙ‚ÙˆÙŠØ© Ù…Ù†Ø§Ø¹Ø© Ø§Ù„Ù…ÙˆÙ„ÙˆØ¯.</p>
+      <p>يُنصح بوضع الطفل على صدر الأم مباشرة بعد الولادة.</p>
+      <p>بدء الرضاعة خلال الساعة الأولى يساعد على تحفيز إفراز الحليب.</p>
+      <p>يعزز الرابط العاطفي بين الأم ورضيعها.</p>
+      <p>يساهم اللبأ <strong>(Colostrum)</strong> في تقوية مناعة المولود.</p>
       <div style="background:var(--primary-container);padding:var(--space-lg);border-radius:var(--radius-xl);margin-top:var(--space-md);">
-        <p style="font-weight:600;color:var(--on-primary-container);"><span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;">info</span> Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© ØªÙƒÙˆÙ† Ø­Ø³Ø¨ Ø·Ù„Ø¨ Ø§Ù„Ø·ÙÙ„ ÙˆÙ„ÙŠØ³ ÙˆÙÙ‚ Ø³Ø§Ø¹Ø§Øª Ù…Ø­Ø¯Ø¯Ø©ØŒ Ù„ÙƒÙ† Ù…Ø¹Ø¯Ù„ Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© ÙŠØ¬Ø¨ Ø£Ù† ÙŠÙƒÙˆÙ† ÙƒÙ„ Ø³Ø§Ø¹ØªÙŠÙ† ÙˆØ¹Ù„ÙŠÙƒ Ø¥ÙŠÙ‚Ø§Ø¸ Ø§Ù„Ø·ÙÙ„ Ø¥Ø°Ø§ ÙƒØ§Ù† Ù†Ø§Ø¦Ù…Ø§Ù‹ Ø®Ø§ØµØ© ÙÙŠ Ø§Ù„Ø£Ø³Ø¨ÙˆØ¹ Ø§Ù„Ø£ÙˆÙ„ Ù„ÙŠØ±Ø¶Ø¹ 15 Ø¯Ù‚ÙŠÙ‚Ø© Ù…Ù† ÙƒÙ„ Ø«Ø¯ÙŠ.</p>
+        <p style="font-weight:600;color:var(--on-primary-container);"><span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;">info</span> الرضاعة تكون حسب طلب الطفل وليس وفق ساعات محددة، لكن معدل الرضاعة يجب أن يكون كل ساعتين وعليك إيقاظ الطفل إذا كان نائماً خاصة في الأسبوع الأول ليرضع 15 دقيقة من كل ثدي.</p>
       </div>
     </div>`
   },
   {
-    icon: 'self_improvement', title: 'ÙˆØ¶Ø¹ÙŠØ§Øª Ø§Ù„Ø±Ø¶Ø§Ø¹Ø©',
+    icon: 'self_improvement', title: 'وضعيات الرضاعة',
     content: `<div class="space-y-lg" style="line-height:1.8;">
       <div style="padding:var(--space-lg);background:rgba(196,69,105,0.06);border-radius:var(--radius-xl);border-right:4px solid var(--primary);">
-        <h4 style="font-weight:700;margin-bottom:8px;">&#129329; ÙˆØ¶Ø¹ÙŠØ© Ø§Ù„Ù…Ù‡Ø¯</h4><p>ÙˆÙ‡ÙŠ Ø§Ù„Ø£ÙƒØ«Ø± Ø´ÙŠÙˆØ¹Ø§Ù‹</p>
+        <h4 style="font-weight:700;margin-bottom:8px;">&#129329; وضعية المهد</h4><p>وهي الأكثر شيوعاً</p>
       </div>
       <div style="padding:var(--space-lg);background:rgba(142,108,136,0.08);border-radius:var(--radius-xl);border-right:4px solid var(--secondary);">
-        <h4 style="font-weight:700;margin-bottom:8px;">&#127942; ÙˆØ¶Ø¹ÙŠØ© ÙƒØ±Ø© Ø§Ù„Ù‚Ø¯Ù…</h4><p>Ù…Ù†Ø§Ø³Ø¨Ø© Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø© Ø§Ù„Ù‚ÙŠØµØ±ÙŠØ© ÙˆÙ„Ù„Ø£Ù…Ù‡Ø§Øª Ø§Ù„Ù„ÙˆØ§ØªÙŠ Ù„Ø¯ÙŠÙ‡Ù† ØªÙˆØ£Ù…</p>
+        <h4 style="font-weight:700;margin-bottom:8px;">&#127942; وضعية كرة القدم</h4><p>مناسبة بعد الولادة القيصرية وللأمهات اللواتي لديهن توأم</p>
       </div>
       <div style="padding:var(--space-lg);background:rgba(212,107,80,0.08);border-radius:var(--radius-xl);border-right:4px solid var(--tertiary);">
-        <h4 style="font-weight:700;margin-bottom:8px;">&#128564; ÙˆØ¶Ø¹ÙŠØ© Ø§Ù„Ø§Ø³ØªÙ„Ù‚Ø§Ø¡</h4><p>Ù…Ø±ÙŠØ­Ø© Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ù„ÙŠÙ„ ÙˆÙØªØ±Ø§Øª Ø§Ù„Ø±Ø§Ø­Ø©</p>
+        <h4 style="font-weight:700;margin-bottom:8px;">&#128564; وضعية الاستلقاء</h4><p>مريحة أثناء الليل وفترات الراحة</p>
       </div>
       <div style="padding:var(--space-lg);background:rgba(163,217,200,0.15);border-radius:var(--radius-xl);border-right:4px solid #A3D9C8;">
-        <h4 style="font-weight:700;margin-bottom:8px;">&#128191; Ø§Ù„ÙˆØ¶Ø¹ÙŠØ© Ø§Ù„Ø¨ÙŠÙˆÙ„ÙˆØ¬ÙŠØ©</h4><p>Ø§Ø³ØªÙ„Ù‚Ø§Ø¡ Ø§Ù„Ø£Ù… Ù…Ø¹ ÙˆØ¶Ø¹ Ø§Ù„Ø·ÙÙ„ Ø¹Ù„Ù‰ ØµØ¯Ø±Ù‡Ø§ Ø¨Ø´ÙƒÙ„ Ø·Ø¨ÙŠØ¹ÙŠ</p>
+        <h4 style="font-weight:700;margin-bottom:8px;">&#128191; الوضعية البيولوجية</h4><p>استلقاء الأم مع وضع الطفل على صدرها بشكل طبيعي</p>
       </div>
     </div>`
   },
   {
-    icon: 'checklist', title: 'Ø¹Ù„Ø§Ù…Ø§Øª Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„ÙØ¹Ø§Ù„Ø©',
+    icon: 'checklist', title: 'علامات الرضاعة الفعالة',
     content: `<div style="line-height:1.8;">
-      <p style="font-weight:600;margin-bottom:12px;">ÙƒÙŠÙ Ø£Ø¹Ø±Ù Ø£Ù† Ø·ÙÙ„ÙŠ ÙŠØ±Ø¶Ø¹ Ø¬ÙŠØ¯Ø§Ù‹ØŸ</p>
-      ${['ÙØªØ­ Ø§Ù„ÙÙ… Ø¨Ø´ÙƒÙ„ ÙˆØ§Ø³Ø¹','Ø¯Ø®ÙˆÙ„ Ø¬Ø²Ø¡ ÙƒØ¨ÙŠØ± Ù…Ù† Ø§Ù„Ù‡Ø§Ù„Ø© ÙÙŠ ÙÙ… Ø§Ù„Ø·ÙÙ„','Ø³Ù…Ø§Ø¹ ØµÙˆØª Ø§Ù„Ø¨Ù„Ø¹','Ø§Ø±ØªØ®Ø§Ø¡ Ø§Ù„Ø·ÙÙ„ Ø¨Ø¹Ø¯ Ø§Ù„Ø±Ø¶Ø§Ø¹Ø©','Ø²ÙŠØ§Ø¯Ø© Ø§Ù„ÙˆØ²Ù† ØªØ¯Ø±ÙŠØ¬ÙŠØ§Ù‹','ØªØ¨Ù„ÙŠÙ„ 6 Ø­ÙØ§Ø¶Ø§Øª Ø£Ùˆ Ø£ÙƒØ«Ø± ÙŠÙˆÙ…ÙŠØ§Ù‹ Ø¨Ø¹Ø¯ Ø§Ù„ÙŠÙˆÙ… Ø§Ù„Ø®Ø§Ù…Ø³'].map(s => `<div class="flex items-center gap-md mb-md"><span class="material-symbols-outlined text-primary" style="font-size:18px;">check_circle</span><span>${s}</span></div>`).join('')}
+      <p style="font-weight:600;margin-bottom:12px;">كيف أعرف أن طفلي يرضع جيداً؟</p>
+      ${['فتح الفم بشكل واسع','دخول جزء كبير من الهالة في فم الطفل','سماع صوت البلع','ارتخاء الطفل بعد الرضاعة','زيادة الوزن تدريجياً','تبليل 6 حفاضات أو أكثر يومياً بعد اليوم الخامس'].map(s => `<div class="flex items-center gap-md mb-md"><span class="material-symbols-outlined text-primary" style="font-size:18px;">check_circle</span><span>${s}</span></div>`).join('')}
     </div>`
   },
   {
-    icon: 'local_hospital', title: 'Ø§Ø­ØªÙ‚Ø§Ù† Ø§Ù„Ø«Ø¯ÙŠ',
+    icon: 'local_hospital', title: 'احتقان الثدي',
     content: `<div style="line-height:1.8;">
-      <p>ÙŠØ­Ø¯Ø« ØºØ§Ù„Ø¨Ø§Ù‹ Ø¨ÙŠÙ† Ø§Ù„ÙŠÙˆÙ… Ø§Ù„Ø«Ø§Ù„Ø« ÙˆØ§Ù„Ø®Ø§Ù…Ø³ Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©.</p>
-      <h4 style="font-weight:700;margin:16px 0 8px;">Ø§Ù„Ù†ØµØ§Ø¦Ø­:</h4>
-      ${['Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ù…ØªÙƒØ±Ø±Ø©','ÙƒÙ…Ø§Ø¯Ø§Øª Ø¯Ø§ÙØ¦Ø© Ù‚Ø¨Ù„ Ø§Ù„Ø±Ø¶Ø§Ø¹Ø©','ÙƒÙ…Ø§Ø¯Ø§Øª Ø¨Ø§Ø±Ø¯Ø© Ø¨Ø¹Ø¯Ù‡Ø§','ØªØ¯Ù„ÙŠÙƒ Ù„Ø·ÙŠÙ Ù„Ù„Ø«Ø¯ÙŠ','Ø´ÙØ· ÙƒÙ…ÙŠØ© Ø¨Ø³ÙŠØ·Ø© Ù…Ù† Ø§Ù„Ø­Ù„ÙŠØ¨ Ø¥Ø°Ø§ ÙƒØ§Ù† Ø§Ù„Ø«Ø¯ÙŠ Ù…Ù…ØªÙ„Ø¦Ø§Ù‹ Ø¬Ø¯Ø§Ù‹'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="color:#d4a574;font-size:18px;">lightbulb</span><span>${s}</span></div>`).join('')}
-      <div class="alert-banner alert-banner--warning mt-lg"><span class="material-symbols-outlined">warning</span><span>Ø¥Ø°Ø§ ØªØ±Ø§ÙÙ‚ Ø§Ù„Ø§Ø­ØªÙ‚Ø§Ù† Ù…Ø¹ Ø­Ø±Ø§Ø±Ø© Ø£Ùˆ Ø§Ø­Ù…Ø±Ø§Ø± Ø´Ø¯ÙŠØ¯ ÙŠØ¬Ø¨ Ø§Ø³ØªØ´Ø§Ø±Ø© Ù…Ø®ØªØµ.</span></div>
+      <p>يحدث غالباً بين اليوم الثالث والخامس بعد الولادة.</p>
+      <h4 style="font-weight:700;margin:16px 0 8px;">النصائح:</h4>
+      ${['الرضاعة المتكررة','كمادات دافئة قبل الرضاعة','كمادات باردة بعدها','تدليك لطيف للثدي','شفط كمية بسيطة من الحليب إذا كان الثدي ممتلئاً جداً'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="color:#d4a574;font-size:18px;">lightbulb</span><span>${s}</span></div>`).join('')}
+      <div class="alert-banner alert-banner--warning mt-lg"><span class="material-symbols-outlined">warning</span><span>إذا ترافق الاحتقان مع حرارة أو احمرار شديد يجب استشارة مختص.</span></div>
     </div>`
   },
   {
-    icon: 'healing', title: 'ØªØ´Ù‚Ù‚Ø§Øª Ø§Ù„Ø­Ù„Ù…Ø©',
+    icon: 'healing', title: 'تشققات الحلمة',
     content: `<div style="line-height:1.8;">
-      ${['Ø§Ù„ØªØ£ÙƒØ¯ Ù…Ù† Ø§Ù„ØªØ¹Ù„Ù‚ Ø§Ù„ØµØ­ÙŠØ­ Ù„Ù„Ø·ÙÙ„','ÙˆØ¶Ø¹ Ù‚Ø·Ø±Ø§Øª Ù…Ù† Ø­Ù„ÙŠØ¨ Ø§Ù„Ø£Ù… Ø¹Ù„Ù‰ Ø§Ù„Ø­Ù„Ù…Ø©','ØªØ±Ùƒ Ø§Ù„Ø­Ù„Ù…Ø© ØªØ¬Ù ÙÙŠ Ø§Ù„Ù‡ÙˆØ§Ø¡','ØªØ¬Ù†Ø¨ Ø§Ù„ØµØ§Ø¨ÙˆÙ† ÙˆØ§Ù„Ù…ÙˆØ§Ø¯ Ø§Ù„Ù…Ù‡ÙŠØ¬Ø©'].map(s => `<div class="flex items-center gap-md mb-md"><span class="material-symbols-outlined text-secondary" style="font-size:18px;">check_circle</span><span>${s}</span></div>`).join('')}
+      ${['التأكد من التعلق الصحيح للطفل','وضع قطرات من حليب الأم على الحلمة','ترك الحلمة تجف في الهواء','تجنب الصابون والمواد المهيجة'].map(s => `<div class="flex items-center gap-md mb-md"><span class="material-symbols-outlined text-secondary" style="font-size:18px;">check_circle</span><span>${s}</span></div>`).join('')}
     </div>`
   },
   {
-    icon: 'water_drop', title: 'ÙƒÙŠÙ Ø£Ø­Ø§ÙØ¸ Ø¹Ù„Ù‰ Ø¥Ù†ØªØ§Ø¬ Ø§Ù„Ø­Ù„ÙŠØ¨ØŸ',
+    icon: 'water_drop', title: 'كيف أحافظ على إنتاج الحليب؟',
     content: `<div style="line-height:1.8;">
-      ${['Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ù…ØªÙƒØ±Ø±Ø©','Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ù„ÙŠÙ„ÙŠØ©','ØªÙØ±ÙŠØº Ø§Ù„Ø«Ø¯ÙŠ Ø¨Ø§Ù†ØªØ¸Ø§Ù…','Ø§Ù„Ø±Ø§Ø­Ø© ÙˆØ§Ù„Ù†ÙˆÙ… Ù‚Ø¯Ø± Ø§Ù„Ø¥Ù…ÙƒØ§Ù†','Ø´Ø±Ø¨ Ø§Ù„Ù…Ø§Ø¡ Ø¨Ø§Ù†ØªØ¸Ø§Ù…','Ø§Ù„ØªØºØ°ÙŠØ© Ø§Ù„Ù…ØªÙˆØ§Ø²Ù†Ø©'].map(s => `<div class="flex items-center gap-md mb-md"><span class="material-symbols-outlined text-primary" style="font-size:18px;">check_circle</span><span>${s}</span></div>`).join('')}
+      ${['الرضاعة المتكررة','الرضاعة الليلية','تفريغ الثدي بانتظام','الراحة والنوم قدر الإمكان','شرب الماء بانتظام','التغذية المتوازنة'].map(s => `<div class="flex items-center gap-md mb-md"><span class="material-symbols-outlined text-primary" style="font-size:18px;">check_circle</span><span>${s}</span></div>`).join('')}
       <div style="background:var(--primary-container);padding:var(--space-lg);border-radius:var(--radius-xl);margin-top:var(--space-lg);">
-        <p style="font-weight:600;color:var(--on-primary-container);"><span style="font-size:18px;">&#128609;</span> Ø¥Ù†ØªØ§Ø¬ Ø§Ù„Ø­Ù„ÙŠØ¨ ÙŠØ¹ØªÙ…Ø¯ Ø¹Ù„Ù‰ Ù…Ø¨Ø¯Ø£ Ø§Ù„Ø¹Ø±Ø¶ ÙˆØ§Ù„Ø·Ù„Ø¨. ÙƒÙ„Ù…Ø§ Ø²Ø§Ø¯Øª Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø£Ùˆ Ø´ÙØ· Ø§Ù„Ø­Ù„ÙŠØ¨ØŒ Ø²Ø§Ø¯ Ø¥Ù†ØªØ§Ø¬ Ø§Ù„Ø­Ù„ÙŠØ¨.</p>
+        <p style="font-weight:600;color:var(--on-primary-container);"><span style="font-size:18px;">&#128609;</span> إنتاج الحليب يعتمد على مبدأ العرض والطلب. كلما زادت الرضاعة أو شفط الحليب، زاد إنتاج الحليب.</p>
       </div>
     </div>`
   },
   {
-    icon: 'restaurant', title: 'ØªØºØ°ÙŠØ© Ø§Ù„Ø£Ù… Ø§Ù„Ù…Ø±Ø¶Ø¹Ø©',
+    icon: 'restaurant', title: 'تغذية الأم المرضعة',
     content: `<div style="line-height:1.8;">
-      <div class="alert-banner mb-lg" style="background:var(--primary-container);border:1px solid var(--primary);"><span class="material-symbols-outlined text-primary">info</span><span style="color:var(--on-primary-container);">Ù„Ø§ ØªÙˆØ¬Ø¯ Ø£Ø·Ø¹Ù…Ø© Ø³Ø­Ø±ÙŠØ© ØªØ²ÙŠØ¯ Ø§Ù„Ø­Ù„ÙŠØ¨ Ø¨Ø´ÙƒÙ„ Ù…Ø¨Ø§Ø´Ø±ØŒ Ù„ÙƒÙ† Ø§Ù„ØªØºØ°ÙŠØ© Ø§Ù„Ù…ØªÙˆØ§Ø²Ù†Ø© ÙˆØ§Ù„ØªØ±Ø·ÙŠØ¨ Ø§Ù„Ø¬ÙŠØ¯ ÙŠØ¯Ø¹Ù…Ø§Ù† Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ø·Ø¨ÙŠØ¹ÙŠØ© (ØªÙˆØµÙŠØ§Øª Ù…Ù†Ø¸Ù…Ø© Ø§Ù„ØµØ­Ø© Ø§Ù„Ø¹Ø§Ù„Ù…ÙŠØ©).</span></div>
+      <div class="alert-banner mb-lg" style="background:var(--primary-container);border:1px solid var(--primary);"><span class="material-symbols-outlined text-primary">info</span><span style="color:var(--on-primary-container);">لا توجد أطعمة سحرية تزيد الحليب بشكل مباشر، لكن التغذية المتوازنة والترطيب الجيد يدعمان الرضاعة الطبيعية (توصيات منظمة الصحة العالمية).</span></div>
       ${[
-        { cat: '&#129385; Ø§Ù„Ø¨Ø±ÙˆØªÙŠÙ†Ø§Øª', items: 'Ø§Ù„Ø¨ÙŠØ¶ØŒ Ø§Ù„Ø¯Ø¬Ø§Ø¬ØŒ Ø§Ù„Ø³Ù…ÙƒØŒ Ø§Ù„Ù„Ø­Ù…ØŒ Ø§Ù„Ø¹Ø¯Ø³ØŒ Ø§Ù„Ø­Ù…ØµØŒ Ø§Ù„ÙÙˆÙ„' },
-        { cat: '&#129402; Ù…Ø´ØªÙ‚Ø§Øª Ø§Ù„Ø­Ù„ÙŠØ¨', items: 'Ø§Ù„Ø­Ù„ÙŠØ¨ØŒ Ø§Ù„ÙŠØ§ØºÙˆØ±ØªØŒ Ø§Ù„Ø¬Ø¨Ù†' },
-        { cat: '&#129364; Ø§Ù„Ø®Ø¶Ø± ÙˆØ§Ù„ÙÙˆØ§ÙƒÙ‡', items: 'Ø§Ù„ØªÙØ§Ø­ØŒ Ø§Ù„Ø¨Ø±ØªÙ‚Ø§Ù„ØŒ Ø§Ù„Ù…ÙˆØ²ØŒ Ø§Ù„Ø¬Ø²Ø±ØŒ Ø§Ù„Ø³Ø¨Ø§Ù†Ø®ØŒ Ø§Ù„Ø¨Ø±ÙˆÙƒÙ„ÙŠØŒ Ø§Ù„Ø·Ù…Ø§Ø·Ù…' },
-        { cat: '&#128190; Ø§Ù„Ø­Ø¨ÙˆØ¨ Ø§Ù„ÙƒØ§Ù…Ù„Ø©', items: 'Ø§Ù„Ø´ÙˆÙØ§Ù†ØŒ Ø§Ù„Ø£Ø±Ø² Ø§Ù„ÙƒØ§Ù…Ù„ØŒ Ø§Ù„Ø®Ø¨Ø² Ø§Ù„ÙƒØ§Ù…Ù„' },
-        { cat: '&#129753; Ø§Ù„Ø¯Ù‡ÙˆÙ† Ø§Ù„Ø¬ÙŠØ¯Ø©', items: 'Ø²ÙŠØª Ø§Ù„Ø²ÙŠØªÙˆÙ†ØŒ Ø§Ù„Ù„ÙˆØ²ØŒ Ø§Ù„Ø¬ÙˆØ²ØŒ Ø§Ù„Ø£ÙÙˆÙƒØ§Ø¯Ùˆ' },
-        { cat: '&#128615; Ø§Ù„ØªØ±Ø·ÙŠØ¨', items: 'Ø´Ø±Ø¨ Ø§Ù„Ù…Ø§Ø¡ Ø­Ø³Ø¨ Ø§Ù„Ø´Ø¹ÙˆØ± Ø¨Ø§Ù„Ø¹Ø·Ø´ØŒ Ø§Ù„Ø§Ø­ØªÙØ§Ø¸ Ø¨Ù‚Ø§Ø±ÙˆØ±Ø© Ù…Ø§Ø¡ Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ø±Ø¶Ø§Ø¹Ø©' }
+        { cat: '&#129385; البروتينات', items: 'البيض، الدجاج، السمك، اللحم، العدس، الحمص، الفول' },
+        { cat: '&#129402; مشتقات الحليب', items: 'الحليب، الياغورت، الجبن' },
+        { cat: '&#129364; الخضر والفواكه', items: 'التفاح، البرتقال، الموز، الجزر، السبانخ، البروكلي، الطماطم' },
+        { cat: '&#128190; الحبوب الكاملة', items: 'الشوفان، الأرز الكامل، الخبز الكامل' },
+        { cat: '&#129753; الدهون الجيدة', items: 'زيت الزيتون، اللوز، الجوز، الأفوكادو' },
+        { cat: '&#128615; الترطيب', items: 'شرب الماء حسب الشعور بالعطش، الاحتفاظ بقارورة ماء أثناء الرضاعة' }
       ].map(g => `<div style="padding:var(--space-md) var(--space-lg);background:var(--surface-container-low);border-radius:var(--radius-xl);margin-bottom:var(--space-md);">
         <strong>${g.cat}</strong><br><span class="text-variant">${g.items}</span>
       </div>`).join('')}
-      <h4 style="font-weight:700;margin:16px 0 8px;">Ø§Ù„Ø¹Ù†Ø§ØµØ± Ø§Ù„ØºØ°Ø§Ø¦ÙŠØ© Ø§Ù„Ù…Ù‡Ù…Ø©:</h4>
+      <h4 style="font-weight:700;margin:16px 0 8px;">العناصر الغذائية المهمة:</h4>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-md);">
-        <div style="padding:var(--space-md);background:rgba(196,69,105,0.06);border-radius:var(--radius-lg);text-align:center;"><strong>&#129656; Ø§Ù„Ø­Ø¯ÙŠØ¯</strong><br><small>Ø§Ù„Ù„Ø­ÙˆÙ… Ø§Ù„Ø­Ù…Ø±Ø§Ø¡ØŒ Ø§Ù„Ø¹Ø¯Ø³ØŒ Ø§Ù„Ø³Ø¨Ø§Ù†Ø®</small></div>
-        <div style="padding:var(--space-md);background:rgba(142,108,136,0.08);border-radius:var(--radius-lg);text-align:center;"><strong>&#129460; Ø§Ù„ÙƒØ§Ù„Ø³ÙŠÙˆÙ…</strong><br><small>Ø§Ù„Ø­Ù„ÙŠØ¨ ÙˆÙ…Ø´ØªÙ‚Ø§ØªÙ‡ØŒ Ø§Ù„Ø³Ø±Ø¯ÙŠÙ†</small></div>
-        <div style="padding:var(--space-md);background:rgba(163,217,200,0.12);border-radius:var(--radius-lg);text-align:center;"><strong>&#128056; Ø£ÙˆÙ…ÙŠØºØ§ 3</strong><br><small>Ø§Ù„Ø³Ø±Ø¯ÙŠÙ†ØŒ Ø§Ù„ØªÙˆÙ†Ø©ØŒ Ø§Ù„Ø³Ù„Ù…ÙˆÙ†</small></div>
-        <div style="padding:var(--space-md);background:rgba(212,165,116,0.12);border-radius:var(--radius-lg);text-align:center;"><strong>&#9728;ï¸ ÙÙŠØªØ§Ù…ÙŠÙ† D</strong><br><small>Ø§Ù„ØªØ¹Ø±Ø¶ Ù„Ù„Ø´Ù…Ø³ØŒ Ø§Ù„Ù…ÙƒÙ…Ù„Ø§Øª</small></div>
+        <div style="padding:var(--space-md);background:rgba(196,69,105,0.06);border-radius:var(--radius-lg);text-align:center;"><strong>&#129656; الحديد</strong><br><small>اللحوم الحمراء، العدس، السبانخ</small></div>
+        <div style="padding:var(--space-md);background:rgba(142,108,136,0.08);border-radius:var(--radius-lg);text-align:center;"><strong>&#129460; الكالسيوم</strong><br><small>الحليب ومشتقاته، السردين</small></div>
+        <div style="padding:var(--space-md);background:rgba(163,217,200,0.12);border-radius:var(--radius-lg);text-align:center;"><strong>&#128056; أوميغا 3</strong><br><small>السردين، التونة، السلمون</small></div>
+        <div style="padding:var(--space-md);background:rgba(212,165,116,0.12);border-radius:var(--radius-lg);text-align:center;"><strong>&#9728;ï¸ فيتامين D</strong><br><small>التعرض للشمس، المكملات</small></div>
       </div>
     </div>`
   },
   {
-    icon: 'eco', title: 'Ø£Ø·Ø¹Ù…Ø© ÙŠÙØ¹ØªÙ‚Ø¯ Ø£Ù†Ù‡Ø§ ØªØ³Ø§Ø¹Ø¯ Ø¹Ù„Ù‰ Ø§Ù„Ø¥Ø±Ø¶Ø§Ø¹',
+    icon: 'eco', title: 'أطعمة يُعتقد أنها تساعد على الإرضاع',
     content: `<div style="line-height:1.8;">
       <div class="flex" style="flex-wrap:wrap;gap:var(--space-md);margin-bottom:var(--space-xl);">
-        ${['Ø§Ù„Ø´ÙˆÙØ§Ù†','Ø§Ù„Ø­Ù„Ø¨Ø©','Ø§Ù„Ø´Ù…Ø±','Ø§Ù„Ù„ÙˆØ²','Ø§Ù„Ø³Ù…Ø³Ù…'].map(f => `<span style="padding:8px 18px;background:rgba(212,165,116,0.15);border-radius:var(--radius-full);font-weight:600;font-size:14px;">${f}</span>`).join('')}
+        ${['الشوفان','الحلبة','الشمر','اللوز','السمسم'].map(f => `<span style="padding:8px 18px;background:rgba(212,165,116,0.15);border-radius:var(--radius-full);font-weight:600;font-size:14px;">${f}</span>`).join('')}
       </div>
       <div style="padding:var(--space-lg);background:rgba(142,108,136,0.08);border-radius:var(--radius-xl);border-right:4px solid var(--secondary);">
-        <p><strong>&#128876; Ù…Ù„Ø§Ø­Ø¸Ø© Ø¹Ù„Ù…ÙŠØ©:</strong> Ù„Ø§ ØªÙˆØ¬Ø¯ Ø£Ø¯Ù„Ø© Ø¹Ù„Ù…ÙŠØ© Ù‚ÙˆÙŠØ© ØªØ«Ø¨Øª Ø£Ù† ØºØ°Ø§Ø¡Ù‹ Ù…Ø¹ÙŠÙ†Ø§Ù‹ ÙŠØ²ÙŠØ¯ Ø¥Ù†ØªØ§Ø¬ Ø§Ù„Ø­Ù„ÙŠØ¨ Ø¨Ø´ÙƒÙ„ ÙƒØ¨ÙŠØ±ØŒ Ø¨ÙŠÙ†Ù…Ø§ ØªØ¹ØªØ¨Ø± Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ù…ØªÙƒØ±Ø±Ø© Ø§Ù„Ø¹Ø§Ù…Ù„ Ø§Ù„Ø£ÙƒØ«Ø± ÙØ¹Ø§Ù„ÙŠØ©.</p>
+        <p><strong>&#128876; ملاحظة علمية:</strong> لا توجد أدلة علمية قوية تثبت أن غذاءً معيناً يزيد إنتاج الحليب بشكل كبير، بينما تعتبر الرضاعة المتكررة العامل الأكثر فعالية.</p>
       </div>
     </div>`
   },
   {
-    icon: 'kitchen', title: 'Ø­ÙØ¸ Ø­Ù„ÙŠØ¨ Ø§Ù„Ø£Ù…',
+    icon: 'kitchen', title: 'حفظ حليب الأم',
     content: `<div style="line-height:1.8;">
       <table style="width:100%;border-collapse:collapse;margin-bottom:var(--space-xl);">
-        <tr style="background:var(--primary);color:white;"><th style="padding:12px;text-align:right;border-radius:var(--radius-lg) var(--radius-lg) 0 0;">Ø§Ù„Ù…ÙƒØ§Ù†</th><th style="padding:12px;text-align:center;">Ø§Ù„Ù…Ø¯Ø©</th></tr>
-        <tr style="background:var(--surface-container-low);"><td style="padding:12px;font-weight:600;">&#128161;ï¸ Ø¯Ø±Ø¬Ø© Ø­Ø±Ø§Ø±Ø© Ø§Ù„ØºØ±ÙØ©</td><td style="padding:12px;text-align:center;">4 Ø³Ø§Ø¹Ø§Øª</td></tr>
-        <tr><td style="padding:12px;font-weight:600;">&#10084;ï¸ Ø§Ù„Ø«Ù„Ø§Ø¬Ø©</td><td style="padding:12px;text-align:center;">4 Ø£ÙŠØ§Ù…</td></tr>
-        <tr style="background:var(--surface-container-low);"><td style="padding:12px;font-weight:600;">&#129504; Ø§Ù„Ù…Ø¬Ù…Ø¯</td><td style="padding:12px;text-align:center;">6 Ø£Ø´Ù‡Ø±</td></tr>
+        <tr style="background:var(--primary);color:white;"><th style="padding:12px;text-align:right;border-radius:var(--radius-lg) var(--radius-lg) 0 0;">المكان</th><th style="padding:12px;text-align:center;">المدة</th></tr>
+        <tr style="background:var(--surface-container-low);"><td style="padding:12px;font-weight:600;">&#128161;ï¸ درجة حرارة الغرفة</td><td style="padding:12px;text-align:center;">4 ساعات</td></tr>
+        <tr><td style="padding:12px;font-weight:600;">&#10084;ï¸ الثلاجة</td><td style="padding:12px;text-align:center;">4 أيام</td></tr>
+        <tr style="background:var(--surface-container-low);"><td style="padding:12px;font-weight:600;">&#129504; المجمد</td><td style="padding:12px;text-align:center;">6 أشهر</td></tr>
       </table>
-      ${['ÙƒØªØ§Ø¨Ø© ØªØ§Ø±ÙŠØ® Ø§Ù„Ø´ÙØ·','Ø¹Ø¯Ù… Ø¥Ø¹Ø§Ø¯Ø© ØªØ¬Ù…ÙŠØ¯ Ø§Ù„Ø­Ù„ÙŠØ¨ Ø§Ù„Ù…Ø°Ø§Ø¨'].map(s => `<div class="flex items-center gap-md mb-md"><span class="material-symbols-outlined text-primary" style="font-size:18px;">check_circle</span><span>${s}</span></div>`).join('')}
+      ${['كتابة تاريخ الشفط','عدم إعادة تجميد الحليب المذاب'].map(s => `<div class="flex items-center gap-md mb-md"><span class="material-symbols-outlined text-primary" style="font-size:18px;">check_circle</span><span>${s}</span></div>`).join('')}
     </div>`
   },
   {
-    icon: 'work', title: 'Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© ÙˆØ§Ù„Ø¹ÙˆØ¯Ø© Ù„Ù„Ø¹Ù…Ù„',
+    icon: 'work', title: 'الرضاعة والعودة للعمل',
     content: `<div style="line-height:1.8;">
-      ${['ØªØ¹Ù„Ù… Ø´ÙØ· Ø§Ù„Ø­Ù„ÙŠØ¨ Ù‚Ø¨Ù„ Ø§Ù„Ø¹ÙˆØ¯Ø© Ù„Ù„Ø¹Ù…Ù„','Ø¥Ù†Ø´Ø§Ø¡ Ù…Ø®Ø²ÙˆÙ† Ù…Ù† Ø§Ù„Ø­Ù„ÙŠØ¨','Ø§Ø­ØªØ±Ø§Ù… Ø´Ø±ÙˆØ· Ø§Ù„ØªØ®Ø²ÙŠÙ†','ØªÙ†Ø¸ÙŠÙ… Ø£ÙˆÙ‚Ø§Øª Ø§Ù„Ø´ÙØ· ÙˆØ§Ù„Ø±Ø¶Ø§Ø¹Ø©'].map(s => `<div class="flex items-center gap-md mb-md"><span class="material-symbols-outlined text-primary" style="font-size:18px;">check_circle</span><span>${s}</span></div>`).join('')}
+      ${['تعلم شفط الحليب قبل العودة للعمل','إنشاء مخزون من الحليب','احترام شروط التخزين','تنظيم أوقات الشفط والرضاعة'].map(s => `<div class="flex items-center gap-md mb-md"><span class="material-symbols-outlined text-primary" style="font-size:18px;">check_circle</span><span>${s}</span></div>`).join('')}
     </div>`
   }
 ];
 
 const bfMyths = [
-  { myth: 'ÙŠØ¬Ø¨ Ø¥Ø¹Ø·Ø§Ø¡ Ø§Ù„Ù…Ø§Ø¡ Ù„Ù„Ø±Ø¶ÙŠØ¹ Ù‚Ø¨Ù„ 6 Ø£Ø´Ù‡Ø±', reality: 'Ø­Ù„ÙŠØ¨ Ø§Ù„Ø£Ù… ÙˆØ­Ø¯Ù‡ ÙŠÙƒÙÙŠ Ø®Ù„Ø§Ù„ Ø§Ù„Ø£Ø´Ù‡Ø± Ø§Ù„Ø³ØªØ© Ø§Ù„Ø£ÙˆÙ„Ù‰' },
-  { myth: 'ØµØºØ± Ø­Ø¬Ù… Ø§Ù„Ø«Ø¯ÙŠ ÙŠØ¹Ù†ÙŠ Ù‚Ù„Ø© Ø§Ù„Ø­Ù„ÙŠØ¨', reality: 'Ø­Ø¬Ù… Ø§Ù„Ø«Ø¯ÙŠ Ù„Ø§ ÙŠØ­Ø¯Ø¯ ÙƒÙ…ÙŠØ© Ø§Ù„Ø­Ù„ÙŠØ¨ Ø§Ù„Ù…Ù†ØªØ¬Ø©' },
-  { myth: 'ÙƒÙ„ Ø¨ÙƒØ§Ø¡ ÙŠØ¹Ù†ÙŠ Ø£Ù† Ø§Ù„Ø·ÙÙ„ Ø¬Ø§Ø¦Ø¹', reality: 'Ù‚Ø¯ ÙŠÙƒÙˆÙ† Ø§Ù„Ø¨ÙƒØ§Ø¡ Ø¨Ø³Ø¨Ø¨ Ø§Ù„ØªØ¹Ø¨ Ø£Ùˆ Ø§Ù„Ù…ØºØµ Ø£Ùˆ Ø§Ù„Ø­Ø§Ø¬Ø© Ù„Ù„Ø§Ø­ØªØ¶Ø§Ù†' },
-  { myth: 'ÙŠØ¬Ø¨ Ø¥Ø±Ø¶Ø§Ø¹ Ø§Ù„Ø·ÙÙ„ ÙƒÙ„ 3 Ø³Ø§Ø¹Ø§Øª ÙÙ‚Ø·', reality: 'Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© ØªÙƒÙˆÙ† Ø­Ø³Ø¨ Ø·Ù„Ø¨ Ø§Ù„Ø·ÙÙ„' },
-  { myth: 'Ù…Ø±Ø¶ Ø§Ù„Ø£Ù… ÙŠØ¹Ù†ÙŠ Ø§Ù„ØªÙˆÙ‚Ù Ø¹Ù† Ø§Ù„Ø±Ø¶Ø§Ø¹Ø©', reality: 'ØºØ§Ù„Ø¨Ø§Ù‹ ÙŠÙ…ÙƒÙ† Ø§Ù„Ø§Ø³ØªÙ…Ø±Ø§Ø± Ø¨Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø¨Ø¹Ø¯ Ø§Ø³ØªØ´Ø§Ø±Ø© Ø§Ù„Ù…Ø®ØªØµ' },
-  { myth: 'Ø§Ù„Ø­Ù„ÙŠØ¨ Ø§Ù„ØµÙ†Ø§Ø¹ÙŠ Ø£ÙØ¶Ù„ Ù…Ù† Ø­Ù„ÙŠØ¨ Ø§Ù„Ø£Ù…', reality: 'Ø­Ù„ÙŠØ¨ Ø§Ù„Ø£Ù… Ù‡Ùˆ Ø§Ù„ØºØ°Ø§Ø¡ Ø§Ù„Ø£Ù…Ø«Ù„ Ù„Ù„Ø±Ø¶ÙŠØ¹' },
-  { myth: 'Ø§Ù„ØªÙˆØªØ± ÙŠÙØ³Ø¯ Ø§Ù„Ø­Ù„ÙŠØ¨', reality: 'Ø§Ù„ØªÙˆØªØ± Ù‚Ø¯ ÙŠØ¤Ø«Ø± Ù…Ø¤Ù‚ØªØ§Ù‹ Ø¹Ù„Ù‰ ØªØ¯ÙÙ‚ Ø§Ù„Ø­Ù„ÙŠØ¨ Ù„ÙƒÙ†Ù‡ Ù„Ø§ ÙŠÙØ³Ø¯Ù‡' },
-  { myth: 'Ø§Ù„Ø£Ù… Ø§Ù„Ù…Ø±Ø¶Ø¹Ø© ÙŠØ¬Ø¨ Ø£Ù† ØªØ£ÙƒÙ„ Ù„Ø´Ø®ØµÙŠÙ†', reality: 'Ø§Ù„Ø¬ÙˆØ¯Ø© Ø§Ù„ØºØ°Ø§Ø¦ÙŠØ© Ø£Ù‡Ù… Ù…Ù† Ø§Ù„ÙƒÙ…ÙŠØ©' },
-  { myth: 'Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ù…ØªÙƒØ±Ø±Ø© ØªØ¹Ù†ÙŠ Ø£Ù† Ø§Ù„Ø­Ù„ÙŠØ¨ ØºÙŠØ± ÙƒØ§ÙÙ', reality: 'Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ù…ØªÙƒØ±Ø±Ø© Ø·Ø¨ÙŠØ¹ÙŠØ© Ø®Ø§ØµØ© Ø®Ù„Ø§Ù„ ÙØªØ±Ø§Øª Ø§Ù„Ù†Ù…Ùˆ Ø§Ù„Ø³Ø±ÙŠØ¹' },
-  { myth: 'ÙŠØ¬Ø¨ Ø¥ÙŠÙ‚Ø§Ù Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø¹Ù†Ø¯ Ø¸Ù‡ÙˆØ± Ø§Ù„Ø£Ø³Ù†Ø§Ù†', reality: 'ÙŠÙ…ÙƒÙ† Ù…ÙˆØ§ØµÙ„Ø© Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø­ØªÙ‰ Ø¹Ù…Ø± Ø³Ù†ØªÙŠÙ† Ø£Ùˆ Ø£ÙƒØ«Ø±' }
+  { myth: 'يجب إعطاء الماء للرضيع قبل 6 أشهر', reality: 'حليب الأم وحده يكفي خلال الأشهر الستة الأولى' },
+  { myth: 'صغر حجم الثدي يعني قلة الحليب', reality: 'حجم الثدي لا يحدد كمية الحليب المنتجة' },
+  { myth: 'كل بكاء يعني أن الطفل جائع', reality: 'قد يكون البكاء بسبب التعب أو المغص أو الحاجة للاحتضان' },
+  { myth: 'يجب إرضاع الطفل كل 3 ساعات فقط', reality: 'الرضاعة تكون حسب طلب الطفل' },
+  { myth: 'مرض الأم يعني التوقف عن الرضاعة', reality: 'غالباً يمكن الاستمرار بالرضاعة بعد استشارة المختص' },
+  { myth: 'الحليب الصناعي أفضل من حليب الأم', reality: 'حليب الأم هو الغذاء الأمثل للرضيع' },
+  { myth: 'التوتر يفسد الحليب', reality: 'التوتر قد يؤثر مؤقتاً على تدفق الحليب لكنه لا يفسده' },
+  { myth: 'الأم المرضعة يجب أن تأكل لشخصين', reality: 'الجودة الغذائية أهم من الكمية' },
+  { myth: 'الرضاعة المتكررة تعني أن الحليب غير كافٍ', reality: 'الرضاعة المتكررة طبيعية خاصة خلال فترات النمو السريع' },
+  { myth: 'يجب إيقاف الرضاعة عند ظهور الأسنان', reality: 'يمكن مواصلة الرضاعة حتى عمر سنتين أو أكثر' }
 ];
 
 const bfQuizQuestions = [
-  'Ù‡Ù„ ÙŠÙØªØ­ Ø·ÙÙ„Ùƒ ÙÙ…Ù‡ Ø¨Ø´ÙƒÙ„ ÙˆØ§Ø³Ø¹ Ù‚Ø¨Ù„ Ø§Ù„Ø¥Ù…Ø³Ø§Ùƒ Ø¨Ø§Ù„Ø«Ø¯ÙŠØŸ',
-  'Ù‡Ù„ ÙŠØ¯Ø®Ù„ Ø¬Ø²Ø¡ ÙƒØ¨ÙŠØ± Ù…Ù† Ø§Ù„Ù‡Ø§Ù„Ø© ÙÙŠ ÙÙ… Ø§Ù„Ø·ÙÙ„ØŸ',
-  'Ù‡Ù„ ØªØ´Ø¹Ø±ÙŠÙ† Ø¨Ø£Ù„Ù… Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ø±Ø¶Ø§Ø¹Ø©ØŸ',
-  'Ù‡Ù„ ØªØ³Ù…Ø¹ÙŠÙ† ØµÙˆØª Ø§Ù„Ø¨Ù„Ø¹ØŸ',
-  'Ù‡Ù„ ÙŠØ±Ø¶Ø¹ Ø·ÙÙ„Ùƒ Ù…Ù† 8 Ø¥Ù„Ù‰ 12 Ù…Ø±Ø© ÙŠÙˆÙ…ÙŠØ§Ù‹ØŸ',
-  'Ù‡Ù„ ÙŠÙ‡Ø¯Ø£ Ø¨Ø¹Ø¯ Ø§Ù„Ø±Ø¶Ø§Ø¹Ø©ØŸ',
-  'Ù‡Ù„ ÙŠØ¨Ù„Ù„ Ø£ÙƒØ«Ø± Ù…Ù† 6 Ø­ÙØ§Ø¶Ø§Øª ÙŠÙˆÙ…ÙŠØ§Ù‹ØŸ',
-  'Ù‡Ù„ ÙŠØªØ¨Ø±Ø² Ø¨Ø´ÙƒÙ„ Ø·Ø¨ÙŠØ¹ÙŠØŸ',
-  'Ù‡Ù„ ÙŠØ²Ø¯Ø§Ø¯ ÙˆØ²Ù†Ù‡ Ø¨Ø´ÙƒÙ„ Ø·Ø¨ÙŠØ¹ÙŠØŸ',
-  'Ù‡Ù„ ÙŠØµØ¨Ø­ Ø§Ù„Ø«Ø¯ÙŠ Ø£Ø®Ù Ø¨Ø¹Ø¯ Ø§Ù„Ø±Ø¶Ø§Ø¹Ø©ØŸ',
-  'Ù‡Ù„ ØªØ¹Ø§Ù†ÙŠÙ† Ù…Ù† ØªØ´Ù‚Ù‚Ø§Øª Ø¨Ø§Ù„Ø­Ù„Ù…Ø©ØŸ',
-  'Ù‡Ù„ ÙŠÙˆØ¬Ø¯ Ø§Ø­Ù…Ø±Ø§Ø± Ø£Ùˆ ØªÙˆØ±Ù… Ø¨Ø§Ù„Ø«Ø¯ÙŠØŸ',
-  'Ù‡Ù„ ØªØ´Ø¹Ø±ÙŠÙ† Ø¨Ø§Ù„Ø«Ù‚Ø© Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ø±Ø¶Ø§Ø¹Ø©ØŸ',
-  'Ù‡Ù„ ÙŠÙ†Ø§Ù… Ø§Ù„Ø·ÙÙ„ Ø¨Ø³Ø±Ø¹Ø© Ù‚Ø¨Ù„ Ø¥Ù†Ù‡Ø§Ø¡ Ø§Ù„Ø±Ø¶Ø¹Ø©ØŸ',
-  'Ù‡Ù„ ÙŠØ¨ÙƒÙŠ Ø¨Ø§Ø³ØªÙ…Ø±Ø§Ø± Ø¨Ø¹Ø¯ Ø§Ù„Ø±Ø¶Ø§Ø¹Ø©ØŸ',
-  'Ù‡Ù„ ØªÙ„Ø¬Ø¦ÙŠÙ† Ù„Ù„Ø­Ù„ÙŠØ¨ Ø§Ù„ØµÙ†Ø§Ø¹ÙŠ Ø¨Ø³Ø¨Ø¨ Ø§Ù„Ø´Ùƒ ÙÙŠ ÙƒÙ…ÙŠØ© Ø§Ù„Ø­Ù„ÙŠØ¨ØŸ',
-  'Ù‡Ù„ Ø£ÙØ¹Ø·ÙŠ Ø§Ù„Ø·ÙÙ„ Ù…Ø§Ø¡ Ø£Ùˆ Ø£Ø¹Ø´Ø§Ø¨ Ù‚Ø¨Ù„ 6 Ø£Ø´Ù‡Ø±ØŸ',
-  'Ù‡Ù„ ØªØªÙ„Ù‚ÙŠÙ† Ø¯Ø¹Ù…Ø§Ù‹ Ù…Ù† Ø§Ù„Ø²ÙˆØ¬ Ø£Ùˆ Ø§Ù„Ø¹Ø§Ø¦Ù„Ø©ØŸ'
+  'هل يفتح طفلك فمه بشكل واسع قبل الإمساك بالثدي؟',
+  'هل يدخل جزء كبير من الهالة في فم الطفل؟',
+  'هل تشعرين بألم أثناء الرضاعة؟',
+  'هل تسمعين صوت البلع؟',
+  'هل يرضع طفلك من 8 إلى 12 مرة يومياً؟',
+  'هل يهدأ بعد الرضاعة؟',
+  'هل يبلل أكثر من 6 حفاضات يومياً؟',
+  'هل يتبرز بشكل طبيعي؟',
+  'هل يزداد وزنه بشكل طبيعي؟',
+  'هل يصبح الثدي أخف بعد الرضاعة؟',
+  'هل تعانين من تشققات بالحلمة؟',
+  'هل يوجد احمرار أو تورم بالثدي؟',
+  'هل تشعرين بالثقة أثناء الرضاعة؟',
+  'هل ينام الطفل بسرعة قبل إنهاء الرضعة؟',
+  'هل يبكي باستمرار بعد الرضاعة؟',
+  'هل تلجئين للحليب الصناعي بسبب الشك في كمية الحليب؟',
+  'هل أُعطي الطفل ماء أو أعشاب قبل 6 أشهر؟',
+  'هل تتلقين دعماً من الزوج أو العائلة؟'
 ];
 // Questions where "No" = good (reverse scored): pain, cracked nipples, redness, sleeps before finishing, cries after, formula, water before 6m
 const bfReverseScored = [2, 10, 11, 13, 14, 15, 16];
@@ -1885,16 +1885,16 @@ function renderBFQuiz(container) {
   let resultHTML = '';
   if (allAnswered) {
     let color, emoji, label, advice;
-    if (totalScore >= 30) { color = '#28a745'; emoji = '&#130594;'; label = t('bf_quiz_excellent'); advice = 'Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© ØªØ³ÙŠØ± Ø¨Ø´ÙƒÙ„ Ø¬ÙŠØ¯.'; }
-    else if (totalScore >= 22) { color = '#ffc107'; emoji = '&#130593;'; label = t('bf_quiz_good'); advice = 'ØªÙˆØ¬Ø¯ Ø¨Ø¹Ø¶ Ø§Ù„ØµØ¹ÙˆØ¨Ø§Øª Ø§Ù„Ø¨Ø³ÙŠØ·Ø©.'; }
-    else if (totalScore >= 15) { color = '#fd7e14'; emoji = '&#130592;'; label = t('bf_quiz_attention'); advice = 'ÙŠÙˆØµÙ‰ Ø¨Ø§Ø³ØªØ´Ø§Ø±Ø© Ø£Ø®ØµØ§Ø¦ÙŠØ© ØªÙˆÙ„ÙŠØ¯ Ø£Ùˆ Ø±Ø¶Ø§Ø¹Ø©.'; }
-    else { color = '#dc3545'; emoji = '&#128884;'; label = t('bf_quiz_urgent'); advice = 'ÙŠÙÙ†ØµØ­ Ø¨Ø·Ù„Ø¨ ØªÙ‚ÙŠÙŠÙ… Ù…Ù‡Ù†ÙŠ ÙÙŠ Ø£Ù‚Ø±Ø¨ ÙˆÙ‚Øª.'; }
+    if (totalScore >= 30) { color = '#28a745'; emoji = '&#130594;'; label = t('bf_quiz_excellent'); advice = 'الرضاعة تسير بشكل جيد.'; }
+    else if (totalScore >= 22) { color = '#ffc107'; emoji = '&#130593;'; label = t('bf_quiz_good'); advice = 'توجد بعض الصعوبات البسيطة.'; }
+    else if (totalScore >= 15) { color = '#fd7e14'; emoji = '&#130592;'; label = t('bf_quiz_attention'); advice = 'يوصى باستشارة أخصائية توليد أو رضاعة.'; }
+    else { color = '#dc3545'; emoji = '&#128884;'; label = t('bf_quiz_urgent'); advice = 'يُنصح بطلب تقييم مهني في أقرب وقت.'; }
 
     // Check for medical alerts
     const medicalAlerts = [];
-    if (bfQuizAnswers[11] === 'yes') medicalAlerts.push('Ø§Ø­Ù…Ø±Ø§Ø± Ø£Ùˆ ØªÙˆØ±Ù… Ø¨Ø§Ù„Ø«Ø¯ÙŠ');
-    if (bfQuizAnswers[14] === 'yes') medicalAlerts.push('Ø¨ÙƒØ§Ø¡ Ù…Ø³ØªÙ…Ø± Ø¨Ø¹Ø¯ Ø§Ù„Ø±Ø¶Ø§Ø¹Ø©');
-    if (bfQuizAnswers[16] === 'yes') medicalAlerts.push('Ø¥Ø¹Ø·Ø§Ø¡ Ø§Ù„Ù…Ø§Ø¡ Ø£Ùˆ Ø§Ù„Ø£Ø¹Ø´Ø§Ø¨ Ù‚Ø¨Ù„ 6 Ø£Ø´Ù‡Ø±');
+    if (bfQuizAnswers[11] === 'yes') medicalAlerts.push('احمرار أو تورم بالثدي');
+    if (bfQuizAnswers[14] === 'yes') medicalAlerts.push('بكاء مستمر بعد الرضاعة');
+    if (bfQuizAnswers[16] === 'yes') medicalAlerts.push('إعطاء الماء أو الأعشاب قبل 6 أشهر');
 
     resultHTML = `
       <div class="card mb-xl reveal" style="overflow:hidden;">
@@ -1913,7 +1913,7 @@ function renderBFQuiz(container) {
           <div>
             <strong>&#129128; ${t('bf_quiz_medical_alert')}</strong>
             <p class="text-body-md mt-sm">${medicalAlerts.join(' &#8212; ')}</p>
-            <p class="text-body-md mt-sm" style="font-weight:600;">ÙŠÙÙ†ØµØ­ Ø¨Ø§Ù„ØªÙˆØ§ØµÙ„ Ù…Ø¹ Ø£Ø®ØµØ§Ø¦ÙŠØ© ØªÙˆÙ„ÙŠØ¯ Ø£Ùˆ Ø·Ø¨ÙŠØ¨ Ø£Ø·ÙØ§Ù„ ÙÙŠ Ø£Ù‚Ø±Ø¨ ÙˆÙ‚Øª.</p>
+            <p class="text-body-md mt-sm" style="font-weight:600;">يُنصح بالتواصل مع أخصائية توليد أو طبيب أطفال في أقرب وقت.</p>
           </div>
         </div>
       ` : ''}
@@ -2075,73 +2075,73 @@ function saveBFLog() {
 }
 
 // ══════════════════════════════════════════════════════════════
-//  MODULE: SEXUALITÃ‰ POST-PARTUM (Ø§Ù„Ø­ÙŠØ§Ø© Ø§Ù„Ø¬Ù†Ø³ÙŠØ© Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©)
+//  MODULE: SEXUALITÉ POST-PARTUM (الحياة الجنسية بعد الولادة)
 // ══════════════════════════════════════════════════════════════
 
 const sxChapters = [
   {
-    icon: 'schedule', title: 'Ø§Ø³ØªØ¦Ù†Ø§Ù Ø§Ù„Ø¹Ù„Ø§Ù‚Ø© Ø§Ù„Ø¬Ù†Ø³ÙŠØ©', color: 'var(--primary)',
+    icon: 'schedule', title: 'استئناف العلاقة الجنسية', color: 'var(--primary)',
     content: `<div class="space-y-md" style="line-height:1.8;">
-      <p>Ù„Ø§ ÙŠÙˆØ¬Ø¯ Ù…ÙˆØ¹Ø¯ Ù…ÙˆØ­Ù‘Ø¯ Ù„Ø§Ø³ØªØ¦Ù†Ø§Ù Ø§Ù„Ø¹Ù„Ø§Ù‚Ø© Ø§Ù„Ø¬Ù†Ø³ÙŠØ© Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©.</p>
-      <p>ÙŠØ¹ØªÙ…Ø¯ Ø°Ù„Ùƒ Ø¹Ù„Ù‰ Ø§Ù„ØªØ¹Ø§ÙÙŠ Ø§Ù„Ø¬Ø³Ø¯ÙŠ ÙˆØ§Ù„Ù†ÙØ³ÙŠ Ù„Ù„Ø£Ù….</p>
-      ${['ÙŠÙÙ†ØµØ­ Ø¨Ø§Ù„Ø§Ù†ØªØ¸Ø§Ø± Ø­ØªÙ‰ ØªÙˆÙ‚Ù Ù†Ø²ÙŠÙ Ø§Ù„Ù†ÙØ§Ø³','Ø§Ù„ØªØ¦Ø§Ù… Ø§Ù„Ø¬Ø±ÙˆØ­ ÙÙŠ Ø­Ø§Ù„ ÙˆØ¬ÙˆØ¯ ØªÙ…Ø²Ù‚ Ø£Ùˆ Ã‰pisiotomie','Ø§Ø­ØªØ±Ø§Ù… Ø±Ø§Ø­Ø© Ø§Ù„Ø£Ù… Ø§Ù„Ø¬Ø³Ø¯ÙŠØ© ÙˆØ§Ù„Ù†ÙØ³ÙŠØ©','Ø§Ù„ØªÙˆØ§ØµÙ„ Ù…Ø¹ Ø§Ù„Ø´Ø±ÙŠÙƒ Ø¶Ø±ÙˆØ±ÙŠ Ø®Ù„Ø§Ù„ Ù‡Ø°Ù‡ Ø§Ù„Ù…Ø±Ø­Ù„Ø©'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined text-primary" style="font-size:18px;">check_circle</span><span>${s}</span></div>`).join('')}
+      <p>لا يوجد موعد موحÙ‘د لاستئناف العلاقة الجنسية بعد الولادة.</p>
+      <p>يعتمد ذلك على التعافي الجسدي والنفسي للأم.</p>
+      ${['يُنصح بالانتظار حتى توقف نزيف النفاس','التئام الجروح في حال وجود تمزق أو Épisiotomie','احترام راحة الأم الجسدية والنفسية','التواصل مع الشريك ضروري خلال هذه المرحلة'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined text-primary" style="font-size:18px;">check_circle</span><span>${s}</span></div>`).join('')}
     </div>`
   },
   {
-    icon: 'water_drop', title: 'Ø§Ù„Ø¬ÙØ§Ù Ø§Ù„Ù…Ù‡Ø¨Ù„ÙŠ', color: 'var(--secondary)',
+    icon: 'water_drop', title: 'الجفاف المهبلي', color: 'var(--secondary)',
     content: `<div class="space-y-md" style="line-height:1.8;">
-      <p>Ø´Ø§Ø¦Ø¹ Ø®Ø§ØµØ© Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ø·Ø¨ÙŠØ¹ÙŠØ© Ø¨Ø³Ø¨Ø¨ Ø§Ù†Ø®ÙØ§Ø¶ Ù‡Ø±Ù…ÙˆÙ† Ø§Ù„Ø¥Ø³ØªØ±ÙˆØ¬ÙŠÙ†.</p>
-      <p>ÙŠÙ…ÙƒÙ† Ø§Ø³ØªØ¹Ù…Ø§Ù„ Ù…Ø²Ù„Ù‚Ø§Øª Ù…Ø§Ø¦ÙŠØ© <strong>(Lubrifiants à base d'eau)</strong>.</p>
-      <p>ØºØ§Ù„Ø¨Ø§Ù‹ Ù…Ø§ ÙŠØªØ­Ø³Ù† ØªØ¯Ø±ÙŠØ¬ÙŠØ§Ù‹ Ù…Ø¹ Ø§Ù„ÙˆÙ‚Øª.</p>
+      <p>شائع خاصة أثناء الرضاعة الطبيعية بسبب انخفاض هرمون الإستروجين.</p>
+      <p>يمكن استعمال مزلقات مائية <strong>(Lubrifiants à base d'eau)</strong>.</p>
+      <p>غالباً ما يتحسن تدريجياً مع الوقت.</p>
     </div>`
   },
   {
-    icon: 'healing', title: 'Ø§Ù„Ø£Ù„Ù… Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ø¹Ù„Ø§Ù‚Ø©', color: 'var(--error)',
+    icon: 'healing', title: 'الألم أثناء العلاقة', color: 'var(--error)',
     content: `<div class="space-y-md" style="line-height:1.8;">
-      <p>Ù‚Ø¯ ÙŠØ¸Ù‡Ø± Ø®Ù„Ø§Ù„ Ø§Ù„Ø£Ø³Ø§Ø¨ÙŠØ¹ Ø£Ùˆ Ø§Ù„Ø£Ø´Ù‡Ø± Ø§Ù„Ø£ÙˆÙ„Ù‰ Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©.</p>
-      <p style="font-weight:600;color:var(--error);">ÙŠØ¬Ø¨ Ø§Ù„ØªÙˆÙ‚Ù Ø¥Ø°Ø§ ÙƒØ§Ù† Ø§Ù„Ø£Ù„Ù… Ø´Ø¯ÙŠØ¯Ø§Ù‹.</p>
-      <p>ÙŠÙÙ†ØµØ­ Ø¨Ø§Ø³ØªØ´Ø§Ø±Ø© Ù…Ø®ØªØµ Ø¥Ø°Ø§ Ø§Ø³ØªÙ…Ø± Ø§Ù„Ø£Ù„Ù… Ø£Ùˆ Ø§Ø²Ø¯Ø§Ø¯.</p>
+      <p>قد يظهر خلال الأسابيع أو الأشهر الأولى بعد الولادة.</p>
+      <p style="font-weight:600;color:var(--error);">يجب التوقف إذا كان الألم شديداً.</p>
+      <p>يُنصح باستشارة مختص إذا استمر الألم أو ازداد.</p>
     </div>`
   },
   {
-    icon: 'bedtime', title: 'Ø§Ù„ØªØ¹Ø¨ ÙˆØ§Ù„Ø±ØºØ¨Ø© Ø§Ù„Ø¬Ù†Ø³ÙŠØ©', color: 'var(--tertiary)',
+    icon: 'bedtime', title: 'التعب والرغبة الجنسية', color: 'var(--tertiary)',
     content: `<div class="space-y-md" style="line-height:1.8;">
-      <p>Ø§Ù†Ø®ÙØ§Ø¶ Ø§Ù„Ø±ØºØ¨Ø© Ø§Ù„Ø¬Ù†Ø³ÙŠØ© Ø£Ù…Ø± Ø´Ø§Ø¦Ø¹ Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©.</p>
-      ${['Ø§Ù„Ø¥Ø±Ù‡Ø§Ù‚ ÙˆÙ‚Ù„Ø© Ø§Ù„Ù†ÙˆÙ…','Ø§Ù„ØªØºÙŠØ±Ø§Øª Ø§Ù„Ù‡Ø±Ù…ÙˆÙ†ÙŠØ©','Ø§Ù„ØªÙƒÙŠÙ Ù…Ø¹ Ø¯ÙˆØ± Ø§Ù„Ø£Ù…ÙˆÙ…Ø©'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="font-size:16px;color:var(--tertiary);">arrow_right</span><span>${s}</span></div>`).join('')}
+      <p>انخفاض الرغبة الجنسية أمر شائع بعد الولادة.</p>
+      ${['الإرهاق وقلة النوم','التغيرات الهرمونية','التكيف مع دور الأمومة'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="font-size:16px;color:var(--tertiary);">arrow_right</span><span>${s}</span></div>`).join('')}
       <div style="background:var(--primary-container);padding:var(--space-lg);border-radius:var(--radius-xl);margin-top:var(--space-md);">
-        <p style="font-weight:600;color:var(--on-primary-container);"><span style="font-size:18px;">&#128609;</span> ØªØ¹ÙˆØ¯ Ø§Ù„Ø±ØºØ¨Ø© ØªØ¯Ø±ÙŠØ¬ÙŠØ§Ù‹ Ù„Ø¯Ù‰ Ø£ØºÙ„Ø¨ Ø§Ù„Ù†Ø³Ø§Ø¡.</p>
+        <p style="font-weight:600;color:var(--on-primary-container);"><span style="font-size:18px;">&#128609;</span> تعود الرغبة تدريجياً لدى أغلب النساء.</p>
       </div>
     </div>`
   },
   {
-    icon: 'forum', title: 'Ø§Ù„ØªÙˆØ§ØµÙ„ Ø¨ÙŠÙ† Ø§Ù„Ø²ÙˆØ¬ÙŠÙ†', color: '#A3D9C8',
+    icon: 'forum', title: 'التواصل بين الزوجين', color: '#A3D9C8',
     content: `<div class="space-y-md" style="line-height:1.8;">
-      <p>Ø§Ù„Ø­ÙˆØ§Ø± Ø§Ù„ØµØ±ÙŠØ­ Ø­ÙˆÙ„ Ø§Ù„Ù…Ø´Ø§Ø¹Ø± ÙˆØ§Ù„Ø§Ø­ØªÙŠØ§Ø¬Ø§Øª ÙŠØ³Ø§Ø¹Ø¯ Ø¹Ù„Ù‰ Ø§Ù„ØªÙƒÙŠÙ Ù…Ø¹ Ø§Ù„Ù…Ø±Ø­Ù„Ø© Ø§Ù„Ø¬Ø¯ÙŠØ¯Ø©.</p>
+      <p>الحوار الصريح حول المشاعر والاحتياجات يساعد على التكيف مع المرحلة الجديدة.</p>
       <div style="padding:var(--space-lg);background:rgba(163,217,200,0.15);border-radius:var(--radius-xl);border-right:4px solid #A3D9C8;">
-        <p style="font-weight:600;">&#128610; Ø§Ù„Ø­Ù…ÙŠÙ…ÙŠØ© Ù„Ø§ ØªÙ‚ØªØµØ± ÙÙ‚Ø· Ø¹Ù„Ù‰ Ø§Ù„Ø¹Ù„Ø§Ù‚Ø© Ø§Ù„Ø¬Ù†Ø³ÙŠØ©ØŒ Ø¨Ù„ ØªØ´Ù…Ù„ Ø§Ù„Ø¯Ø¹Ù… Ø§Ù„Ø¹Ø§Ø·ÙÙŠ Ø£ÙŠØ¶Ø§Ù‹.</p>
+        <p style="font-weight:600;">&#128610; الحميمية لا تقتصر فقط على العلاقة الجنسية، بل تشمل الدعم العاطفي أيضاً.</p>
       </div>
     </div>`
   },
   {
-    icon: 'medical_services', title: 'Ø§Ù„Ø¹Ù†Ø§ÙŠØ© Ø¨Ø´Ù‚ Ø§Ù„Ø¹Ø¬Ø§Ù†', color: 'var(--primary)',
+    icon: 'medical_services', title: 'العناية بشق العجان', color: 'var(--primary)',
     content: `<div class="space-y-lg" style="line-height:1.8;">
       <div>
-        <h4 style="font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;"><span style="font-size:18px;">&#129532;</span> ÙƒÙŠÙ ÙŠØªÙ… ØªÙ†Ø¸ÙŠÙ Ø§Ù„Ø¬Ø±Ø­ØŸ</h4>
-        ${['ØºØ³Ù„ Ø§Ù„ÙŠØ¯ÙŠÙ† Ù‚Ø¨Ù„ ÙˆØ¨Ø¹Ø¯ Ø§Ù„Ø¹Ù†Ø§ÙŠØ©','ØªÙ†Ø¸ÙŠÙ Ø§Ù„Ù…Ù†Ø·Ù‚Ø© ÙŠÙˆÙ…ÙŠØ§Ù‹ Ø¨Ø§Ù„Ù…Ø§Ø¡ Ø§Ù„ÙØ§ØªØ± ÙˆØµØ§Ø¨ÙˆÙ† Ù„Ø·ÙŠÙ ØºÙŠØ± Ù…Ø¹Ø·Ø±','Ø§Ù„Ø´Ø·Ù Ø¬ÙŠØ¯Ø§Ù‹ Ø«Ù… Ø§Ù„ØªØ¬ÙÙŠÙ Ø¨Ù„Ø·Ù Ø¯ÙˆÙ† ÙØ±Ùƒ','ÙŠÙÙØ¶Ù„ Ø§Ù„ØªØ¬ÙÙŠÙ Ø¨Ø§Ù„ØªØ±Ø¨ÙŠØª Ø£Ùˆ ØªØ±Ùƒ Ø§Ù„Ù…Ù†Ø·Ù‚Ø© ØªØ¬Ù ÙÙŠ Ø§Ù„Ù‡ÙˆØ§Ø¡','ØªØºÙŠÙŠØ± Ø§Ù„ÙÙˆØ· Ø§Ù„ØµØ­ÙŠØ© Ø¨Ø§Ù†ØªØ¸Ø§Ù…','Ø§Ø±ØªØ¯Ø§Ø¡ Ù…Ù„Ø§Ø¨Ø³ Ø¯Ø§Ø®Ù„ÙŠØ© Ù‚Ø·Ù†ÙŠØ© ÙˆÙ…Ø±ÙŠØ­Ø©','Ø´Ø±Ø¨ Ø§Ù„Ù…Ø§Ø¡ ÙˆØªÙ†Ø§ÙˆÙ„ Ø£Ù„ÙŠØ§Ù Ù„ØªØ¬Ù†Ø¨ Ø§Ù„Ø¥Ù…Ø³Ø§Ùƒ'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined text-primary" style="font-size:16px;">check_circle</span><span>${s}</span></div>`).join('')}
+        <h4 style="font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;"><span style="font-size:18px;">&#129532;</span> كيف يتم تنظيف الجرح؟</h4>
+        ${['غسل اليدين قبل وبعد العناية','تنظيف المنطقة يومياً بالماء الفاتر وصابون لطيف غير معطر','الشطف جيداً ثم التجفيف بلطف دون فرك','يُفضل التجفيف بالتربيت أو ترك المنطقة تجف في الهواء','تغيير الفوط الصحية بانتظام','ارتداء ملابس داخلية قطنية ومريحة','شرب الماء وتناول ألياف لتجنب الإمساك'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined text-primary" style="font-size:16px;">check_circle</span><span>${s}</span></div>`).join('')}
       </div>
       <div>
-        <h4 style="font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;"><span style="font-size:18px;">&#128608;</span> Ù„ØªØ®ÙÙŠÙ Ø§Ù„Ø£Ù„Ù…</h4>
-        ${['ÙƒÙ…Ø§Ø¯Ø§Øª Ø¨Ø§Ø±Ø¯Ø© Ø®Ù„Ø§Ù„ Ø£ÙˆÙ„ 24 Ø³Ø§Ø¹Ø© Ø¥Ø°Ø§ Ø£ÙˆØµÙ‰ Ø§Ù„Ù…Ø®ØªØµ','Ø§Ù„Ø¬Ù„ÙˆØ³ Ø¹Ù„Ù‰ ÙˆØ³Ø§Ø¯Ø© Ù…Ø±ÙŠØ­Ø©','Ù…Ø³ÙƒÙ†Ø§Øª Ù…ÙˆØµÙˆÙØ© Ø·Ø¨ÙŠØ§Ù‹'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="font-size:16px;color:#d4a574;">lightbulb</span><span>${s}</span></div>`).join('')}
+        <h4 style="font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;"><span style="font-size:18px;">&#128608;</span> لتخفيف الألم</h4>
+        ${['كمادات باردة خلال أول 24 ساعة إذا أوصى المختص','الجلوس على وسادة مريحة','مسكنات موصوفة طبياً'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="font-size:16px;color:#d4a574;">lightbulb</span><span>${s}</span></div>`).join('')}
       </div>
       <div>
-        <h4 style="font-weight:700;margin-bottom:12px;color:var(--error);display:flex;align-items:center;gap:8px;"><span style="font-size:18px;">&#10060;</span> Ù…Ø§ ÙŠØ¬Ø¨ ØªØ¬Ù†Ø¨Ù‡</h4>
-        ${['Ø§Ù„Ù…Ø·Ù‡Ø±Ø§Øª Ø£Ùˆ Ø§Ù„ÙƒØ±ÙŠÙ…Ø§Øª Ø¨Ø¯ÙˆÙ† ÙˆØµÙØ© Ø·Ø¨ÙŠØ©','ÙØ±Ùƒ Ø§Ù„Ø¬Ø±Ø­','Ø§Ù„Ù…Ù„Ø§Ø¨Ø³ Ø§Ù„Ø¶ÙŠÙ‚Ø©'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="font-size:16px;color:var(--error);">block</span><span>${s}</span></div>`).join('')}
+        <h4 style="font-weight:700;margin-bottom:12px;color:var(--error);display:flex;align-items:center;gap:8px;"><span style="font-size:18px;">&#10060;</span> ما يجب تجنبه</h4>
+        ${['المطهرات أو الكريمات بدون وصفة طبية','فرك الجرح','الملابس الضيقة'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="font-size:16px;color:var(--error);">block</span><span>${s}</span></div>`).join('')}
       </div>
       <div class="alert-banner alert-banner--danger">
         <span class="material-symbols-outlined">emergency</span>
         <div>
-          <strong>&#129128; Ø¹Ù„Ø§Ù…Ø§Øª Ø§Ù„Ø®Ø·Ø± &#8212; Ø§Ø³ØªØ´ÙŠØ±ÙŠ Ø§Ù„Ø·Ø¨ÙŠØ¨ Ø¥Ø°Ø§ Ø¸Ù‡Ø±:</strong>
-          ${['Ø§Ø­Ù…Ø±Ø§Ø± Ù…ØªØ²Ø§ÙŠØ¯ Ø£Ùˆ ØªÙˆØ±Ù… Ø´Ø¯ÙŠØ¯','Ø£Ù„Ù… ÙŠØ²Ø¯Ø§Ø¯ Ù…Ø¹ Ø§Ù„ÙˆÙ‚Øª','Ø¥ÙØ±Ø§Ø²Ø§Øª Ø°Ø§Øª Ø±Ø§Ø¦Ø­Ø© ÙƒØ±ÙŠÙ‡Ø© Ø£Ùˆ Ù‚ÙŠØ­','Ø­Ø±Ø§Ø±Ø© Ø£ÙƒØ«Ø± Ù…Ù† 38 Â°C','Ø§Ù†ÙØªØ§Ø­ Ø§Ù„Ø¬Ø±Ø­ Ø£Ùˆ Ù†Ø²ÙŠÙ ØºÙŠØ± Ø·Ø¨ÙŠØ¹ÙŠ'].map(s => `<div class="flex items-center gap-sm mt-sm"><span style="color:var(--error);font-size:14px;">&#9888;ï¸</span><span>${s}</span></div>`).join('')}
+          <strong>&#129128; علامات الخطر &#8212; استشيري الطبيب إذا ظهر:</strong>
+          ${['احمرار متزايد أو تورم شديد','ألم يزداد مع الوقت','إفرازات ذات رائحة كريهة أو قيح','حرارة أكثر من 38 °C','انفتاح الجرح أو نزيف غير طبيعي'].map(s => `<div class="flex items-center gap-sm mt-sm"><span style="color:var(--error);font-size:14px;">&#9888;ï¸</span><span>${s}</span></div>`).join('')}
         </div>
       </div>
     </div>`
@@ -2149,11 +2149,11 @@ const sxChapters = [
 ];
 
 const sxMyths = [
-  { myth: 'ÙŠØ¬Ø¨ Ø§Ø³ØªØ¦Ù†Ø§Ù Ø§Ù„Ø¹Ù„Ø§Ù‚Ø© Ø¨Ø¹Ø¯ 40 ÙŠÙˆÙ…Ø§Ù‹ Ø¨Ø§Ù„Ø¶Ø¨Ø·', reality: 'Ù„Ø§ ÙŠÙˆØ¬Ø¯ ÙˆÙ‚Øª Ø¥Ù„Ø²Ø§Ù…ÙŠ ÙˆÙŠØ®ØªÙ„Ù Ø­Ø³Ø¨ ÙƒÙ„ Ø§Ù…Ø±Ø£Ø©' },
-  { myth: 'Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ø·Ø¨ÙŠØ¹ÙŠØ© ØªÙ…Ù†Ø¹ Ø§Ù„Ø­Ù…Ù„ %100', reality: 'ØªÙ‚Ù„Ù„ Ø§Ù„Ø­Ù…Ù„ Ù„ÙƒÙ†Ù‡Ø§ Ù„ÙŠØ³Øª ÙˆØ³ÙŠÙ„Ø© Ù…Ø¶Ù…ÙˆÙ†Ø©' },
-  { myth: 'Ø§Ù†Ø®ÙØ§Ø¶ Ø§Ù„Ø±ØºØ¨Ø© Ø§Ù„Ø¬Ù†Ø³ÙŠØ© Ù…Ø´ÙƒÙ„Ø© Ø¯Ø§Ø¦Ù…Ø©', reality: 'Ø·Ø¨ÙŠØ¹ÙŠ ÙˆÙ…Ø¤Ù‚Øª Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©' },
-  { myth: 'Ø§Ù„Ø£Ù„Ù… Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ø¹Ù„Ø§Ù‚Ø© ÙŠØ¬Ø¨ ØªØ­Ù…Ù„Ù‡', reality: 'Ø§Ù„Ø£Ù„Ù… Ø§Ù„Ù…Ø³ØªÙ…Ø± ÙŠØ­ØªØ§Ø¬ Ø§Ø³ØªØ´Ø§Ø±Ø©' },
-  { myth: 'Ø§Ù„Ø¬ÙØ§Ù Ø§Ù„Ù…Ù‡Ø¨Ù„ÙŠ Ù…Ø±Ø¶', reality: 'ØºØ§Ù„Ø¨Ø§Ù‹ Ù†ØªÙŠØ¬Ø© ØªØºÙŠØ±Ø§Øª Ù‡Ø±Ù…ÙˆÙ†ÙŠØ© Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©' }
+  { myth: 'يجب استئناف العلاقة بعد 40 يوماً بالضبط', reality: 'لا يوجد وقت إلزامي ويختلف حسب كل امرأة' },
+  { myth: 'الرضاعة الطبيعية تمنع الحمل %100', reality: 'تقلل الحمل لكنها ليست وسيلة مضمونة' },
+  { myth: 'انخفاض الرغبة الجنسية مشكلة دائمة', reality: 'طبيعي ومؤقت بعد الولادة' },
+  { myth: 'الألم أثناء العلاقة يجب تحمله', reality: 'الألم المستمر يحتاج استشارة' },
+  { myth: 'الجفاف المهبلي مرض', reality: 'غالباً نتيجة تغيرات هرمونية بعد الولادة' }
 ];
 
 let sxCurrentTab = 'guide';
@@ -2259,7 +2259,7 @@ function renderSXConsult(container) {
       </div>
       <div class="card__body">
         <p class="text-body-md text-variant mb-lg">${t('sx_consult_intro')}</p>
-        ${['Ø£Ù„Ù… Ø´Ø¯ÙŠØ¯ Ø£Ùˆ Ù…Ø³ØªÙ…Ø± Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ø¹Ù„Ø§Ù‚Ø©','Ù†Ø²ÙŠÙ ØºÙŠØ± Ø·Ø¨ÙŠØ¹ÙŠ Ø¨Ø¹Ø¯ Ø§Ù„Ø¹Ù„Ø§Ù‚Ø©','Ø¬ÙØ§Ù Ø´Ø¯ÙŠØ¯ Ù„Ø§ ÙŠØªØ­Ø³Ù†','ÙÙ‚Ø¯Ø§Ù† Ù…Ø³ØªÙ…Ø± Ù„Ù„Ø±ØºØ¨Ø© Ù…Ø¹ ØªØ£Ø«ÙŠØ± Ù†ÙØ³ÙŠ ÙˆØ§Ø¶Ø­','Ø£Ø¹Ø±Ø§Ø¶ Ø§ÙƒØªØ¦Ø§Ø¨ Ù…Ø§ Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©'].map(s => `
+        ${['ألم شديد أو مستمر أثناء العلاقة','نزيف غير طبيعي بعد العلاقة','جفاف شديد لا يتحسن','فقدان مستمر للرغبة مع تأثير نفسي واضح','أعراض اكتئاب ما بعد الولادة'].map(s => `
           <div class="flex items-center gap-md mb-lg" style="padding:var(--space-md) var(--space-lg);background:rgba(186,26,26,0.04);border-radius:var(--radius-xl);border-right:3px solid var(--error);">
             <span class="material-symbols-outlined" style="color:var(--error);font-size:20px;">warning</span>
             <span class="text-body-md text-semibold">${s}</span>
@@ -2275,86 +2275,86 @@ function renderSXConsult(container) {
 }
 
 // ══════════════════════════════════════════════════════════════
-//  MODULE: NOUVEAU-NÃ‰ (Ø§Ù„Ù…ÙˆÙ„ÙˆØ¯ Ø§Ù„Ø¬Ø¯ÙŠØ¯)
+//  MODULE: NOUVEAU-NÉ (المولود الجديد)
 // ══════════════════════════════════════════════════════════════
 
 const nbChapters = [
   {
-    icon: 'vaccines', title: 'Ø§Ù„Ø¹Ù†Ø§ÙŠØ© Ø¨Ø§Ù„Ø­Ø¨Ù„ Ø§Ù„Ø³Ø±ÙŠ', color: 'var(--primary)',
+    icon: 'vaccines', title: 'العناية بالحبل السري', color: 'var(--primary)',
     content: `<div class="space-y-md" style="line-height:1.8;">
-      ${['Ø§Ù„Ø­ÙØ§Ø¸ Ø¹Ù„Ù‰ Ù†Ø¸Ø§ÙØ© Ø§Ù„Ø­Ø¨Ù„ Ø§Ù„Ø³Ø±ÙŠ ÙˆØ¬ÙØ§ÙÙ‡','ØªÙ†Ø¸ÙŠÙÙ‡ Ø¨Ø§Ù„ÙƒØ­ÙˆÙ„ Ø§Ù„Ø·Ø¨ÙŠ Ø£Ùˆ Ø§Ù„Ù…Ø§Ø¡ Ø­Ø³Ø¨ ØªÙˆØµÙŠØ© Ø§Ù„Ù…Ø®ØªØµ','Ø·ÙŠ Ø§Ù„Ø­ÙØ§Ø¶ Ø£Ø³ÙÙ„ Ø§Ù„Ø­Ø¨Ù„ Ø§Ù„Ø³Ø±ÙŠ','Ø¹Ø¯Ù… Ø´Ø¯ Ø§Ù„Ø­Ø¨Ù„ Ø£Ùˆ Ù…Ø­Ø§ÙˆÙ„Ø© Ø¥Ø²Ø§Ù„ØªÙ‡','ÙŠØ³Ù‚Ø· Ø¹Ø§Ø¯Ø© Ø®Ù„Ø§Ù„ 7 Ø¥Ù„Ù‰ 21 ÙŠÙˆÙ…Ø§Ù‹'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined text-primary" style="font-size:16px;">check_circle</span><span>${s}</span></div>`).join('')}
+      ${['الحفاظ على نظافة الحبل السري وجفافه','تنظيفه بالكحول الطبي أو الماء حسب توصية المختص','طي الحفاض أسفل الحبل السري','عدم شد الحبل أو محاولة إزالته','يسقط عادة خلال 7 إلى 21 يوماً'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined text-primary" style="font-size:16px;">check_circle</span><span>${s}</span></div>`).join('')}
       <div class="alert-banner alert-banner--warning mt-lg">
         <span class="material-symbols-outlined">warning</span>
-        <div><strong>Ø§Ø³ØªØ´ÙŠØ±ÙŠ Ø§Ù„Ø·Ø¨ÙŠØ¨ Ø¥Ø°Ø§ Ø¸Ù‡Ø±:</strong> Ø§Ø­Ù…Ø±Ø§Ø± Ø­ÙˆÙ„ Ø§Ù„Ø³Ø±Ø©ØŒ Ø¥ÙØ±Ø§Ø²Ø§Øª Ø°Ø§Øª Ø±Ø§Ø¦Ø­Ø© ÙƒØ±ÙŠÙ‡Ø©ØŒ Ù†Ø²ÙŠÙØŒ Ø£Ùˆ ØªØ£Ø®Ø± Ø§Ù„Ø³Ù‚ÙˆØ· Ø£ÙƒØ«Ø± Ù…Ù† 3 Ø£Ø³Ø§Ø¨ÙŠØ¹.</div>
+        <div><strong>استشيري الطبيب إذا ظهر:</strong> احمرار حول السرة، إفرازات ذات رائحة كريهة، نزيف، أو تأخر السقوط أكثر من 3 أسابيع.</div>
       </div>
     </div>`
   },
   {
-    icon: 'bathtub', title: 'Ø­Ù…Ø§Ù… Ø§Ù„Ù…ÙˆÙ„ÙˆØ¯', color: 'var(--secondary)',
+    icon: 'bathtub', title: 'حمام المولود', color: 'var(--secondary)',
     content: `<div class="space-y-md" style="line-height:1.8;">
-      <p style="font-weight:600;">&#130689; Ù…ØªÙ‰ ÙˆÙƒÙŠÙØŸ</p>
-      ${['Ø£ÙˆÙ„ Ø­Ù…Ø§Ù… Ø¨Ø¹Ø¯ Ø³Ù‚ÙˆØ· Ø§Ù„Ø­Ø¨Ù„ Ø§Ù„Ø³Ø±ÙŠ (Ø£Ùˆ Ø­Ø³Ø¨ ØªÙˆØµÙŠØ© Ø§Ù„Ù…Ø®ØªØµ)','Ø§Ø³ØªØ®Ø¯Ø§Ù… Ù…Ø§Ø¡ Ø¯Ø§ÙØ¦ (37Â°C ØªÙ‚Ø±ÙŠØ¨Ø§Ù‹)','ØµØ§Ø¨ÙˆÙ† Ù„Ø·ÙŠÙ Ù…Ø®ØµØµ Ù„Ù„Ø£Ø·ÙØ§Ù„','Ù…Ø¯Ø© Ø§Ù„Ø­Ù…Ø§Ù… 5 Ø¥Ù„Ù‰ 10 Ø¯Ù‚Ø§Ø¦Ù‚','ØªØ¬ÙÙŠÙ Ø§Ù„Ø·ÙÙ„ ÙÙˆØ±Ø§Ù‹ Ø¨Ø¹Ø¯ Ø§Ù„Ø­Ù…Ø§Ù…','Ø§Ù„Ø­Ù…Ø§Ù… 2-3 Ù…Ø±Ø§Øª Ø£Ø³Ø¨ÙˆØ¹ÙŠØ§Ù‹ ÙƒØ§ÙÙ'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="font-size:16px;color:var(--secondary);">check_circle</span><span>${s}</span></div>`).join('')}
+      <p style="font-weight:600;">&#130689; متى وكيف؟</p>
+      ${['أول حمام بعد سقوط الحبل السري (أو حسب توصية المختص)','استخدام ماء دافئ (37°C تقريباً)','صابون لطيف مخصص للأطفال','مدة الحمام 5 إلى 10 دقائق','تجفيف الطفل فوراً بعد الحمام','الحمام 2-3 مرات أسبوعياً كافٍ'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="font-size:16px;color:var(--secondary);">check_circle</span><span>${s}</span></div>`).join('')}
     </div>`
   },
   {
-    icon: 'wb_sunny', title: 'Ø§Ù„ÙŠØ±Ù‚Ø§Ù† (Ø§Ù„ØµÙØ±Ø§Ø¡)', color: '#daa520',
+    icon: 'wb_sunny', title: 'اليرقان (الصفراء)', color: '#daa520',
     content: `<div class="space-y-md" style="line-height:1.8;">
-      <p>Ø§ØµÙØ±Ø§Ø± Ø§Ù„Ø¬Ù„Ø¯ ÙˆØ§Ù„Ø¹ÙŠÙ†ÙŠÙ† Ø´Ø§Ø¦Ø¹ ÙÙŠ Ø§Ù„Ø£ÙŠØ§Ù… Ø§Ù„Ø£ÙˆÙ„Ù‰.</p>
-      <p style="font-weight:600;">Ø§Ù„Ø£Ù†ÙˆØ§Ø¹:</p>
+      <p>اصفرار الجلد والعينين شائع في الأيام الأولى.</p>
+      <p style="font-weight:600;">الأنواع:</p>
       <div style="padding:var(--space-md);background:rgba(218,165,32,0.08);border-radius:var(--radius-lg);border-right:3px solid #daa520;margin-bottom:8px;">
-        <strong>ÙŠØ±Ù‚Ø§Ù† ÙØ³ÙŠÙˆÙ„ÙˆØ¬ÙŠ:</strong> ÙŠØ¸Ù‡Ø± Ø¨Ø¹Ø¯ 48 Ø³Ø§Ø¹Ø©ØŒ Ø·Ø¨ÙŠØ¹ÙŠ ÙˆÙŠØ®ØªÙÙŠ Ø®Ù„Ø§Ù„ Ø£Ø³Ø¨ÙˆØ¹ÙŠÙ†.
+        <strong>يرقان فسيولوجي:</strong> يظهر بعد 48 ساعة، طبيعي ويختفي خلال أسبوعين.
       </div>
       <div style="padding:var(--space-md);background:rgba(186,26,26,0.05);border-radius:var(--radius-lg);border-right:3px solid var(--error);margin-bottom:8px;">
-        <strong>ÙŠØ±Ù‚Ø§Ù† Ù…Ø±Ø¶ÙŠ:</strong> ÙŠØ¸Ù‡Ø± Ø®Ù„Ø§Ù„ Ø£ÙˆÙ„ 24 Ø³Ø§Ø¹Ø© Ø£Ùˆ ÙŠØ³ØªÙ…Ø± Ø£ÙƒØ«Ø± Ù…Ù† 14 ÙŠÙˆÙ…Ø§Ù‹ &#8212; ÙŠØªØ·Ù„Ø¨ Ù…ØªØ§Ø¨Ø¹Ø© Ø·Ø¨ÙŠØ©.
+        <strong>يرقان مرضي:</strong> يظهر خلال أول 24 ساعة أو يستمر أكثر من 14 يوماً &#8212; يتطلب متابعة طبية.
       </div>
-      <p><strong>&#128609;</strong> Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ù…ØªÙƒØ±Ø±Ø© ØªØ³Ø§Ø¹Ø¯ Ø¹Ù„Ù‰ ØªÙ‚Ù„ÙŠÙ„ Ø§Ù„ÙŠØ±Ù‚Ø§Ù†.</p>
+      <p><strong>&#128609;</strong> الرضاعة المتكررة تساعد على تقليل اليرقان.</p>
     </div>`
   },
   {
-    icon: 'bedtime', title: 'Ù†ÙˆÙ… Ø§Ù„Ù…ÙˆÙ„ÙˆØ¯', color: 'var(--tertiary)',
+    icon: 'bedtime', title: 'نوم المولود', color: 'var(--tertiary)',
     content: `<div class="space-y-md" style="line-height:1.8;">
-      <p>ÙŠÙ†Ø§Ù… Ø§Ù„Ù…ÙˆÙ„ÙˆØ¯ 16 Ø¥Ù„Ù‰ 18 Ø³Ø§Ø¹Ø© ÙŠÙˆÙ…ÙŠØ§Ù‹ ÙÙŠ ÙØªØ±Ø§Øª Ù…ØªÙ‚Ø·Ø¹Ø©.</p>
-      <p style="font-weight:600;">Ù‚ÙˆØ§Ø¹Ø¯ Ø§Ù„Ù†ÙˆÙ… Ø§Ù„Ø¢Ù…Ù†:</p>
-      ${['ÙˆØ¶Ø¹ Ø§Ù„Ø·ÙÙ„ Ø¹Ù„Ù‰ Ø¸Ù‡Ø±Ù‡ Ø¯Ø§Ø¦Ù…Ø§Ù‹','Ø§Ø³ØªØ®Ø¯Ø§Ù… Ø³Ø·Ø­ Ù†ÙˆÙ… ØµÙ„Ø¨ ÙˆÙ…Ø³Ø·Ø­','Ø¹Ø¯Ù… ÙˆØ¶Ø¹ ÙˆØ³Ø§Ø¦Ø¯ Ø£Ùˆ Ø£Ù„Ø¹Ø§Ø¨ ÙÙŠ Ø§Ù„Ø³Ø±ÙŠØ±','Ø§Ù„Ø­ÙØ§Ø¸ Ø¹Ù„Ù‰ Ø¯Ø±Ø¬Ø© Ø­Ø±Ø§Ø±Ø© Ø§Ù„ØºØ±ÙØ© Ù…Ù†Ø§Ø³Ø¨Ø© (18-20Â°C)','Ø¹Ø¯Ù… ØªØºØ·ÙŠØ© Ø±Ø£Ø³ Ø§Ù„Ø·ÙÙ„ Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ù†ÙˆÙ…','Ø¥Ø¨Ù‚Ø§Ø¡ Ø³Ø±ÙŠØ± Ø§Ù„Ø·ÙÙ„ ÙÙŠ ØºØ±ÙØ© Ø§Ù„ÙˆØ§Ù„Ø¯ÙŠÙ† Ø®Ù„Ø§Ù„ Ø§Ù„Ø£Ø´Ù‡Ø± Ø§Ù„Ø£ÙˆÙ„Ù‰'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="font-size:16px;color:var(--tertiary);">check_circle</span><span>${s}</span></div>`).join('')}
+      <p>ينام المولود 16 إلى 18 ساعة يومياً في فترات متقطعة.</p>
+      <p style="font-weight:600;">قواعد النوم الآمن:</p>
+      ${['وضع الطفل على ظهره دائماً','استخدام سطح نوم صلب ومسطح','عدم وضع وسائد أو ألعاب في السرير','الحفاظ على درجة حرارة الغرفة مناسبة (18-20°C)','عدم تغطية رأس الطفل أثناء النوم','إبقاء سرير الطفل في غرفة الوالدين خلال الأشهر الأولى'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="font-size:16px;color:var(--tertiary);">check_circle</span><span>${s}</span></div>`).join('')}
     </div>`
   },
   {
-    icon: 'thermostat', title: 'Ø¯Ø±Ø¬Ø© Ø­Ø±Ø§Ø±Ø© Ø§Ù„Ù…ÙˆÙ„ÙˆØ¯', color: 'var(--primary)',
+    icon: 'thermostat', title: 'درجة حرارة المولود', color: 'var(--primary)',
     content: `<div class="space-y-md" style="line-height:1.8;">
-      <p>Ø¯Ø±Ø¬Ø© Ø§Ù„Ø­Ø±Ø§Ø±Ø© Ø§Ù„Ø·Ø¨ÙŠØ¹ÙŠØ©: <strong>36.5Â°C - 37.5Â°C</strong></p>
-      ${['Ù‚ÙŠØ§Ø³ Ø§Ù„Ø­Ø±Ø§Ø±Ø© Ù…Ù† Ø§Ù„Ù…Ø³ØªÙ‚ÙŠÙ… Ø£Ø¯Ù‚ Ø¹Ù†Ø¯ Ø§Ù„Ø±Ø¶Ø¹','Ø§Ø±ØªØ¯Ø§Ø¡ Ø·Ø¨Ù‚Ø© ÙˆØ§Ø­Ø¯Ø© Ø£ÙƒØ«Ø± Ù…Ù…Ø§ ÙŠØ±ØªØ¯ÙŠÙ‡ Ø§Ù„Ø¨Ø§Ù„Øº','ØªØ¬Ù†Ø¨ Ø§Ù„ØªØ¹Ø±Ø¶ Ø§Ù„Ù…Ø¨Ø§Ø´Ø± Ù„Ù„Ø´Ù…Ø³ Ø£Ùˆ Ø§Ù„ØªÙŠØ§Ø±Ø§Øª Ø§Ù„Ù‡ÙˆØ§Ø¦ÙŠØ©'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined text-primary" style="font-size:16px;">check_circle</span><span>${s}</span></div>`).join('')}
+      <p>درجة الحرارة الطبيعية: <strong>36.5°C - 37.5°C</strong></p>
+      ${['قياس الحرارة من المستقيم أدق عند الرضع','ارتداء طبقة واحدة أكثر مما يرتديه البالغ','تجنب التعرض المباشر للشمس أو التيارات الهوائية'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined text-primary" style="font-size:16px;">check_circle</span><span>${s}</span></div>`).join('')}
       <div class="alert-banner alert-banner--danger mt-md">
         <span class="material-symbols-outlined">emergency</span>
-        <div><strong>Ø§Ø³ØªØ´ÙŠØ±ÙŠ Ø§Ù„Ø·Ø¨ÙŠØ¨ ÙÙˆØ±Ø§Ù‹ Ø¥Ø°Ø§:</strong> Ø­Ø±Ø§Ø±Ø© > 38Â°C Ø£Ùˆ < 36Â°C.</div>
+        <div><strong>استشيري الطبيب فوراً إذا:</strong> حرارة > 38°C أو < 36°C.</div>
       </div>
     </div>`
   },
   {
-    icon: 'baby_changing_station', title: 'ØªØºÙŠÙŠØ± Ø§Ù„Ø­ÙØ§Ø¶ ÙˆØ§Ù„Ø¹Ù†Ø§ÙŠØ© Ø¨Ø§Ù„Ø¨Ø´Ø±Ø©', color: '#A3D9C8',
+    icon: 'baby_changing_station', title: 'تغيير الحفاض والعناية بالبشرة', color: '#A3D9C8',
     content: `<div class="space-y-md" style="line-height:1.8;">
-      ${['ØªØºÙŠÙŠØ± Ø§Ù„Ø­ÙØ§Ø¶ ÙÙˆØ± Ø§ØªØ³Ø§Ø®Ù‡','ØªÙ†Ø¸ÙŠÙ Ø§Ù„Ù…Ù†Ø·Ù‚Ø© Ø¨Ø§Ù„Ù…Ø§Ø¡ Ø§Ù„Ø¯Ø§ÙØ¦ ÙˆÙ‚Ø·Ù† Ù†Ø§Ø¹Ù…','Ø§Ù„ØªØ¬ÙÙŠÙ Ø¬ÙŠØ¯Ø§Ù‹ Ù‚Ø¨Ù„ ÙˆØ¶Ø¹ Ø­ÙØ§Ø¶ Ø¬Ø¯ÙŠØ¯','Ø§Ø³ØªØ®Ø¯Ø§Ù… ÙƒØ±ÙŠÙ… ÙˆØ§Ù‚ÙŠ Ø¹Ù†Ø¯ Ø§Ù„Ø­Ø§Ø¬Ø©','Ø§Ù„Ù…Ø³Ø­ Ù…Ù† Ø§Ù„Ø£Ù…Ø§Ù… Ø¥Ù„Ù‰ Ø§Ù„Ø®Ù„Ù (Ø®Ø§ØµØ© Ù„Ù„Ø¨Ù†Ø§Øª)','ØªØ¬Ù†Ø¨ Ø§Ù„Ù…Ù†Ø§Ø¯ÙŠÙ„ Ø§Ù„Ù…Ø¹Ø·Ø±Ø©'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="font-size:16px;color:#A3D9C8;">check_circle</span><span>${s}</span></div>`).join('')}
+      ${['تغيير الحفاض فور اتساخه','تنظيف المنطقة بالماء الدافئ وقطن ناعم','التجفيف جيداً قبل وضع حفاض جديد','استخدام كريم واقي عند الحاجة','المسح من الأمام إلى الخلف (خاصة للبنات)','تجنب المناديل المعطرة'].map(s => `<div class="flex items-center gap-md mb-sm"><span class="material-symbols-outlined" style="font-size:16px;color:#A3D9C8;">check_circle</span><span>${s}</span></div>`).join('')}
     </div>`
   },
   {
-    icon: 'vaccines', title: 'Ø§Ù„ØªØ·Ø¹ÙŠÙ…Ø§Øª', color: 'var(--primary)',
+    icon: 'vaccines', title: 'التطعيمات', color: 'var(--primary)',
     content: `<div class="space-y-md" style="line-height:1.8;">
-      <p style="font-weight:600;">Ø§Ù„ØªØ·Ø¹ÙŠÙ…Ø§Øª Ø§Ù„Ø£Ø³Ø§Ø³ÙŠØ© ÙÙŠ ØªÙˆÙ†Ø³:</p>
+      <p style="font-weight:600;">التطعيمات الأساسية في تونس:</p>
       <table style="width:100%;border-collapse:collapse;font-size:13px;margin:12px 0;">
-        <tr style="background:var(--primary-container);"><th style="padding:10px;text-align:right;border-radius:8px 0 0 0;">Ø§Ù„Ø¹Ù…Ø±</th><th style="padding:10px;text-align:right;border-radius:0 8px 0 0;">Ø§Ù„ØªØ·Ø¹ÙŠÙ…</th></tr>
-        <tr style="background:var(--surface-container-low);"><td style="padding:10px;">Ø¹Ù†Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©</td><td style="padding:10px;">BCG + Ø§Ù„ØªÙ‡Ø§Ø¨ Ø§Ù„ÙƒØ¨Ø¯ B</td></tr>
-        <tr><td style="padding:10px;">Ø´Ù‡Ø±Ø§Ù†</td><td style="padding:10px;">DTC + Ø´Ù„Ù„ Ø§Ù„Ø£Ø·ÙØ§Ù„ + Ø§Ù„ØªÙ‡Ø§Ø¨ Ø§Ù„ÙƒØ¨Ø¯ B</td></tr>
-        <tr style="background:var(--surface-container-low);"><td style="padding:10px;">3 Ø£Ø´Ù‡Ø±</td><td style="padding:10px;">DTC + Ø´Ù„Ù„ Ø§Ù„Ø£Ø·ÙØ§Ù„</td></tr>
-        <tr><td style="padding:10px;">6 Ø£Ø´Ù‡Ø±</td><td style="padding:10px;">DTC + Ø´Ù„Ù„ Ø§Ù„Ø£Ø·ÙØ§Ù„ + Ø§Ù„ØªÙ‡Ø§Ø¨ Ø§Ù„ÙƒØ¨Ø¯ B</td></tr>
-        <tr style="background:var(--surface-container-low);"><td style="padding:10px;">9 Ø£Ø´Ù‡Ø±</td><td style="padding:10px;">Ø§Ù„Ø­ØµØ¨Ø©</td></tr>
+        <tr style="background:var(--primary-container);"><th style="padding:10px;text-align:right;border-radius:8px 0 0 0;">العمر</th><th style="padding:10px;text-align:right;border-radius:0 8px 0 0;">التطعيم</th></tr>
+        <tr style="background:var(--surface-container-low);"><td style="padding:10px;">عند الولادة</td><td style="padding:10px;">BCG + التهاب الكبد B</td></tr>
+        <tr><td style="padding:10px;">شهران</td><td style="padding:10px;">DTC + شلل الأطفال + التهاب الكبد B</td></tr>
+        <tr style="background:var(--surface-container-low);"><td style="padding:10px;">3 أشهر</td><td style="padding:10px;">DTC + شلل الأطفال</td></tr>
+        <tr><td style="padding:10px;">6 أشهر</td><td style="padding:10px;">DTC + شلل الأطفال + التهاب الكبد B</td></tr>
+        <tr style="background:var(--surface-container-low);"><td style="padding:10px;">9 أشهر</td><td style="padding:10px;">الحصبة</td></tr>
       </table>
-      <p><strong>&#128609;</strong> Ø§Ø­ØªÙØ¸ÙŠ Ø¨Ø¯ÙØªØ± Ø§Ù„ØªØ·Ø¹ÙŠÙ…Ø§Øª ÙˆØ±Ø§Ø¬Ø¹ÙŠ Ø§Ù„Ù…ÙˆØ§Ø¹ÙŠØ¯ Ù…Ø¹ Ø§Ù„Ø·Ø¨ÙŠØ¨.</p>
+      <p><strong>&#128609;</strong> احتفظي بدفتر التطعيمات وراجعي المواعيد مع الطبيب.</p>
     </div>`
   },
   {
-    icon: 'emergency', title: 'Ø¹Ù„Ø§Ù…Ø§Øª Ø§Ù„Ø®Ø·Ø± Ø¹Ù†Ø¯ Ø§Ù„Ù…ÙˆÙ„ÙˆØ¯', color: 'var(--error)',
+    icon: 'emergency', title: 'علامات الخطر عند المولود', color: 'var(--error)',
     content: `<div class="space-y-md" style="line-height:1.8;">
-      <p style="font-weight:600;color:var(--error);">&#129128; Ø§Ø°Ù‡Ø¨ÙŠ ÙÙˆØ±Ø§Ù‹ Ø¥Ù„Ù‰ Ø§Ù„Ø·Ø¨ÙŠØ¨ Ø¥Ø°Ø§ Ø¸Ù‡Ø± Ø£ÙŠ Ù…Ù…Ø§ ÙŠÙ„ÙŠ:</p>
-      ${['Ø­Ø±Ø§Ø±Ø© Ø£ÙƒØ«Ø± Ù…Ù† 38Â°C Ø£Ùˆ Ø£Ù‚Ù„ Ù…Ù† 36Â°C','Ø±ÙØ¶ Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ù„Ø£ÙƒØ«Ø± Ù…Ù† Ø±Ø¶Ø¹ØªÙŠÙ† Ù…ØªØªØ§Ù„ÙŠØªÙŠÙ†','ØµØ¹ÙˆØ¨Ø© ÙÙŠ Ø§Ù„ØªÙ†ÙØ³ Ø£Ùˆ ØªÙ†ÙØ³ Ø³Ø±ÙŠØ¹','Ø§Ø²Ø±Ù‚Ø§Ù‚ Ø§Ù„Ø´ÙØ§Ù‡ Ø£Ùˆ Ø§Ù„Ø£Ø·Ø±Ø§Ù','Ø®Ù…ÙˆÙ„ Ø´Ø¯ÙŠØ¯ Ø£Ùˆ Ø¹Ø¯Ù… Ø§Ù„Ø§Ø³ØªÙŠÙ‚Ø§Ø¸','ØªØ´Ù†Ø¬Ø§Øª','Ø¨ÙƒØ§Ø¡ Ù…Ø³ØªÙ…Ø± Ù„Ø§ ÙŠØªÙˆÙ‚Ù','Ø¥Ø³Ù‡Ø§Ù„ Ø´Ø¯ÙŠØ¯ Ø£Ùˆ Ù‚ÙŠØ¡ Ù…ØªÙƒØ±Ø±','Ø§Ù†ØªÙØ§Ø® Ø§Ù„Ø¨Ø·Ù†','Ø¥ÙØ±Ø§Ø²Ø§Øª Ø£Ùˆ Ù†Ø²ÙŠÙ Ù…Ù† Ø§Ù„Ø³Ø±Ø©'].map(s => `<div class="flex items-center gap-md mb-md" style="padding:8px 12px;background:rgba(186,26,26,0.04);border-radius:var(--radius-lg);border-right:3px solid var(--error);">
+      <p style="font-weight:600;color:var(--error);">&#129128; اذهبي فوراً إلى الطبيب إذا ظهر أي مما يلي:</p>
+      ${['حرارة أكثر من 38°C أو أقل من 36°C','رفض الرضاعة لأكثر من رضعتين متتاليتين','صعوبة في التنفس أو تنفس سريع','ازرقاق الشفاه أو الأطراف','خمول شديد أو عدم الاستيقاظ','تشنجات','بكاء مستمر لا يتوقف','إسهال شديد أو قيء متكرر','انتفاخ البطن','إفرازات أو نزيف من السرة'].map(s => `<div class="flex items-center gap-md mb-md" style="padding:8px 12px;background:rgba(186,26,26,0.04);border-radius:var(--radius-lg);border-right:3px solid var(--error);">
           <span class="material-symbols-outlined" style="color:var(--error);font-size:18px;">warning</span><span class="text-semibold">${s}</span></div>`).join('')}
     </div>`
   }
@@ -2365,16 +2365,16 @@ let nbCurrentTab = 'guide';
 let nbFlippedCards = {};
 
 const nbMyths = [
-  { myth: 'ÙŠØ¬Ø¨ Ø¥Ø¹Ø·Ø§Ø¡ Ø§Ù„Ù…Ø§Ø¡ Ù„Ù„Ø±Ø¶ÙŠØ¹ Ù‚Ø¨Ù„ 6 Ø£Ø´Ù‡Ø±', reality: 'Ø­Ù„ÙŠØ¨ Ø§Ù„Ø£Ù… ÙˆØ­Ø¯Ù‡ ÙŠÙƒÙÙŠ Ø®Ù„Ø§Ù„ Ø§Ù„Ø£Ø´Ù‡Ø± Ø§Ù„Ø³ØªØ© Ø§Ù„Ø£ÙˆÙ„Ù‰' },
-  { myth: 'ØµØºØ± Ø­Ø¬Ù… Ø§Ù„Ø«Ø¯ÙŠ ÙŠØ¹Ù†ÙŠ Ù‚Ù„Ø© Ø§Ù„Ø­Ù„ÙŠØ¨', reality: 'Ø­Ø¬Ù… Ø§Ù„Ø«Ø¯ÙŠ Ù„Ø§ ÙŠØ­Ø¯Ø¯ ÙƒÙ…ÙŠØ© Ø§Ù„Ø­Ù„ÙŠØ¨ Ø§Ù„Ù…Ù†ØªØ¬Ø©' },
-  { myth: 'ÙƒÙ„ Ø¨ÙƒØ§Ø¡ ÙŠØ¹Ù†ÙŠ Ø£Ù† Ø§Ù„Ø·ÙÙ„ Ø¬Ø§Ø¦Ø¹', reality: 'Ù‚Ø¯ ÙŠÙƒÙˆÙ† Ø§Ù„Ø¨ÙƒØ§Ø¡ Ø¨Ø³Ø¨Ø¨ Ø§Ù„ØªØ¹Ø¨ Ø£Ùˆ Ø§Ù„Ù…ØºØµ Ø£Ùˆ Ø§Ù„Ø­Ø§Ø¬Ø© Ù„Ù„Ø§Ø­ØªØ¶Ø§Ù†' },
-  { myth: 'ÙŠØ¬Ø¨ Ø¥Ø±Ø¶Ø§Ø¹ Ø§Ù„Ø·ÙÙ„ ÙƒÙ„ 3 Ø³Ø§Ø¹Ø§Øª ÙÙ‚Ø·', reality: 'Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© ØªÙƒÙˆÙ† Ø­Ø³Ø¨ Ø·Ù„Ø¨ Ø§Ù„Ø·ÙÙ„' },
-  { myth: 'Ù…Ø±Ø¶ Ø§Ù„Ø£Ù… ÙŠØ¹Ù†ÙŠ Ø§Ù„ØªÙˆÙ‚Ù Ø¹Ù† Ø§Ù„Ø±Ø¶Ø§Ø¹Ø©', reality: 'ØºØ§Ù„Ø¨Ø§Ù‹ ÙŠÙ…ÙƒÙ† Ø§Ù„Ø§Ø³ØªÙ…Ø±Ø§Ø± Ø¨Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø¨Ø¹Ø¯ Ø§Ø³ØªØ´Ø§Ø±Ø© Ø§Ù„Ù…Ø®ØªØµ' },
-  { myth: 'Ø§Ù„Ø­Ù„ÙŠØ¨ Ø§Ù„ØµÙ†Ø§Ø¹ÙŠ Ø£ÙØ¶Ù„ Ù…Ù† Ø­Ù„ÙŠØ¨ Ø§Ù„Ø£Ù…', reality: 'Ø­Ù„ÙŠØ¨ Ø§Ù„Ø£Ù… Ù‡Ùˆ Ø§Ù„ØºØ°Ø§Ø¡ Ø§Ù„Ø£Ù…Ø«Ù„ Ù„Ù„Ø±Ø¶ÙŠØ¹' },
-  { myth: 'Ø§Ù„ØªÙˆØªØ± ÙŠÙØ³Ø¯ Ø§Ù„Ø­Ù„ÙŠØ¨', reality: 'Ø§Ù„ØªÙˆØªØ± Ù‚Ø¯ ÙŠØ¤Ø«Ø± Ù…Ø¤Ù‚ØªØ§Ù‹ Ø¹Ù„Ù‰ ØªØ¯ÙÙ‚ Ø§Ù„Ø­Ù„ÙŠØ¨ Ù„ÙƒÙ†Ù‡ Ù„Ø§ ÙŠÙØ³Ø¯Ù‡' },
-  { myth: 'Ø§Ù„Ø£Ù… Ø§Ù„Ù…Ø±Ø¶Ø¹Ø© ÙŠØ¬Ø¨ Ø£Ù† ØªØ£ÙƒÙ„ Ù„Ø´Ø®ØµÙŠÙ†', reality: 'Ø§Ù„Ø¬ÙˆØ¯Ø© Ø§Ù„ØºØ°Ø§Ø¦ÙŠØ© Ø£Ù‡Ù… Ù…Ù† Ø§Ù„ÙƒÙ…ÙŠØ©' },
-  { myth: 'Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ù…ØªÙƒØ±Ø±Ø© ØªØ¹Ù†ÙŠ Ø£Ù† Ø§Ù„Ø­Ù„ÙŠØ¨ ØºÙŠØ± ÙƒØ§ÙÙ', reality: 'Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ù…ØªÙƒØ±Ø±Ø© Ø·Ø¨ÙŠØ¹ÙŠØ© Ø®Ø§ØµØ© Ø®Ù„Ø§Ù„ ÙØªØ±Ø§Øª Ø§Ù„Ù†Ù…Ùˆ Ø§Ù„Ø³Ø±ÙŠØ¹' },
-  { myth: 'ÙŠØ¬Ø¨ Ø¥ÙŠÙ‚Ø§Ù Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø¹Ù†Ø¯ Ø¸Ù‡ÙˆØ± Ø§Ù„Ø£Ø³Ù†Ø§Ù†', reality: 'ÙŠÙ…ÙƒÙ† Ù…ÙˆØ§ØµÙ„Ø© Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø­ØªÙ‰ Ø¹Ù…Ø± Ø³Ù†ØªÙŠÙ† Ø£Ùˆ Ø£ÙƒØ«Ø±' }
+  { myth: 'يجب إعطاء الماء للرضيع قبل 6 أشهر', reality: 'حليب الأم وحده يكفي خلال الأشهر الستة الأولى' },
+  { myth: 'صغر حجم الثدي يعني قلة الحليب', reality: 'حجم الثدي لا يحدد كمية الحليب المنتجة' },
+  { myth: 'كل بكاء يعني أن الطفل جائع', reality: 'قد يكون البكاء بسبب التعب أو المغص أو الحاجة للاحتضان' },
+  { myth: 'يجب إرضاع الطفل كل 3 ساعات فقط', reality: 'الرضاعة تكون حسب طلب الطفل' },
+  { myth: 'مرض الأم يعني التوقف عن الرضاعة', reality: 'غالباً يمكن الاستمرار بالرضاعة بعد استشارة المختص' },
+  { myth: 'الحليب الصناعي أفضل من حليب الأم', reality: 'حليب الأم هو الغذاء الأمثل للرضيع' },
+  { myth: 'التوتر يفسد الحليب', reality: 'التوتر قد يؤثر مؤقتاً على تدفق الحليب لكنه لا يفسده' },
+  { myth: 'الأم المرضعة يجب أن تأكل لشخصين', reality: 'الجودة الغذائية أهم من الكمية' },
+  { myth: 'الرضاعة المتكررة تعني أن الحليب غير كافٍ', reality: 'الرضاعة المتكررة طبيعية خاصة خلال فترات النمو السريع' },
+  { myth: 'يجب إيقاف الرضاعة عند ظهور الأسنان', reality: 'يمكن مواصلة الرضاعة حتى عمر سنتين أو أكثر' }
 ];
 
 function renderNewborn() {
@@ -2432,33 +2432,33 @@ function renderNewborn() {
 }
 
 // ══════════════════════════════════════════════════════════════
-//  MODULE: MYTHES ET RÃ‰ALITÃ‰S (Ø®Ø±Ø§ÙØ§Øª ÙˆØ­Ù‚Ø§Ø¦Ù‚)
+//  MODULE: MYTHES ET RÉALITÉS (خرافات وحقائق)
 // ══════════════════════════════════════════════════════════════
 
 const allMyths = [
   // Allaitement
-  { cat: 'breastfeeding', myth: 'ÙŠØ¬Ø¨ Ø¥Ø¹Ø·Ø§Ø¡ Ø§Ù„Ù…Ø§Ø¡ Ù„Ù„Ø±Ø¶ÙŠØ¹ Ù‚Ø¨Ù„ 6 Ø£Ø´Ù‡Ø±', reality: 'Ø­Ù„ÙŠØ¨ Ø§Ù„Ø£Ù… ÙˆØ­Ø¯Ù‡ ÙŠÙƒÙÙŠ Ø®Ù„Ø§Ù„ Ø§Ù„Ø£Ø´Ù‡Ø± Ø§Ù„Ø³ØªØ© Ø§Ù„Ø£ÙˆÙ„Ù‰' },
-  { cat: 'breastfeeding', myth: 'ØµØºØ± Ø­Ø¬Ù… Ø§Ù„Ø«Ø¯ÙŠ ÙŠØ¹Ù†ÙŠ Ù‚Ù„Ø© Ø§Ù„Ø­Ù„ÙŠØ¨', reality: 'Ø­Ø¬Ù… Ø§Ù„Ø«Ø¯ÙŠ Ù„Ø§ ÙŠØ­Ø¯Ø¯ ÙƒÙ…ÙŠØ© Ø§Ù„Ø­Ù„ÙŠØ¨ Ø§Ù„Ù…Ù†ØªØ¬Ø©' },
-  { cat: 'breastfeeding', myth: 'ÙƒÙ„ Ø¨ÙƒØ§Ø¡ ÙŠØ¹Ù†ÙŠ Ø£Ù† Ø§Ù„Ø·ÙÙ„ Ø¬Ø§Ø¦Ø¹', reality: 'Ù‚Ø¯ ÙŠÙƒÙˆÙ† Ø§Ù„Ø¨ÙƒØ§Ø¡ Ø¨Ø³Ø¨Ø¨ Ø§Ù„ØªØ¹Ø¨ Ø£Ùˆ Ø§Ù„Ù…ØºØµ Ø£Ùˆ Ø§Ù„Ø­Ø§Ø¬Ø© Ù„Ù„Ø§Ø­ØªØ¶Ø§Ù†' },
-  { cat: 'breastfeeding', myth: 'ÙŠØ¬Ø¨ Ø¥Ø±Ø¶Ø§Ø¹ Ø§Ù„Ø·ÙÙ„ ÙƒÙ„ 3 Ø³Ø§Ø¹Ø§Øª ÙÙ‚Ø·', reality: 'Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© ØªÙƒÙˆÙ† Ø­Ø³Ø¨ Ø·Ù„Ø¨ Ø§Ù„Ø·ÙÙ„' },
-  { cat: 'breastfeeding', myth: 'Ù…Ø±Ø¶ Ø§Ù„Ø£Ù… ÙŠØ¹Ù†ÙŠ Ø§Ù„ØªÙˆÙ‚Ù Ø¹Ù† Ø§Ù„Ø±Ø¶Ø§Ø¹Ø©', reality: 'ØºØ§Ù„Ø¨Ø§Ù‹ ÙŠÙ…ÙƒÙ† Ø§Ù„Ø§Ø³ØªÙ…Ø±Ø§Ø± Ø¨Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø¨Ø¹Ø¯ Ø§Ø³ØªØ´Ø§Ø±Ø© Ø§Ù„Ù…Ø®ØªØµ' },
-  { cat: 'breastfeeding', myth: 'Ø§Ù„Ø­Ù„ÙŠØ¨ Ø§Ù„ØµÙ†Ø§Ø¹ÙŠ Ø£ÙØ¶Ù„ Ù…Ù† Ø­Ù„ÙŠØ¨ Ø§Ù„Ø£Ù…', reality: 'Ø­Ù„ÙŠØ¨ Ø§Ù„Ø£Ù… Ù‡Ùˆ Ø§Ù„ØºØ°Ø§Ø¡ Ø§Ù„Ø£Ù…Ø«Ù„ Ù„Ù„Ø±Ø¶ÙŠØ¹' },
-  { cat: 'breastfeeding', myth: 'Ø§Ù„ØªÙˆØªØ± ÙŠÙØ³Ø¯ Ø§Ù„Ø­Ù„ÙŠØ¨', reality: 'Ø§Ù„ØªÙˆØªØ± Ù‚Ø¯ ÙŠØ¤Ø«Ø± Ù…Ø¤Ù‚ØªØ§Ù‹ Ø¹Ù„Ù‰ ØªØ¯ÙÙ‚ Ø§Ù„Ø­Ù„ÙŠØ¨ Ù„ÙƒÙ†Ù‡ Ù„Ø§ ÙŠÙØ³Ø¯Ù‡' },
-  { cat: 'breastfeeding', myth: 'Ø§Ù„Ø£Ù… Ø§Ù„Ù…Ø±Ø¶Ø¹Ø© ÙŠØ¬Ø¨ Ø£Ù† ØªØ£ÙƒÙ„ Ù„Ø´Ø®ØµÙŠÙ†', reality: 'Ø§Ù„Ø¬ÙˆØ¯Ø© Ø§Ù„ØºØ°Ø§Ø¦ÙŠØ© Ø£Ù‡Ù… Ù…Ù† Ø§Ù„ÙƒÙ…ÙŠØ©' },
-  { cat: 'breastfeeding', myth: 'Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ù…ØªÙƒØ±Ø±Ø© ØªØ¹Ù†ÙŠ Ø£Ù† Ø§Ù„Ø­Ù„ÙŠØ¨ ØºÙŠØ± ÙƒØ§ÙÙ', reality: 'Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ù…ØªÙƒØ±Ø±Ø© Ø·Ø¨ÙŠØ¹ÙŠØ© Ø®Ø§ØµØ© Ø®Ù„Ø§Ù„ ÙØªØ±Ø§Øª Ø§Ù„Ù†Ù…Ùˆ Ø§Ù„Ø³Ø±ÙŠØ¹' },
-  { cat: 'breastfeeding', myth: 'ÙŠØ¬Ø¨ Ø¥ÙŠÙ‚Ø§Ù Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø¹Ù†Ø¯ Ø¸Ù‡ÙˆØ± Ø§Ù„Ø£Ø³Ù†Ø§Ù†', reality: 'ÙŠÙ…ÙƒÙ† Ù…ÙˆØ§ØµÙ„Ø© Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø­ØªÙ‰ Ø¹Ù…Ø± Ø³Ù†ØªÙŠÙ† Ø£Ùˆ Ø£ÙƒØ«Ø±' },
+  { cat: 'breastfeeding', myth: 'يجب إعطاء الماء للرضيع قبل 6 أشهر', reality: 'حليب الأم وحده يكفي خلال الأشهر الستة الأولى' },
+  { cat: 'breastfeeding', myth: 'صغر حجم الثدي يعني قلة الحليب', reality: 'حجم الثدي لا يحدد كمية الحليب المنتجة' },
+  { cat: 'breastfeeding', myth: 'كل بكاء يعني أن الطفل جائع', reality: 'قد يكون البكاء بسبب التعب أو المغص أو الحاجة للاحتضان' },
+  { cat: 'breastfeeding', myth: 'يجب إرضاع الطفل كل 3 ساعات فقط', reality: 'الرضاعة تكون حسب طلب الطفل' },
+  { cat: 'breastfeeding', myth: 'مرض الأم يعني التوقف عن الرضاعة', reality: 'غالباً يمكن الاستمرار بالرضاعة بعد استشارة المختص' },
+  { cat: 'breastfeeding', myth: 'الحليب الصناعي أفضل من حليب الأم', reality: 'حليب الأم هو الغذاء الأمثل للرضيع' },
+  { cat: 'breastfeeding', myth: 'التوتر يفسد الحليب', reality: 'التوتر قد يؤثر مؤقتاً على تدفق الحليب لكنه لا يفسده' },
+  { cat: 'breastfeeding', myth: 'الأم المرضعة يجب أن تأكل لشخصين', reality: 'الجودة الغذائية أهم من الكمية' },
+  { cat: 'breastfeeding', myth: 'الرضاعة المتكررة تعني أن الحليب غير كافٍ', reality: 'الرضاعة المتكررة طبيعية خاصة خلال فترات النمو السريع' },
+  { cat: 'breastfeeding', myth: 'يجب إيقاف الرضاعة عند ظهور الأسنان', reality: 'يمكن مواصلة الرضاعة حتى عمر سنتين أو أكثر' },
   // Sexualité
-  { cat: 'sexuality', myth: 'ÙŠØ¬Ø¨ Ø§Ø³ØªØ¦Ù†Ø§Ù Ø§Ù„Ø¹Ù„Ø§Ù‚Ø© Ø¨Ø¹Ø¯ 40 ÙŠÙˆÙ…Ø§Ù‹ Ø¨Ø§Ù„Ø¶Ø¨Ø·', reality: 'Ù„Ø§ ÙŠÙˆØ¬Ø¯ ÙˆÙ‚Øª Ø¥Ù„Ø²Ø§Ù…ÙŠ ÙˆÙŠØ®ØªÙ„Ù Ø­Ø³Ø¨ ÙƒÙ„ Ø§Ù…Ø±Ø£Ø©' },
-  { cat: 'sexuality', myth: 'Ø§Ù„Ø±Ø¶Ø§Ø¹Ø© Ø§Ù„Ø·Ø¨ÙŠØ¹ÙŠØ© ØªÙ…Ù†Ø¹ Ø§Ù„Ø­Ù…Ù„ %100', reality: 'ØªÙ‚Ù„Ù„ Ø§Ù„Ø­Ù…Ù„ Ù„ÙƒÙ†Ù‡Ø§ Ù„ÙŠØ³Øª ÙˆØ³ÙŠÙ„Ø© Ù…Ø¶Ù…ÙˆÙ†Ø©' },
-  { cat: 'sexuality', myth: 'Ø§Ù†Ø®ÙØ§Ø¶ Ø§Ù„Ø±ØºØ¨Ø© Ø§Ù„Ø¬Ù†Ø³ÙŠØ© Ù…Ø´ÙƒÙ„Ø© Ø¯Ø§Ø¦Ù…Ø©', reality: 'Ø·Ø¨ÙŠØ¹ÙŠ ÙˆÙ…Ø¤Ù‚Øª Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©' },
-  { cat: 'sexuality', myth: 'Ø§Ù„Ø£Ù„Ù… Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ø¹Ù„Ø§Ù‚Ø© ÙŠØ¬Ø¨ ØªØ­Ù…Ù„Ù‡', reality: 'Ø§Ù„Ø£Ù„Ù… Ø§Ù„Ù…Ø³ØªÙ…Ø± ÙŠØ­ØªØ§Ø¬ Ø§Ø³ØªØ´Ø§Ø±Ø©' },
-  { cat: 'sexuality', myth: 'Ø§Ù„Ø¬ÙØ§Ù Ø§Ù„Ù…Ù‡Ø¨Ù„ÙŠ Ù…Ø±Ø¶', reality: 'ØºØ§Ù„Ø¨Ø§Ù‹ Ù†ØªÙŠØ¬Ø© ØªØºÙŠØ±Ø§Øª Ù‡Ø±Ù…ÙˆÙ†ÙŠØ© Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø©' },
+  { cat: 'sexuality', myth: 'يجب استئناف العلاقة بعد 40 يوماً بالضبط', reality: 'لا يوجد وقت إلزامي ويختلف حسب كل امرأة' },
+  { cat: 'sexuality', myth: 'الرضاعة الطبيعية تمنع الحمل %100', reality: 'تقلل الحمل لكنها ليست وسيلة مضمونة' },
+  { cat: 'sexuality', myth: 'انخفاض الرغبة الجنسية مشكلة دائمة', reality: 'طبيعي ومؤقت بعد الولادة' },
+  { cat: 'sexuality', myth: 'الألم أثناء العلاقة يجب تحمله', reality: 'الألم المستمر يحتاج استشارة' },
+  { cat: 'sexuality', myth: 'الجفاف المهبلي مرض', reality: 'غالباً نتيجة تغيرات هرمونية بعد الولادة' },
   // Nouveau-né
-  { cat: 'newborn', myth: 'ÙŠØ¬Ø¨ Ù„Ù Ø§Ù„Ù…ÙˆÙ„ÙˆØ¯ Ø¨Ø¥Ø­ÙƒØ§Ù… Ø´Ø¯ÙŠØ¯ (Ø§Ù„Ù‚Ù…Ø§Ø·)', reality: 'Ø§Ù„Ù„Ù Ø§Ù„Ù„Ø·ÙŠÙ Ù…ÙÙŠØ¯ Ù„ÙƒÙ† Ø§Ù„Ø´Ø¯ Ø§Ù„Ù…ÙØ±Ø· ÙŠØ¶Ø± Ø¨Ø§Ù„Ù…ÙØ§ØµÙ„' },
-  { cat: 'newborn', myth: 'Ø§Ù„Ù…ÙˆÙ„ÙˆØ¯ Ù„Ø§ ÙŠØ³Ù…Ø¹ ÙˆÙ„Ø§ ÙŠØ±Ù‰', reality: 'ÙŠØ³Ù…Ø¹ Ø§Ù„Ø£ØµÙˆØ§Øª ÙˆÙŠØ±Ù‰ Ø¹Ù„Ù‰ Ù…Ø³Ø§ÙØ© 20-30 Ø³Ù…' },
-  { cat: 'newborn', myth: 'Ø§Ù„Ø¨ÙƒØ§Ø¡ Ø§Ù„ÙƒØ«ÙŠØ± ÙŠØ¯Ù„ Ø¹Ù„Ù‰ Ù…Ø´ÙƒÙ„Ø© ØµØ­ÙŠØ© Ø¯Ø§Ø¦Ù…Ø§Ù‹', reality: 'Ø§Ù„Ø¨ÙƒØ§Ø¡ Ù‡Ùˆ ÙˆØ³ÙŠÙ„Ø© Ø§Ù„ØªÙˆØ§ØµÙ„ Ø§Ù„ÙˆØ­ÙŠØ¯Ø© Ù„Ù„Ù…ÙˆÙ„ÙˆØ¯ ÙˆØºØ§Ù„Ø¨Ø§Ù‹ Ø·Ø¨ÙŠØ¹ÙŠ' },
-  { cat: 'newborn', myth: 'ÙŠØ¬Ø¨ ÙˆØ¶Ø¹ ÙƒØ­Ù„ ÙÙŠ Ø¹ÙŠÙ†ÙŠ Ø§Ù„Ù…ÙˆÙ„ÙˆØ¯', reality: 'Ø§Ù„ÙƒØ­Ù„ Ù‚Ø¯ ÙŠØ­ØªÙˆÙŠ Ø¹Ù„Ù‰ Ù…ÙˆØ§Ø¯ Ø³Ø§Ù…Ø© ÙˆÙ„Ø§ ÙŠÙ†ØµØ­ Ø¨Ù‡ Ø·Ø¨ÙŠØ§Ù‹' },
-  { cat: 'newborn', myth: 'Ø§Ù„Ù…ÙˆÙ„ÙˆØ¯ ÙŠØ­ØªØ§Ø¬ Ù…Ø§Ø¡ Ø¥Ø¶Ø§ÙÙŠ ÙÙŠ Ø§Ù„ØµÙŠÙ', reality: 'Ø­Ù„ÙŠØ¨ Ø§Ù„Ø£Ù… ÙŠÙƒÙÙŠ Ø­ØªÙ‰ ÙÙŠ Ø§Ù„Ø­Ø± Ø®Ù„Ø§Ù„ Ø§Ù„Ø£Ø´Ù‡Ø± Ø§Ù„Ø³ØªØ© Ø§Ù„Ø£ÙˆÙ„Ù‰' }
+  { cat: 'newborn', myth: 'يجب لف المولود بإحكام شديد (القماط)', reality: 'اللف اللطيف مفيد لكن الشد المفرط يضر بالمفاصل' },
+  { cat: 'newborn', myth: 'المولود لا يسمع ولا يرى', reality: 'يسمع الأصوات ويرى على مسافة 20-30 سم' },
+  { cat: 'newborn', myth: 'البكاء الكثير يدل على مشكلة صحية دائماً', reality: 'البكاء هو وسيلة التواصل الوحيدة للمولود وغالباً طبيعي' },
+  { cat: 'newborn', myth: 'يجب وضع كحل في عيني المولود', reality: 'الكحل قد يحتوي على مواد سامة ولا ينصح به طبياً' },
+  { cat: 'newborn', myth: 'المولود يحتاج ماء إضافي في الصيف', reality: 'حليب الأم يكفي حتى في الحر خلال الأشهر الستة الأولى' }
 ];
 
 let myFlippedCards = {};
@@ -2633,14 +2633,14 @@ async function saveDailyEntry() {
       setTimeout(() => renderSuivi(), 1500);
     }
     const now = new Date().toISOString().split('T')[0];
-    pushNotification('mood_' + now, body.mood, t('notif_mood_saved') || 'ØªÙ… ØªØ³Ø¬ÙŠÙ„ Ù…Ø²Ø§Ø¬Ùƒ Ø§Ù„ÙŠÙˆÙ…!', 'tip');
+    pushNotification('mood_' + now, body.mood, t('notif_mood_saved') || 'تم تسجيل مزاجك اليوم!', 'tip');
   } catch (e) {
     if (btn) btn.innerHTML = `<span class="material-symbols-outlined">error</span> ${t('misc_error')}`;
   }
 }
 
 // ══════════════════════════════════════════════════════════════
-//  PLAN PERSONNALISÃ‰
+//  PLAN PERSONNALISÉ
 // ══════════════════════════════════════════════════════════════
 let currentPlanDuration = 14;
 
@@ -2709,7 +2709,6 @@ async function loadPlanDetails() {
           description: currentLang==='ar'?'\u0634\u0647\u0631 \u0643\u0627\u0645\u0644 \u0644\u062a\u063a\u064a\u064a\u0631 \u062d\u064a\u0627\u062a\u0643\u0645\u0627.':currentLang==='en'?'A full month to transform your couple life.':'Un mois pour transformer votre vie.',
           activities: [1,2,3,5,7,10,12,14,16,18,20,22,25,27,30].map((d,i)=>({day:d, type:['communication','psychologique','couple','post-partum'][i%4], title:(currentLang==='ar'?'\u0627\u0644\u064a\u0648\u0645':currentLang==='en'?'Day':'Jour')+' '+d, desc:currentLang==='ar'?'\u0646\u0634\u0627\u0637 \u0644\u062a\u0642\u0648\u064a\u0629 \u0639\u0644\u0627\u0642\u062a\u0643\u0645\u0627.':currentLang==='en'?'Activity to strengthen your bond.':'Activit\u00e9 pour votre relation.', icon:['edit_note','self_improvement','favorite','spa'][i%4]}))}
   };
-
   let data;
   try {
     data = await api(`/plan/${currentPlanDuration}?lang=${currentLang}`);
@@ -2717,7 +2716,6 @@ async function loadPlanDetails() {
     console.warn('Plan API failed, using local fallback:', apiErr.message);
     data = { plan: fallbackPlans[currentPlanDuration] || fallbackPlans[7], scores: {}, focusAreas: [], completedDays: [] };
   }
-
   try {
     const plan = data.plan;
     const completedDays = data.completedDays || [];
@@ -3286,7 +3284,7 @@ function saveJournalEntry() {
   localStorage.setItem('nf_journal', JSON.stringify(entries));
   journalMood = null;
   const now = new Date().toISOString().split('T')[0];
-  pushNotification('journal_' + now, '&#128522;', t('notif_journal_saved') || 'ØªÙ… Ø­ÙØ¸ ÙŠÙˆÙ…ÙŠØ§ØªÙƒ!', 'tip');
+  pushNotification('journal_' + now, '&#128522;', t('notif_journal_saved') || 'تم حفظ يومياتك!', 'tip');
   renderJournal();
 }
 function renderJournal() {
@@ -3367,7 +3365,7 @@ function renderJournal() {
 }
 
 // ══════════════════════════════════════════════════════════════
-//  MODULE: Ã‰CHELLES CLINIQUES PISQ-12 & RAS
+//  MODULE: ÉCHELLES CLINIQUES PISQ-12 & RAS
 // ══════════════════════════════════════════════════════════════
 function getPisq12Questions() {
   if (currentLang === 'ar') return [
@@ -3438,16 +3436,16 @@ function renderEchelles() {
 
   const diagTexts = {
     pisq12: {
-      low: 'Ø­ÙŠØ§ØªÙƒ Ø§Ù„Ø¬Ù†Ø³ÙŠØ© Ø§Ù„Ø­Ø§Ù„ÙŠØ© Ù…ØµØ¯Ø± Ù…Ø¹Ø§Ù†Ø§Ø© Ø£Ùˆ Ù‚Ù„Ù‚. Ù„Ø§ ØªØ¨Ù‚ÙŠ ØµØ§Ù…ØªØ©. ØªÙˆØ¬Ø¯ Ø­Ù„ÙˆÙ„ Ø¨Ø³ÙŠØ·Ø© (Ø¥Ø¹Ø§Ø¯Ø© ØªØ£Ù‡ÙŠÙ„ Ø§Ù„Ø¹Ø¬Ø§Ù†ØŒ Ø¹Ù„Ø§Ø¬ Ø§Ù„Ø¬ÙØ§Ù). Ù†Ø´Ø¬Ø¹Ùƒ Ø¹Ù„Ù‰ Ø§Ù„ØªØ­Ø¯Ø« Ù…Ø¹ Ø§Ù„Ù‚Ø§Ø¨Ù„Ø© Ø£Ùˆ Ø§Ù„Ù…Ø®ØªØµ.',
-      mod: 'Ø­ÙŠØ§ØªÙƒ Ø§Ù„Ø¬Ù†Ø³ÙŠØ© ØªØªØ¹Ø§ÙÙ‰ ØªØ¯Ø±ÙŠØ¬ÙŠØ§Ù‹. Ø¨Ø¹Ø¶ Ø§Ù„Ø¬ÙˆØ§Ù†Ø¨ Ù„Ø§ ØªØ²Ø§Ù„ ØµØ¹Ø¨Ø© Ù„ÙƒÙ†Ùƒ Ø¹Ù„Ù‰ Ø§Ù„Ø·Ø±ÙŠÙ‚ Ø§Ù„ØµØ­ÙŠØ­. Ø§Ù„ØµØ¨Ø± ÙˆØ§Ù„ØªÙˆØ§ØµÙ„ Ù…Ø¹ Ø§Ù„Ø´Ø±ÙŠÙƒ Ø¶Ø±ÙˆØ±ÙŠØ§Ù†.',
-      good: 'Ø­ÙŠØ§ØªÙƒ Ø§Ù„Ø¬Ù†Ø³ÙŠØ© Ø¨Ø¹Ø¯ Ø§Ù„ÙˆÙ„Ø§Ø¯Ø© Ø¬ÙŠØ¯Ø©! ÙˆØ§ØµÙ„ÙŠ Ø§Ù„ØªÙˆØ§ØµÙ„ Ù…Ø¹ Ø´Ø±ÙŠÙƒÙƒ ÙˆØ§Ù„Ø¹Ù†Ø§ÙŠØ© Ø¨Ù†ÙØ³Ùƒ.',
-      excellent: 'ØªÙ‡Ø§Ù†ÙŠÙ†Ø§! Ø­ÙŠØ§ØªÙƒ Ø§Ù„Ø¬Ù†Ø³ÙŠØ© Ù…Ø²Ø¯Ù‡Ø±Ø©. ÙˆØ§ØµÙ„ÙŠ ØªØ¹Ø²ÙŠØ² Ù‡Ø°Ø§ Ø§Ù„ØªÙ†Ø§ØºÙ… Ù…Ø¹ Ø´Ø±ÙŠÙƒÙƒ.'
+      low: 'حياتك الجنسية الحالية مصدر معاناة أو قلق. لا تبقي صامتة. توجد حلول بسيطة (إعادة تأهيل العجان، علاج الجفاف). نشجعك على التحدث مع القابلة أو المختص.',
+      mod: 'حياتك الجنسية تتعافى تدريجياً. بعض الجوانب لا تزال صعبة لكنك على الطريق الصحيح. الصبر والتواصل مع الشريك ضروريان.',
+      good: 'حياتك الجنسية بعد الولادة جيدة! واصلي التواصل مع شريكك والعناية بنفسك.',
+      excellent: 'تهانينا! حياتك الجنسية مزدهرة. واصلي تعزيز هذا التناغم مع شريكك.'
     },
     ras: {
-      low: 'Ø±Ø¶Ø§Ùƒ Ø§Ù„Ø²ÙˆØ¬ÙŠ ÙŠØ¨Ø¯Ùˆ Ù‡Ø´Ø§Ù‹. Ø³ÙŠÙƒÙˆÙ† Ù…ÙÙŠØ¯Ø§Ù‹ Ù…Ù†Ø§Ù‚Ø´Ø© Ø§Ù„Ø£Ù…Ø± Ù…Ø¹ Ø§Ù„Ø´Ø±ÙŠÙƒ Ø£Ùˆ Ù…Ø®ØªØµ Ù„Ø§Ø³ØªØ¹Ø§Ø¯Ø© Ø§Ù„ØªÙˆØ§Ø²Ù†.',
-      mod: 'Ø¹Ù„Ø§Ù‚ØªÙƒ ØªÙ…Ø± Ø¨ØªØ¹Ø¯ÙŠÙ„Ø§Øª Ø·Ø¨ÙŠØ¹ÙŠØ©. Ø§Ù„ØªÙˆØ§ØµÙ„ Ø§Ù„Ø·ÙŠØ¨ Ù‡Ùˆ Ø§Ù„Ù…ÙØªØ§Ø­ Ù„ØªÙ‚ÙˆÙŠØ© Ø§Ù„Ø±Ø§Ø¨Ø· Ø¨ÙŠÙ†ÙƒÙ…Ø§.',
-      good: 'Ø¹Ù„Ø§Ù‚ØªÙƒÙ…Ø§ ØªØ¨Ø¯Ùˆ Ù…ØªÙŠÙ†Ø©! ÙˆØ§ØµÙ„Ø§ ØªØ®ØµÙŠØµ ÙˆÙ‚Øª Ù„ÙƒÙ…Ø§.',
-      excellent: 'Ø¹Ù„Ø§Ù‚ØªÙƒÙ…Ø§ Ù…Ø²Ø¯Ù‡Ø±Ø© Ø¬Ø¯Ø§Ù‹! ÙˆØ¬Ø¯ØªÙ…Ø§ ØªÙˆØ§Ø²Ù†Ø§Ù‹ Ø¬Ù…ÙŠÙ„Ø§Ù‹.'
+      low: 'رضاك الزوجي يبدو هشاً. سيكون مفيداً مناقشة الأمر مع الشريك أو مختص لاستعادة التوازن.',
+      mod: 'علاقتك تمر بتعديلات طبيعية. التواصل الطيب هو المفتاح لتقوية الرابط بينكما.',
+      good: 'علاقتكما تبدو متينة! واصلا تخصيص وقت لكما.',
+      excellent: 'علاقتكما مزدهرة جداً! وجدتما توازناً جميلاً.'
     }
   };
 
@@ -3544,7 +3542,7 @@ function calculateScale() {
   if (answeredCount === 0) return;
   const scaleName = currentScale === 'pisq12' ? 'PISQ-12' : 'RAS';
   const now = new Date().toISOString().split('T')[0];
-  pushNotification('scale_' + currentScale + '_' + now, '&#128522;', (t('notif_scale_done') || 'ØªÙ… Ø­Ø³Ø§Ø¨ Ù…Ù‚ÙŠØ§Ø³') + ' ' + scaleName, 'reminder');
+  pushNotification('scale_' + currentScale + '_' + now, '&#128522;', (t('notif_scale_done') || 'تم حساب مقياس') + ' ' + scaleName, 'reminder');
   renderEchelles();
   setTimeout(() => {
     const result = document.getElementById('scale-result');
@@ -3672,6 +3670,21 @@ function renderTounsi() {
         </div>
       </div>
     `).join('')}
+
+    <!-- خرافات وحقائق - Mythes et Réalités -->
+    <h3 class="text-label-lg text-primary mt-xl mb-lg reveal" style="text-transform:uppercase;letter-spacing:0.1em;">${t('my_module_title')}</h3>
+    <div class="card mb-xl reveal" style="background:linear-gradient(135deg,rgba(40,167,69,0.06),rgba(220,53,69,0.06));border:1px solid rgba(40,167,69,0.15);cursor:pointer;" onclick="navigateTo('myths')">
+      <div class="card__body flex items-center gap-lg">
+        <div style="width:64px;height:64px;border-radius:var(--radius-full);background:linear-gradient(135deg,rgba(220,53,69,0.12),rgba(40,167,69,0.12));display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <span class="material-symbols-outlined" style="font-size:32px;color:#28a745;">swap_horiz</span>
+        </div>
+        <div style="flex:1;">
+          <h3 class="text-headline-sm" style="font-size:16px;">${t('my_module_title')}</h3>
+          <p class="text-body-md text-variant">${t('my_module_desc')}</p>
+        </div>
+        <span class="material-symbols-outlined" style="color:#28a745;">arrow_forward</span>
+      </div>
+    </div>
 
     <!-- Footer -->
     <div class="reveal text-center mt-xl mb-xl" style="padding:var(--space-2xl);opacity:0.7;">
