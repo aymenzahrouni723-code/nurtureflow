@@ -1,5 +1,5 @@
 /* ============================================================
-   NurtureFlow &#8212; Frontend Application
+   +ONE &#8212; Frontend Application
    SPA avec appels API vers le backend Express
    ============================================================ */
 

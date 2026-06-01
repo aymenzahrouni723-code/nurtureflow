@@ -1,5 +1,5 @@
 /* ============================================================
-   NurtureFlow — Backend Server
+   +ONE — Backend Server
    Express + sql.js (SQLite pur JavaScript)
    ============================================================ */
 
@@ -263,13 +263,13 @@ async function startServer() {
       });
 
       const mailOptions = {
-        from: '"NurtureFlow 🌸" <aymenzahrouni723@gmail.com>',
+        from: '"+ONE 🌸" <aymenzahrouni723@gmail.com>',
         to: email,
-        subject: '🔐 NurtureFlow - Votre nouveau mot de passe',
+        subject: '🔐 +ONE - Votre nouveau mot de passe',
         html: `
           <div style="font-family:'Segoe UI',Tahoma,sans-serif;max-width:500px;margin:0 auto;padding:30px;background:#faf6f8;border-radius:16px;">
             <div style="text-align:center;margin-bottom:24px;">
-              <h1 style="color:#C44569;font-size:28px;margin:0;">NurtureFlow 🌸</h1>
+              <h1 style="color:#C44569;font-size:28px;margin:0;">+ONE 🌸</h1>
               <p style="color:#666;font-size:14px;">من الحياة الزوجية إلى الأبوة</p>
             </div>
             <div style="background:white;padding:24px;border-radius:12px;border:1px solid #f0e0e5;">
@@ -280,7 +280,7 @@ async function startServer() {
               </div>
               <p style="color:#888;font-size:13px;line-height:1.5;">⚠️ ننصحك بتغيير كلمة المرور هذه بعد تسجيل الدخول.<br>إذا لم تطلبي إعادة التعيين، تجاهلي هذا البريد.</p>
             </div>
-            <p style="text-align:center;color:#aaa;font-size:12px;margin-top:20px;">© 2026 NurtureFlow — صُمم بحب ❤️</p>
+            <p style="text-align:center;color:#aaa;font-size:12px;margin-top:20px;">© 2026 +ONE — صُمم بحب ❤️</p>
           </div>
         `
       };
@@ -955,7 +955,7 @@ async function startServer() {
 
   // Start
   app.listen(PORT, () => {
-    console.log(`\n  ✅  NurtureFlow Server démarré`);
+    console.log(`\n  ✅  +ONE Server démarré`);
     console.log(`  🌐  http://localhost:${PORT}`);
     console.log(`  📁  Base de données: ${DB_PATH}\n`);
   });

@@ -1,5 +1,5 @@
 /* ============================================================
-   NurtureFlow — Internationalization (i18n)
+   +ONE — Internationalization (i18n)
    Français 🇫🇷 | العربية 🇸🇦 | English 🇬🇧
    ============================================================ */
 
@@ -19,8 +19,8 @@ const translations = {
 // ═══════════════════════════════════════
 fr: {
   // App
-  app_name: 'NurtureFlow',
-  app_tagline: 'من الحياة الزوجية إلى الأبوة',
+  app_name: '+ONE',
+  app_tagline: 'نكبر معا خطوة بخطوة',
 
   // Auth
   auth_email: 'Email',
@@ -305,7 +305,7 @@ fr: {
   alerts_none: 'لا توجد تنبيهات حالياً. واصلي المتابعة المنتظمة.',
   alerts_back_home: 'العودة إلى الرئيسية',
   alerts_important: 'تذكير مهم',
-  alerts_disclaimer: 'NurtureFlow هو أداة للوقاية والتوعية. في حالة الضيق، اتصلي فوراً بمتخصص صحي أو بالرقم 3114.',
+  alerts_disclaimer: '+ONE هو أداة للوقاية والتوعية. في حالة الضيق، اتصلي فوراً بمتخصص صحي أو بالرقم 3114.',
   alerts_alert: 'تنبيه',
   alerts_alerts: 'تنبيهات',
   alerts_critical: 'حرج',
@@ -314,7 +314,7 @@ fr: {
   alerts_warnings: 'تحذيرات',
 
   // Admin
-  admin_title: 'إدارة NurtureFlow',
+  admin_title: 'إدارة +ONE',
   admin_subtitle: 'نظرة عامة على المنصة',
   admin_dashboard: 'لوحة التحكم',
   admin_couples: 'الأزواج المسجلون',
@@ -366,7 +366,7 @@ fr: {
   lib_months_unit: 'أشهر',
 
   // Splash
-  splash_tagline: 'من الحياة الزوجية إلى الأبوة',
+  splash_tagline: 'نكبر معا خطوة بخطوة',
 
   // Register placeholders (hardcoded)
   auth_marriage_placeholder: 'مدة الزواج (مثال: 3 سنوات)',
@@ -535,7 +535,7 @@ fr: {
   tounsi_nefsa_title: 'حمية النفاسة',
   tounsi_nefsa_sub: 'دعم الحليب والطاقة',
   tounsi_articles: 'مقالات الراحة',
-  tounsi_footer: '© 2026 NurtureFlow — من الحياة الزوجية إلى الأبوة.',
+  tounsi_footer: '© 2026 +ONE — نكبر معا خطوة بخطوة.',
   tounsi_footer_sub: 'صُمم للإرشاد والدعم وتشجيع الحوار. لا يغني عن استشارة القابلة أو الطبيب.',
 
   // Profile static
@@ -666,7 +666,7 @@ fr: {
   notif_min_ago: 'د',
   notif_hrs_ago: 'س',
   notif_days_ago: 'ي',
-  notif_welcome: 'مرحباً بكم في NurtureFlow! 🌸 مساحتكم الزوجية بانتظاركم.',
+  notif_welcome: 'مرحباً بكم في +ONE! 🌸 نكبر معا خطوة بخطوة.',
   notif_eval_reminder: 'لا تنسي ملء تقييمك الأسبوعي! 📋',
   notif_baby_born: 'تهانينا على ولادة طفلكم! 🎉',
   notif_baby_1week: 'طفلكم أكمل أسبوعاً! الأيام الأولى ثمينة. 🎊',
@@ -714,7 +714,7 @@ fr: {
 //  ARABIC
 // ═══════════════════════════════════════
 ar: {
-  app_name: 'NurtureFlow',
+  app_name: '+ONE',
   app_tagline: 'من الحياة الزوجية إلى الأبوة',
 
   auth_email: 'البريد الإلكتروني',
@@ -982,7 +982,7 @@ ar: {
   alerts_none: 'لا توجد تنبيهات حالياً. تابعي المتابعة المنتظمة.',
   alerts_back_home: 'العودة للرئيسية',
   alerts_important: 'تذكير مهم',
-  alerts_disclaimer: 'NurtureFlow هو أداة للوقاية والتوعية. في حالة الضيق، اتصلي فوراً بمتخصص صحي أو بالرقم 3114.',
+  alerts_disclaimer: '+ONE هو أداة للوقاية والتوعية. في حالة الضيق، اتصلي فوراً بمتخصص صحي أو بالرقم 3114.',
   alerts_alert: 'تنبيه',
   alerts_alerts: 'تنبيهات',
   alerts_critical: 'حرج',
@@ -990,7 +990,7 @@ ar: {
   alerts_warning: 'تحذير',
   alerts_warnings: 'تحذيرات',
 
-  admin_title: 'إدارة NurtureFlow',
+  admin_title: 'إدارة +ONE',
   admin_subtitle: 'نظرة عامة على المنصة',
   admin_dashboard: 'لوحة التحكم',
   admin_couples: 'أزواج مسجلون',
@@ -1209,7 +1209,7 @@ ar: {
   tounsi_nefsa_title: 'حمية النفاسة (النفاسة)',
   tounsi_nefsa_sub: 'دعم الحليب والطاقة',
   tounsi_articles: 'مقالات الراحة',
-  tounsi_footer: '© 2026 NurtureFlow — من الحياة الزوجية إلى الأبوة.',
+  tounsi_footer: '© 2026 +ONE — من الحياة الزوجية إلى الأبوة.',
   tounsi_footer_sub: 'صُمّم للإرشاد والدعم وتشجيع الحوار البنّاء. لا يُغني عن استشارة القابلة أو الطبيب.',
 
   // Profile static
@@ -1340,7 +1340,7 @@ ar: {
   notif_min_ago: 'د',
   notif_hrs_ago: 'س',
   notif_days_ago: 'ي',
-  notif_welcome: 'مرحباً بكم في NurtureFlow! 🌸 مساحتكم الزوجية بانتظاركم.',
+  notif_welcome: 'مرحباً بكم في +ONE! 🌸 مساحتكم الزوجية بانتظاركم.',
   notif_eval_reminder: 'لا تنسي ملء تقييمك الأسبوعي! 📋',
   notif_baby_born: 'تهانينا على ولادة طفلكم! 🎉',
   notif_baby_1week: 'طفلكم أكمل أسبوعاً! الأيام الأولى ثمينة. 🎊',
@@ -1388,7 +1388,7 @@ ar: {
 //  ENGLISH
 // ═══════════════════════════════════════
 en: {
-  app_name: 'NurtureFlow',
+  app_name: '+ONE',
   app_tagline: 'From Couplehood to Parenthood',
 
   auth_email: 'Email',
@@ -1656,7 +1656,7 @@ en: {
   alerts_none: 'No alerts at the moment. Keep up your regular tracking.',
   alerts_back_home: 'Back to home',
   alerts_important: 'Important reminder',
-  alerts_disclaimer: 'NurtureFlow is a prevention and awareness tool. In case of distress, immediately contact a health professional or call 3114.',
+  alerts_disclaimer: '+ONE is a prevention and awareness tool. In case of distress, immediately contact a health professional or call 3114.',
   alerts_alert: 'alert',
   alerts_alerts: 'alerts',
   alerts_critical: 'critical',
@@ -1664,7 +1664,7 @@ en: {
   alerts_warning: 'warning',
   alerts_warnings: 'warnings',
 
-  admin_title: 'NurtureFlow Administration',
+  admin_title: '+ONE Administration',
   admin_subtitle: 'Platform overview',
   admin_dashboard: 'DASHBOARD',
   admin_couples: 'Registered couples',
@@ -1883,7 +1883,7 @@ en: {
   tounsi_nefsa_title: 'El Nefsa Diet (النفاسة)',
   tounsi_nefsa_sub: 'SUPPORTING MILK AND ENERGY',
   tounsi_articles: 'WELLNESS ARTICLES',
-  tounsi_footer: '© 2026 NurtureFlow — From Couplehood to Parenthood.',
+  tounsi_footer: '© 2026 +ONE — From Couplehood to Parenthood.',
   tounsi_footer_sub: 'Created to guide, support and encourage dialogue. Does not replace professional medical advice.',
 
   // Profile static
