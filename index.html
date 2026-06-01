@@ -351,6 +351,11 @@
 <script>
   // Show login form once splash is done
   setTimeout(() => { if (!state.authenticated) showLogin(); }, 2200);
+
+  // Register Service Worker for PWA
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
+  }
 </script>
 
 </body>
